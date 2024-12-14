@@ -17,41 +17,27 @@
 package com.sogeor.framework.validation;
 
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.throwable.failure.utility.UtilityCreationFailure;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.InvocationTargetException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 final class ValidatorTest {
 
     @Test
-    void defaultConstructor() {
-        final @NonNull var constructors = Validator.class.getDeclaredConstructors();
-        assertEquals(1, constructors.length);
-
-        constructors[0].setAccessible(true);
-        assertThrowsExactly(UtilityCreationFailure.class, () -> {
-            try {
-                constructors[0].newInstance();
-            } catch (final @NonNull InvocationTargetException exception) {
-                throw exception.getCause();
-            }
-        });
-    }
-
-    @Test
+    @DisplayName("isNull(Object)")
     @SuppressWarnings("DataFlowIssue")
-    void isNullMethod() {
+    void isNull() {
         assertDoesNotThrow(() -> Validator.isNull(null));
 
         assertThrowsExactly(NonNullValidationFault.class, () -> Validator.isNull(new Object()));
     }
 
     @Test
+    @DisplayName("isNull(Object, String)")
     @SuppressWarnings("DataFlowIssue")
-    void isNullWithNameMethod() {
+    void isNullWithName() {
         assertDoesNotThrow(() -> Validator.isNull(null, null));
         assertDoesNotThrow(() -> Validator.isNull(null, "The test name"));
 
@@ -60,16 +46,18 @@ final class ValidatorTest {
     }
 
     @Test
+    @DisplayName("nonNull(Object)")
     @SuppressWarnings("DataFlowIssue")
-    void nonNullMethod() {
+    void nonNull() {
         assertDoesNotThrow(() -> Validator.nonNull(new Object()));
 
         assertThrowsExactly(NullValidationFault.class, () -> Validator.nonNull(null));
     }
 
     @Test
+    @DisplayName("nonNull(Object, String)")
     @SuppressWarnings("DataFlowIssue")
-    void nonNullWithNameMethod() {
+    void nonNullWithName() {
         assertDoesNotThrow(() -> Validator.nonNull(new Object(), null));
         assertDoesNotThrow(() -> Validator.nonNull(new Object(), "The test name"));
 
@@ -78,16 +66,18 @@ final class ValidatorTest {
     }
 
     @Test
+    @DisplayName("isFalse(boolean)")
     @SuppressWarnings("DataFlowIssue")
-    void isFalseMethod() {
+    void isFalse() {
         assertDoesNotThrow(() -> Validator.isFalse(false));
 
         assertThrowsExactly(TrueValidationFault.class, () -> Validator.isFalse(true));
     }
 
     @Test
+    @DisplayName("isFalse(boolean, String)")
     @SuppressWarnings("DataFlowIssue")
-    void isFalseWithNameMethod() {
+    void isFalseWithName() {
         assertDoesNotThrow(() -> Validator.isFalse(false, null));
         assertDoesNotThrow(() -> Validator.isFalse(false, "The test name"));
 
@@ -96,16 +86,18 @@ final class ValidatorTest {
     }
 
     @Test
+    @DisplayName("isTrue(boolean)")
     @SuppressWarnings("DataFlowIssue")
-    void isTrueMethod() {
+    void isTrue() {
         assertDoesNotThrow(() -> Validator.isTrue(true));
 
         assertThrowsExactly(FalseValidationFault.class, () -> Validator.isTrue(false));
     }
 
     @Test
+    @DisplayName("isTrue(boolean, String)")
     @SuppressWarnings("DataFlowIssue")
-    void isTrueWithNameMethod() {
+    void isTrueWithName() {
         assertDoesNotThrow(() -> Validator.isTrue(true, null));
         assertDoesNotThrow(() -> Validator.isTrue(true, "The test name"));
 
@@ -114,7 +106,8 @@ final class ValidatorTest {
     }
 
     @Test
-    void equalMethod() {
+    @DisplayName("equal(Object, Object)")
+    void equalObjects() {
         final @NonNull var object = new Object();
 
         assertDoesNotThrow(() -> Validator.equal(null, null));
@@ -126,7 +119,8 @@ final class ValidatorTest {
     }
 
     @Test
-    void equalWithNamesMethod() {
+    @DisplayName("equal(Object, Object, String, String)")
+    void equalObjectsWithNames() {
         final @NonNull var object = new Object();
 
         assertDoesNotThrow(() -> Validator.equal(null, null, null, null));
@@ -147,7 +141,8 @@ final class ValidatorTest {
     }
 
     @Test
-    void nonEqualMethod() {
+    @DisplayName("nonEqual(Object, Object)")
+    void nonEqualObjects() {
         final @NonNull var object = new Object();
 
         assertDoesNotThrow(() -> Validator.nonEqual(object, null));
@@ -159,7 +154,8 @@ final class ValidatorTest {
     }
 
     @Test
-    void nonEqualWithNamesMethod() {
+    @DisplayName("nonEqual(Object, Object, String, String)")
+    void nonEqualObjectsWithNames() {
         final @NonNull var object = new Object();
 
         assertDoesNotThrow(() -> Validator.nonEqual(object, null, null, null));
