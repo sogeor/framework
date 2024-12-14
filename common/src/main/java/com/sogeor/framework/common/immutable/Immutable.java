@@ -26,7 +26,7 @@ import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой обёртку над {@linkplain #object неизменяемым объектом} (1).
+ * Представляет собой неизменяемую обёртку над {@linkplain #object объектом} (1).
  *
  * @param <T> тип [1].
  *
@@ -35,14 +35,14 @@ import com.sogeor.framework.validation.Validator;
 public final class Immutable<T> {
 
     /**
-     * Содержит обёртку над неизменяемым {@code null}.
+     * Содержит неизменяемую обёртку над {@code null}.
      *
      * @since 1.0.0-RC1
      */
     private static final @NonNull Immutable<?> EMPTY = new Immutable<>();
 
     /**
-     * Содержит неизменяемый объект.
+     * Содержит объект.
      *
      * @since 1.0.0-RC1
      */
@@ -63,11 +63,11 @@ public final class Immutable<T> {
     }
 
     /**
-     * Создаёт экземпляр на основе [1].
+     * Создаёт экземпляр на основе {@code object}.
      *
-     * @param object объект (1).
+     * @param object объект.
      *
-     * @throws ValidationFault [1] не должен быть {@code null}.
+     * @throws ValidationFault {@code object} не должен быть {@code null}.
      * @see #Immutable()
      * @since 1.0.0-RC1
      */
@@ -79,7 +79,7 @@ public final class Immutable<T> {
     /**
      * @param <T> тип [1].
      *
-     * @return {@linkplain #EMPTY Обёртка над неизменяемым} {@code null} (1).
+     * @return {@linkplain #EMPTY Неизменяемая обёртка над} {@code null} (1).
      *
      * @see #of(Object)
      * @since 1.0.0-RC1
@@ -91,24 +91,25 @@ public final class Immutable<T> {
     }
 
     /**
-     * Если {@code object == null}, то возвращает приведённую к [2] {@linkplain #EMPTY обёртку (3) над неизменяемым}
-     * {@code null}, иначе создаёт и возвращает {@linkplain #Immutable(Object) экземпляр (4) на основе [1]}.
+     * Если {@code object == null}, то возвращает приведённую к [2] {@linkplain #EMPTY неизменяемую обёртку (3) над}
+     * {@code null}, иначе создаёт и возвращает {@linkplain #Immutable(Object) экземпляр (4) на основе} {@code object}.
      *
      * @param object объект (1).
-     * @param <T> тип (2) [1].
+     * @param <T> тип (2) {@code object}.
      *
      * @return [3] или [4].
      *
      * @see #empty()
      * @since 1.0.0-RC1
      */
+    @SuppressWarnings("unchecked")
     @Contract("null -> $!null; $!null -> new")
     public static <T> @NonNull Immutable<T> of(final @Nullable T object) {
-        return object == null ? empty() : new Immutable<>(object);
+        return object == null ? (Immutable<T>) EMPTY : new Immutable<>(object);
     }
 
     /**
-     * @return {@linkplain #object Неизменяемый объект}.
+     * @return {@linkplain #object Объект}.
      *
      * @since 1.0.0-RC1
      */
@@ -118,7 +119,7 @@ public final class Immutable<T> {
     }
 
     /**
-     * @return Если {@linkplain #object неизменяемый объект} отсутствует, то {@code true}, иначе {@code false}.
+     * @return Если {@linkplain #object объект} отсутствует, то {@code true}, иначе {@code false}.
      *
      * @see #present()
      * @since 1.0.0-RC1
@@ -129,7 +130,7 @@ public final class Immutable<T> {
     }
 
     /**
-     * @return Если {@linkplain #object неизменяемый объект} присутствует, то {@code true}, иначе {@code false}.
+     * @return Если {@linkplain #object объект} присутствует, то {@code true}, иначе {@code false}.
      *
      * @see #absent()
      * @since 1.0.0-RC1
@@ -143,6 +144,7 @@ public final class Immutable<T> {
      * Если {@linkplain #absent()}, то выполняет [1].
      *
      * @param action действие (1).
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения [1].
      *
      * @return {@code this}.
      *
@@ -161,7 +163,8 @@ public final class Immutable<T> {
      * Если {@linkplain #absent()}, то выполняет метод {@linkplain Consumer#consume(Object) consumer.consume(Object)} с
      * {@code null}.
      *
-     * @param consumer потребитель (1) объектов.
+     * @param consumer потребитель (1) объектов (2).
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении [2].
      *
      * @return {@code this}.
      *
@@ -181,6 +184,7 @@ public final class Immutable<T> {
      * Если {@linkplain #present()}, то выполняет [1].
      *
      * @param action действие (1).
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения [1].
      *
      * @return {@code this}.
      *
@@ -197,9 +201,10 @@ public final class Immutable<T> {
 
     /**
      * Если {@linkplain #present()}, то выполняет метод {@linkplain Consumer#consume(Object) consumer.consume(Object)} с
-     * {@linkplain #object неизменяемым объектом}.
+     * {@linkplain #object объектом}.
      *
-     * @param consumer потребитель (1) объектов.
+     * @param consumer потребитель (1) объектов (2).
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении [2].
      *
      * @return {@code this}.
      *
