@@ -25,7 +25,7 @@ import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой обёртку над {@linkplain #object изменяемым объектом} (1).
+ * Представляет собой изменяемую обёртку над {@linkplain #object объектом} (1).
  *
  * @param <T> тип [1].
  *
@@ -34,7 +34,7 @@ import com.sogeor.framework.validation.Validator;
 public final class Mutable<T> {
 
     /**
-     * Содержит изменяемый объект.
+     * Содержит объект.
      *
      * @since 1.0.0-RC1
      */
@@ -52,9 +52,9 @@ public final class Mutable<T> {
     }
 
     /**
-     * Создаёт экземпляр на основе [1].
+     * Создаёт экземпляр на основе {@code object}.
      *
-     * @param object объект (1).
+     * @param object объект.
      *
      * @see #Mutable()
      * @since 1.0.0-RC1
@@ -80,7 +80,7 @@ public final class Mutable<T> {
     }
 
     /**
-     * Создаёт и возвращает {@linkplain #Mutable(Object) экземпляр (2) на основе [1]}.
+     * Создаёт и возвращает {@linkplain #Mutable(Object) экземпляр (2) на основе} {@code object}.
      *
      * @param object объект (1).
      * @param <T> тип [1].
@@ -96,7 +96,7 @@ public final class Mutable<T> {
     }
 
     /**
-     * Задаёт {@linkplain #object изменяемый объект} равным [1].
+     * Задаёт {@linkplain #object объект} равным [1].
      *
      * @param object объект (1).
      *
@@ -111,7 +111,7 @@ public final class Mutable<T> {
     }
 
     /**
-     * @return {@linkplain #object Изменяемый объект}.
+     * @return {@linkplain #object Объект}.
      *
      * @since 1.0.0-RC1
      */
@@ -121,7 +121,7 @@ public final class Mutable<T> {
     }
 
     /**
-     * @return Если {@linkplain #object изменяемый объект} отсутствует, то {@code true}, иначе {@code false}.
+     * @return Если {@linkplain #object объект} отсутствует, то {@code true}, иначе {@code false}.
      *
      * @see #present()
      * @since 1.0.0-RC1
@@ -132,7 +132,7 @@ public final class Mutable<T> {
     }
 
     /**
-     * @return Если {@linkplain #object изменяемый объект} присутствует, то {@code true}, иначе {@code false}.
+     * @return Если {@linkplain #object объект} присутствует, то {@code true}, иначе {@code false}.
      *
      * @see #absent()
      * @since 1.0.0-RC1
@@ -146,6 +146,7 @@ public final class Mutable<T> {
      * Если {@linkplain #absent()}, то выполняет [1].
      *
      * @param action действие (1).
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения [1].
      *
      * @return {@code this}.
      *
@@ -164,6 +165,7 @@ public final class Mutable<T> {
      * {@code null}.
      *
      * @param consumer потребитель (1) объектов.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении [2].
      *
      * @return {@code this}.
      *
@@ -183,6 +185,7 @@ public final class Mutable<T> {
      * Если {@linkplain #present()}, то выполняет [1].
      *
      * @param action действие (1).
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения [1].
      *
      * @return {@code this}.
      *
@@ -199,9 +202,10 @@ public final class Mutable<T> {
 
     /**
      * Если {@linkplain #present()}, то выполняет метод {@linkplain Consumer#consume(Object) consumer.consume(Object)} с
-     * {@linkplain #object изменяемым объектом}.
+     * {@linkplain #object объектом}.
      *
      * @param consumer потребитель (1) объектов.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении [2].
      *
      * @return {@code this}.
      *
