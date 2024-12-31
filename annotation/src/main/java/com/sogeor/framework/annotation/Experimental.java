@@ -23,7 +23,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Обозначает элемент, который может быть изменён или удалён с высокой вероятностью.
+ * Обозначает элемент, который с высокой долей вероятности может быть изменён или удалён. Вопреки этому, он уже может
+ * быть использован, поэтому его изменение или удаление может быть затруднено и отложено.
  *
  * @see Obsolete
  * @since 1.0.0-RC1
@@ -32,7 +33,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.CLASS)
 @Target({
         ElementType.TYPE, ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.CONSTRUCTOR,
-        ElementType.LOCAL_VARIABLE, ElementType.ANNOTATION_TYPE, ElementType.PACKAGE, ElementType.TYPE_USE,
-        ElementType.MODULE, ElementType.RECORD_COMPONENT
+        ElementType.ANNOTATION_TYPE, ElementType.PACKAGE, ElementType.TYPE_USE, ElementType.MODULE,
+        ElementType.RECORD_COMPONENT
 })
 public @interface Experimental {}
