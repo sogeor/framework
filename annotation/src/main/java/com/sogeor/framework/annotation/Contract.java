@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Обозначает элемент, выполняющий определённый контракт, а также описывает этот контракт.
+ * Обозначает элемент (1), исполняющий определённый контракт (2).
  *
  * @since 1.0.0-RC1
  */
@@ -33,10 +33,19 @@ import java.lang.annotation.Target;
 public @interface Contract {
 
     /**
-     * Возвращает строку, описывающую поведение элемента при определённых условиях.
+     * Определяет поведение (1) {1} при определённых условиях и аргументах.
      *
-     * @return Строка, описывающая поведение элемента при определённых условиях.
+     * @return [1].
      *
+     * @implSpec При определении [1] должен соблюдаться следующий синтаксис (2):
+     * <pre>{@code
+     * <contract> ::= <clause> ("; " <clause>)*
+     * <clause> ::= <args> " -> " <result>
+     * <args> ::= <arg> (", " <arg>)*
+     * <arg> ::= ("this" | "null" | "false" | "true") | "$"? ("?" | "!null")
+     * <result> ::= ("this" | "new" | "null" | "false" | "true" | [1-9]+) | "$"? ("?" | "!null" | "failure" | "fault")
+     * }</pre>
+     * @implNote Подробности, связанные с [2], будут добавлены сюда позже.
      * @since 1.0.0-RC1
      */
     String value();
