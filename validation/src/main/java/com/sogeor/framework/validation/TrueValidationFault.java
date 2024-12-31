@@ -21,7 +21,8 @@ import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 
 /**
- * Представляет собой непроверяемую программную неисправность, связанную с неудачной валидацией ложности значения.
+ * Представляет собой непроверяемую программную неисправность, связанную с неудачной валидацией значения, которое должно
+ * быть {@code false}, но им не является.
  *
  * @see FalseValidationFault
  * @since 1.0.0-RC1
