@@ -38,19 +38,20 @@ public final class Validator {
      */
     @Contract("-> failure")
     private Validator() throws UtilityCreationFailure {
-        throw new UtilityCreationFailure(UtilityCreationFailure.TEMPLATE_MESSAGE.formatted("the Validator"));
+        throw new UtilityCreationFailure(UtilityCreationFailure.TEMPLATE_MESSAGE.formatted("the Validator class"));
     }
 
     /**
-     * Если [1] нулевой, то возвращает его, в противном случае генерирует
-     * {@linkplain NonNullValidationFault непроверяемую программную неисправность}.
+     * Если {@code object == null}, то возвращает {@code null}, в противном случае генерирует
+     * {@linkplain NonNullValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NonNullValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param object объект (1).
-     * @param <T> тип [1].
+     * @param object объект.
+     * @param <T> тип {@code object}.
      *
-     * @return [1].
+     * @return {@code null}.
      *
-     * @throws NonNullValidationFault [1] должен быть нулевым.
+     * @throws NonNullValidationFault {@code object} должен быть {@code null}.
      * @see #isNull(Object, String)
      * @since 1.0.0-RC1
      */
@@ -61,18 +62,18 @@ public final class Validator {
     }
 
     /**
-     * Если [1] нулевой, то возвращает его, в противном случае генерирует
+     * Если {@code object == null}, то возвращает {@code null}, в противном случае генерирует
      * {@linkplain NonNullValidationFault непроверяемую программную неисправность} с
-     * {@linkplain NonNullValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе [2], или если оно нулевое, то
-     * с {@linkplain NonNullValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
+     * {@linkplain NonNullValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или если
+     * {@code name == null}, то с {@linkplain NonNullValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param object объект (1).
-     * @param name имя (2) [1].
-     * @param <T> тип [1].
+     * @param object объект.
+     * @param name имя {@code object}.
+     * @param <T> тип {@code object}.
      *
-     * @return [1].
+     * @return {@code null}.
      *
-     * @throws NonNullValidationFault [1] должен быть нулевым.
+     * @throws NonNullValidationFault {@code object} должен быть {@code null}.
      * @see #isNull(Object)
      * @since 1.0.0-RC1
      */
@@ -85,15 +86,16 @@ public final class Validator {
     }
 
     /**
-     * Если [1] ненулевой, то возвращает его, в противном случае генерирует
-     * {@linkplain NullValidationFault непроверяемую программную неисправность}.
+     * Если {@code object != null}, то возвращает {@code object}, в противном случае генерирует
+     * {@linkplain NullValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NullValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param object объект (1).
-     * @param <T> тип [1].
+     * @param object объект.
+     * @param <T> тип {@code object}.
      *
-     * @return [1].
+     * @return {@code object}.
      *
-     * @throws NullValidationFault [1] не должен быть нулевым.
+     * @throws NullValidationFault {@code object} не должен быть {@code null}.
      * @see #nonNull(Object, String)
      * @since 1.0.0-RC1
      */
@@ -104,18 +106,18 @@ public final class Validator {
     }
 
     /**
-     * Если [1] ненулевой, то возвращает его, в противном случае генерирует
+     * Если {@code object != null}, то возвращает {@code object}, в противном случае генерирует
      * {@linkplain NullValidationFault непроверяемую программную неисправность} с
-     * {@linkplain NullValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе [2], или если оно нулевое, то с
-     * {@linkplain NullValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
+     * {@linkplain NullValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или если
+     * {@code name == null}, то с {@linkplain NullValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
      *
-     * @param object объект (1).
-     * @param name имя (2) [1].
-     * @param <T> тип [1].
+     * @param object объект.
+     * @param name имя {@code object}.
+     * @param <T> тип {@code object}.
      *
-     * @return [1].
+     * @return {@code object}.
      *
-     * @throws NullValidationFault [1] не должен быть нулевым.
+     * @throws NullValidationFault {@code object} не должен быть {@code null}.
      * @see #nonNull(Object)
      * @since 1.0.0-RC1
      */
@@ -128,14 +130,15 @@ public final class Validator {
     }
 
     /**
-     * Если [1] ложное, то возвращает его, в противном случае генерирует
-     * {@linkplain TrueValidationFault непроверяемую программную неисправность}.
+     * Если {@code !value}, то возвращает его, в противном случае генерирует
+     * {@linkplain TrueValidationFault непроверяемую программную неисправность} с
+     * {@linkplain TrueValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
      *
-     * @param value значение (1).
+     * @param value значение.
      *
-     * @return [1].
+     * @return {@code value}.
      *
-     * @throws TrueValidationFault [1] должно быть ложным.
+     * @throws TrueValidationFault {@code value} должно быть {@code false}.
      * @see #isFalse(boolean, String)
      * @since 1.0.0-RC1
      */
@@ -146,17 +149,17 @@ public final class Validator {
     }
 
     /**
-     * Если [1] ложное, то возвращает его, в противном случае генерирует
+     * Если {@code !value}, то возвращает его, в противном случае генерирует
      * {@linkplain TrueValidationFault непроверяемую программную неисправность} с
-     * {@linkplain TrueValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе [2], или если оно нулевое, то с
-     * {@linkplain TrueValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
+     * {@linkplain TrueValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или если
+     * {@code name == null}, то с {@linkplain TrueValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
      *
-     * @param value значение (1).
-     * @param name имя (2) [1].
+     * @param value значение.
+     * @param name имя {@code value}.
      *
-     * @return [1].
+     * @return {@code value}.
      *
-     * @throws TrueValidationFault [1] должно быть ложным.
+     * @throws TrueValidationFault {@code value} должно быть {@code false}.
      * @see #isFalse(boolean)
      * @since 1.0.0-RC1
      */
@@ -168,14 +171,15 @@ public final class Validator {
     }
 
     /**
-     * Если [1] истинное, то возвращает его, в противном случае генерирует
-     * {@linkplain FalseValidationFault непроверяемую программную неисправность}.
+     * Если {@code value}, то возвращает его, в противном случае генерирует
+     * {@linkplain FalseValidationFault непроверяемую программную неисправность} с
+     * {@linkplain FalseValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
      *
-     * @param value значение (1).
+     * @param value значение.
      *
-     * @return [1].
+     * @return {@code value}.
      *
-     * @throws FalseValidationFault [1] должно быть истинным.
+     * @throws FalseValidationFault {@code value} должно быть {@code true}.
      * @see #isTrue(boolean, String)
      * @since 1.0.0-RC1
      */
@@ -186,17 +190,17 @@ public final class Validator {
     }
 
     /**
-     * Если [1] истинное, то возвращает его, в противном случае генерирует
+     * Если {@code value}, то возвращает его, в противном случае генерирует
      * {@linkplain FalseValidationFault непроверяемую программную неисправность} с
-     * {@linkplain FalseValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе [2], или если оно нулевое, то с
-     * {@linkplain FalseValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
+     * {@linkplain FalseValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или если
+     * {@code name == null}, то с {@linkplain FalseValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
      *
-     * @param value значение (1).
-     * @param name имя (2) [1].
+     * @param value значение.
+     * @param name имя {@code value}.
      *
-     * @return [1].
+     * @return {@code value}.
      *
-     * @throws FalseValidationFault [1] должно быть истинным.
+     * @throws FalseValidationFault {@code value} должно быть {@code true}.
      * @see #isTrue(boolean)
      * @since 1.0.0-RC1
      */
@@ -208,17 +212,17 @@ public final class Validator {
     }
 
     /**
-     * Если [1] и [2] равны, то возвращает [1], в противном случае генерирует
-     * {@linkplain NonEqualValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryObject} равен {@code secondaryObject}, то возвращает {@code primaryObject}, в противном случае
+     * генерирует {@linkplain NonEqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain NonEqualValidationFault#DEFAULT_OBJECTS_MESSAGE сообщением для объектов по умолчанию}.
      *
-     * @param primaryObject первичный объект (1).
-     * @param secondaryObject вторичный объект (2).
-     * @param <T> тип [1] и [2].
+     * @param primaryObject первичный объект.
+     * @param secondaryObject вторичный объект.
+     * @param <T> тип {@code primaryObject} и {@code secondaryObject}.
      *
-     * @return [1].
+     * @return {@code primaryObject}.
      *
-     * @throws NonEqualValidationFault [1] и [2] должны быть равны.
+     * @throws NonEqualValidationFault {@code primaryObject} должен быть равен {@code secondaryObject}.
      * @see #equal(Object, Object, String, String)
      * @since 1.0.0-RC1
      */
@@ -231,20 +235,21 @@ public final class Validator {
     }
 
     /**
-     * Если [1] и [2] равны, то возвращает [1], в противном случае генерирует
-     * {@linkplain NonEqualValidationFault непроверяемую программную неисправность} с
-     * {@linkplain NonEqualValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе [3] и [4], или если они
-     * нулевые, то с {@linkplain NonEqualValidationFault#DEFAULT_OBJECTS_MESSAGE сообщением для объектов по умолчанию}.
+     * Если {@code primaryObject} равен {@code secondaryObject}, то возвращает {@code primaryObject}, в противном случае
+     * генерирует {@linkplain NonEqualValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NonEqualValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
+     * {@code secondaryName}, или если {@code primaryName == null || secondaryName == null}, то с
+     * {@linkplain NonEqualValidationFault#DEFAULT_OBJECTS_MESSAGE сообщением для объектов по умолчанию}.
      *
-     * @param primaryObject первичный объект (1).
-     * @param secondaryObject вторичный объект (2).
-     * @param primaryName имя (3) [1].
-     * @param secondaryName имя (4) [2].
-     * @param <T> тип [1] и [2].
+     * @param primaryObject первичный объект.
+     * @param secondaryObject вторичный объект.
+     * @param primaryName имя {@code primaryObject}.
+     * @param secondaryName имя {@code secondaryObject}.
+     * @param <T> тип {@code primaryObject} и {@code secondaryObject}.
      *
-     * @return [1].
+     * @return {@code primaryObject}.
      *
-     * @throws NonEqualValidationFault [1] и [2] должны быть равны.
+     * @throws NonEqualValidationFault {@code primaryObject} должен быть равен {@code secondaryObject}.
      * @see #equal(Object, Object)
      * @since 1.0.0-RC1
      */
@@ -262,17 +267,17 @@ public final class Validator {
     }
 
     /**
-     * Если [1] и [2] неравны, то возвращает [1], в противном случае генерирует
-     * {@linkplain EqualValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryObject} не равен {@code secondaryObject}, то возвращает {@code primaryObject}, в противном
+     * случае генерирует {@linkplain EqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain EqualValidationFault#DEFAULT_OBJECTS_MESSAGE сообщением для объектов по умолчанию}.
      *
-     * @param primaryObject первичный объект (1).
-     * @param secondaryObject вторичный объект (2).
-     * @param <T> тип [1] и [2].
+     * @param primaryObject первичный объект.
+     * @param secondaryObject вторичный объект.
+     * @param <T> тип {@code primaryObject} и {@code secondaryObject}.
      *
-     * @return [1].
+     * @return {@code primaryObject}.
      *
-     * @throws EqualValidationFault [1] и [2] не должны быть равны.
+     * @throws EqualValidationFault {@code primaryObject} не должен быть равен {@code secondaryObject}.
      * @see #nonEqual(Object, Object, String, String)
      * @since 1.0.0-RC1
      */
@@ -285,20 +290,21 @@ public final class Validator {
     }
 
     /**
-     * Если [1] и [2] неравны, то возвращает [1], в противном случае генерирует
-     * {@linkplain EqualValidationFault непроверяемую программную неисправность} с
-     * {@linkplain EqualValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе [3] и [4], или если они
-     * нулевые, то с {@linkplain EqualValidationFault#DEFAULT_OBJECTS_MESSAGE сообщением для объектов по умолчанию}.
+     * Если {@code primaryObject} не равен {@code secondaryObject}, то возвращает {@code primaryObject}, в противном
+     * случае генерирует {@linkplain EqualValidationFault непроверяемую программную неисправность} с
+     * {@linkplain EqualValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
+     * {@code secondaryName}, или если {@code primaryName == null || secondaryName == null}, то с
+     * {@linkplain EqualValidationFault#DEFAULT_OBJECTS_MESSAGE сообщением для объектов по умолчанию}.
      *
-     * @param primaryObject первичный объект (1).
-     * @param secondaryObject вторичный объект (2).
-     * @param primaryName имя (3) [1].
-     * @param secondaryName имя (4) [2].
-     * @param <T> тип [1] и [2].
+     * @param primaryObject первичный объект.
+     * @param secondaryObject вторичный объект.
+     * @param primaryName имя {@code primaryObject}.
+     * @param secondaryName имя {@code secondaryObject}.
+     * @param <T> тип {@code primaryObject} и {@code secondaryObject}.
      *
-     * @return [1].
+     * @return {@code primaryObject}.
      *
-     * @throws EqualValidationFault [1] и [2] не должны быть равны.
+     * @throws EqualValidationFault {@code primaryObject} не должен быть равен {@code secondaryObject}.
      * @see #nonEqual(Object, Object)
      * @since 1.0.0-RC1
      */
