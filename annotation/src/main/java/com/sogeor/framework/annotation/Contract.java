@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Обозначает элемент (1), исполняющий определённый контракт (2).
+ * Обозначает элемент (1), исполняющий определённый контракт.
  *
  * @since 1.0.0-RC1
  */
@@ -43,7 +43,7 @@ public @interface Contract {
      * <clause> ::= <args> " -> " <result>
      * <args> ::= <arg> (", " <arg>)*
      * <arg> ::= ("this" | "null" | "false" | "true") | "$"? ("?" | "!null")
-     * <result> ::= ("this" | "new" | "null" | "false" | "true" | [1-9]+) | "$"? ("?" | "!null" | "failure" | "fault")
+     * <result> ::= ("this" | "new" | "null" | "false" | "true" | "failure" | "fault" | [1-9]+) | "$"? ("?" | "!null")
      * }</pre>
      * @implNote Подробности, связанные с [2], будут добавлены сюда позже.
      * @since 1.0.0-RC1
