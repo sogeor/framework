@@ -35,7 +35,7 @@ public final class ImaginaryFault extends UncheckedFault {
      */
     @Contract("-> failure")
     private ImaginaryFault() throws UtilityCreationFailure {
-        throw new UtilityCreationFailure(UtilityCreationFailure.TEMPLATE_MESSAGE.formatted("the ImaginaryFault"));
+        throw new UtilityCreationFailure(UtilityCreationFailure.TEMPLATE_MESSAGE.formatted("the ImaginaryFault class"));
     }
 
 }

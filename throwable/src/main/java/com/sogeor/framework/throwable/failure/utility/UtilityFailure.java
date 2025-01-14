@@ -42,9 +42,9 @@ public class UtilityFailure extends CheckedFailure {
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_CAUSE причиной возникновения}, параметрами
      * {@linkplain #DEFAULT_SUPPRESSION подавления} и {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию,
-     * а также с [1].
+     * а также с {@code message}.
      *
-     * @param message сообщение (1).
+     * @param message сообщение.
      *
      * @since 1.0.0-RC1
      */
@@ -56,9 +56,9 @@ public class UtilityFailure extends CheckedFailure {
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, параметрами
      * {@linkplain #DEFAULT_SUPPRESSION подавления} и {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию,
-     * а также с [1].
+     * а также с {@code cause}.
      *
-     * @param cause причина (1) возникновения.
+     * @param cause причина возникновения.
      *
      * @since 1.0.0-RC1
      */
@@ -69,10 +69,10 @@ public class UtilityFailure extends CheckedFailure {
 
     /**
      * Создаёт экземпляр с параметрами {@linkplain #DEFAULT_SUPPRESSION подавления} и
-     * {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию, а также с [1] и [2].
+     * {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию, а также с {@code message} и {@code cause}.
      *
-     * @param message сообщение (1).
-     * @param cause причина (2) возникновения.
+     * @param message сообщение.
+     * @param cause причина возникновения.
      *
      * @since 1.0.0-RC1
      */
@@ -83,10 +83,10 @@ public class UtilityFailure extends CheckedFailure {
 
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением} и {@linkplain #DEFAULT_CAUSE причиной возникновения}
-     * по умолчанию, а также с [1] и [2].
+     * по умолчанию, а также с {@code suppression} и {@code stackTrace}.
      *
-     * @param suppression параметр (1) подавления.
-     * @param stackTrace параметр (2) трассировки стека.
+     * @param suppression параметр подавления.
+     * @param stackTrace параметр трассировки стека.
      *
      * @since 1.0.0-RC1
      */
@@ -96,12 +96,12 @@ public class UtilityFailure extends CheckedFailure {
     }
 
     /**
-     * Создаёт экземпляр с [1], [2], [3] и [4].
+     * Создаёт экземпляр на основе {@code message}, {@code cause}, {@code suppression} и {@code stackTrace}.
      *
-     * @param message сообщение (1).
-     * @param cause причина (2) возникновения.
-     * @param suppression параметр (3) подавления.
-     * @param stackTrace параметр (4) трассировки стека.
+     * @param message сообщение.
+     * @param cause причина возникновения.
+     * @param suppression параметр подавления.
+     * @param stackTrace параметр трассировки стека.
      *
      * @since 1.0.0-RC1
      */
