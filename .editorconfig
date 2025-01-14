@@ -149,7 +149,7 @@ ij_java_entity_ri_suffix =
 ij_java_entity_vo_prefix =
 ij_java_entity_vo_suffix = VO
 ij_java_enum_constants_wrap = split_into_lines
-ij_java_enum_field_annotation_wrap = off
+ij_java_enum_field_annotation_wrap = split_into_lines
 ij_java_extends_keyword_wrap = off
 ij_java_extends_list_wrap = off
 ij_java_field_annotation_wrap = split_into_lines
@@ -165,7 +165,7 @@ ij_java_for_statement_new_line_after_left_paren = false
 ij_java_for_statement_right_paren_on_new_line = false
 ij_java_for_statement_wrap = off
 ij_java_generate_final_locals = true
-ij_java_generate_final_parameters = false
+ij_java_generate_final_parameters = true
 ij_java_generate_use_type_annotation_before_type = true
 ij_java_if_brace_force = never
 ij_java_imports_layout = *, |, javax.**, java.**, |, $*
@@ -635,7 +635,7 @@ ij_typescript_spaces_within_brackets = false
 ij_typescript_spaces_within_catch_parentheses = false
 ij_typescript_spaces_within_for_parentheses = false
 ij_typescript_spaces_within_if_parentheses = false
-ij_typescript_spaces_within_imports = false
+ij_typescript_spaces_within_imports = true
 ij_typescript_spaces_within_interpolation_expressions = false
 ij_typescript_spaces_within_method_call_parentheses = false
 ij_typescript_spaces_within_method_parentheses = false
@@ -1036,7 +1036,7 @@ ij_groovy_while_on_new_line = false
 ij_groovy_wrap_chain_calls_after_dot = false
 ij_groovy_wrap_long_lines = false
 
-[{*.har,*.jsb2,*.jsb3,*.json,*.jsonc,*.png.mcmeta,*.postman_collection,*.postman_collection.json,*.postman_environment,*.postman_environment.json,.babelrc,.eslintrc,.prettierrc,.stylelintrc,.ws-context,jest.config,mcmod.info,pack.mcmeta}]
+[{*.graphqlconfig,*.graphqlrc,*.har,*.jsb2,*.jsb3,*.json,*.jsonc,*.png.mcmeta,*.postman_collection,*.postman_collection.json,*.postman_environment,*.postman_environment.json,.babelrc,.eslintrc,.prettierrc,.stylelintrc,.ws-context,jest.config,mcmod.info,pack.mcmeta}]
 ij_json_array_wrapping = split_into_lines
 ij_json_keep_blank_lines_in_code = 0
 ij_json_keep_indents_on_empty_lines = false
