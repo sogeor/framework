@@ -89,33 +89,31 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Если {@code this == condition}, то возвращает {@code this}, в противном случае создаёт условие (1) с методом
-     * {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
-     * {@linkplain #compute() condition.compute()} результаты (2) вычислений и возвращающим конъюнкцию (2).
+     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
+     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
+     * возвращающим конъюнкцию (2).
      *
      * @param condition условие.
      *
-     * @return {@code this} или [1].
+     * @return [1].
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
      */
-    @Contract("this -> this; !null -> new; null -> fault")
+    @Contract("!null -> new; null -> fault")
     default @NonNull Condition<F> and(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
         Validator.nonNull(condition, "The passed condition");
-        return this == condition ? this : () -> compute() && condition.compute();
+        return () -> compute() && condition.compute();
     }
 
     /**
-     * Если {@code this == condition}, то создаёт условие (1) с методом {@linkplain #compute()}, получающим от метода
-     * {@linkplain #compute() this.compute()} результат (2) вычисления и возвращающим инверсию [2], в противном случае
-     * создаёт условие (3) с методом {@linkplain #compute()}, получающим от методов
-     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (4) вычислений и
-     * возвращающим штрих Шеффера [4].
+     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
+     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
+     * возвращающим штрих Шеффера [2].
      *
      * @param condition условие.
      *
-     * @return [1] или [3].
+     * @return [1].
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -123,17 +121,17 @@ public interface Condition<F extends Throwable> {
     @Contract("!null -> new; null -> fault")
     default @NonNull Condition<F> nand(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
         Validator.nonNull(condition, "The passed condition");
-        return this == condition ? () -> !compute() : () -> !(compute() && condition.compute());
+        return () -> !(compute() && condition.compute());
     }
 
     /**
-     * Если {@code this == condition}, то возвращает {@code this}, в противном случае создаёт условие (1) с методом
-     * {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
-     * {@linkplain #compute() condition.compute()} результаты (2) вычислений и возвращающим мягкую дизъюнкцию [2].
+     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
+     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
+     * возвращающим мягкую дизъюнкцию [2].
      *
      * @param condition условие.
      *
-     * @return {@code this} или [1].
+     * @return [1].
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -141,19 +139,17 @@ public interface Condition<F extends Throwable> {
     @Contract("this -> this; !null -> new; null -> fault")
     default @NonNull Condition<F> or(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
         Validator.nonNull(condition, "The passed condition");
-        return this == condition ? this : () -> compute() || condition.compute();
+        return () -> compute() || condition.compute();
     }
 
     /**
-     * Если {@code this == condition}, то создаёт условие (1) с методом {@linkplain #compute()}, получающим от метода
-     * {@linkplain #compute() this.compute()} результат (2) вычисления и возвращающим инверсию [2], в противном случае
-     * создаёт условие (3) с методом {@linkplain #compute()}, получающим от методов
-     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (4) вычислений и
-     * возвращающим стрелку Пирса [4].
+     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
+     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
+     * возвращающим стрелку Пирса [2].
      *
      * @param condition условие.
      *
-     * @return [1] или [3].
+     * @return [1].
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -161,18 +157,17 @@ public interface Condition<F extends Throwable> {
     @Contract("!null -> new; null -> fault")
     default @NonNull Condition<F> nor(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
         Validator.nonNull(condition, "The passed condition");
-        return this == condition ? () -> !compute() : () -> !(compute() || condition.compute());
+        return () -> !(compute() || condition.compute());
     }
 
     /**
-     * Если {@code this == condition}, то создаёт условие (1) с методом {@linkplain #compute()}, возвращающим
-     * {@code true}, в противном случае создаёт условие (2) с методом {@linkplain #compute()}, получающим от методов
-     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (3) вычислений и
-     * возвращающим эквивалентность [3].
+     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
+     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
+     * возвращающим эквивалентность [2].
      *
      * @param condition условие.
      *
-     * @return [1] или [2].
+     * @return [1].
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -180,18 +175,17 @@ public interface Condition<F extends Throwable> {
     @Contract("!null -> new; null -> fault")
     default @NonNull Condition<F> xnor(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
         Validator.nonNull(condition, "The passed condition");
-        return this == condition ? () -> true : () -> compute() == condition.compute();
+        return () -> compute() == condition.compute();
     }
 
     /**
-     * Если {@code this == condition}, то создаёт условие (1) с методом {@linkplain #compute()}, возвращающим
-     * {@code false}, в противном случае создаёт условие (2) с методом {@linkplain #compute()}, получающим от методов
-     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (3) вычислений и
-     * возвращающим строгую дизъюнкцию [3].
+     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
+     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
+     * возвращающим строгую дизъюнкцию [2].
      *
      * @param condition условие.
      *
-     * @return [1] или [2].
+     * @return [1].
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -199,18 +193,17 @@ public interface Condition<F extends Throwable> {
     @Contract("!null -> new; null -> fault")
     default @NonNull Condition<F> xor(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
         Validator.nonNull(condition, "The passed condition");
-        return this == condition ? () -> false : () -> compute() ^ condition.compute();
+        return () -> compute() ^ condition.compute();
     }
 
     /**
-     * Если {@code this == condition}, то создаёт условие (1) с методом {@linkplain #compute()}, возвращающим
-     * {@code true}, в противном случае создаёт условие (2) с методом {@linkplain #compute()}, получающим от методов
-     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (3) вычислений и
-     * возвращающим импликацию [3].
+     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
+     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
+     * возвращающим импликацию [2].
      *
      * @param condition условие.
      *
-     * @return [1] или [2].
+     * @return [1].
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -218,7 +211,7 @@ public interface Condition<F extends Throwable> {
     @Contract("!null -> new; null -> fault")
     default @NonNull Condition<F> imply(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
         Validator.nonNull(condition, "The passed condition");
-        return this == condition ? () -> true : () -> !compute() || condition.compute();
+        return () -> !compute() || condition.compute();
     }
 
 }
