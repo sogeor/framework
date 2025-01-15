@@ -18,6 +18,7 @@ package com.sogeor.framework.function;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
@@ -46,14 +47,14 @@ public interface Action<F extends Throwable> {
     }
 
     /**
-     * Возвращает [1].
+     * Возвращает {@code action}.
      *
-     * @param action действие (1).
-     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения [1].
+     * @param action действие.
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения {@code action}.
      *
-     * @return [1].
+     * @return {@code action}.
      *
-     * @apiNote Предназначен для удобного создания [1] на основе лямбда-выражений.
+     * @apiNote Предназначен для удобного создания {@code action} на основе лямбда-выражений.
      * @since 1.0.0-RC1
      */
     @Contract("? -> 1")
@@ -62,10 +63,10 @@ public interface Action<F extends Throwable> {
     }
 
     /**
-     * Выполняет это действие (1).
+     * Выполняет {1}.
      *
      * @throws ValidationFault неудачная валидация.
-     * @throws F неудачное выполнение [1].
+     * @throws F неудачное выполнение {1}.
      * @since 1.0.0-RC1
      */
     @Contract("-> ?")
@@ -75,16 +76,16 @@ public interface Action<F extends Throwable> {
      * Создаёт действие (2) с методом {@linkplain #perform()}, выполняющим сначала метод
      * {@linkplain #perform() this.perform()}, а потом метод {@linkplain #perform() action.perform()}.
      *
-     * @param action действие (1).
+     * @param action действие.
      *
      * @return [2].
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws NullValidationFault {@code action} не должен быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull Action<F> and(final @NonNull Action<? extends F> action) throws ValidationFault {
-        Validator.nonNull(action, "The passed callback");
+    default @NonNull Action<F> and(final @NonNull Action<? extends F> action) throws NullValidationFault {
+        Validator.nonNull(action, "The passed action");
         return () -> {
             perform();
             action.perform();
@@ -95,16 +96,16 @@ public interface Action<F extends Throwable> {
      * Создаёт действие (2) с методом {@linkplain #perform()}, пытающимся выполнить сначала метод
      * {@linkplain #perform() this.perform()}, а потом, если неудачно, метод {@linkplain #perform() action.perform()}.
      *
-     * @param action действие (1).
+     * @param action действие.
      *
      * @return [2].
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws NullValidationFault {@code action} не должен быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull Action<F> or(final @NonNull Action<? extends F> action) throws ValidationFault {
-        Validator.nonNull(action, "The passed callback");
+    default @NonNull Action<F> or(final @NonNull Action<?> action) throws NullValidationFault {
+        Validator.nonNull(action, "The passed action");
         return () -> {
             try {
                 perform();
