@@ -17,54 +17,69 @@
 package com.sogeor.framework.function;
 
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.throwable.fault.ImaginaryFault;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @since 1.0.0-RC1
+ */
 final class ActionTest {
 
+    /**
+     * @since 1.0.0-RC1
+     */
     @Test
+    @DisplayName("empty()")
     void methodEmpty() {
         final @NonNull var action = Action.empty();
         assertNotNull(action);
-
         assertDoesNotThrow(action::perform);
     }
 
+    /**
+     * @since 1.0.0-RC1
+     */
     @Test
+    @DisplayName("of(Action)")
     void methodOf() {
-        final @NonNull var data = new AtomicInteger();
-
-        final @NonNull var action = Action.of(() -> data.set(1));
-        assertNotNull(action);
-
-        assertDoesNotThrow(action::perform);
-        assertEquals(1, data.get());
+        final @NonNull var action = Action.empty();
+        assertSame(action, Action.of(action));
     }
 
+    /**
+     * @since 1.0.0-RC1
+     */
     @Test
+    @DisplayName("and(Action)")
     void methodAnd() {
-        final @NonNull var data = new AtomicInteger();
-
-        final @NonNull var action = Action.<ImaginaryFault>of(() -> data.set(1)).and(data::incrementAndGet);
-        assertNotNull(action);
-
+        final @NonNull var primaryStatus = new AtomicBoolean();
+        final @NonNull var secondaryStatus = new AtomicBoolean();
+        final @NonNull var action = Action.of(() -> primaryStatus.set(true)).and(() -> secondaryStatus.set(true));
         assertDoesNotThrow(action::perform);
-        assertEquals(2, data.get());
+        assertTrue(primaryStatus.get());
+        assertTrue(secondaryStatus.get());
+        assertThrowsExactly(RuntimeException.class, action.and(() -> {
+            throw new RuntimeException();
+        })::perform);
     }
 
+    /**
+     * @since 1.0.0-RC1
+     */
     @Test
+    @DisplayName("or(Action)")
     void methodOr() {
-        final @NonNull var data = new AtomicInteger();
-
-        final @NonNull var action = Action.<ImaginaryFault>of(() -> data.set(1)).or(() -> data.set(2));
-        assertNotNull(action);
-
-        assertDoesNotThrow(action::perform);
-        assertEquals(1, data.get());
+        final @NonNull var status = new AtomicBoolean();
+        final @NonNull var action = Action.of(() -> {
+            throw new RuntimeException();
+        });
+        assertThrowsExactly(RuntimeException.class, action::perform);
+        assertDoesNotThrow(action.or(() -> status.set(true))::perform);
+        assertTrue(status.get());
     }
 
 }
