@@ -54,7 +54,7 @@ public interface Action<F extends Throwable> {
      *
      * @return {@code action}.
      *
-     * @apiNote Предназначен для удобного создания {@code action} на основе лямбда-выражений.
+     * @apiNote Предназначен для удобного создания {@code action} на основе лямбда-выражения.
      * @since 1.0.0-RC1
      */
     @Contract("? -> 1")
@@ -73,14 +73,14 @@ public interface Action<F extends Throwable> {
     void perform() throws ValidationFault, F;
 
     /**
-     * Создаёт действие (2) с методом {@linkplain #perform()}, выполняющим сначала метод
+     * Создаёт действие (1) с методом {@linkplain #perform()}, выполняющим сначала метод
      * {@linkplain #perform() this.perform()}, а потом метод {@linkplain #perform() action.perform()}.
      *
      * @param action действие.
      *
-     * @return [2].
+     * @return [1].
      *
-     * @throws NullValidationFault {@code action} не должен быть {@code null}.
+     * @throws NullValidationFault {@code action} не должно быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -93,14 +93,14 @@ public interface Action<F extends Throwable> {
     }
 
     /**
-     * Создаёт действие (2) с методом {@linkplain #perform()}, пытающимся выполнить сначала метод
+     * Создаёт действие (1) с методом {@linkplain #perform()}, пытающимся выполнить сначала метод
      * {@linkplain #perform() this.perform()}, а потом, если неудачно, метод {@linkplain #perform() action.perform()}.
      *
      * @param action действие.
      *
-     * @return [2].
+     * @return [1].
      *
-     * @throws NullValidationFault {@code action} не должен быть {@code null}.
+     * @throws NullValidationFault {@code action} не должно быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
