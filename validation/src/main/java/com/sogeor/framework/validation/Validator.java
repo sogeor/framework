@@ -109,7 +109,7 @@ public final class Validator {
      * Если {@code object != null}, то возвращает {@code object}, в противном случае генерирует
      * {@linkplain NullValidationFault непроверяемую программную неисправность} с
      * {@linkplain NullValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или если
-     * {@code name == null}, то с {@linkplain NullValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
+     * {@code name == null}, то с {@linkplain NullValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param object объект.
      * @param name имя {@code object}.
@@ -132,7 +132,7 @@ public final class Validator {
     /**
      * Если {@code !value}, то возвращает его, в противном случае генерирует
      * {@linkplain TrueValidationFault непроверяемую программную неисправность} с
-     * {@linkplain TrueValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
+     * {@linkplain TrueValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param value значение.
      *
@@ -152,7 +152,7 @@ public final class Validator {
      * Если {@code !value}, то возвращает его, в противном случае генерирует
      * {@linkplain TrueValidationFault непроверяемую программную неисправность} с
      * {@linkplain TrueValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или если
-     * {@code name == null}, то с {@linkplain TrueValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
+     * {@code name == null}, то с {@linkplain TrueValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param value значение.
      * @param name имя {@code value}.
@@ -173,7 +173,7 @@ public final class Validator {
     /**
      * Если {@code value}, то возвращает его, в противном случае генерирует
      * {@linkplain FalseValidationFault непроверяемую программную неисправность} с
-     * {@linkplain FalseValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
+     * {@linkplain FalseValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param value значение.
      *
@@ -193,7 +193,7 @@ public final class Validator {
      * Если {@code value}, то возвращает его, в противном случае генерирует
      * {@linkplain FalseValidationFault непроверяемую программную неисправность} с
      * {@linkplain FalseValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или если
-     * {@code name == null}, то с {@linkplain FalseValidationFault#DEFAULT_CAUSE сообщением по умолчанию}.
+     * {@code name == null}, то с {@linkplain FalseValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param value значение.
      * @param name имя {@code value}.
