@@ -190,12 +190,11 @@ public final class Validator {
 
     /**
      * Если {@code value}, то возвращает его, в противном случае генерирует
-     * {@linkplain FalseValidationFault непроверяемую программную неисправность} с
-     * {@linkplain FalseValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или если
-     * {@code name == null}, то с {@linkplain FalseValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     * {@linkplain FalseValidationFault непроверяемую программную неисправность} с {@code message}, или если
+     * {@code message == null}, то с {@linkplain FalseValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param value значение.
-     * @param name имя {@code value}.
+     * @param message сообщение.
      *
      * @return {@code value}.
      *
@@ -204,10 +203,10 @@ public final class Validator {
      * @since 1.0.0-RC1
      */
     @Contract("true, ? -> true; false, ? -> fault")
-    public static boolean isTrue(final boolean value, final @Nullable String name) throws FalseValidationFault {
+    public static boolean isTrue(final boolean value, final @Nullable String message) throws FalseValidationFault {
         if (value) return true;
-        if (name == null) throw new FalseValidationFault();
-        throw new FalseValidationFault(FalseValidationFault.TEMPLATE_MESSAGE.formatted(name));
+        if (message == null) throw new FalseValidationFault();
+        throw new FalseValidationFault(message);
     }
 
     /**
