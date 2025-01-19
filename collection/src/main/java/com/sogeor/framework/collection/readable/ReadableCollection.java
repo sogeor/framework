@@ -21,14 +21,21 @@ import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.Collection;
 
 /**
+ * Представляет собой читаемую коллекцию элементов (1).
+ *
+ * @param <T> тип [1].
+ *
  * @since 1.0.0-RC1
  */
 public interface ReadableCollection<T> extends Collection<T> {
 
     /**
+     * @return Итератор {1}.
+     *
      * @since 1.0.0-RC1
      */
-    @Contract(value = "-> !null")
+    @Override
+    @Contract("-> new")
     @NonNull
     ReadableIterator<T> iterator();
 
