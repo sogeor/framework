@@ -26,14 +26,14 @@ import com.sogeor.framework.collection.IteratorFeature;
 public enum StandardWritableIteratorFeature implements IteratorFeature {
 
     /**
-     * Позволяет задавать текущий элемент, если он существует.
+     * Позволяет задать текущий элемент.
      *
      * @since 1.0.0-RC1
      */
     ELEMENT_OPERATION,
 
     /**
-     * Позволяет вставить элемент либо после текущего, если он существует, либо первым.
+     * Позволяет вставить один или более элементов перед текущим.
      *
      * @since 1.0.0-RC1
      */
