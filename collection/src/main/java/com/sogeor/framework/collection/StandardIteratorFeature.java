@@ -20,7 +20,7 @@ package com.sogeor.framework.collection;
  * Представляет собой стандартную особенность итератора элементов коллекции.
  *
  * @since 1.0.0-RC1
-*/
+ */
 public enum StandardIteratorFeature implements IteratorFeature {
 
     /**
