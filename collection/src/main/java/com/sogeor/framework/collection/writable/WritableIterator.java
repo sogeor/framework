@@ -16,9 +16,106 @@
 
 package com.sogeor.framework.collection.writable;
 
+import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.collection.Iterator;
 
 /**
+ * Представляет собой итератор элементов (1) записываемой коллекции.
+ *
+ * @param <T> тип [1].
+ *
  * @since 1.0.0-RC1
  */
-public interface WritableIterator<T> extends Iterator<T> {}
+public interface WritableIterator<T> extends Iterator<T> {
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    WritableIterator<T> start();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    WritableIterator<T> previous();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    WritableIterator<T> next();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    WritableIterator<T> end();
+
+    /**
+     * Если {1} обладает {@linkplain StandardWritableIteratorFeature#ELEMENT_OPERATION} и {@linkplain #current()}, то
+     * задаёт текущий элемент равным {@code value}.
+     *
+     * @param value элемент.
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("? -> this")
+    @NonNull
+    WritableIterator<T> element(final @Nullable T value);
+
+    /**
+     * Если {1} обладает {@linkplain StandardWritableIteratorFeature#INSERT_OPERATION}, то вставляет {@code value} либо
+     * после текущего элемента, если {@linkplain #current()}, либо первым.
+     *
+     * @param value элемент.
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("? -> this")
+    @NonNull
+    WritableIterator<T> insert(final @Nullable T value);
+
+    /**
+     * Если {1} обладает {@linkplain StandardWritableIteratorFeature#REMOVE_OPERATION} и {@linkplain #current()}, то
+     * удаляет текущий элемент.
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("? -> this")
+    @NonNull
+    WritableIterator<T> remove();
+
+}
