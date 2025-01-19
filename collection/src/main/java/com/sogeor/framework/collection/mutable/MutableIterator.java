@@ -16,10 +16,107 @@
 
 package com.sogeor.framework.collection.mutable;
 
+import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.collection.readable.ReadableIterator;
 import com.sogeor.framework.collection.writable.WritableIterator;
 
 /**
+ * Представляет собой итератор элементов (1) изменяемой коллекции.
+ *
+ * @param <T> тип [1].
+ *
  * @since 1.0.0-RC1
  */
-public interface MutableIterator<T> extends ReadableIterator<T>, WritableIterator<T> {}
+public interface MutableIterator<T> extends ReadableIterator<T>, WritableIterator<T> {
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    MutableIterator<T> start();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    MutableIterator<T> previous();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    MutableIterator<T> next();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    MutableIterator<T> end();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param value элемент.
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("? -> this")
+    @NonNull
+    WritableIterator<T> element(final @Nullable T value);
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param value элемент.
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("? -> this")
+    @NonNull
+    WritableIterator<T> insert(final @Nullable T value);
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("? -> this")
+    @NonNull
+    WritableIterator<T> remove();
+
+}
