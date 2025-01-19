@@ -79,7 +79,8 @@ public interface ReadableIterator<T> extends Iterator<T> {
     ReadableIterator<T> end();
 
     /**
-     * @return Если {@linkplain #current()}, то текущий элемент, иначе {@code null}.
+     * @return Если {1} обладает {@linkplain StandardReadableIteratorFeature#ELEMENT_OPERATION} и
+     * {@linkplain #current()}, то текущий элемент, иначе {@code null}.
      *
      * @since 1.0.0-RC1
      */
