@@ -16,16 +16,75 @@
 
 package com.sogeor.framework.collection.readable;
 
+import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.collection.Iterator;
 
 /**
+ * Представляет собой итератор элементов (1) читаемой коллекции.
+ *
+ * @param <T> тип [1].
+ *
  * @since 1.0.0-RC1
  */
 public interface ReadableIterator<T> extends Iterator<T> {
 
     /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
      * @since 1.0.0-RC1
      */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    ReadableIterator<T> start();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    ReadableIterator<T> previous();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    ReadableIterator<T> next();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    ReadableIterator<T> end();
+
+    /**
+     * @return Если {@linkplain #current()}, то текущий элемент, иначе {@code null}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("-> value")
+    @Nullable
     T element();
 
 }
