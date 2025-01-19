@@ -78,7 +78,7 @@ public interface Iterator<T> {
     Iterator<T> end();
 
     /**
-     * @return Если текущий элемент первый, то {@code true}, иначе {@code false}.
+     * @return Если {@linkplain #current()} и текущий элемент первый, то {@code true}, иначе {@code false}.
      *
      * @since 1.0.0-RC1
      */
@@ -102,7 +102,7 @@ public interface Iterator<T> {
     boolean after();
 
     /**
-     * @return Если текущий элемент последний, то {@code true}, иначе {@code false}.
+     * @return Если {@linkplain #current()} и текущий элемент последний, то {@code true}, иначе {@code false}.
      *
      * @since 1.0.0-RC1
      */
