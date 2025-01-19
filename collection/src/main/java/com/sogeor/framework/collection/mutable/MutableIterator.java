@@ -19,6 +19,7 @@ package com.sogeor.framework.collection.mutable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
+import com.sogeor.framework.collection.readable.ReadableCollection;
 import com.sogeor.framework.collection.readable.ReadableIterator;
 import com.sogeor.framework.collection.writable.WritableIterator;
 
@@ -91,7 +92,7 @@ public interface MutableIterator<T> extends ReadableIterator<T>, WritableIterato
     @Override
     @Contract("? -> this")
     @NonNull
-    WritableIterator<T> element(final @Nullable T value);
+    MutableIterator<T> element(final @Nullable T value);
 
     /**
      * {@inheritDoc}
@@ -105,7 +106,36 @@ public interface MutableIterator<T> extends ReadableIterator<T>, WritableIterato
     @Override
     @Contract("? -> this")
     @NonNull
-    WritableIterator<T> insert(final @Nullable T value);
+    MutableIterator<T> insert(final @Nullable T value);
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param values элементы.
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    @Contract("!null -> this")
+    @NonNull
+    MutableIterator<T> insert(final @Nullable T @NonNull ... values);
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param values элементы.
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("!null -> this")
+    @NonNull
+    MutableIterator<T> insert(final @NonNull ReadableCollection<T> values);
 
     /**
      * {@inheritDoc}
@@ -115,8 +145,8 @@ public interface MutableIterator<T> extends ReadableIterator<T>, WritableIterato
      * @since 1.0.0-RC1
      */
     @Override
-    @Contract("? -> this")
+    @Contract("-> this")
     @NonNull
-    WritableIterator<T> remove();
+    MutableIterator<T> remove();
 
 }
