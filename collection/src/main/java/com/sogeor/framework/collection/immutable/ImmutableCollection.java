@@ -21,15 +21,21 @@ import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.readable.ReadableCollection;
 
 /**
+ * Представляет собой неизменяемую коллекцию элементов (1).
+ *
+ * @param <T> тип [1].
+ *
  * @since 1.0.0-RC1
  */
 public interface ImmutableCollection<T> extends ReadableCollection<T> {
 
     /**
+     * @return Итератор {1}.
+     *
      * @since 1.0.0-RC1
      */
     @Override
-    @Contract(value = "-> !null")
+    @Contract("-> new")
     @NonNull
     ImmutableIterator<T> iterator();
 
