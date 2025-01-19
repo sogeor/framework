@@ -18,23 +18,49 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.collection.immutable.ImmutableSet;
 
 /**
- * Представляет собой коллекцию элементов (1).
+ * Представляет собой коллекцию (1) элементов (2).
  *
- * @param <T> тип [1].
+ * @param <T> тип [2].
  *
  * @since 1.0.0-RC1
  */
 public interface Collection<T> {
 
     /**
-     * @return Итератор {1}.
+     * @return Итератор {2}.
      *
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
     @NonNull
     Iterator<T> iterator();
+
+    /**
+     * @return Размер {1}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("-> value")
+    long size();
+
+    /**
+     * @return Если {2} не существуют, то {@code true}, иначе {@code false}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("-> value")
+    boolean empty();
+
+    /**
+     * @return Особенности {1}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("-> $!null")
+    @NonNull
+    ImmutableSet<@NonNull CollectionFeature> features();
 
 }
