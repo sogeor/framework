@@ -16,9 +16,65 @@
 
 package com.sogeor.framework.collection.immutable;
 
+import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.readable.ReadableIterator;
 
 /**
+ * Представляет собой итератор элементов (1) неизменяемой коллекции.
+ *
+ * @param <T> тип [1].
+ *
  * @since 1.0.0-RC1
  */
-public interface ImmutableIterator<T> extends ReadableIterator<T> {}
+public interface ImmutableIterator<T> extends ReadableIterator<T> {
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    ImmutableIterator<T> start();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    ImmutableIterator<T> previous();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    ImmutableIterator<T> next();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    @NonNull
+    ImmutableIterator<T> end();
+
+}
