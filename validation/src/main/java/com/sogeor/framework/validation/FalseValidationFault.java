@@ -37,13 +37,6 @@ public class FalseValidationFault extends ValidationFault {
     public static final @NonNull String DEFAULT_MESSAGE = "The value must be true";
 
     /**
-     * Содержит шаблонное сообщение.
-     *
-     * @since 1.0.0-RC1
-     */
-    public static final @NonNull String TEMPLATE_MESSAGE = "%s must be true";
-
-    /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, {@linkplain #DEFAULT_CAUSE причиной возникновения},
      * параметрами {@linkplain #DEFAULT_SUPPRESSION подавления} и {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по
      * умолчанию.
