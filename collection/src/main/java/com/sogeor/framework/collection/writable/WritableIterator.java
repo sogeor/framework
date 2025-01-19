@@ -20,6 +20,7 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.collection.Iterator;
+import com.sogeor.framework.collection.readable.ReadableCollection;
 
 /**
  * Представляет собой итератор элементов (1) записываемой коллекции.
@@ -79,8 +80,8 @@ public interface WritableIterator<T> extends Iterator<T> {
     WritableIterator<T> end();
 
     /**
-     * Если {1} обладает {@linkplain StandardWritableIteratorFeature#ELEMENT_OPERATION} и {@linkplain #current()}, то
-     * задаёт текущий элемент равным {@code value}.
+     * Если {1} обладает {@linkplain StandardWritableIteratorFeature#ELEMENT_OPERATION}, то задаёт текущий элемент
+     * равным {@code value}.
      *
      * @param value элемент.
      *
@@ -93,8 +94,8 @@ public interface WritableIterator<T> extends Iterator<T> {
     WritableIterator<T> element(final @Nullable T value);
 
     /**
-     * Если {1} обладает {@linkplain StandardWritableIteratorFeature#INSERT_OPERATION}, то вставляет {@code value} либо
-     * после текущего элемента, если {@linkplain #current()}, либо первым.
+     * Если {1} обладает {@linkplain StandardWritableIteratorFeature#INSERT_OPERATION}, то вставляет {@code value} перед
+     * текущим элементом.
      *
      * @param value элемент.
      *
@@ -107,6 +108,35 @@ public interface WritableIterator<T> extends Iterator<T> {
     WritableIterator<T> insert(final @Nullable T value);
 
     /**
+     * Если {1} обладает {@linkplain StandardWritableIteratorFeature#INSERT_OPERATION}, то вставляет {@code values}
+     * перед текущим элементом.
+     *
+     * @param values элементы.
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @SuppressWarnings("unchecked")
+    @Contract("!null -> this")
+    @NonNull
+    WritableIterator<T> insert(final @Nullable T @NonNull ... values);
+
+    /**
+     * Если {1} обладает {@linkplain StandardWritableIteratorFeature#INSERT_OPERATION}, то вставляет {@code values}
+     * перед текущим элементом.
+     *
+     * @param values элементы.
+     *
+     * @return {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("!null -> this")
+    @NonNull
+    WritableIterator<T> insert(final @NonNull ReadableCollection<T> values);
+
+    /**
      * Если {1} обладает {@linkplain StandardWritableIteratorFeature#REMOVE_OPERATION} и {@linkplain #current()}, то
      * удаляет текущий элемент.
      *
@@ -114,7 +144,7 @@ public interface WritableIterator<T> extends Iterator<T> {
      *
      * @since 1.0.0-RC1
      */
-    @Contract("? -> this")
+    @Contract("-> this")
     @NonNull
     WritableIterator<T> remove();
 
