@@ -27,46 +27,6 @@ import com.sogeor.framework.annotation.NonNull;
 public interface IteratorFeature {
 
     /**
-     * Позволяет переходить к первому элементу, если он существует.
-     *
-     * @since 1.0.0-RC1
-     */
-    @NonNull
-    IteratorFeature START_OPERATION = new Standard("START_OPERATION");
-
-    /**
-     * Позволяет переходить к предыдущему элементу, если он существует.
-     *
-     * @since 1.0.0-RC1
-     */
-    @NonNull
-    IteratorFeature PREVIOUS_OPERATION = new Standard("PREVIOUS_OPERATION");
-
-    /**
-     * Позволяет переходить к следующему элементу, если он существует.
-     *
-     * @since 1.0.0-RC1
-     */
-    @NonNull
-    IteratorFeature NEXT_OPERATION = new Standard("NEXT_OPERATION");
-
-    /**
-     * Позволяет переходить к последнему элементу, если он существует.
-     *
-     * @since 1.0.0-RC1
-     */
-    @NonNull
-    IteratorFeature END_OPERATION = new Standard("END_OPERATION");
-
-    /**
-     * Позволяет переходить к последнему элементу, если он существует.
-     *
-     * @since 1.0.0-RC1
-     */
-    @NonNull
-    IteratorFeature BEFORE_OPERATION = new Standard("BEFORE_OPERATION");
-
-    /**
      * @return Имя {1}.
      *
      * @since 1.0.0-RC1
@@ -74,68 +34,5 @@ public interface IteratorFeature {
     @Contract("-> $value")
     @NonNull
     String name();
-
-    /**
-     * Представляет собой стандартную {1} (1).
-     *
-     * @since 1.0.0-RC1
-     */
-    class Standard implements IteratorFeature {
-
-        /**
-         * Содержит имя {1}.
-         *
-         * @since 1.0.0-RC1
-         */
-        private final @NonNull String name;
-
-        /**
-         * Создаёт экземпляр на основе {@code name}.
-         *
-         * @param name имя {1}.
-         */
-        protected Standard(final @NonNull String name) {
-            this.name = name;
-        }
-
-        /**
-         * @return Имя {1}.
-         *
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> $value")
-        public @NonNull String name() {
-            return name;
-        }
-
-        /**
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> $value")
-        public int hashCode() {
-            return name.hashCode();
-        }
-
-        /**
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> value")
-        public boolean equals(final @NonNull Object object) {
-            return this == object || object instanceof IteratorFeature that && name.equals(that.name());
-        }
-
-        /**
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> $value")
-        public @NonNull String toString() {
-            return name;
-        }
-
-    }
 
 }
