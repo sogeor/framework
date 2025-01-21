@@ -38,7 +38,7 @@ public interface Multiset<T> extends Collection<T> {
     @Override
     @Contract("-> new")
     @NonNull
-    SetIterator<T> iterator();
+    MultisetIterator<T> iterator();
 
     /**
      * @return Особенности мультимножества.
