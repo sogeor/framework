@@ -33,7 +33,7 @@ public interface Iterator<T> {
     /**
      * Если итератор не обладает {@linkplain StandardIteratorFeature#START_OPERATION}, то возвращает {@code this}.
      * <p>
-     * Если {@linkplain #first() текущий элемент не первый}, то переходит к первому элементу.
+     * Если {@linkplain #first() текущий элемент не первый}, то переходит к первому элементу, если он существует.
      *
      * @return {@code this}.
      *
@@ -75,7 +75,7 @@ public interface Iterator<T> {
     /**
      * Если итератор не обладает {@linkplain StandardIteratorFeature#END_OPERATION}, то возвращает {@code this}.
      * <p>
-     * Если {@linkplain #last() текущий элемент не последний}, то переходит к последнему элементу.
+     * Если {@linkplain #last() текущий элемент не последний}, то переходит к последнему элементу, если он существует.
      *
      * @return {@code this}.
      *
