@@ -18,18 +18,20 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.collection.immutable.ImmutableSet;
 
 /**
- * Представляет собой множество элементов (1).
+ * Представляет собой множество элементов.
  *
- * @param <T> тип [1].
+ * @param <T> тип элементов.
  *
+ * @see SetIterator
  * @since 1.0.0-RC1
  */
 public interface Set<T> extends Collection<T> {
 
     /**
-     * @return Итератор {1}.
+     * @return Итератор элементов.
      *
      * @since 1.0.0-RC1
      */
@@ -37,5 +39,17 @@ public interface Set<T> extends Collection<T> {
     @Contract("-> new")
     @NonNull
     SetIterator<T> iterator();
+
+    /**
+     * @return Особенности множества.
+     *
+     * @see StandardCollectionFeature
+     * @see StandardSetFeature
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> $!null")
+    @NonNull
+    ImmutableSet<@NonNull CollectionFeature> features();
 
 }
