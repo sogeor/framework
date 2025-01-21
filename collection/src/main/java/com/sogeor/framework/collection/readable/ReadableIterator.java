@@ -22,9 +22,9 @@ import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.collection.Iterator;
 
 /**
- * Представляет собой итератор элементов (1) читаемой коллекции.
+ * Представляет собой итератор элементов читаемой коллекции.
  *
- * @param <T> тип [1].
+ * @param <T> тип элементов.
  *
  * @since 1.0.0-RC1
  */
@@ -35,6 +35,7 @@ public interface ReadableIterator<T> extends Iterator<T> {
      *
      * @return {@code this}.
      *
+     * @see #end()
      * @since 1.0.0-RC1
      */
     @Override
@@ -47,6 +48,7 @@ public interface ReadableIterator<T> extends Iterator<T> {
      *
      * @return {@code this}.
      *
+     * @see #next()
      * @since 1.0.0-RC1
      */
     @Override
@@ -59,6 +61,7 @@ public interface ReadableIterator<T> extends Iterator<T> {
      *
      * @return {@code this}.
      *
+     * @see #previous()
      * @since 1.0.0-RC1
      */
     @Override
@@ -71,6 +74,7 @@ public interface ReadableIterator<T> extends Iterator<T> {
      *
      * @return {@code this}.
      *
+     * @see #start()
      * @since 1.0.0-RC1
      */
     @Override
@@ -79,8 +83,12 @@ public interface ReadableIterator<T> extends Iterator<T> {
     ReadableIterator<T> end();
 
     /**
-     * @return Если {1} обладает {@linkplain StandardReadableIteratorFeature#ELEMENT_OPERATION} и
-     * {@linkplain #current()}, то текущий элемент, иначе {@code null}.
+     * Если итератор не обладает {@linkplain StandardReadableIteratorFeature#ELEMENT_OPERATION}, то возвращает
+     * {@code null}.
+     * <p>
+     * Если {@linkplain #current() текущий элемент существует}, то возвращает его, иначе — {@code null}.
+     *
+     * @return Текущий элемент или {@code null}.
      *
      * @since 1.0.0-RC1
      */
