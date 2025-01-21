@@ -21,16 +21,17 @@ import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.immutable.ImmutableSet;
 
 /**
- * Представляет собой коллекцию (1) элементов (2).
+ * Представляет собой коллекцию элементов.
  *
- * @param <T> тип [2].
+ * @param <T> тип элементов.
  *
+ * @see Iterator
  * @since 1.0.0-RC1
  */
 public interface Collection<T> {
 
     /**
-     * @return Итератор {2}.
+     * @return Итератор элементов.
      *
      * @since 1.0.0-RC1
      */
@@ -39,7 +40,7 @@ public interface Collection<T> {
     Iterator<T> iterator();
 
     /**
-     * @return Размер {1}.
+     * @return Размер коллекции.
      *
      * @since 1.0.0-RC1
      */
@@ -47,7 +48,7 @@ public interface Collection<T> {
     long size();
 
     /**
-     * @return Если {2} не существуют, то {@code true}, иначе {@code false}.
+     * @return Если элементы не существуют, то {@code true}, иначе {@code false}.
      *
      * @since 1.0.0-RC1
      */
@@ -55,8 +56,9 @@ public interface Collection<T> {
     boolean empty();
 
     /**
-     * @return Особенности {1}.
+     * @return Особенности коллекции.
      *
+     * @see StandardCollectionFeature
      * @since 1.0.0-RC1
      */
     @Contract("-> $!null")
