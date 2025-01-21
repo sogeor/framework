@@ -21,20 +21,23 @@ import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.immutable.ImmutableSet;
 
 /**
- * Представляет собой итератор (1) элементов (2) коллекции.
+ * Представляет собой итератор элементов коллекции.
  *
- * @param <T> тип [2].
+ * @param <T> тип элементов.
  *
+ * @see Collection
  * @since 1.0.0-RC1
  */
 public interface Iterator<T> {
 
     /**
-     * Если {1} обладает {@linkplain StandardIteratorFeature#START_OPERATION} и не {@linkplain #first()}, то переходит к
-     * первому элементу.
+     * Если итератор не обладает {@linkplain StandardIteratorFeature#START_OPERATION}, то возвращает {@code this}.
+     * <p>
+     * Если {@linkplain #first() текущий элемент не первый}, то переходит к первому элементу.
      *
      * @return {@code this}.
      *
+     * @see #end()
      * @since 1.0.0-RC1
      */
     @Contract("-> this")
@@ -42,11 +45,13 @@ public interface Iterator<T> {
     Iterator<T> start();
 
     /**
-     * Если {1} обладает {@linkplain StandardIteratorFeature#PREVIOUS_OPERATION} и {@linkplain #before()}, то переходит
-     * к предыдущему элементу.
+     * Если итератор не обладает {@linkplain StandardIteratorFeature#PREVIOUS_OPERATION}, то возвращает {@code this}.
+     * <p>
+     * Если {@linkplain #before() перед текущим элементом существует другой}, то переходит к нему.
      *
      * @return {@code this}.
      *
+     * @see #next()
      * @since 1.0.0-RC1
      */
     @Contract("-> this")
@@ -54,11 +59,13 @@ public interface Iterator<T> {
     Iterator<T> previous();
 
     /**
-     * Если {1} обладает {@linkplain StandardIteratorFeature#NEXT_OPERATION} и {@linkplain #after()}, то переходит к
-     * следующему элементу.
+     * Если итератор не обладает {@linkplain StandardIteratorFeature#NEXT_OPERATION}, то возвращает {@code this}.
+     * <p>
+     * Если {@linkplain #after() после текущего элемента существует другой}, то переходит к нему.
      *
      * @return {@code this}.
      *
+     * @see #previous()
      * @since 1.0.0-RC1
      */
     @Contract("-> this")
@@ -66,11 +73,13 @@ public interface Iterator<T> {
     Iterator<T> next();
 
     /**
-     * Если {1} обладает {@linkplain StandardIteratorFeature#END_OPERATION} и не {@linkplain #last()}, то переходит к
-     * последнему элементу.
+     * Если итератор не обладает {@linkplain StandardIteratorFeature#END_OPERATION}, то возвращает {@code this}.
+     * <p>
+     * Если {@linkplain #last() текущий элемент не последний}, то переходит к последнему элементу.
      *
      * @return {@code this}.
      *
+     * @see #start()
      * @since 1.0.0-RC1
      */
     @Contract("-> this")
@@ -78,8 +87,9 @@ public interface Iterator<T> {
     Iterator<T> end();
 
     /**
-     * @return Если {@linkplain #current()} и текущий элемент первый, то {@code true}, иначе {@code false}.
+     * @return Если текущий элемент первый, то {@code true}, иначе {@code false}.
      *
+     * @see #last()
      * @since 1.0.0-RC1
      */
     @Contract("-> value")
@@ -102,8 +112,9 @@ public interface Iterator<T> {
     boolean after();
 
     /**
-     * @return Если {@linkplain #current()} и текущий элемент последний, то {@code true}, иначе {@code false}.
+     * @return Если текущий элемент последний, то {@code true}, иначе {@code false}.
      *
+     * @see #first()
      * @since 1.0.0-RC1
      */
     @Contract("-> value")
@@ -118,8 +129,9 @@ public interface Iterator<T> {
     boolean current();
 
     /**
-     * @return Особенности {1}.
+     * @return Особенности итератора.
      *
+     * @see StandardIteratorFeature
      * @since 1.0.0-RC1
      */
     @Contract("-> $!null")
