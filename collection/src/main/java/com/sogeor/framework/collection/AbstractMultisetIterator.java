@@ -28,7 +28,7 @@ import com.sogeor.framework.collection.immutable.ImmutableSet;
  * @see AbstractMultiset
  * @since 1.0.0-RC1
  */
-public abstract class AbstractMultisetIterator<T> extends AbstractIterator<T> implements SetIterator<T> {
+public abstract class AbstractMultisetIterator<T> extends AbstractIterator<T> implements MultisetIterator<T> {
 
     /**
      * Создаёт экземпляр на основе {@code features}.
@@ -40,6 +40,54 @@ public abstract class AbstractMultisetIterator<T> extends AbstractIterator<T> im
     protected AbstractMultisetIterator(final @NonNull ImmutableSet<@NonNull IteratorFeature> features) {
         super(features);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @see #end()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    public abstract @NonNull AbstractMultisetIterator<T> start();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @see #next()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    public abstract @NonNull AbstractMultisetIterator<T> previous();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @see #previous()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    public abstract @NonNull AbstractMultisetIterator<T> next();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @see #start()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    public abstract @NonNull AbstractMultisetIterator<T> end();
 
     /**
      * @return Особенности итератора.
