@@ -28,9 +28,9 @@ public final class ImaginaryFault extends UncheckedFault {
 
     /**
      * Генерирует {@linkplain UtilityCreationFailure проверяемый программный сбой} с
-     * {@linkplain UtilityCreationFailure#TEMPLATE_MESSAGE шаблонным сообщением} на основе имени этого класса (1).
+     * {@linkplain UtilityCreationFailure#TEMPLATE_MESSAGE шаблонным сообщением} на основе имени этого класса.
      *
-     * @throws UtilityCreationFailure экземпляр [1] не должен быть создан.
+     * @throws UtilityCreationFailure экземпляр этого класса не должен быть создан.
      * @since 1.0.0-RC1
      */
     @Contract("-> failure")
