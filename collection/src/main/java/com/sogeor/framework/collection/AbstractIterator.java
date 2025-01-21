@@ -49,6 +49,54 @@ public abstract class AbstractIterator<T> implements Iterator<T> {
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @see #end()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    public abstract @NonNull Iterator<T> start();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @see #next()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    public abstract @NonNull Iterator<T> previous();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @see #previous()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    public abstract @NonNull Iterator<T> next();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @see #start()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    public abstract @NonNull Iterator<T> end();
+
+    /**
      * @return Особенности итератора.
      *
      * @see StandardIteratorFeature
