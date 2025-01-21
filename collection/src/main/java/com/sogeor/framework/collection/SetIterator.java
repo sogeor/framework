@@ -18,12 +18,14 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.collection.immutable.ImmutableSet;
 
 /**
- * Представляет собой итератор (1) элементов (2) множества.
+ * Представляет собой итератор элементов множества.
  *
- * @param <T> тип [2].
+ * @param <T> тип элементов.
  *
+ * @see Set
  * @since 1.0.0-RC1
  */
 public interface SetIterator<T> extends Iterator<T> {
@@ -33,6 +35,7 @@ public interface SetIterator<T> extends Iterator<T> {
      *
      * @return {@code this}.
      *
+     * @see #end()
      * @since 1.0.0-RC1
      */
     @Override
@@ -45,6 +48,7 @@ public interface SetIterator<T> extends Iterator<T> {
      *
      * @return {@code this}.
      *
+     * @see #previous()
      * @since 1.0.0-RC1
      */
     @Override
@@ -57,6 +61,7 @@ public interface SetIterator<T> extends Iterator<T> {
      *
      * @return {@code this}.
      *
+     * @see #start()
      * @since 1.0.0-RC1
      */
     @Override
@@ -69,11 +74,24 @@ public interface SetIterator<T> extends Iterator<T> {
      *
      * @return {@code this}.
      *
+     * @see #last()
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> this")
     @NonNull
     SetIterator<T> end();
+
+    /**
+     * @return Особенности итератора.
+     *
+     * @see StandardIteratorFeature
+     * @see StandardSetIteratorFeature
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> $!null")
+    @NonNull
+    ImmutableSet<@NonNull IteratorFeature> features();
 
 }
