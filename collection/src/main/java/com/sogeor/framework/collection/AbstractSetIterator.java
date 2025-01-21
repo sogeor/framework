@@ -42,6 +42,54 @@ public abstract class AbstractSetIterator<T> extends AbstractIterator<T> impleme
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @see #end()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    public abstract @NonNull AbstractSetIterator<T> start();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @see #next()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    public abstract @NonNull AbstractSetIterator<T> previous();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @see #previous()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    public abstract @NonNull AbstractSetIterator<T> next();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@code this}.
+     *
+     * @see #start()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> this")
+    public abstract @NonNull AbstractSetIterator<T> end();
+
+    /**
      * @return Особенности итератора.
      *
      * @see StandardIteratorFeature
