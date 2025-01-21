@@ -20,14 +20,14 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 
 /**
- * Представляет собой особенность (1) коллекции элементов.
+ * Представляет собой особенность коллекции элементов.
  *
  * @since 1.0.0-RC1
  */
 public interface CollectionFeature {
 
     /**
-     * @return Имя {1}.
+     * @return Имя особенности.
      *
      * @since 1.0.0-RC1
      */
