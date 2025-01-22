@@ -61,6 +61,8 @@ public interface Collection<T> {
      *
      * @param <T> тип элементов.
      *
+     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
+     * после него, либо к обоим из них.
      * @see Collection
      * @since 1.0.0-RC1
      */
@@ -170,6 +172,9 @@ public interface Collection<T> {
         /**
          * @return Если итератор способен переходить к первому элементу, то {@code true}, иначе {@code false}.
          *
+         * @implSpec Если
+         * {@linkplain #canPrevious() итератор способен переходить к элементу, расположенному перед текущим}, то
+         * возвращает {@code true}.
          * @since 1.0.0-RC1
          */
         @Contract("-> $value")
@@ -179,6 +184,9 @@ public interface Collection<T> {
          * @return Если итератор способен переходить к элементу, расположенному перед текущим, то {@code true}, иначе
          * {@code false}.
          *
+         * @implSpec Если
+         * {@linkplain #canNext() итератор не способен переходить к элементу, расположенному после текущего}, то
+         * возвращает {@code true}.
          * @since 1.0.0-RC1
          */
         @Contract("-> $value")
@@ -188,6 +196,9 @@ public interface Collection<T> {
          * @return Если итератор способен переходить к элементу, расположенному после текущего, то {@code true}, иначе
          * {@code false}.
          *
+         * @implSpec Если
+         * {@linkplain #canPrevious() итератор не способен переходить к элементу, расположенному перед текущим}, то
+         * возвращает {@code true}.
          * @since 1.0.0-RC1
          */
         @Contract("-> $value")
@@ -196,6 +207,9 @@ public interface Collection<T> {
         /**
          * @return Если итератор способен переходить к последнему элементу, то {@code true}, иначе {@code false}.
          *
+         * @implSpec Если
+         * {@linkplain #canNext() итератор способен переходить к элементу, расположенному после текущего}, то возвращает
+         * {@code true}.
          * @since 1.0.0-RC1
          */
         @Contract("-> $value")
