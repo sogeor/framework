@@ -18,7 +18,6 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.collection.immutable.ImmutableSet;
 
 /**
  * Представляет собой ассоциативный массив элементов — пар, каждая из которых состоит из ключа и соответствующего ему
@@ -28,11 +27,11 @@ import com.sogeor.framework.collection.immutable.ImmutableSet;
  * @param <V> тип значений.
  * @param <T> тип элементов.
  *
- * @see MapEntry
- * @see MapIterator
+ * @see Entry
+ * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface Map<K, V, T extends MapEntry<K, V>> extends Collection<T> {
+public interface Map<K, V, T extends Map.Entry<K, V>> extends Collection<T> {
 
     /**
      * @return Итератор элементов.
@@ -42,18 +41,86 @@ public interface Map<K, V, T extends MapEntry<K, V>> extends Collection<T> {
     @Override
     @Contract("-> new")
     @NonNull
-    MapIterator<K, V, T> iterator();
+    Iterator<K, V, T> iterator();
 
     /**
-     * @return Особенности ассоциативного массива.
+     * Представляет собой элемент ассоциативного массива — пару, состоящую из ключа и соответствующего ему значения.
      *
-     * @see StandardCollectionFeature
-     * @see StandardMapFeature
+     * @param <K> тип ключей.
+     * @param <V> тип значений.
+     *
+     * @see Map
+     * @see Iterator
      * @since 1.0.0-RC1
      */
-    @Override
-    @Contract("-> $!null")
-    @NonNull
-    ImmutableSet<@NonNull CollectionFeature> features();
+    interface Entry<K, V> {}
+
+    /**
+     * Представляет собой итератор элементов ассоциативного массива — пар, каждая из которых состоит из ключа и
+     * соответствующего ему значения.
+     *
+     * @param <K> тип ключей.
+     * @param <V> тип значений.
+     * @param <T> тип элементов.
+     *
+     * @see Map
+     * @see Entry
+     * @since 1.0.0-RC1
+     */
+    interface Iterator<K, V, T extends Entry<K, V>> extends Collection.Iterator<T> {
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #end()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<K, V, T> start();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #previous()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<K, V, T> previous();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #start()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<K, V, T> next();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #last()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<K, V, T> end();
+
+    }
 
 }
