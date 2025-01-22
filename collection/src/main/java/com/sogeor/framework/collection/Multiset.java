@@ -18,14 +18,13 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.collection.immutable.ImmutableSet;
 
 /**
  * Представляет собой мультимножество элементов.
  *
  * @param <T> тип элементов.
  *
- * @see MultisetIterator
+ * @see Iterator
  * @since 1.0.0-RC1
  */
 public interface Multiset<T> extends Collection<T> {
@@ -38,18 +37,70 @@ public interface Multiset<T> extends Collection<T> {
     @Override
     @Contract("-> new")
     @NonNull
-    MultisetIterator<T> iterator();
+    Iterator<T> iterator();
 
     /**
-     * @return Особенности мультимножества.
+     * Представляет собой итератор элементов мультимножества.
      *
-     * @see StandardCollectionFeature
-     * @see StandardMultisetFeature
+     * @param <T> тип элементов.
+     *
+     * @see Multiset
      * @since 1.0.0-RC1
      */
-    @Override
-    @Contract("-> $!null")
-    @NonNull
-    ImmutableSet<@NonNull CollectionFeature> features();
+    interface Iterator<T> extends Collection.Iterator<T> {
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #end()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> start();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #previous()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> previous();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #start()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> next();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #last()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> end();
+
+    }
 
 }
