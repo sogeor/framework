@@ -19,42 +19,153 @@ package com.sogeor.framework.collection.immutable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.readable.ReadableCollection;
+import com.sogeor.framework.function.Consumer;
+import com.sogeor.framework.validation.NullValidationFault;
 
 /**
- * Представляет собой неизменяемую коллекцию (1) элементов (2).
+ * Представляет собой неизменяемую коллекцию элементов.
  *
- * @param <T> тип [2].
+ * @param <T> тип элементов.
  *
+ * @see Iterator
  * @since 1.0.0-RC1
  */
 public interface ImmutableCollection<T> extends ReadableCollection<T> {
 
     /**
-     * @return Итератор {2}.
+     * Перебирает все элементы и потребляет каждый из них с помощью {@code consumer}.
+     *
+     * @param consumer потребитель элементов.
+     *
+     * @return {@code this}.
+     *
+     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
+     * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("!null -> this; null -> fault")
+    default <F extends Throwable> @NonNull ImmutableCollection<T> iterate(
+            final @NonNull Consumer<? super T, F> consumer) throws NullValidationFault, F {
+        ReadableCollection.super.iterate(consumer);
+        return this;
+    }
+
+    /**
+     * @return Итератор элементов.
      *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
     @NonNull
-    ImmutableIterator<T> iterator();
+    Iterator<T> iterator();
 
     /**
-     * @return Размер {1}.
+     * @return Размер коллекции.
      *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $value")
-    long size();
+    default long size() {
+        return ReadableCollection.super.size();
+    }
 
     /**
-     * @return Если {2} не существуют, то {@code true}, иначе {@code false}.
+     * @return Если элементы не существуют, то {@code true}, иначе {@code false}.
      *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $value")
-    boolean empty();
+    default boolean empty() {
+        return ReadableCollection.super.empty();
+    }
+
+    /**
+     * Представляет собой итератор элементов неизменяемой коллекции.
+     *
+     * @param <T> тип элементов.
+     *
+     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
+     * после него, либо к обоим из них.
+     * <p>
+     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
+     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
+     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
+     * <pre>
+     * {@code
+     * void example(final @NonNull Iterator<?> it) {
+     *     if (it.canNext()) { // it.canStart() == true
+     *         for (it.start(); it.after(); it.next()) {
+     *             // ...
+     *         }
+     *     } else { // it.canPrevious() == true && it.canEnd() == true
+     *         for (it.end(); it.before(); it.previous()) {
+     *             // ...
+     *         }
+     *     }
+     * }
+     * }
+     * </pre>
+     * @see ImmutableCollection
+     * @since 1.0.0-RC1
+     */
+    interface Iterator<T> extends ReadableCollection.Iterator<T> {
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #end()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> start();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #next()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> previous();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #previous()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> next();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #start()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> end();
+
+    }
 
 }
