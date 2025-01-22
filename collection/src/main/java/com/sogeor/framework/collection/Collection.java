@@ -44,7 +44,13 @@ public interface Collection<T> {
      * @since 1.0.0-RC1
      */
     @Contract("-> value")
-    long size();
+    default long size() {
+        final @NonNull var it = iterator();
+        var result = 0L;
+        if (it.canNext()) for (it.start(); it.after(); it.next()) ++result;
+        else for (it.end(); it.before(); it.previous()) ++result;
+        return result;
+    }
 
     /**
      * @return Если элементы не существуют, то {@code true}, иначе {@code false}.
@@ -158,6 +164,8 @@ public interface Collection<T> {
         /**
          * @return Если перед текущим элементом существует другой, то {@code true}, иначе {@code false}.
          *
+         * @see #after()
+         * @see #current()
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -166,6 +174,8 @@ public interface Collection<T> {
         /**
          * @return Если после текущего элемента существует другой, то {@code true}, иначе {@code false}.
          *
+         * @see #before()
+         * @see #current()
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -183,6 +193,8 @@ public interface Collection<T> {
         /**
          * @return Если текущий элемент существует, то {@code true}, иначе {@code false}.
          *
+         * @see #after()
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -194,6 +206,9 @@ public interface Collection<T> {
          * @implSpec Если
          * {@linkplain #canNext() итератор способен переходить к элементу, расположенному после текущего}, то возвращает
          * {@code true}.
+         * @see #canPrevious()
+         * @see #canNext()
+         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Contract("-> $value")
@@ -206,6 +221,9 @@ public interface Collection<T> {
          * @implSpec Если
          * {@linkplain #canNext() итератор не способен переходить к элементу, расположенному после текущего}, то
          * возвращает {@code true}.
+         * @see #canStart()
+         * @see #canNext()
+         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Contract("-> $value")
@@ -218,6 +236,9 @@ public interface Collection<T> {
          * @implSpec Если
          * {@linkplain #canPrevious() итератор не способен переходить к элементу, расположенному перед текущим}, то
          * возвращает {@code true}.
+         * @see #canStart()
+         * @see #canPrevious()
+         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Contract("-> $value")
@@ -229,6 +250,9 @@ public interface Collection<T> {
          * @implSpec Если
          * {@linkplain #canPrevious() итератор способен переходить к элементу, расположенному перед текущим}, то
          * возвращает {@code true}.
+         * @see #canStart()
+         * @see #canPrevious()
+         * @see #canNext()
          * @since 1.0.0-RC1
          */
         @Contract("-> $value")
