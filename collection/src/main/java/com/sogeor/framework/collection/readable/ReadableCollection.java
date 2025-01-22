@@ -70,7 +70,7 @@ public interface ReadableCollection<T> extends Collection<T> {
      * @throws F неудачное оценивание элемента с помощью {@code predicate}.
      * @since 1.0.0-RC1
      */
-    @Contract("!null -> value; null -> fail")
+    @Contract("!null -> value; null -> fault")
     default <F extends Throwable> boolean all(final @NonNull Predicate<? super T, F> predicate) throws
                                                                                                 NullValidationFault, F {
         Validator.nonNull(predicate, "The passed predicate");
@@ -93,7 +93,7 @@ public interface ReadableCollection<T> extends Collection<T> {
      * @throws F неудачное оценивание элемента с помощью {@code predicate}.
      * @since 1.0.0-RC1
      */
-    @Contract("!null -> value; null -> fail")
+    @Contract("!null -> value; null -> fault")
     default <F extends Throwable> boolean any(final @NonNull Predicate<? super T, F> predicate) throws
                                                                                                 NullValidationFault, F {
         Validator.nonNull(predicate, "The passed predicate");
