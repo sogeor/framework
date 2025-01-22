@@ -18,7 +18,6 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.collection.immutable.ImmutableSet;
 
 /**
  * Представляет собой итератор элементов коллекции.
@@ -31,7 +30,7 @@ import com.sogeor.framework.collection.immutable.ImmutableSet;
 public interface Iterator<T> {
 
     /**
-     * Если итератор не обладает {@linkplain StandardIteratorFeature#START_OPERATION}, то возвращает {@code this}.
+     * Если {@linkplain #canStart() итератор не способен переходить к первому элементу}, то ничего не делает.
      * <p>
      * Если {@linkplain #first() текущий элемент не первый}, то переходит к первому элементу, если он существует.
      *
@@ -45,7 +44,8 @@ public interface Iterator<T> {
     Iterator<T> start();
 
     /**
-     * Если итератор не обладает {@linkplain StandardIteratorFeature#PREVIOUS_OPERATION}, то возвращает {@code this}.
+     * Если {@linkplain #canPrevious() итератор не способен переходить к элементу, расположенному перед текущим}, то
+     * ничего не делает.
      * <p>
      * Если {@linkplain #before() перед текущим элементом существует другой}, то переходит к нему.
      *
@@ -59,7 +59,8 @@ public interface Iterator<T> {
     Iterator<T> previous();
 
     /**
-     * Если итератор не обладает {@linkplain StandardIteratorFeature#NEXT_OPERATION}, то возвращает {@code this}.
+     * Если {@linkplain #canNext() итератор не способен переходить к элементу, расположенному после текущего}, то ничего
+     * не делает.
      * <p>
      * Если {@linkplain #after() после текущего элемента существует другой}, то переходит к нему.
      *
@@ -73,7 +74,7 @@ public interface Iterator<T> {
     Iterator<T> next();
 
     /**
-     * Если итератор не обладает {@linkplain StandardIteratorFeature#END_OPERATION}, то возвращает {@code this}.
+     * Если {@linkplain #canEnd() итератор не способен переходить к последнему элементу}, то ничего не делает.
      * <p>
      * Если {@linkplain #last() текущий элемент не последний}, то переходит к последнему элементу, если он существует.
      *
@@ -129,13 +130,37 @@ public interface Iterator<T> {
     boolean current();
 
     /**
-     * @return Особенности итератора.
+     * @return Если итератор способен переходить к первому элементу, то {@code true}, иначе {@code false}.
      *
-     * @see StandardIteratorFeature
      * @since 1.0.0-RC1
      */
-    @Contract("-> $!null")
-    @NonNull
-    ImmutableSet<@NonNull IteratorFeature> features();
+    @Contract("-> $value")
+    boolean canStart();
+
+    /**
+     * @return Если итератор способен переходить к элементу, расположенному перед текущим, то {@code true}, иначе
+     * {@code false}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("-> $value")
+    boolean canPrevious();
+
+    /**
+     * @return Если итератор способен переходить к элементу, расположенному после текущего, то {@code true}, иначе
+     * {@code false}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("-> $value")
+    boolean canNext();
+
+    /**
+     * @return Если итератор способен переходить к последнему элементу, то {@code true}, иначе {@code false}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("-> $value")
+    boolean canEnd();
 
 }
