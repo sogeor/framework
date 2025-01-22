@@ -41,6 +41,8 @@ public abstract class AbstractSet<T> extends AbstractCollection<T> implements Se
      *
      * @param <T> тип элементов.
      *
+     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
+     * после него, либо к обоим из них.
      * @see AbstractSet
      * @since 1.0.0-RC1
      */
