@@ -21,22 +21,108 @@ import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.Set;
 
 /**
- * Представляет собой читаемое множество элементов (1).
+ * Представляет собой читаемое множество элементов.
  *
- * @param <T> тип [1].
+ * @param <T> тип элементов.
  *
+ * @see Iterator
  * @since 1.0.0-RC1
  */
 public interface ReadableSet<T> extends Set<T>, ReadableCollection<T> {
 
     /**
-     * @return Итератор {1}.
+     * @return Итератор элементов.
      *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
     @NonNull
-    ReadableSetIterator<T> iterator();
+    Iterator<T> iterator();
+
+    /**
+     * Представляет собой итератор элементов читаемого множества.
+     *
+     * @param <T> тип элементов.
+     *
+     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
+     * после него, либо к обоим из них.
+     * <p>
+     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
+     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
+     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
+     * <pre>
+     * {@code
+     * void example(final @NonNull Iterator<?> it) {
+     *     if (it.canNext()) { // it.canStart() == true
+     *         for (it.start(); it.after(); it.next()) {
+     *             // ...
+     *         }
+     *     } else { // it.canPrevious() == true && it.canEnd() == true
+     *         for (it.end(); it.before(); it.previous()) {
+     *             // ...
+     *         }
+     *     }
+     * }
+     * }
+     * </pre>
+     * @see ReadableSet
+     * @since 1.0.0-RC1
+     */
+    interface Iterator<T> extends Set.Iterator<T>, ReadableCollection.Iterator<T> {
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #end()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> start();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #next()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> previous();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #previous()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> next();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #start()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> end();
+
+    }
 
 }
