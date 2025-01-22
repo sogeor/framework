@@ -18,40 +18,89 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.collection.immutable.ImmutableSet;
 
 /**
  * Представляет собой абстрактная двусторонняя очередь элементов.
  *
  * @param <T> тип элементов.
  *
- * @see AbstractDequeIterator
+ * @see AbstractIterator
  * @since 1.0.0-RC1
  */
 public abstract class AbstractDeque<T> extends AbstractCollection<T> implements Deque<T> {
 
     /**
-     * Создаёт экземпляр на основе {@code features}.
-     *
-     * @param features особенности стека.
+     * Создаёт экземпляр.
      *
      * @since 1.0.0-RC1
      */
-    protected AbstractDeque(final @NonNull ImmutableSet<@NonNull CollectionFeature> features) {
-        super(features);
-    }
+    protected AbstractDeque() {}
 
     /**
-     * @return Особенности двусторонней очереди.
+     * Представляет собой абстрактный итератор элементов двусторонней очереди.
      *
-     * @see StandardCollectionFeature
-     * @see StandardQueueFeature
+     * @param <T> тип элементов.
+     *
+     * @see AbstractDeque
      * @since 1.0.0-RC1
      */
-    @Override
-    @Contract("-> $!null")
-    public @NonNull ImmutableSet<@NonNull CollectionFeature> features() {
-        return super.features();
+    public abstract static class AbstractIterator<T> extends AbstractCollection.AbstractIterator<T> implements Deque.Iterator<T> {
+
+        /**
+         * Создаёт экземпляр.
+         *
+         * @since 1.0.0-RC1
+         */
+        protected AbstractIterator() {}
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #end()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        public abstract @NonNull AbstractDeque.AbstractIterator<T> start();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #next()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        public abstract @NonNull AbstractDeque.AbstractIterator<T> previous();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #previous()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        public abstract @NonNull AbstractDeque.AbstractIterator<T> next();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #start()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        public abstract @NonNull AbstractDeque.AbstractIterator<T> end();
+
     }
 
 }
