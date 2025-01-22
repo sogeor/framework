@@ -18,7 +18,6 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.collection.immutable.ImmutableSet;
 
 /**
  * Представляет собой абстрактную коллекцию элементов.
@@ -31,33 +30,77 @@ import com.sogeor.framework.collection.immutable.ImmutableSet;
 public abstract class AbstractCollection<T> implements Collection<T> {
 
     /**
-     * Содержит особенности коллекции.
+     * Создаёт экземпляр.
      *
      * @since 1.0.0-RC1
      */
-    private final @NonNull ImmutableSet<@NonNull CollectionFeature> features;
+    protected AbstractCollection() {}
 
     /**
-     * Создаёт экземпляр на основе {@code features}.
+     * Представляет собой абстрактный итератор элементов коллекции.
      *
-     * @param features особенности коллекции.
+     * @param <T> тип элементов.
      *
+     * @see AbstractCollection
      * @since 1.0.0-RC1
      */
-    protected AbstractCollection(final @NonNull ImmutableSet<@NonNull CollectionFeature> features) {
-        this.features = features;
-    }
+    public abstract static class AbstractIterator<T> implements Iterator<T> {
 
-    /**
-     * @return Особенности коллекции.
-     *
-     * @see StandardCollectionFeature
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("-> $!null")
-    public @NonNull ImmutableSet<@NonNull CollectionFeature> features() {
-        return features;
+        /**
+         * Создаёт экземпляр.
+         *
+         * @since 1.0.0-RC1
+         */
+        protected AbstractIterator() {}
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #end()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        public abstract @NonNull AbstractIterator<T> start();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #next()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        public abstract @NonNull AbstractIterator<T> previous();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #previous()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        public abstract @NonNull AbstractIterator<T> next();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #start()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        public abstract @NonNull AbstractIterator<T> end();
+
     }
 
 }
