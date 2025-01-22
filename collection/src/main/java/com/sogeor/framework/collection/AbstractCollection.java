@@ -41,6 +41,8 @@ public abstract class AbstractCollection<T> implements Collection<T> {
      *
      * @param <T> тип элементов.
      *
+     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
+     * после него, либо к обоим из них.
      * @see AbstractCollection
      * @since 1.0.0-RC1
      */
