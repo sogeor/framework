@@ -44,6 +44,8 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     public EmptyImmutableSet() {}
 
     /**
+     * {@inheritDoc}
+     *
      * @param consumer потребитель элементов.
      *
      * @return {@code this}.
@@ -55,10 +57,13 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     @Contract("!null -> this; null -> fault")
     public <F extends Throwable> @NonNull EmptyImmutableSet<T> iterate(
             final @NonNull Consumer<? super T, F> consumer) throws NullValidationFault {
+        Validator.nonNull(consumer, "The passed consumer");
         return this;
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param predicate предикат элементов.
      *
      * @return {@code false}.
@@ -75,6 +80,8 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param predicate предикат элементов.
      *
      * @return {@code false}.
@@ -91,6 +98,8 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param element элемент.
      *
      * @return {@code false}.
@@ -104,6 +113,8 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param elements элементы.
      *
      * @return {@code false}.
@@ -116,10 +127,12 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     @Contract("? -> false")
     public boolean contains(final @Nullable T @NonNull ... elements) throws NullValidationFault {
         Validator.nonNull(elements, "The passed elements");
-        return false;
+        return elements.length == 0;
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @param elements элементы.
      *
      * @return {@code false}.
@@ -146,7 +159,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     }
 
     /**
-     * @return {@code 0}.
+     * @return Размер коллекции.
      *
      * @since 1.0.0-RC1
      */
@@ -157,7 +170,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     }
 
     /**
-     * @return {@code true}.
+     * @return Если элементы не существуют, то {@code true}, иначе {@code false}.
      *
      * @since 1.0.0-RC1
      */
@@ -203,7 +216,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
          *
          * @since 1.0.0-RC1
          */
-        public Iterator() {}
+        protected Iterator() {}
 
         /**
          * @return {@code this}.
