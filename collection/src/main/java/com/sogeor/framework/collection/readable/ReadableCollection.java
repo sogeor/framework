@@ -105,7 +105,7 @@ public interface ReadableCollection<T> extends Collection<T> {
     }
 
     /**
-     * Если {@code element} один из элементов этой коллекции, то возвращает {@code true}, иначе — {@code false}.
+     * Если {@code element} является элементом этой коллекции, то возвращает {@code true}, иначе — {@code false}.
      *
      * @param element элемент.
      *
@@ -119,7 +119,7 @@ public interface ReadableCollection<T> extends Collection<T> {
     }
 
     /**
-     * Если {@code elements} одни из элементов этой коллекции, то возвращает {@code true}, иначе — {@code false}.
+     * Если все {@code elements} являются элементами этой коллекции, то возвращает {@code true}, иначе — {@code false}.
      *
      * @param elements элементы.
      *
@@ -137,7 +137,7 @@ public interface ReadableCollection<T> extends Collection<T> {
     }
 
     /**
-     * Если {@code elements} одни из элементов этой коллекции, то возвращает {@code true}, иначе — {@code false}.
+     * Если все {@code elements} являются элементами этой коллекции, то возвращает {@code true}, иначе — {@code false}.
      *
      * @param elements элементы.
      *
@@ -149,7 +149,7 @@ public interface ReadableCollection<T> extends Collection<T> {
     @Contract("? -> value")
     default boolean contains(final @NonNull ReadableCollection<T> elements) throws NullValidationFault {
         Validator.nonNull(elements, "The passed elements");
-        return elements.all(this::contains);
+        return elements == this || elements.all(this::contains);
     }
 
     /**

@@ -19,12 +19,15 @@ package com.sogeor.framework.collection.readable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.AbstractSet;
+import com.sogeor.framework.function.Consumer;
+import com.sogeor.framework.validation.NullValidationFault;
 
 /**
  * Представляет собой абстрактное читаемое множество элементов.
  *
  * @param <T> тип элементов.
  *
+ * @see AbstractIterator
  * @since 1.0.0-RC1
  */
 public abstract class AbstractReadableSet<T> extends AbstractSet<T> implements ReadableSet<T> {
@@ -35,6 +38,25 @@ public abstract class AbstractReadableSet<T> extends AbstractSet<T> implements R
      * @since 1.0.0-RC1
      */
     protected AbstractReadableSet() {}
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param consumer потребитель элементов.
+     *
+     * @return {@code this}.
+     *
+     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
+     * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("!null -> this; null -> fault")
+    public <F extends Throwable> @NonNull AbstractReadableSet<T> iterate(
+            final @NonNull Consumer<? super T, F> consumer) throws NullValidationFault, F {
+        ReadableSet.super.iterate(consumer);
+        return this;
+    }
 
     /**
      * Представляет собой абстрактный итератор элементов читаемого множества.
@@ -62,6 +84,7 @@ public abstract class AbstractReadableSet<T> extends AbstractSet<T> implements R
      * }
      * }
      * </pre>
+     * @see AbstractReadableSet
      * @since 1.0.0-RC1
      */
     public abstract static class AbstractIterator<T> extends AbstractSet.AbstractIterator<T> implements ReadableSet.Iterator<T> {

@@ -19,6 +19,8 @@ package com.sogeor.framework.collection.readable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.Set;
+import com.sogeor.framework.function.Consumer;
+import com.sogeor.framework.validation.NullValidationFault;
 
 /**
  * Представляет собой читаемое множество элементов.
@@ -29,6 +31,26 @@ import com.sogeor.framework.collection.Set;
  * @since 1.0.0-RC1
  */
 public interface ReadableSet<T> extends Set<T>, ReadableCollection<T> {
+
+    /**
+     * Перебирает все элементы и потребляет каждый из них с помощью {@code consumer}.
+     *
+     * @param consumer потребитель элементов.
+     *
+     * @return {@code this}.
+     *
+     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
+     * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("!null -> this; null -> fault")
+    default <F extends Throwable> @NonNull ReadableSet<T> iterate(final @NonNull Consumer<? super T, F> consumer) throws
+                                                                                                                  NullValidationFault,
+                                                                                                                  F {
+        ReadableCollection.super.iterate(consumer);
+        return this;
+    }
 
     /**
      * @return Итератор элементов.

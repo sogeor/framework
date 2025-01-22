@@ -15,12 +15,14 @@
  */
 
 /**
- * Представляет собой пакет для работы с коллекциями только для чтения.
+ * Предоставляет фундаментальные читаемые коллекции.
  *
  * @see com.sogeor.framework.collection
+ * @see com.sogeor.framework.collection.readable.AbstractReadableCollection
+ * @see com.sogeor.framework.collection.readable.AbstractReadableSet
  * @see com.sogeor.framework.collection.readable.ReadableCollection
  * @see com.sogeor.framework.collection.readable.ReadableCollectionFault
- * @see com.sogeor.framework.collection.readable.ReadableIterator
+ * @see com.sogeor.framework.collection.readable.ReadableSet
  * @since 1.0.0-RC1
  */
 package com.sogeor.framework.collection.readable;
