@@ -18,7 +18,6 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.collection.immutable.ImmutableSet;
 
 /**
  * Представляет собой коллекцию элементов.
@@ -53,16 +52,8 @@ public interface Collection<T> {
      * @since 1.0.0-RC1
      */
     @Contract("-> value")
-    boolean empty();
-
-    /**
-     * @return Особенности коллекции.
-     *
-     * @see StandardCollectionFeature
-     * @since 1.0.0-RC1
-     */
-    @Contract("-> $!null")
-    @NonNull
-    ImmutableSet<@NonNull CollectionFeature> features();
+    default boolean empty() {
+        return size() == 0;
+    }
 
 }
