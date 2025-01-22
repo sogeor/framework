@@ -63,6 +63,8 @@ public interface Map<K, V, T extends Map.Entry<K, V>> extends Collection<T> {
      * @param <V> тип значений.
      * @param <T> тип элементов.
      *
+     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
+     * после него, либо к обоим из них.
      * @see Map
      * @see Entry
      * @since 1.0.0-RC1
