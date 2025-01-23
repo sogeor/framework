@@ -52,6 +52,7 @@ public interface ReadableCollection<T> extends Collection<T> {
     default <F extends Throwable> @NonNull ReadableCollection<T> iterate(
             final @NonNull Consumer<? super T, F> consumer) throws NullValidationFault, F {
         Validator.nonNull(consumer, "The passed consumer");
+        if (empty()) return this;
         final @NonNull var it = iterator();
         if (it.canNext()) for (it.start(); it.after(); it.next()) consumer.consume(it.element());
         else for (it.end(); it.before(); it.previous()) consumer.consume(it.element());
@@ -74,6 +75,7 @@ public interface ReadableCollection<T> extends Collection<T> {
     default <F extends Throwable> boolean all(final @NonNull Predicate<? super T, F> predicate) throws
                                                                                                 NullValidationFault, F {
         Validator.nonNull(predicate, "The passed predicate");
+        if (empty()) return true;
         final @NonNull var it = iterator();
         if (it.canNext()) {
             for (it.start(); it.after(); it.next()) if (!predicate.evaluate(it.element())) return false;
@@ -97,6 +99,7 @@ public interface ReadableCollection<T> extends Collection<T> {
     default <F extends Throwable> boolean any(final @NonNull Predicate<? super T, F> predicate) throws
                                                                                                 NullValidationFault, F {
         Validator.nonNull(predicate, "The passed predicate");
+        if (empty()) return false;
         final @NonNull var it = iterator();
         if (it.canNext()) {
             for (it.start(); it.after(); it.next()) if (predicate.evaluate(it.element())) return true;
@@ -115,7 +118,7 @@ public interface ReadableCollection<T> extends Collection<T> {
      */
     @Contract("? -> value")
     default boolean contains(final @Nullable T element) {
-        return any(e -> Objects.equals(e, element));
+        return !empty() && any(e -> Objects.equals(e, element));
     }
 
     /**
@@ -132,6 +135,7 @@ public interface ReadableCollection<T> extends Collection<T> {
     @Contract("? -> value")
     default boolean contains(final @Nullable T @NonNull ... elements) throws NullValidationFault {
         Validator.nonNull(elements, "The passed elements");
+        if (elements.length > size()) return false;
         for (final @Nullable var element : elements) if (!contains(element)) return false;
         return true;
     }
@@ -149,7 +153,7 @@ public interface ReadableCollection<T> extends Collection<T> {
     @Contract("? -> value")
     default boolean contains(final @NonNull ReadableCollection<T> elements) throws NullValidationFault {
         Validator.nonNull(elements, "The passed elements");
-        return elements == this || elements.all(this::contains);
+        return elements == this || elements.size() <= size() && elements.all(this::contains);
     }
 
     /**
