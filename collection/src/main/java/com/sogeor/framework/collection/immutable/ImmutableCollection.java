@@ -166,6 +166,17 @@ public interface ImmutableCollection<T> extends ReadableCollection<T> {
         @NonNull
         Iterator<T> end();
 
+        /**
+         * @return Если текущий элемент существует, то {@code true}, иначе {@code false}.
+         *
+         * @see #after()
+         * @see #before()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> $value")
+        boolean current();
+
     }
 
 }
