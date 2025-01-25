@@ -18,6 +18,7 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.annotation.Nullable;
 
 /**
  * Представляет собой коллекцию элементов.
@@ -61,6 +62,46 @@ public interface Collection<T> {
     default boolean empty() {
         return size() == 0;
     }
+
+    /**
+     * Если {@code size() == 0}, то возвращает {@code 1}, иначе вычисляет и возвращает хеш-код всех элементов.
+     *
+     * @return Хеш-код элементов.
+     *
+     * @implSpec При переопределении должен соблюдаться следующий алгоритм:
+     * <pre>
+     * {@code
+     * var result = 1;
+     * for (final @Nullable var element : elements) {
+     *     result = 31 * result + (element == null ? 0 : element.hashCode());
+     * }
+     * return result;
+     * }
+     * </pre>
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    int hashCode();
+
+    /**
+     * Если {@code !(object instanceof Collection<?> collection) || size() != collection.size()}, то возвращает
+     * {@code false}.
+     * <p>
+     * Если {@code empty() && collection.empty()}, то возвращает {@code true}.
+     * <p>
+     * Сравнивает все элементы этой коллекции с соответствующими им элементами из {@code collection}. Если все элементы
+     * равны соответствующим им элементам, то возвращает {@code true}, иначе — {@code false}.
+     *
+     * @param object объект.
+     *
+     * @return {@code true} или {@code false}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("? -> value")
+    boolean equals(final @Nullable Object object);
 
     /**
      * Представляет собой итератор элементов коллекции.
