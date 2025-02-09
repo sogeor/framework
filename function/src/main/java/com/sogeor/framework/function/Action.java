@@ -23,9 +23,9 @@ import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой действие (1).
+ * Представляет собой действие.
  *
- * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения [1].
+ * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения.
  *
  * @since 1.0.0-RC1
  */
@@ -33,11 +33,11 @@ import com.sogeor.framework.validation.Validator;
 public interface Action<F extends Throwable> {
 
     /**
-     * Создаёт действие (1) с пустым методом {@linkplain #perform()}.
+     * Создаёт действие с пустым методом {@linkplain #perform()}.
      *
-     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения [1].
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения нового действия.
      *
-     * @return [1].
+     * @return Новое действие.
      *
      * @since 1.0.0-RC1
      */
@@ -63,22 +63,22 @@ public interface Action<F extends Throwable> {
     }
 
     /**
-     * Выполняет {1}.
+     * Выполняет это действие.
      *
      * @throws ValidationFault неудачная валидация.
-     * @throws F неудачное выполнение {1}.
+     * @throws F неудачное выполнение.
      * @since 1.0.0-RC1
      */
     @Contract("-> ?")
     void perform() throws ValidationFault, F;
 
     /**
-     * Создаёт действие (1) с методом {@linkplain #perform()}, выполняющим сначала метод
+     * Создаёт действие с методом {@linkplain #perform()}, выполняющим сначала метод
      * {@linkplain #perform() this.perform()}, а потом метод {@linkplain #perform() action.perform()}.
      *
      * @param action действие.
      *
-     * @return [1].
+     * @return Новое действие.
      *
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -93,12 +93,12 @@ public interface Action<F extends Throwable> {
     }
 
     /**
-     * Создаёт действие (1) с методом {@linkplain #perform()}, пытающимся выполнить сначала метод
+     * Создаёт действие с методом {@linkplain #perform()}, пытающимся выполнить сначала метод
      * {@linkplain #perform() this.perform()}, а потом, если неудачно, метод {@linkplain #perform() action.perform()}.
      *
      * @param action действие.
      *
-     * @return [1].
+     * @return Новое действие.
      *
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
      * @since 1.0.0-RC1
