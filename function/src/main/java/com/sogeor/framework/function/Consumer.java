@@ -23,10 +23,10 @@ import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой потребитель объектов (1).
+ * Представляет собой потребитель объектов.
  *
- * @param <T> тип [1].
- * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении [1].
+ * @param <T> тип объектов.
+ * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов.
  *
  * @since 1.0.0-RC1
  */
@@ -34,12 +34,13 @@ import com.sogeor.framework.validation.Validator;
 public interface Consumer<T, F extends Throwable> {
 
     /**
-     * Создаёт потребитель (1) объектов (2) с пустым методом {@linkplain #consume(Object)}.
+     * Создаёт потребитель объектов с пустым методом {@linkplain #consume(Object)}.
      *
-     * @param <T> тип [2].
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении [2].
+     * @param <T> тип объектов, потребляемых новым потребителем.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов новым
+     * потребителем.
      *
-     * @return [1].
+     * @return Новый потребитель.
      *
      * @since 1.0.0-RC1
      */
@@ -49,15 +50,16 @@ public interface Consumer<T, F extends Throwable> {
     }
 
     /**
-     * Возвращает [1].
+     * Возвращает {@code consumer}.
      *
-     * @param consumer потребитель (1) объектов (2).
-     * @param <T> тип [2].
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении [2].
+     * @param consumer потребитель объектов.
+     * @param <T> тип объектов, потребляемых {@code consumer}.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов
+     * {@code consumer}.
      *
-     * @return [1].
+     * @return {@code consumer}.
      *
-     * @apiNote Предназначен для удобного создания [1] на основе лямбда-выражений.
+     * @apiNote Предназначен для удобного создания {@code consumer} на основе лямбда-выражений.
      * @since 1.0.0-RC1
      */
     @Contract("? -> 1")
@@ -66,27 +68,27 @@ public interface Consumer<T, F extends Throwable> {
     }
 
     /**
-     * Потребляет [1].
+     * Потребляет {@code object}.
      *
-     * @param object объект (1).
+     * @param object объект.
      *
-     * @throws ValidationFault неудачная валидация, предположительно, [1].
-     * @throws F неудачное потребление [1].
+     * @throws ValidationFault неудачная валидация, предположительно, {@code object}.
+     * @throws F неудачное потребление {@code object}.
      * @since 1.0.0-RC1
      */
     @Contract("? -> ?")
     void consume(final @Nullable T object) throws ValidationFault, F;
 
     /**
-     * Создаёт потребитель (2) объектов с методом {@linkplain #consume(Object)}, выполняющим сначала метод
+     * Создаёт потребитель объектов с методом {@linkplain #consume(Object)}, выполняющим сначала метод
      * {@linkplain #consume(Object) this.consume(Object)}, а потом метод
      * {@linkplain #consume(Object) consumer.consume(Object)}.
      *
-     * @param consumer потребитель (1) объектов.
+     * @param consumer потребитель объектов.
      *
-     * @return [2].
+     * @return Новый потребитель объектов.
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws ValidationFault неудачная валидация {@code consumer}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -100,15 +102,15 @@ public interface Consumer<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт потребитель (2) объектов с методом {@linkplain #consume(Object)}, пытающимся выполнить сначала метод
+     * Создаёт потребитель объектов с методом {@linkplain #consume(Object)}, пытающимся выполнить сначала метод
      * {@linkplain #consume(Object) this.consume(Object)}, а потом, если неудачно, метод
      * {@linkplain #consume(Object) consumer.consume(Object)}.
      *
-     * @param consumer потребитель (1) объектов.
+     * @param consumer потребитель объектов.
      *
-     * @return [2].
+     * @return Новый потребитель объектов.
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws ValidationFault неудачная валидация {@code consumer}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
