@@ -23,10 +23,10 @@ import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой предикат (1) объектов (2).
+ * Представляет собой предикат объектов.
  *
- * @param <T> тип [2].
- * @param <F> тип программного сбоя или неисправности, возникающей при неудачной оценке [2].
+ * @param <T> тип объектов.
+ * @param <F> тип программного сбоя или неисправности, возникающей при неудачной оценке объектов.
  *
  * @since 1.0.0-RC1
  */
@@ -34,13 +34,13 @@ import com.sogeor.framework.validation.Validator;
 public interface Predicate<T, F extends Throwable> {
 
     /**
-     * Создаёт предикат (2) объектов (3) с методом {@linkplain #evaluate(Object)}, возвращающим [1].
+     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, возвращающим {@code value}.
      *
-     * @param value оценка (1).
-     * @param <T> тип [3].
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной оценке [3].
+     * @param value оценка объекта.
+     * @param <T> тип объектов, оцениваемых новым предикатом.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной оценке объектов новым предикатом.
      *
-     * @return [2].
+     * @return Новый предикат объектов.
      *
      * @since 1.0.0-RC1
      */
@@ -50,15 +50,15 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Возвращает [1].
+     * Возвращает {@code predicate}.
      *
-     * @param predicate предикат (1) объектов (2).
-     * @param <T> тип [2].
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной оценке [2].
+     * @param predicate предикат объектов.
+     * @param <T> тип объектов.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной оценке объектов.
      *
-     * @return [1].
+     * @return {@code predicate}.
      *
-     * @apiNote Предназначен для удобного создания [1] на основе лямбда-выражений.
+     * @apiNote Предназначен для удобного создания {@code predicate} на основе лямбда-выражений.
      * @since 1.0.0-RC1
      */
     @Contract("? -> 1")
@@ -67,24 +67,24 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Оценивает [1] и возвращает его оценку (2).
+     * Оценивает {@code object} и возвращает его оценку.
      *
-     * @param object объект (1).
+     * @param object объект.
      *
-     * @return [2].
+     * @return Оценка {@code object}.
      *
-     * @throws ValidationFault неудачная валидация, предположительно, [1].
-     * @throws F неудачная обработка [1].
+     * @throws ValidationFault неудачная валидация, предположительно, {@code object}.
+     * @throws F неудачная обработка {@code object}.
      * @since 1.0.0-RC1
      */
     @Contract("? -> ?")
     boolean evaluate(final @Nullable T object) throws ValidationFault, F;
 
     /**
-     * Создаёт предикат (1) объектов с методом {@linkplain #evaluate(Object)}, получающим от метода
+     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от метода
      * {@linkplain #evaluate(Object) this.evaluate(Object)} оценку и возвращающим её инверсию.
      *
-     * @return [1].
+     * @return Новый предикат объектов.
      *
      * @since 1.0.0-RC1
      */
@@ -94,15 +94,15 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат (2) объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
+     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
      * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
      * оценки и возвращающим их конъюнкцию.
      *
-     * @param predicate предикат (1) объектов.
+     * @param predicate предикат объектов.
      *
-     * @return [2].
+     * @return Новый предикат объектов.
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws ValidationFault неудачная валидация {@code predicate}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -113,15 +113,15 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат (2) объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
+     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
      * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
      * оценки и возвращающим их штрих Шеффера.
      *
-     * @param predicate предикат (1) объектов.
+     * @param predicate предикат объектов.
      *
-     * @return [2].
+     * @return Новый предикат объектов.
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws ValidationFault неудачная валидация {@code predicate}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -132,15 +132,15 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат (2) объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
+     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
      * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
      * оценки и возвращающим их мягкую дизъюнкцию.
      *
-     * @param predicate предикат (1) объектов.
+     * @param predicate предикат объектов.
      *
-     * @return [2].
+     * @return Новый предикат объектов.
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws ValidationFault неудачная валидация {@code predicate}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -151,15 +151,15 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат (2) объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
+     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
      * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
      * оценки и возвращающим их стрелку Пирса.
      *
-     * @param predicate предикат (1) объектов.
+     * @param predicate предикат объектов.
      *
-     * @return [2].
+     * @return Новый предикат объектов.
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws ValidationFault неудачная валидация {@code predicate}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -170,15 +170,15 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат (2) объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
+     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
      * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
      * оценки и возвращающим их эквивалентность.
      *
-     * @param predicate предикат (1) объектов.
+     * @param predicate предикат объектов.
      *
-     * @return [2].
+     * @return Новый предикат объектов.
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws ValidationFault неудачная валидация {@code predicate}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -189,15 +189,15 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат (2) объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
+     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
      * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
      * оценки и возвращающим их строгую дизъюнкцию.
      *
-     * @param predicate предикат (1) объектов.
+     * @param predicate предикат объектов.
      *
-     * @return [2].
+     * @return Новый предикат объектов.
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws ValidationFault неудачная валидация {@code predicate}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -208,15 +208,15 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат (2) объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
+     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
      * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
      * оценки и возвращающим их импликацию.
      *
-     * @param predicate предикат (1) объектов.
+     * @param predicate предикат объектов.
      *
-     * @return [2].
+     * @return Новый предикат объектов.
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws ValidationFault неудачная валидация {@code predicate}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
