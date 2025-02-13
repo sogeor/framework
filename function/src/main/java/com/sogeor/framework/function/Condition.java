@@ -23,9 +23,9 @@ import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой условие (1).
+ * Представляет собой условие.
  *
- * @param <F> тип программного сбоя или неисправности, возникающей при неудачном вычислении [1].
+ * @param <F> тип программного сбоя или неисправности, возникающей при неудачном вычислении.
  *
  * @since 1.0.0-RC1
  */
@@ -33,12 +33,12 @@ import com.sogeor.framework.validation.Validator;
 public interface Condition<F extends Throwable> {
 
     /**
-     * Создаёт условие (1) с методом {@linkplain #compute()}, возвращающим {@code value}.
+     * Создаёт условие с методом {@linkplain #compute()}, возвращающим {@code value}.
      *
      * @param value результат вычисления.
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном вычислении [1].
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном вычислении нового условия.
      *
-     * @return [1].
+     * @return Новое условие.
      *
      * @since 1.0.0-RC1
      */
@@ -64,22 +64,22 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Вычисляет {1} и возвращает результат (2) его вычисления.
+     * Вычисляет это условие и возвращает результат его вычисления.
      *
-     * @return [2].
+     * @return Результат вычисления этого условия.
      *
      * @throws ValidationFault неудачная валидация.
-     * @throws F неудачное вычисление {1}.
+     * @throws F неудачное вычисление этого условия.
      * @since 1.0.0-RC1
      */
     @Contract("-> ?")
     boolean compute() throws ValidationFault, F;
 
     /**
-     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от метода
-     * {@linkplain #compute() this.compute()} результат (2) вычисления и возвращающим инверсию [2].
+     * Создаёт условие с методом {@linkplain #compute()}, получающим от метода {@linkplain #compute() this.compute()}
+     * результат вычисления и возвращающим его инверсию.
      *
-     * @return [1].
+     * @return Новое условие.
      *
      * @since 1.0.0-RC1
      */
@@ -89,13 +89,12 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
-     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
-     * возвращающим конъюнкцию (2).
+     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
+     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их конъюнкцию.
      *
      * @param condition условие.
      *
-     * @return [1].
+     * @return Новое условие.
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -107,13 +106,12 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
-     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
-     * возвращающим штрих Шеффера [2].
+     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
+     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их штрих Шеффера.
      *
      * @param condition условие.
      *
-     * @return [1].
+     * @return Новое условие.
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -125,13 +123,12 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
-     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
-     * возвращающим мягкую дизъюнкцию [2].
+     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
+     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их мягкую дизъюнкцию.
      *
      * @param condition условие.
      *
-     * @return [1].
+     * @return Новое условие.
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -143,13 +140,12 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
-     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
-     * возвращающим стрелку Пирса [2].
+     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
+     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их стрелку Пирса.
      *
      * @param condition условие.
      *
-     * @return [1].
+     * @return Новое условие.
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -161,13 +157,12 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
-     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
-     * возвращающим эквивалентность [2].
+     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
+     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их эквивалентность.
      *
      * @param condition условие.
      *
-     * @return [1].
+     * @return Новое условие.
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -179,13 +174,12 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
-     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
-     * возвращающим строгую дизъюнкцию [2].
+     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
+     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их строгую дизъюнкцию.
      *
      * @param condition условие.
      *
-     * @return [1].
+     * @return Новое условие.
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
@@ -197,13 +191,12 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие (1) с методом {@linkplain #compute()}, получающим от методов
-     * {@linkplain #compute() this.compute()} и {@linkplain #compute() condition.compute()} результаты (2) вычислений и
-     * возвращающим импликацию [2].
+     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
+     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их импликацию.
      *
      * @param condition условие.
      *
-     * @return [1].
+     * @return Новое условие.
      *
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
