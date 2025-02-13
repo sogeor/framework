@@ -23,11 +23,11 @@ import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой обработчик (1) объектов (2).
+ * Представляет собой обработчик объектов.
  *
- * @param <T> тип [2].
- * @param <R> тип объектов (3), возвращаемых (1).
- * @param <F> тип программного сбоя или неисправности, возникающей при неудачной обработке [2] или возврате [3].
+ * @param <T> тип обрабатываемых объектов.
+ * @param <R> тип возвращаемых объектов.
+ * @param <F> тип программного сбоя или неисправности, возникающей при неудачной обработке или возврате объектов.
  *
  * @since 1.0.0-RC1
  */
@@ -35,14 +35,15 @@ import com.sogeor.framework.validation.Validator;
 public interface Handler<T, R, F extends Throwable> {
 
     /**
-     * Создаёт обработчик (2) объектов (3) с методом {@linkplain #handle(Object)}, возвращающим [1].
+     * Создаёт обработчик объектов с методом {@linkplain #handle(Object)}, возвращающим {@code object}.
      *
-     * @param object объект (1).
-     * @param <T> тип [3].
-     * @param <R> тип объектов (4), возвращаемых [2].
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной обработке [3] или возврате [4].
+     * @param object объект.
+     * @param <T> тип объектов, обрабатываемых новым обработчиком.
+     * @param <R> тип объектов, возвращаемых новым обработчиком.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной обработке или возврате объектов
+     * новым обработчиком.
      *
-     * @return [2].
+     * @return Новый обработчик объектов.
      *
      * @since 1.0.0-RC1
      */
@@ -52,16 +53,17 @@ public interface Handler<T, R, F extends Throwable> {
     }
 
     /**
-     * Возвращает [1].
+     * Возвращает {@code handler}.
      *
-     * @param handler обработчик (1) объектов (2).
-     * @param <T> тип [2].
-     * @param <R> тип объектов (3), возвращаемых [1].
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной обработке [2] или возврате [3].
+     * @param handler обработчик объектов.
+     * @param <T> тип объектов, обрабатываемых {@code handler}.
+     * @param <R> тип объектов, возвращаемых {@code handler}.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной обработке или возврате объектов
+     * {@code handler}.
      *
-     * @return [1].
+     * @return {@code handler}.
      *
-     * @apiNote Предназначен для удобного создания [1] на основе лямбда-выражений.
+     * @apiNote Предназначен для удобного создания {@code handler} на основе лямбда-выражений.
      * @since 1.0.0-RC1
      */
     @Contract("? -> 1")
@@ -70,14 +72,14 @@ public interface Handler<T, R, F extends Throwable> {
     }
 
     /**
-     * Обрабатывает [1] и возвращает, предположительно, другой объект (2).
+     * Обрабатывает {@code object} и возвращает, предположительно, другой объект.
      *
-     * @param object объект (1).
+     * @param object объект.
      *
-     * @return [2].
+     * @return Возвращаемый объект.
      *
-     * @throws ValidationFault неудачная валидация, предположительно, [1] и/или [2].
-     * @throws F неудачная обработка [1] или возврат [2].
+     * @throws ValidationFault неудачная валидация, предположительно, {@code object} и/или возвращаемый объект.
+     * @throws F неудачная обработка {@code object} или возврат объекта.
      * @since 1.0.0-RC1
      */
     @Contract("? -> ?")
@@ -85,16 +87,16 @@ public interface Handler<T, R, F extends Throwable> {
     R handle(final @Nullable T object) throws ValidationFault, F;
 
     /**
-     * Создаёт обработчик (2) объектов с методом {@linkplain #handle(Object)}, выполняющим сначала метод
+     * Создаёт обработчик объектов с методом {@linkplain #handle(Object)}, выполняющим сначала метод
      * {@linkplain #handle(Object) this.handle(Object)}, а потом получающим от метода
      * {@linkplain #handle(Object) handler.handle(Object)} объект и возвращающим его.
      *
-     * @param handler обработчик (1) объектов.
-     * @param <R2> тип объектов, возвращаемых [1].
+     * @param handler обработчик объектов.
+     * @param <R2> тип объектов, возвращаемых {@code handler}.
      *
-     * @return [2].
+     * @return Новый обработчик объектов.
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws ValidationFault неудачная валидация {@code handler}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -105,15 +107,15 @@ public interface Handler<T, R, F extends Throwable> {
     }
 
     /**
-     * Создаёт обработчик (2) объектов с методом {@linkplain #handle(Object)}, пытающимся получить сначала от метода
+     * Создаёт обработчик объектов с методом {@linkplain #handle(Object)}, пытающимся получить сначала от метода
      * {@linkplain #handle(Object) this.handle(Object)}, а потом, если неудачно, от метода
      * {@linkplain #handle(Object) handler.handle(Object)} объект и вернуть его.
      *
-     * @param handler обработчик (1) объектов.
+     * @param handler обработчик объектов.
      *
-     * @return [2].
+     * @return Новый обработчик объектов.
      *
-     * @throws ValidationFault неудачная валидация [1].
+     * @throws ValidationFault неудачная валидация {@code handler}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
