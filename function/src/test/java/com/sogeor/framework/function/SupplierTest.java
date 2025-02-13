@@ -44,22 +44,22 @@ final class SupplierTest {
     }
 
     @Test
-    void methodOrPassed() {
+    void methodPassed() {
         final @NonNull var object = new Object();
         final @NonNull var supplier = Supplier.of(() -> {
             throw new RuntimeException();
-        }).orPassed(object);
+        }).passed(object);
         assertNotNull(supplier);
 
         assertEquals(object, supplier.get());
     }
 
     @Test
-    void methodOrSupplied() {
+    void methodSupplied() {
         final @NonNull var object = new Object();
         final @NonNull var supplier = Supplier.of(() -> {
             throw new RuntimeException();
-        }).orSupplied(Supplier.direct(object));
+        }).supplied(Supplier.direct(object));
         assertNotNull(supplier);
 
         assertEquals(object, supplier.get());
