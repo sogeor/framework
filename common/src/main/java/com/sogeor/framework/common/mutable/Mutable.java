@@ -25,9 +25,9 @@ import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой изменяемую обёртку над {@linkplain #object объектом} (1).
+ * Представляет собой изменяемую обёртку над объектом.
  *
- * @param <T> тип [1].
+ * @param <T> тип объекта.
  *
  * @since 1.0.0-RC1
  */
@@ -48,7 +48,7 @@ public final class Mutable<T> {
      */
     @Contract("-> new")
     private Mutable() {
-        this.object = null;
+        this(null);
     }
 
     /**
@@ -65,27 +65,27 @@ public final class Mutable<T> {
     }
 
     /**
-     * Создаёт и возвращает {@linkplain #Mutable() экземпляр (1) на основе } {@code null} (2).
+     * Создаёт и возвращает изменяемую обёртку над {@code null}.
      *
-     * @param <T> тип [2].
+     * @param <T> тип {@code null}.
      *
-     * @return [1].
+     * @return Новую изменяемую обёртку над {@code null}.
      *
      * @see #of(Object)
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
     public static <T> @NonNull Mutable<T> empty() {
-        return new Mutable<>(null);
+        return new Mutable<>();
     }
 
     /**
-     * Создаёт и возвращает {@linkplain #Mutable(Object) экземпляр (2) на основе} {@code object}.
+     * Создаёт и возвращает изменяемую обёртку над {@code object}.
      *
-     * @param object объект (1).
-     * @param <T> тип [1].
+     * @param object объект.
+     * @param <T> тип {@code object}.
      *
-     * @return [2].
+     * @return Новую изменяемую обёртку над {@code object}.
      *
      * @see #empty()
      * @since 1.0.0-RC1
@@ -111,7 +111,7 @@ public final class Mutable<T> {
     }
 
     /**
-     * @return {@linkplain #object Объект}.
+     * @return {@code this.object}.
      *
      * @since 1.0.0-RC1
      */
