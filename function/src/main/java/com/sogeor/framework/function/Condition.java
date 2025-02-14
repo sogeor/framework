@@ -96,11 +96,12 @@ public interface Condition<F extends Throwable> {
      *
      * @return Новое условие.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull Condition<F> and(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
+    default @NonNull Condition<F> and(final @NonNull Condition<? extends F> condition) throws ValidationFault {
         Validator.nonNull(condition, "The passed condition");
         return () -> compute() && condition.compute();
     }
@@ -113,11 +114,12 @@ public interface Condition<F extends Throwable> {
      *
      * @return Новое условие.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull Condition<F> nand(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
+    default @NonNull Condition<F> nand(final @NonNull Condition<? extends F> condition) throws ValidationFault {
         Validator.nonNull(condition, "The passed condition");
         return () -> !(compute() && condition.compute());
     }
@@ -130,11 +132,12 @@ public interface Condition<F extends Throwable> {
      *
      * @return Новое условие.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("this -> this; !null -> new; null -> fault")
-    default @NonNull Condition<F> or(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
+    default @NonNull Condition<F> or(final @NonNull Condition<? extends F> condition) throws ValidationFault {
         Validator.nonNull(condition, "The passed condition");
         return () -> compute() || condition.compute();
     }
@@ -147,11 +150,12 @@ public interface Condition<F extends Throwable> {
      *
      * @return Новое условие.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull Condition<F> nor(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
+    default @NonNull Condition<F> nor(final @NonNull Condition<? extends F> condition) throws ValidationFault {
         Validator.nonNull(condition, "The passed condition");
         return () -> !(compute() || condition.compute());
     }
@@ -164,11 +168,12 @@ public interface Condition<F extends Throwable> {
      *
      * @return Новое условие.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull Condition<F> xnor(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
+    default @NonNull Condition<F> xnor(final @NonNull Condition<? extends F> condition) throws ValidationFault {
         Validator.nonNull(condition, "The passed condition");
         return () -> compute() == condition.compute();
     }
@@ -181,11 +186,12 @@ public interface Condition<F extends Throwable> {
      *
      * @return Новое условие.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull Condition<F> xor(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
+    default @NonNull Condition<F> xor(final @NonNull Condition<? extends F> condition) throws ValidationFault {
         Validator.nonNull(condition, "The passed condition");
         return () -> compute() ^ condition.compute();
     }
@@ -198,11 +204,12 @@ public interface Condition<F extends Throwable> {
      *
      * @return Новое условие.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull Condition<F> imply(final @NonNull Condition<? extends F> condition) throws NullValidationFault {
+    default @NonNull Condition<F> imply(final @NonNull Condition<? extends F> condition) throws ValidationFault {
         Validator.nonNull(condition, "The passed condition");
         return () -> !compute() || condition.compute();
     }
