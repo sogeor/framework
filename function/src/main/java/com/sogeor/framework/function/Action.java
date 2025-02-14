@@ -80,11 +80,12 @@ public interface Action<F extends Throwable> {
      *
      * @return Новое действие.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull Action<F> and(final @NonNull Action<? extends F> action) throws NullValidationFault {
+    default @NonNull Action<F> and(final @NonNull Action<? extends F> action) throws ValidationFault {
         Validator.nonNull(action, "The passed action");
         return () -> {
             perform();
@@ -100,11 +101,12 @@ public interface Action<F extends Throwable> {
      *
      * @return Новое действие.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull Action<F> or(final @NonNull Action<?> action) throws NullValidationFault {
+    default @NonNull Action<F> or(final @NonNull Action<?> action) throws ValidationFault {
         Validator.nonNull(action, "The passed action");
         return () -> {
             try {
