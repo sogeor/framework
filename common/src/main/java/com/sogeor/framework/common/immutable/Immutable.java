@@ -127,7 +127,7 @@ public final class Immutable<T> {
     /**
      * @return Если {@code get() == null}, то {@code true}, иначе {@code false}.
      *
-     * @see #object
+     * @see #get()
      * @see #present()
      * @since 1.0.0-RC1
      */
@@ -139,7 +139,7 @@ public final class Immutable<T> {
     /**
      * @return Если {@code get() != null}, то {@code true}, иначе {@code false}.
      *
-     * @see #object
+     * @see #get()
      * @see #absent()
      * @since 1.0.0-RC1
      */
@@ -220,7 +220,7 @@ public final class Immutable<T> {
     }
 
     /**
-     * Если {@code present()}, то выполняет метод {@code consumer.consume(this.object)}.
+     * Если {@code present()}, то выполняет метод {@code consumer.consume(get())}.
      *
      * @param consumer потребитель объектов.
      * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов
@@ -230,7 +230,7 @@ public final class Immutable<T> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
-     * @see #object
+     * @see #get()
      * @see Consumer#consume(Object)
      * @see #present()
      * @see #present(Action)
@@ -241,7 +241,7 @@ public final class Immutable<T> {
                                                                                                                ValidationFault,
                                                                                                                F {
         Validator.nonNull(consumer, "The passed consumer");
-        if (present()) consumer.consume(object);
+        if (present()) consumer.consume(get());
         return this;
     }
 
