@@ -19,6 +19,7 @@ package com.sogeor.framework.function;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
+import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
@@ -78,7 +79,7 @@ public interface Handler<T, R, F extends Throwable> {
      *
      * @return Возвращаемый объект.
      *
-     * @throws ValidationFault неудачная валидация, предположительно, {@code object} и/или возвращаемый объект.
+     * @throws ValidationFault неудачная валидация, предположительно, {@code object} и/или возвращаемого объекта.
      * @throws F неудачная обработка {@code object} или возврат объекта.
      * @since 1.0.0-RC1
      */
@@ -96,7 +97,8 @@ public interface Handler<T, R, F extends Throwable> {
      *
      * @return Новый обработчик объектов.
      *
-     * @throws ValidationFault неудачная валидация {@code handler}.
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code handler} не должен быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -115,7 +117,8 @@ public interface Handler<T, R, F extends Throwable> {
      *
      * @return Новый обработчик объектов.
      *
-     * @throws ValidationFault неудачная валидация {@code handler}.
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code handler} не должен быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
