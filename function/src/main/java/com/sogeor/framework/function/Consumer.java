@@ -19,6 +19,7 @@ package com.sogeor.framework.function;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
+import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
@@ -88,7 +89,8 @@ public interface Consumer<T, F extends Throwable> {
      *
      * @return Новый потребитель объектов.
      *
-     * @throws ValidationFault неудачная валидация {@code consumer}.
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -110,7 +112,8 @@ public interface Consumer<T, F extends Throwable> {
      *
      * @return Новый потребитель объектов.
      *
-     * @throws ValidationFault неудачная валидация {@code consumer}.
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
