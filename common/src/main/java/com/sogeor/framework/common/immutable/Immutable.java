@@ -22,13 +22,14 @@ import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.function.Action;
 import com.sogeor.framework.function.Consumer;
 import com.sogeor.framework.throwable.fault.singleton.SingletonCreationFault;
+import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой неизменяемую обёртку над {@linkplain #object объектом} (1).
+ * Представляет собой неизменяемую обёртку над объектом.
  *
- * @param <T> тип [1].
+ * @param <T> тип объекта.
  *
  * @since 1.0.0-RC1
  */
@@ -37,9 +38,10 @@ public final class Immutable<T> {
     /**
      * Содержит неизменяемую обёртку над {@code null}.
      *
+     * @see #Immutable()
      * @since 1.0.0-RC1
      */
-    private static final @NonNull Immutable<?> EMPTY = new Immutable<>();
+    private static final @Nullable Immutable<?> EMPTY = new Immutable<>();
 
     /**
      * Содержит объект.
@@ -49,16 +51,19 @@ public final class Immutable<T> {
     private final @Nullable T object;
 
     /**
-     * Создаёт экземпляр на основе {@code null}.
+     * Если {@code EMPTY == null}, то создаёт экземпляр на основе {@code null}, иначе генерирует
+     * {@linkplain SingletonCreationFault проверяемый программный сбой} с
+     * {@linkplain SingletonCreationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе имени этого класса.
      *
-     * @throws ValidationFault [1] не должен быть {@code null}.
+     * @throws SingletonCreationFault второй экземпляр этого класса не должен быть создан.
+     * @see #EMPTY
      * @see #Immutable(Object)
      * @since 1.0.0-RC1
      */
-    @SuppressWarnings("DataFlowIssue")
     @Contract("-> ?")
     private Immutable() throws SingletonCreationFault {
-        Validator.isNull(EMPTY, "EMPTY");
+        if (EMPTY != null)
+            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("the Immutable class"));
         this.object = null;
     }
 
@@ -73,44 +78,45 @@ public final class Immutable<T> {
      */
     @Contract("$!null -> new; null -> fault")
     private Immutable(final @NonNull T object) throws ValidationFault {
-        this.object = Validator.nonNull(object, "object");
+        this.object = Validator.nonNull(object, "The passed object");
     }
 
     /**
-     * @param <T> тип [1].
+     * @param <T> тип {@code null}.
      *
-     * @return {@linkplain #EMPTY Неизменяемая обёртка над} {@code null} (1).
+     * @return Неизменяемую обёртку над {@code null}.
      *
+     * @see #EMPTY
      * @see #of(Object)
      * @since 1.0.0-RC1
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "DataFlowIssue"})
     @Contract("-> $!null")
     public static <T> @NonNull Immutable<T> empty() {
         return (Immutable<T>) EMPTY;
     }
 
     /**
-     * Если {@code object == null}, то возвращает приведённую к [2] {@linkplain #EMPTY неизменяемую обёртку (3) над}
-     * {@code null}, иначе создаёт и возвращает {@linkplain #Immutable(Object) экземпляр (4) на основе} {@code object}.
+     * Если {@code object == null}, то получает с помощью {@code empty()} неизменяемую обёртку над {@code null} и
+     * возвращает её, иначе создаёт и возвращает неизменяемую обёртку над {@code object}.
      *
-     * @param object объект (1).
-     * @param <T> тип (2) {@code object}.
+     * @param object объект.
+     * @param <T> тип {@code object}.
      *
-     * @return [3] или [4].
+     * @return Неизменяемую обёртку над {@code null} или новую неизменяемую обёртку над {@code object}.
      *
      * @see #empty()
      * @since 1.0.0-RC1
      */
-    @SuppressWarnings("unchecked")
     @Contract("null -> $!null; $!null -> new")
     public static <T> @NonNull Immutable<T> of(final @Nullable T object) {
-        return object == null ? (Immutable<T>) EMPTY : new Immutable<>(object);
+        return object == null ? empty() : new Immutable<>(object);
     }
 
     /**
-     * @return {@linkplain #object Объект}.
+     * @return {@code this.object}.
      *
+     * @see #object
      * @since 1.0.0-RC1
      */
     @Contract("-> $?")
@@ -119,103 +125,122 @@ public final class Immutable<T> {
     }
 
     /**
-     * @return Если {@linkplain #object объект} отсутствует, то {@code true}, иначе {@code false}.
+     * @return Если {@code get() == null}, то {@code true}, иначе {@code false}.
      *
+     * @see #object
      * @see #present()
      * @since 1.0.0-RC1
      */
     @Contract("-> $?")
     public boolean absent() {
-        return object == null;
+        return get() == null;
     }
 
     /**
-     * @return Если {@linkplain #object объект} присутствует, то {@code true}, иначе {@code false}.
+     * @return Если {@code get() != null}, то {@code true}, иначе {@code false}.
      *
+     * @see #object
      * @see #absent()
      * @since 1.0.0-RC1
      */
     @Contract("-> $?")
     public boolean present() {
-        return object != null;
+        return get() != null;
     }
 
     /**
-     * Если {@linkplain #absent()}, то выполняет [1].
+     * Если {@code absent()}, то выполняет {@code action}.
      *
-     * @param action действие (1).
-     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения [1].
+     * @param action действие.
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения {@code action}.
      *
      * @return {@code this}.
      *
-     * @throws ValidationFault [1] не должно быть {@code null}.
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code action} не должно быть {@code null}.
+     * @see Action#perform()
+     * @see #absent()
+     * @see #absent(Consumer)
      * @since 1.0.0-RC1
      */
     @Contract("$!null -> this; null -> fault")
     public <F extends Throwable> @NonNull Immutable<T> absent(final @NonNull Action<F> action) throws ValidationFault,
                                                                                                       F {
-        Validator.nonNull(action, "action");
+        Validator.nonNull(action, "The passed action");
         if (absent()) action.perform();
         return this;
     }
 
     /**
-     * Если {@linkplain #absent()}, то выполняет метод {@linkplain Consumer#consume(Object) consumer.consume(Object)} с
-     * {@code null}.
+     * Если {@code absent()}, то выполняет метод {@code consumer.consume(null)}.
      *
-     * @param consumer потребитель (1) объектов (2).
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении [2].
+     * @param consumer потребитель объектов.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов
+     * {@code consumer}.
      *
      * @return {@code this}.
      *
-     * @throws ValidationFault [1] не должно быть {@code null}.
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
+     * @see Consumer#consume(Object)
+     * @see #absent()
+     * @see #absent(Action)
      * @since 1.0.0-RC1
      */
     @Contract("$!null -> this; null -> fault")
     public <F extends Throwable> @NonNull Immutable<T> absent(final @NonNull Consumer<? super T, F> consumer) throws
                                                                                                               ValidationFault,
                                                                                                               F {
-        Validator.nonNull(consumer, "consumer");
+        Validator.nonNull(consumer, "The passed consumer");
         if (absent()) consumer.consume(null);
         return this;
     }
 
     /**
-     * Если {@linkplain #present()}, то выполняет [1].
+     * Если {@code present()}, то выполняет {@code action}.
      *
-     * @param action действие (1).
-     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения [1].
+     * @param action действие.
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения {@code action}.
      *
      * @return {@code this}.
      *
-     * @throws ValidationFault [1] не должно быть {@code null}.
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code action} не должно быть {@code null}.
+     * @see Action#perform()
+     * @see #present()
+     * @see #present(Consumer)
      * @since 1.0.0-RC1
      */
     @Contract("$!null -> this; null -> fault")
     public <F extends Throwable> @NonNull Immutable<T> present(final @NonNull Action<F> action) throws ValidationFault,
                                                                                                        F {
-        Validator.nonNull(action, "action");
+        Validator.nonNull(action, "The passed action");
         if (present()) action.perform();
         return this;
     }
 
     /**
-     * Если {@linkplain #present()}, то выполняет метод {@linkplain Consumer#consume(Object) consumer.consume(Object)} с
-     * {@linkplain #object объектом}.
+     * Если {@code present()}, то выполняет метод {@code consumer.consume(this.object)}.
      *
-     * @param consumer потребитель (1) объектов (2).
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении [2].
+     * @param consumer потребитель объектов.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов
+     * {@code consumer}.
      *
      * @return {@code this}.
      *
-     * @throws ValidationFault [1] не должно быть {@code null}.
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
+     * @see #object
+     * @see Consumer#consume(Object)
+     * @see #present()
+     * @see #present(Action)
      * @since 1.0.0-RC1
      */
     @Contract("$!null -> this; null -> fault")
     public <F extends Throwable> @NonNull Immutable<T> present(final @NonNull Consumer<? super T, F> consumer) throws
                                                                                                                ValidationFault,
                                                                                                                F {
-        Validator.nonNull(consumer, "consumer");
+        Validator.nonNull(consumer, "The passed consumer");
         if (present()) consumer.consume(object);
         return this;
     }
