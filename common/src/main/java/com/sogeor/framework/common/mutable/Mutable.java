@@ -21,8 +21,14 @@ import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.function.Action;
 import com.sogeor.framework.function.Consumer;
+import com.sogeor.framework.function.Handler;
+import com.sogeor.framework.function.Supplier;
+import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
+
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Представляет собой изменяемую обёртку над объектом.
@@ -34,11 +40,18 @@ import com.sogeor.framework.validation.Validator;
 public final class Mutable<T> {
 
     /**
+     * Содержит пару блокировок для чтения и записи.
+     *
+     * @since 1.0.0-RC1
+     */
+    private final @NonNull ReadWriteLock lock = new ReentrantReadWriteLock();
+
+    /**
      * Содержит объект.
      *
      * @since 1.0.0-RC1
      */
-    private volatile @Nullable T object;
+    private @Nullable T object;
 
     /**
      * Создаёт экземпляр на основе {@code null}.
@@ -96,128 +109,251 @@ public final class Mutable<T> {
     }
 
     /**
-     * Задаёт {@linkplain #object объект} равным [1].
-     *
-     * @param object объект (1).
-     *
-     * @return {@code this}.
-     *
-     * @since 1.0.0-RC1
-     */
-    @Contract("$? -> this")
-    public @NonNull Mutable<T> set(final @Nullable T object) {
-        this.object = object;
-        return this;
-    }
-
-    /**
      * @return {@code this.object}.
      *
      * @since 1.0.0-RC1
      */
     @Contract("-> ?")
     public @Nullable T get() {
+        final @NonNull var lock = this.lock.readLock();
+        lock.lock();
+        final @Nullable var object = this.object;
+        lock.unlock();
         return object;
     }
 
     /**
-     * @return Если {@linkplain #object объект} отсутствует, то {@code true}, иначе {@code false}.
+     * Задаёт {@code this.object} равным {@code object}.
      *
+     * @param object объект.
+     *
+     * @return {@code this}.
+     *
+     * @see #set(Handler)
+     * @see #set(Supplier)
+     * @since 1.0.0-RC1
+     */
+    @Contract("$? -> this")
+    public @NonNull Mutable<T> set(final @Nullable T object) {
+        final @NonNull var lock = this.lock.writeLock();
+        lock.lock();
+        this.object = object;
+        lock.unlock();
+        return this;
+    }
+
+    /**
+     * Задаёт {@code this.object} равным {@code handler.handle(get())}.
+     *
+     * @param handler обработчик объектов.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной обработке или возврате объектов
+     * {@code supplier}.
+     *
+     * @return {@code this}.
+     *
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code handler} не должен быть {@code null}.
+     * @see Handler#handle(Object)
+     * @see #set(Object)
+     * @see #set(Supplier)
+     * @since 1.0.0-RC1
+     */
+    @Contract("$!null -> this; null -> fault")
+    public <F extends Throwable> @NonNull Mutable<T> set(
+            final @NonNull Handler<? super T, ? extends T, F> handler) throws ValidationFault, F {
+        Validator.nonNull(handler, "The passed handler");
+        final @NonNull var lock = this.lock.writeLock();
+        lock.lock();
+        try {
+            object = handler.handle(get());
+        } finally {
+            lock.unlock();
+        }
+        return this;
+    }
+
+    /**
+     * Задаёт {@code this.object} равным {@code supplier.get()}.
+     *
+     * @param supplier поставщик объектов.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке объектов
+     * {@code supplier}.
+     *
+     * @return {@code this}.
+     *
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code supplier} не должен быть {@code null}.
+     * @see Supplier#get()
+     * @see #set(Object)
+     * @since 1.0.0-RC1
+     */
+    @Contract("$!null -> this; null -> fault")
+    public <F extends Throwable> @NonNull Mutable<T> set(final @NonNull Supplier<? extends T, F> supplier) throws
+                                                                                                           ValidationFault,
+                                                                                                           F {
+        Validator.nonNull(supplier, "The passed supplier");
+        final @NonNull var lock = this.lock.writeLock();
+        lock.lock();
+        try {
+            object = supplier.get();
+        } finally {
+            lock.unlock();
+        }
+        return this;
+    }
+
+    /**
+     * @return Если {@code get() == null}, то {@code true}, иначе {@code false}.
+     *
+     * @see #get()
      * @see #present()
      * @since 1.0.0-RC1
      */
     @Contract("-> ?")
     public boolean absent() {
-        return object == null;
+        final @NonNull var lock = this.lock.readLock();
+        lock.lock();
+        final @Nullable var result = get() == null;
+        lock.unlock();
+        return result;
     }
 
     /**
-     * @return Если {@linkplain #object объект} присутствует, то {@code true}, иначе {@code false}.
+     * @return Если {@code get() != null}, то {@code true}, иначе {@code false}.
      *
+     * @see #get()
      * @see #absent()
      * @since 1.0.0-RC1
      */
     @Contract("-> ?")
     public boolean present() {
-        return object != null;
+        final @NonNull var lock = this.lock.readLock();
+        lock.lock();
+        final @Nullable var result = get() != null;
+        lock.unlock();
+        return result;
     }
 
     /**
-     * Если {@linkplain #absent()}, то выполняет [1].
+     * Если {@code absent()}, то выполняет {@code action}.
      *
-     * @param action действие (1).
-     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения [1].
+     * @param action действие.
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения {@code action}.
      *
      * @return {@code this}.
      *
-     * @throws ValidationFault [1] не должно быть {@code null}.
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code action} не должно быть {@code null}.
+     * @see Action#perform()
+     * @see #absent()
+     * @see #absent(Consumer)
      * @since 1.0.0-RC1
      */
     @Contract("$!null -> this; null -> fault")
     public <F extends Throwable> @NonNull Mutable<T> absent(final @NonNull Action<F> action) throws ValidationFault, F {
-        Validator.nonNull(action, "action");
-        if (absent()) action.perform();
+        Validator.nonNull(action, "The passed action");
+        final @NonNull var lock = this.lock.readLock();
+        lock.lock();
+        if (absent()) try {
+            action.perform();
+        } finally {
+            lock.unlock();
+        }
+        else lock.unlock();
         return this;
     }
 
     /**
-     * Если {@linkplain #absent()}, то выполняет метод {@linkplain Consumer#consume(Object) consumer.consume(Object)} с
-     * {@code null}.
+     * Если {@code absent()}, то выполняет метод {@code consumer.consume(null)}.
      *
-     * @param consumer потребитель (1) объектов.
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении [2].
+     * @param consumer потребитель объектов.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов
+     * {@code consumer}.
      *
      * @return {@code this}.
      *
-     * @throws ValidationFault [1] не должно быть {@code null}.
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
+     * @see Consumer#consume(Object)
+     * @see #absent()
+     * @see #absent(Action)
      * @since 1.0.0-RC1
      */
     @Contract("$!null -> this; null -> fault")
     public <F extends Throwable> @NonNull Mutable<T> absent(final @NonNull Consumer<? super T, F> consumer) throws
                                                                                                             ValidationFault,
                                                                                                             F {
-        Validator.nonNull(consumer, "consumer");
-        if (absent()) consumer.consume(null);
+        Validator.nonNull(consumer, "The passed consumer");
+        final @NonNull var lock = this.lock.readLock();
+        lock.lock();
+        if (absent()) try {
+            consumer.consume(null);
+        } finally {
+            lock.unlock();
+        }
+        else lock.unlock();
         return this;
     }
 
     /**
-     * Если {@linkplain #present()}, то выполняет [1].
+     * Если {@code present()}, то выполняет {@code action}.
      *
-     * @param action действие (1).
-     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения [1].
+     * @param action действие.
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения {@code action}.
      *
      * @return {@code this}.
      *
-     * @throws ValidationFault [1] не должно быть {@code null}.
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code action} не должно быть {@code null}.
+     * @see Action#perform()
+     * @see #present()
+     * @see #present(Consumer)
      * @since 1.0.0-RC1
      */
     @Contract("$!null -> this; null -> fault")
     public <F extends Throwable> @NonNull Mutable<T> present(final @NonNull Action<F> action) throws ValidationFault,
                                                                                                      F {
-        Validator.nonNull(action, "action");
-        if (present()) action.perform();
+        Validator.nonNull(action, "The passed action");
+        final @NonNull var lock = this.lock.readLock();
+        lock.lock();
+        if (present()) try {
+            action.perform();
+        } finally {
+            lock.unlock();
+        }
         return this;
     }
 
     /**
-     * Если {@linkplain #present()}, то выполняет метод {@linkplain Consumer#consume(Object) consumer.consume(Object)} с
-     * {@linkplain #object объектом}.
+     * Если {@code present()}, то выполняет метод {@code consumer.consume(get())}.
      *
-     * @param consumer потребитель (1) объектов.
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении [2].
+     * @param consumer потребитель объектов.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов
+     * {@code consumer}.
      *
      * @return {@code this}.
      *
-     * @throws ValidationFault [1] не должно быть {@code null}.
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
+     * @see #get()
+     * @see Consumer#consume(Object)
+     * @see #present()
+     * @see #present(Action)
      * @since 1.0.0-RC1
      */
     @Contract("$!null -> this; null -> fault")
     public <F extends Throwable> @NonNull Mutable<T> present(final @NonNull Consumer<? super T, F> consumer) throws
                                                                                                              ValidationFault,
                                                                                                              F {
-        Validator.nonNull(consumer, "consumer");
-        if (present()) consumer.consume(object);
+        Validator.nonNull(consumer, "The passed consumer");
+        final @NonNull var lock = this.lock.readLock();
+        lock.lock();
+        if (present()) try {
+            consumer.consume(get());
+        } finally {
+            lock.unlock();
+        }
+        else lock.unlock();
         return this;
     }
 
