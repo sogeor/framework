@@ -279,6 +279,7 @@ public final class Immutable<T> {
      * @since 1.0.0-RC1
      */
     @Override
+    @Contract("-> value")
     public String toString() {
         return getClass().getSimpleName() + "@" + Integer.toHexString(hashCode()) + "{object=" + object + '}';
     }
