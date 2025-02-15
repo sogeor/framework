@@ -26,6 +26,8 @@ import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
+import java.util.Objects;
+
 /**
  * Представляет собой неизменяемую обёртку над объектом.
  *
@@ -243,6 +245,42 @@ public final class Immutable<T> {
         Validator.nonNull(consumer, "The passed consumer");
         if (present()) consumer.consume(get());
         return this;
+    }
+
+    /**
+     * @return {@code Objects.hashCode(get())}.
+     *
+     * @see #get()
+     * @see Objects#hashCode(Object)
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    public int hashCode() {
+        return Objects.hashCode(get());
+    }
+
+    /**
+     * @return Если {@code this} равно {@code object}, то {@code true}, иначе {@code false}.
+     *
+     * @see #get()
+     * @see Objects#equals(Object, Object)
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    public boolean equals(final @Nullable Object object) {
+        return object instanceof final @NonNull Immutable<?> that && Objects.equals(get(), that.get());
+    }
+
+    /**
+     * @return Строковое представление {@code this}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "@" + Integer.toHexString(hashCode()) + "{object=" + object + '}';
     }
 
 }
