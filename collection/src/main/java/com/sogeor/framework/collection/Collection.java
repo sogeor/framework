@@ -31,7 +31,7 @@ import com.sogeor.framework.annotation.Nullable;
 public interface Collection<T> {
 
     /**
-     * @return Итератор элементов.
+     * @return Итератор элементов этой коллекции.
      *
      * @since 1.0.0-RC1
      */
@@ -40,8 +40,10 @@ public interface Collection<T> {
     Iterator<T> iterator();
 
     /**
-     * @return Размер коллекции.
+     * @return Размер этой коллекции — количество её элементов.
      *
+     * @implNote Стандартная реализация с оценкой временной сложности {@code Θ(n)} неэффективна и должна быть
+     * переопределена.
      * @since 1.0.0-RC1
      */
     @Contract("-> value")
@@ -54,7 +56,7 @@ public interface Collection<T> {
     }
 
     /**
-     * @return Если элементы не существуют, то {@code true}, иначе {@code false}.
+     * @return Если {@code size() == 0}, то {@code true}, иначе {@code false}.
      *
      * @since 1.0.0-RC1
      */
@@ -64,17 +66,18 @@ public interface Collection<T> {
     }
 
     /**
-     * Если {@code size() == 0}, то возвращает {@code 1}, иначе вычисляет и возвращает хеш-код всех элементов.
+     * Если {@code size() == 0}, то возвращает {@code 1}, иначе вычисляет хеш-код этой коллекции на основе её элементов
+     * и возвращает его.
      *
-     * @return Хеш-код элементов.
+     * @return Хеш-код этой коллекции.
      *
      * @implSpec При переопределении должен соблюдаться следующий алгоритм:
      * <pre>
      * {@code
+     * final @NonNull var it = iterator();
      * var result = 1;
-     * for (final @Nullable var element : elements) {
-     *     result = 31 * result + (element == null ? 0 : element.hashCode());
-     * }
+     * if (it.canNext()) for (it.start(); it.after(); it.next()) result = 31 * result + Objects.hashCode(it.current());
+     * else for (it.end(); it.before(); it.previous()) result = 31 * result + Objects.hashCode(it.current());
      * return result;
      * }
      * </pre>
