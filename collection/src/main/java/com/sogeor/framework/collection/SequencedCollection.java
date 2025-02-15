@@ -30,7 +30,7 @@ import com.sogeor.framework.annotation.NonNull;
 public interface SequencedCollection<T> extends Collection<T> {
 
     /**
-     * @return Итератор элементов этой коллекции.
+     * @return Итератор элементов этой упорядоченной коллекции.
      *
      * @since 1.0.0-RC1
      */
