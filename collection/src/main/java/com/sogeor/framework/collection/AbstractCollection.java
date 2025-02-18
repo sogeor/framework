@@ -18,6 +18,7 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.annotation.Nullable;
 
 /**
  * Представляет собой абстрактную коллекцию элементов.
@@ -37,31 +38,26 @@ public abstract class AbstractCollection<T> implements Collection<T> {
     protected AbstractCollection() {}
 
     /**
+     * {@inheritDoc}
+     *
+     * @return Строковое представление этой коллекции.
+     *
+     * @implNote Стандартная реализация представляет эту коллекцию и все её элементы в виде строки, указывая количество
+     * элементов этой коллекции, а не строковое представление каждого из них, так как доступа к самим элементам нет.
+     * @see #size()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    public String toString() {
+        return getClass().getSimpleName() + '@' + Integer.toHexString(hashCode()) + '{' + size() + '}';
+    }
+
+    /**
      * Представляет собой абстрактный итератор элементов коллекции.
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see AbstractCollection
      * @since 1.0.0-RC1
      */
@@ -79,7 +75,6 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #end()
          * @since 1.0.0-RC1
          */
         @Override
@@ -91,7 +86,6 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #next()
          * @since 1.0.0-RC1
          */
         @Override
@@ -103,7 +97,6 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #previous()
          * @since 1.0.0-RC1
          */
         @Override
@@ -115,12 +108,31 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #start()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
         public abstract @NonNull AbstractIterator<T> end();
+
+        /**
+         * @param object объект.
+         *
+         * @return Если {@code this} равно {@code object}, то {@code true}, иначе {@code false}.
+         *
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("$? -> $value")
+        public abstract boolean equals(final @Nullable Object object);
+
+        /**
+         * @return Строковое представление этого итератора.
+         *
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> value")
+        public abstract String toString();
 
     }
 
