@@ -117,6 +117,7 @@ public interface Collection<T> {
      */
     @Override
     @Contract("-> value")
+    @NonNull
     String toString();
 
     /**
@@ -322,6 +323,7 @@ public interface Collection<T> {
          */
         @Override
         @Contract("-> value")
+        @NonNull
         String toString();
 
     }
