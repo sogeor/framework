@@ -54,7 +54,8 @@ public interface SequencedCollection<T> extends Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
+         * @see #canStart()
          * @since 1.0.0-RC1
          */
         @Override
@@ -67,7 +68,8 @@ public interface SequencedCollection<T> extends Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #before()
+         * @see #canPrevious()
          * @since 1.0.0-RC1
          */
         @Override
@@ -80,7 +82,8 @@ public interface SequencedCollection<T> extends Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #after()
+         * @see #canNext()
          * @since 1.0.0-RC1
          */
         @Override
@@ -94,6 +97,7 @@ public interface SequencedCollection<T> extends Collection<T> {
          * @return {@code this}.
          *
          * @see #last()
+         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Override
