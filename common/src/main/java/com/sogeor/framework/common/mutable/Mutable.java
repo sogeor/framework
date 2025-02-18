@@ -372,6 +372,8 @@ public final class Mutable<T> {
     }
 
     /**
+     * @param object объект.
+     *
      * @return Если {@code this} равно {@code object}, то {@code true}, иначе {@code false}.
      *
      * @see #get()
@@ -392,7 +394,7 @@ public final class Mutable<T> {
     @Override
     @Contract("-> value")
     public String toString() {
-        return getClass().getSimpleName() + "@" + Integer.toHexString(hashCode()) + "{object=" + object + '}';
+        return getClass().getSimpleName() + '@' + Integer.toHexString(hashCode()) + "{object=" + object + '}';
     }
 
 }
