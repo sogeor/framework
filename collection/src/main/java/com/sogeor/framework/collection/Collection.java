@@ -151,13 +151,14 @@ public interface Collection<T> {
     interface Iterator<T> {
 
         /**
-         * Если {@linkplain #canStart() итератор не способен переходить к первому элементу}, то ничего не делает.
+         * Если {@code !canStart()}, то ничего не делает.
          * <p>
-         * Если {@linkplain #first() текущий элемент не первый}, то переходит к первому элементу, если он существует.
+         * Если {@code !first()}, то переходит к первому элементу, если он существует.
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
+         * @see #canStart()
          * @since 1.0.0-RC1
          */
         @Contract("-> this")
@@ -165,14 +166,14 @@ public interface Collection<T> {
         Iterator<T> start();
 
         /**
-         * Если {@linkplain #canPrevious() итератор не способен переходить к элементу, расположенному перед текущим}, то
-         * ничего не делает.
+         * Если {@code !canPrevious()}, то ничего не делает.
          * <p>
-         * Если {@linkplain #before() перед текущим элементом существует другой}, то переходит к нему.
+         * Если {@code before()}, то переходит к элементу перед текущим.
          *
          * @return {@code this}.
          *
-         * @see #next()
+         * @see #before()
+         * @see #canPrevious()
          * @since 1.0.0-RC1
          */
         @Contract("-> this")
@@ -180,14 +181,14 @@ public interface Collection<T> {
         Iterator<T> previous();
 
         /**
-         * Если {@linkplain #canNext() итератор не способен переходить к элементу, расположенному после текущего}, то
-         * ничего не делает.
+         * Если {@code !canNext()}, то ничего не делает.
          * <p>
-         * Если {@linkplain #after() после текущего элемента существует другой}, то переходит к нему.
+         * Если {@code after()}, то переходит к элементу после текущего.
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #after()
+         * @see #canNext()
          * @since 1.0.0-RC1
          */
         @Contract("-> this")
@@ -195,14 +196,14 @@ public interface Collection<T> {
         Iterator<T> next();
 
         /**
-         * Если {@linkplain #canEnd() итератор не способен переходить к последнему элементу}, то ничего не делает.
+         * Если {@code !canEnd()}, то ничего не делает.
          * <p>
-         * Если {@linkplain #last() текущий элемент не последний}, то переходит к последнему элементу, если он
-         * существует.
+         * Если {@code !last()}, то переходит к последнему элементу, если он существует.
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #last()
+         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Contract("-> this")
@@ -212,7 +213,6 @@ public interface Collection<T> {
         /**
          * @return Если текущий элемент первый, то {@code true}, иначе {@code false}.
          *
-         * @see #last()
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -221,8 +221,6 @@ public interface Collection<T> {
         /**
          * @return Если перед текущим элементом существует другой, то {@code true}, иначе {@code false}.
          *
-         * @see #after()
-         * @see #current()
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -231,8 +229,6 @@ public interface Collection<T> {
         /**
          * @return Если после текущего элемента существует другой, то {@code true}, иначе {@code false}.
          *
-         * @see #before()
-         * @see #current()
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -241,7 +237,6 @@ public interface Collection<T> {
         /**
          * @return Если текущий элемент последний, то {@code true}, иначе {@code false}.
          *
-         * @see #first()
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -250,70 +245,84 @@ public interface Collection<T> {
         /**
          * @return Если текущий элемент существует, то {@code true}, иначе {@code false}.
          *
-         * @see #after()
-         * @see #before()
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
         boolean current();
 
         /**
-         * @return Если итератор способен переходить к первому элементу, то {@code true}, иначе {@code false}.
+         * @return Если этот итератор способен переходить к первому элементу, то {@code true}, иначе {@code false}.
          *
-         * @implSpec Если
-         * {@linkplain #canNext() итератор способен переходить к элементу, расположенному после текущего}, то возвращает
-         * {@code true}.
-         * @see #canPrevious()
+         * @implSpec Если {@code canNext()}, то возвращает {@code true}.
          * @see #canNext()
-         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Contract("-> $value")
         boolean canStart();
 
         /**
-         * @return Если итератор способен переходить к элементу, расположенному перед текущим, то {@code true}, иначе
-         * {@code false}.
+         * @return Если этот итератор способен переходить к элементу, расположенному перед текущим, то {@code true},
+         * иначе {@code false}.
          *
-         * @implSpec Если
-         * {@linkplain #canNext() итератор не способен переходить к элементу, расположенному после текущего}, то
-         * возвращает {@code true}.
-         * @see #canStart()
+         * @implSpec Если {@code !canNext()}, то возвращает {@code true}.
          * @see #canNext()
-         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Contract("-> $value")
         boolean canPrevious();
 
         /**
-         * @return Если итератор способен переходить к элементу, расположенному после текущего, то {@code true}, иначе
-         * {@code false}.
+         * @return Если этот итератор способен переходить к элементу, расположенному после текущего, то {@code true},
+         * иначе {@code false}.
          *
-         * @implSpec Если
-         * {@linkplain #canPrevious() итератор не способен переходить к элементу, расположенному перед текущим}, то
-         * возвращает {@code true}.
-         * @see #canStart()
+         * @implSpec Если {@code !canPrevious()}, то возвращает {@code true}.
          * @see #canPrevious()
-         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Contract("-> $value")
         boolean canNext();
 
         /**
-         * @return Если итератор способен переходить к последнему элементу, то {@code true}, иначе {@code false}.
+         * @return Если этот итератор способен переходить к последнему элементу, то {@code true}, иначе {@code false}.
          *
-         * @implSpec Если
-         * {@linkplain #canPrevious() итератор способен переходить к элементу, расположенному перед текущим}, то
-         * возвращает {@code true}.
-         * @see #canStart()
+         * @implSpec Если {@code canPrevious()}, то возвращает {@code true}.
          * @see #canPrevious()
-         * @see #canNext()
          * @since 1.0.0-RC1
          */
         @Contract("-> $value")
         boolean canEnd();
+
+        /**
+         * @return Хеш-код этого итератора.
+         *
+         * @see Object#hashCode()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> $value")
+        int hashCode();
+
+        /**
+         * @param object объект.
+         *
+         * @return Если {@code this} равно {@code object}, то {@code true}, иначе {@code false}.
+         *
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("$? -> $value")
+        boolean equals(final @Nullable Object object);
+
+        /**
+         * @return Строковое представление этого итератора.
+         *
+         * @implSpec Строковое представление этого итератора должно включать в себя строковое представление коллекции
+         * его элементов.
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> value")
+        String toString();
 
     }
 
