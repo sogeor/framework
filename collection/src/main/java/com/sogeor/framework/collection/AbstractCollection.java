@@ -38,6 +38,15 @@ public abstract class AbstractCollection<T> implements Collection<T> {
     protected AbstractCollection() {}
 
     /**
+     * @return Абстрактный итератор элементов этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractIterator<T> iterator();
+
+    /**
      * {@inheritDoc}
      *
      * @return Строковое представление этой коллекции.
@@ -49,7 +58,7 @@ public abstract class AbstractCollection<T> implements Collection<T> {
      */
     @Override
     @Contract("-> value")
-    public String toString() {
+    public @NonNull String toString() {
         return getClass().getSimpleName() + '@' + Integer.toHexString(hashCode()) + '{' + size() + '}';
     }
 
@@ -75,6 +84,8 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          *
          * @return {@code this}.
          *
+         * @see #first()
+         * @see #canStart()
          * @since 1.0.0-RC1
          */
         @Override
@@ -86,6 +97,8 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          *
          * @return {@code this}.
          *
+         * @see #before()
+         * @see #canPrevious()
          * @since 1.0.0-RC1
          */
         @Override
@@ -97,6 +110,8 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          *
          * @return {@code this}.
          *
+         * @see #after()
+         * @see #canNext()
          * @since 1.0.0-RC1
          */
         @Override
@@ -108,6 +123,8 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          *
          * @return {@code this}.
          *
+         * @see #last()
+         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Override
@@ -128,11 +145,13 @@ public abstract class AbstractCollection<T> implements Collection<T> {
         /**
          * @return Строковое представление этого итератора.
          *
+         * @implSpec Строковое представление этого итератора должно включать в себя строковое представление коллекции
+         * его элементов.
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> value")
-        public abstract String toString();
+        public abstract @NonNull String toString();
 
     }
 
