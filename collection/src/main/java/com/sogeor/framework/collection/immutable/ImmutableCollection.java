@@ -21,6 +21,7 @@ import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.readable.ReadableCollection;
 import com.sogeor.framework.function.Consumer;
 import com.sogeor.framework.validation.NullValidationFault;
+import com.sogeor.framework.validation.ValidationFault;
 
 /**
  * Представляет собой неизменяемую коллекцию элементов.
@@ -33,12 +34,13 @@ import com.sogeor.framework.validation.NullValidationFault;
 public interface ImmutableCollection<T> extends ReadableCollection<T> {
 
     /**
-     * Перебирает все элементы и потребляет каждый из них с помощью {@code consumer}.
+     * {@inheritDoc}
      *
      * @param consumer потребитель элементов.
      *
      * @return {@code this}.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
      * @since 1.0.0-RC1
@@ -46,13 +48,13 @@ public interface ImmutableCollection<T> extends ReadableCollection<T> {
     @Override
     @Contract("!null -> this; null -> fault")
     default <F extends Throwable> @NonNull ImmutableCollection<T> iterate(
-            final @NonNull Consumer<? super T, F> consumer) throws NullValidationFault, F {
+            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
         ReadableCollection.super.iterate(consumer);
         return this;
     }
 
     /**
-     * @return Итератор элементов.
+     * @return Итератор элементов этой неизменяемой коллекции.
      *
      * @since 1.0.0-RC1
      */
@@ -62,8 +64,10 @@ public interface ImmutableCollection<T> extends ReadableCollection<T> {
     Iterator<T> iterator();
 
     /**
-     * @return Размер коллекции.
+     * @return Размер этой коллекции — количество её элементов.
      *
+     * @implNote Стандартная реализация с оценкой временной сложности {@code Θ(n)} неэффективна и должна быть
+     * переопределена.
      * @since 1.0.0-RC1
      */
     @Override
@@ -73,7 +77,7 @@ public interface ImmutableCollection<T> extends ReadableCollection<T> {
     }
 
     /**
-     * @return Если элементы не существуют, то {@code true}, иначе {@code false}.
+     * @return Если {@code size() == 0}, то {@code true}, иначе {@code false}.
      *
      * @since 1.0.0-RC1
      */
@@ -88,27 +92,6 @@ public interface ImmutableCollection<T> extends ReadableCollection<T> {
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see ImmutableCollection
      * @since 1.0.0-RC1
      */
@@ -132,7 +115,7 @@ public interface ImmutableCollection<T> extends ReadableCollection<T> {
          *
          * @return {@code this}.
          *
-         * @see #next()
+         * @see #previous()
          * @since 1.0.0-RC1
          */
         @Override
@@ -145,7 +128,7 @@ public interface ImmutableCollection<T> extends ReadableCollection<T> {
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #start()
          * @since 1.0.0-RC1
          */
         @Override
@@ -158,7 +141,7 @@ public interface ImmutableCollection<T> extends ReadableCollection<T> {
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #last()
          * @since 1.0.0-RC1
          */
         @Override
@@ -169,8 +152,6 @@ public interface ImmutableCollection<T> extends ReadableCollection<T> {
         /**
          * @return Если текущий элемент существует, то {@code true}, иначе {@code false}.
          *
-         * @see #after()
-         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
