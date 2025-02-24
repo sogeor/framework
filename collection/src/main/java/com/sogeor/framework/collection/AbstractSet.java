@@ -27,7 +27,7 @@ import com.sogeor.framework.annotation.NonNull;
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractSet<T> extends AbstractCollection<T> implements Set<T> {
+public abstract class AbstractSet<T> extends AbstractUnsequencedCollection<T> implements Set<T> {
 
     /**
      * Создаёт экземпляр.
@@ -37,35 +37,23 @@ public abstract class AbstractSet<T> extends AbstractCollection<T> implements Se
     protected AbstractSet() {}
 
     /**
-     * Представляет собой абстрактный итератор элементов множества.
+     * @return Абстрактный итератор элементов этого абстрактного множества.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractIterator<T> iterator();
+
+    /**
+     * Представляет собой абстрактный итератор элементов абстрактного множества.
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see AbstractSet
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractCollection.AbstractIterator<T> implements Set.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractUnsequencedCollection.AbstractIterator<T> implements Set.Iterator<T> {
 
         /**
          * Создаёт экземпляр.
