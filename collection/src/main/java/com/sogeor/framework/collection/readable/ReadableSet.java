@@ -21,6 +21,7 @@ import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.Set;
 import com.sogeor.framework.function.Consumer;
 import com.sogeor.framework.validation.NullValidationFault;
+import com.sogeor.framework.validation.ValidationFault;
 
 /**
  * Представляет собой читаемое множество элементов.
@@ -30,15 +31,16 @@ import com.sogeor.framework.validation.NullValidationFault;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface ReadableSet<T> extends Set<T>, ReadableCollection<T> {
+public interface ReadableSet<T> extends Set<T>, ReadableUnsequencedCollection<T> {
 
     /**
-     * Перебирает все элементы и потребляет каждый из них с помощью {@code consumer}.
+     * Потребляет каждый из элементов с помощью {@code consumer}.
      *
      * @param consumer потребитель элементов.
      *
      * @return {@code this}.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
      * @since 1.0.0-RC1
@@ -46,14 +48,14 @@ public interface ReadableSet<T> extends Set<T>, ReadableCollection<T> {
     @Override
     @Contract("!null -> this; null -> fault")
     default <F extends Throwable> @NonNull ReadableSet<T> iterate(final @NonNull Consumer<? super T, F> consumer) throws
-                                                                                                                  NullValidationFault,
+                                                                                                                  ValidationFault,
                                                                                                                   F {
-        ReadableCollection.super.iterate(consumer);
+        ReadableUnsequencedCollection.super.iterate(consumer);
         return this;
     }
 
     /**
-     * @return Итератор элементов.
+     * @return Итератор элементов этого читаемого множества.
      *
      * @since 1.0.0-RC1
      */
@@ -67,38 +69,18 @@ public interface ReadableSet<T> extends Set<T>, ReadableCollection<T> {
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see ReadableSet
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends Set.Iterator<T>, ReadableCollection.Iterator<T> {
+    interface Iterator<T> extends Set.Iterator<T>, ReadableUnsequencedCollection.Iterator<T> {
 
         /**
          * {@inheritDoc}
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
+         * @see #canStart()
          * @since 1.0.0-RC1
          */
         @Override
@@ -111,7 +93,8 @@ public interface ReadableSet<T> extends Set<T>, ReadableCollection<T> {
          *
          * @return {@code this}.
          *
-         * @see #next()
+         * @see #before()
+         * @see #canPrevious()
          * @since 1.0.0-RC1
          */
         @Override
@@ -124,7 +107,8 @@ public interface ReadableSet<T> extends Set<T>, ReadableCollection<T> {
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #after()
+         * @see #canNext()
          * @since 1.0.0-RC1
          */
         @Override
@@ -137,7 +121,8 @@ public interface ReadableSet<T> extends Set<T>, ReadableCollection<T> {
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #last()
+         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Override
