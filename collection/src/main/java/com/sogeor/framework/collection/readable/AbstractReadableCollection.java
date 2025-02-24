@@ -21,6 +21,7 @@ import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.AbstractCollection;
 import com.sogeor.framework.function.Consumer;
 import com.sogeor.framework.validation.NullValidationFault;
+import com.sogeor.framework.validation.ValidationFault;
 
 /**
  * Представляет собой абстрактную читаемую коллекцию элементов.
@@ -46,6 +47,7 @@ public abstract class AbstractReadableCollection<T> extends AbstractCollection<T
      *
      * @return {@code this}.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
      * @since 1.0.0-RC1
@@ -53,7 +55,7 @@ public abstract class AbstractReadableCollection<T> extends AbstractCollection<T
     @Override
     @Contract("!null -> this; null -> fault")
     public <F extends Throwable> @NonNull AbstractReadableCollection<T> iterate(
-            final @NonNull Consumer<? super T, F> consumer) throws NullValidationFault, F {
+            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
         ReadableCollection.super.iterate(consumer);
         return this;
     }
