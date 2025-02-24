@@ -23,6 +23,7 @@ import com.sogeor.framework.collection.Collection;
 import com.sogeor.framework.function.Consumer;
 import com.sogeor.framework.function.Predicate;
 import com.sogeor.framework.validation.NullValidationFault;
+import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 import java.util.Objects;
@@ -38,19 +39,20 @@ import java.util.Objects;
 public interface ReadableCollection<T> extends Collection<T> {
 
     /**
-     * Перебирает все элементы и потребляет каждый из них с помощью {@code consumer}.
+     * Потребляет каждый из элементов с помощью {@code consumer}.
      *
      * @param consumer потребитель элементов.
      *
      * @return {@code this}.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> this; null -> fault")
     default <F extends Throwable> @NonNull ReadableCollection<T> iterate(
-            final @NonNull Consumer<? super T, F> consumer) throws NullValidationFault, F {
+            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
         Validator.nonNull(consumer, "The passed consumer");
         if (empty()) return this;
         final @NonNull var it = iterator();
@@ -60,20 +62,21 @@ public interface ReadableCollection<T> extends Collection<T> {
     }
 
     /**
-     * Перебирает все элементы и оценивает каждый из них с помощью {@code predicate}. Если оценки всех элементов равны
-     * {@code true}, то возвращает {@code true}, иначе — {@code false}.
+     * Оценивает каждый из элементов с помощью {@code predicate}. Если оценки всех элементов равны {@code true}, то
+     * возвращает {@code true}, иначе — {@code false}.
      *
      * @param predicate предикат элементов.
      *
      * @return {@code true} или {@code false}.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
      * @throws F неудачное оценивание элемента с помощью {@code predicate}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> value; null -> fault")
-    default <F extends Throwable> boolean all(final @NonNull Predicate<? super T, F> predicate) throws
-                                                                                                NullValidationFault, F {
+    default <F extends Throwable> boolean all(final @NonNull Predicate<? super T, F> predicate) throws ValidationFault,
+                                                                                                       F {
         Validator.nonNull(predicate, "The passed predicate");
         if (empty()) return true;
         final @NonNull var it = iterator();
@@ -84,20 +87,21 @@ public interface ReadableCollection<T> extends Collection<T> {
     }
 
     /**
-     * Перебирает все элементы и оценивает каждый из них с помощью {@code predicate}. Если оценка хотя бы одного
-     * элемента равна {@code true}, то возвращает {@code true}, иначе — {@code false}.
+     * Оценивает каждый из элементов с помощью {@code predicate}. Если оценка хотя бы одного элемента равна
+     * {@code true}, то возвращает {@code true}, иначе — {@code false}.
      *
      * @param predicate предикат элементов.
      *
      * @return {@code true} или {@code false}.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
      * @throws F неудачное оценивание элемента с помощью {@code predicate}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> value; null -> fault")
-    default <F extends Throwable> boolean any(final @NonNull Predicate<? super T, F> predicate) throws
-                                                                                                NullValidationFault, F {
+    default <F extends Throwable> boolean any(final @NonNull Predicate<? super T, F> predicate) throws ValidationFault,
+                                                                                                       F {
         Validator.nonNull(predicate, "The passed predicate");
         if (empty()) return false;
         final @NonNull var it = iterator();
@@ -122,18 +126,20 @@ public interface ReadableCollection<T> extends Collection<T> {
     }
 
     /**
-     * Если все {@code elements} являются элементами этой коллекции, то возвращает {@code true}, иначе — {@code false}.
+     * Если каждый из {@code elements} является элементом этой коллекции, то возвращает {@code true}, иначе —
+     * {@code false}.
      *
      * @param elements элементы.
      *
      * @return {@code true} или {@code false}.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code elements} не должны быть {@code null}.
      * @since 1.0.0-RC1
      */
     @SuppressWarnings("unchecked")
     @Contract("? -> value")
-    default boolean contains(final @Nullable T @NonNull ... elements) throws NullValidationFault {
+    default boolean contains(final @Nullable T @NonNull ... elements) throws ValidationFault {
         Validator.nonNull(elements, "The passed elements");
         if (elements.length > size()) return false;
         for (final @Nullable var element : elements) if (!contains(element)) return false;
@@ -141,23 +147,25 @@ public interface ReadableCollection<T> extends Collection<T> {
     }
 
     /**
-     * Если все {@code elements} являются элементами этой коллекции, то возвращает {@code true}, иначе — {@code false}.
+     * Если каждый из {@code elements} является элементом этой коллекции, то возвращает {@code true}, иначе —
+     * {@code false}.
      *
      * @param elements элементы.
      *
      * @return {@code true} или {@code false}.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code elements} не должны быть {@code null}.
      * @since 1.0.0-RC1
      */
     @Contract("? -> value")
-    default boolean contains(final @NonNull ReadableCollection<T> elements) throws NullValidationFault {
+    default boolean contains(final @NonNull ReadableCollection<T> elements) throws ValidationFault {
         Validator.nonNull(elements, "The passed elements");
         return elements == this || elements.size() <= size() && elements.all(this::contains);
     }
 
     /**
-     * @return Итератор элементов.
+     * @return Итератор элементов этой читаемой коллекции.
      *
      * @since 1.0.0-RC1
      */
@@ -171,27 +179,6 @@ public interface ReadableCollection<T> extends Collection<T> {
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see ReadableCollection
      * @since 1.0.0-RC1
      */
@@ -215,7 +202,7 @@ public interface ReadableCollection<T> extends Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #next()
+         * @see #previous()
          * @since 1.0.0-RC1
          */
         @Override
@@ -228,7 +215,7 @@ public interface ReadableCollection<T> extends Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #start()
          * @since 1.0.0-RC1
          */
         @Override
@@ -241,7 +228,7 @@ public interface ReadableCollection<T> extends Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #last()
          * @since 1.0.0-RC1
          */
         @Override
@@ -250,10 +237,11 @@ public interface ReadableCollection<T> extends Collection<T> {
         Iterator<T> end();
 
         /**
-         * Если {@linkplain #current() текущий элемент существует}, то возвращает его, иначе — {@code null}.
+         * Если {@code current()}, то возвращает текущий элемент, иначе — {@code null}.
          *
          * @return Текущий элемент или {@code null}.
          *
+         * @see #current()
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
