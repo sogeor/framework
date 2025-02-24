@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2025 Sogeor
  *
@@ -22,13 +21,14 @@ import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.readable.AbstractReadableSet;
 import com.sogeor.framework.function.Consumer;
 import com.sogeor.framework.validation.NullValidationFault;
+import com.sogeor.framework.validation.ValidationFault;
 
 /**
- * Представляет собой абстрактную неизменяемое множество элементов.
+ * Представляет собой абстрактное неизменяемое множество элементов.
  *
  * @param <T> тип элементов.
  *
- * @see AbstractReadableSet.AbstractIterator
+ * @see AbstractIterator
  * @since 1.0.0-RC1
  */
 public abstract class AbstractImmutableSet<T> extends AbstractReadableSet<T> implements ImmutableSet<T> {
@@ -47,6 +47,7 @@ public abstract class AbstractImmutableSet<T> extends AbstractReadableSet<T> imp
      *
      * @return {@code this}.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
      * @since 1.0.0-RC1
@@ -54,37 +55,25 @@ public abstract class AbstractImmutableSet<T> extends AbstractReadableSet<T> imp
     @Override
     @Contract("!null -> this; null -> fault")
     public <F extends Throwable> @NonNull AbstractImmutableSet<T> iterate(
-            final @NonNull Consumer<? super T, F> consumer) throws NullValidationFault, F {
-        super.iterate(consumer);
+            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
+        ImmutableSet.super.iterate(consumer);
         return this;
     }
+
+    /**
+     * @return Новый абстрактный итератор элементов этого абстрактного неизменяемого множества.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
      * Представляет собой абстрактный итератор элементов неизменяемого множества.
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see AbstractImmutableSet
      * @since 1.0.0-RC1
      */
