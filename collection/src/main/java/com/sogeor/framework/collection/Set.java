@@ -27,10 +27,10 @@ import com.sogeor.framework.annotation.NonNull;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface Set<T> extends Collection<T> {
+public interface Set<T> extends UnsequencedCollection<T> {
 
     /**
-     * @return Итератор элементов.
+     * @return Итератор элементов этого множества.
      *
      * @since 1.0.0-RC1
      */
@@ -44,31 +44,10 @@ public interface Set<T> extends Collection<T> {
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see Set
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends Collection.Iterator<T> {
+    interface Iterator<T> extends UnsequencedCollection.Iterator<T> {
 
         /**
          * {@inheritDoc}
