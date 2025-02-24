@@ -145,8 +145,6 @@ public abstract class AbstractCollection<T> implements Collection<T> {
         /**
          * @return Строковое представление этого итератора.
          *
-         * @implSpec Строковое представление этого итератора должно включать в себя строковое представление коллекции
-         * его элементов.
          * @since 1.0.0-RC1
          */
         @Override
