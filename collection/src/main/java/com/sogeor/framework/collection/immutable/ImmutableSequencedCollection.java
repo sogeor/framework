@@ -125,15 +125,6 @@ public interface ImmutableSequencedCollection<T> extends ReadableSequencedCollec
         @NonNull
         Iterator<T> end();
 
-        /**
-         * @return Если текущий элемент существует, то {@code true}, иначе {@code false}.
-         *
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> $value")
-        boolean current();
-
     }
 
 }
