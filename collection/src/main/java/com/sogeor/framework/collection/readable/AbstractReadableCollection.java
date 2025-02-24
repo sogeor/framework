@@ -59,31 +59,47 @@ public abstract class AbstractReadableCollection<T> extends AbstractCollection<T
     }
 
     /**
+     * @return Абстрактный итератор элементов этой абстрактной читаемой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractIterator<T> iterator();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return Строковое представление этой читаемой коллекции.
+     *
+     * @implNote Стандартная реализация представляет эту коллекцию и все её элементы в виде строки, указывая строковое
+     * представление каждого из них.
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    public String toString() {
+        final @NonNull var result = new StringBuilder(getClass().getSimpleName()).append('@')
+                                                                                 .append(Integer.toHexString(
+                                                                                         hashCode()))
+                                                                                 .append('{');
+        final @NonNull var it = iterator();
+        if (it.canNext()) {
+            for (it.start(); it.after(); it.next()) result.append(it.current()).append(", ");
+            result.deleteCharAt(result.length() - 1).setCharAt(result.length() - 1, '}');
+        } else {
+            final int index = result.length();
+            for (it.end(); it.before(); it.previous()) result.insert(index, it.current()).insert(index, ", ");
+            result.delete(index, index + ", ".length()).append('}');
+        }
+        return result.toString();
+    }
+
+    /**
      * Представляет собой абстрактный итератор элементов читаемой коллекции.
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see AbstractReadableCollection
      * @since 1.0.0-RC1
      */
