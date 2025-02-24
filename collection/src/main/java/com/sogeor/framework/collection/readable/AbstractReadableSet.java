@@ -21,6 +21,7 @@ import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.AbstractSet;
 import com.sogeor.framework.function.Consumer;
 import com.sogeor.framework.validation.NullValidationFault;
+import com.sogeor.framework.validation.ValidationFault;
 
 /**
  * Представляет собой абстрактное читаемое множество элементов.
@@ -46,6 +47,7 @@ public abstract class AbstractReadableSet<T> extends AbstractSet<T> implements R
      *
      * @return {@code this}.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
      * @since 1.0.0-RC1
@@ -53,37 +55,25 @@ public abstract class AbstractReadableSet<T> extends AbstractSet<T> implements R
     @Override
     @Contract("!null -> this; null -> fault")
     public <F extends Throwable> @NonNull AbstractReadableSet<T> iterate(
-            final @NonNull Consumer<? super T, F> consumer) throws NullValidationFault, F {
+            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
         ReadableSet.super.iterate(consumer);
         return this;
     }
+
+    /**
+     * @return Абстрактный итератор элементов этого абстрактного читаемого множества.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
      * Представляет собой абстрактный итератор элементов читаемого множества.
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see AbstractReadableSet
      * @since 1.0.0-RC1
      */
