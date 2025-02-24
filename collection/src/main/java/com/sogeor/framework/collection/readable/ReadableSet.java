@@ -34,7 +34,7 @@ import com.sogeor.framework.validation.ValidationFault;
 public interface ReadableSet<T> extends Set<T>, ReadableUnsequencedCollection<T> {
 
     /**
-     * Потребляет каждый из элементов с помощью {@code consumer}.
+     * {@inheritDoc}
      *
      * @param consumer потребитель элементов.
      *

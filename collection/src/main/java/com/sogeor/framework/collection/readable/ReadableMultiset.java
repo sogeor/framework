@@ -34,7 +34,7 @@ import com.sogeor.framework.validation.ValidationFault;
 public interface ReadableMultiset<T> extends Multiset<T>, ReadableUnsequencedCollection<T> {
 
     /**
-     * Потребляет каждый из элементов с помощью {@code consumer}.
+     * {@inheritDoc}
      *
      * @param consumer потребитель элементов.
      *
