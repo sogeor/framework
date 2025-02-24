@@ -70,34 +70,6 @@ public abstract class AbstractReadableCollection<T> extends AbstractCollection<T
     public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
-     * {@inheritDoc}
-     *
-     * @return Строковое представление этой читаемой коллекции.
-     *
-     * @implNote Стандартная реализация представляет эту коллекцию и все её элементы в виде строки, указывая строковое
-     * представление каждого из них.
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("-> value")
-    public String toString() {
-        final @NonNull var result = new StringBuilder(getClass().getSimpleName()).append('@')
-                                                                                 .append(Integer.toHexString(
-                                                                                         hashCode()))
-                                                                                 .append('{');
-        final @NonNull var it = iterator();
-        if (it.canNext()) {
-            for (it.start(); it.after(); it.next()) result.append(it.current()).append(", ");
-            result.deleteCharAt(result.length() - 1).setCharAt(result.length() - 1, '}');
-        } else {
-            final int index = result.length();
-            for (it.end(); it.before(); it.previous()) result.insert(index, it.current()).insert(index, ", ");
-            result.delete(index, index + ", ".length()).append('}');
-        }
-        return result.toString();
-    }
-
-    /**
      * Представляет собой абстрактный итератор элементов читаемой коллекции.
      *
      * @param <T> тип элементов.
