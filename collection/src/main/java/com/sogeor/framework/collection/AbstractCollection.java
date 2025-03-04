@@ -85,8 +85,7 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          */
         @Override
         @Contract("-> this")
-        @NonNull
-        public abstract AbstractIterator<T> start();
+        public abstract @NonNull AbstractIterator<T> start();
 
         /**
          * {@inheritDoc}
@@ -98,8 +97,7 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          */
         @Override
         @Contract("-> this")
-        @NonNull
-        public abstract AbstractIterator<T> previous();
+        public abstract @NonNull AbstractIterator<T> previous();
 
         /**
          * {@inheritDoc}
@@ -111,8 +109,7 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          */
         @Override
         @Contract("-> this")
-        @NonNull
-        public abstract AbstractIterator<T> next();
+        public abstract @NonNull AbstractIterator<T> next();
 
         /**
          * {@inheritDoc}
@@ -124,8 +121,7 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          */
         @Override
         @Contract("-> this")
-        @NonNull
-        public abstract AbstractIterator<T> end();
+        public abstract @NonNull AbstractIterator<T> end();
 
         /**
          * @param object объект.
