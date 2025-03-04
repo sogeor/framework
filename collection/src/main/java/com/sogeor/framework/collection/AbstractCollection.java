@@ -38,7 +38,7 @@ public abstract class AbstractCollection<T> implements Collection<T> {
     protected AbstractCollection() {}
 
     /**
-     * @return Абстрактный итератор элементов этой коллекции.
+     * @return Новый абстрактный итератор элементов этой абстрактной коллекции.
      *
      * @since 1.0.0-RC1
      */
@@ -47,9 +47,7 @@ public abstract class AbstractCollection<T> implements Collection<T> {
     public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
-     * {@inheritDoc}
-     *
-     * @return Строковое представление этой коллекции.
+     * @return {@code super.toString() + '{' + size() + '}'}.
      *
      * @see #size()
      * @since 1.0.0-RC1
@@ -57,11 +55,11 @@ public abstract class AbstractCollection<T> implements Collection<T> {
     @Override
     @Contract("-> value")
     public @NonNull String toString() {
-        return getClass().getSimpleName() + '@' + Integer.toHexString(hashCode()) + '{' + size() + '}';
+        return super.toString() + '{' + size() + '}';
     }
 
     /**
-     * Представляет собой абстрактный итератор элементов коллекции.
+     * Представляет собой абстрактный итератор элементов абстрактной коллекции.
      *
      * @param <T> тип элементов.
      *
@@ -83,12 +81,12 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          * @return {@code this}.
          *
          * @see #first()
-         * @see #canStart()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> start();
+        @NonNull
+        public abstract AbstractIterator<T> start();
 
         /**
          * {@inheritDoc}
@@ -96,12 +94,12 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          * @return {@code this}.
          *
          * @see #before()
-         * @see #canPrevious()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> previous();
+        @NonNull
+        public abstract AbstractIterator<T> previous();
 
         /**
          * {@inheritDoc}
@@ -109,12 +107,12 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          * @return {@code this}.
          *
          * @see #after()
-         * @see #canNext()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> next();
+        @NonNull
+        public abstract AbstractIterator<T> next();
 
         /**
          * {@inheritDoc}
@@ -122,32 +120,25 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          * @return {@code this}.
          *
          * @see #last()
-         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> end();
+        @NonNull
+        public abstract AbstractIterator<T> end();
 
         /**
          * @param object объект.
          *
-         * @return Если {@code this} равно {@code object}, то {@code true}, иначе {@code false}.
+         * @return {@code this == object}.
          *
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("$? -> $value")
-        public abstract boolean equals(final @Nullable Object object);
-
-        /**
-         * @return Строковое представление этого итератора.
-         *
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> value")
-        public abstract @NonNull String toString();
+        public boolean equals(final @Nullable Object object) {
+            return this == object;
+        }
 
     }
 
