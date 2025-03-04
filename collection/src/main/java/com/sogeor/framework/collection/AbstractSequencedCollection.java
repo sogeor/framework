@@ -37,7 +37,7 @@ public abstract class AbstractSequencedCollection<T> extends AbstractCollection<
     protected AbstractSequencedCollection() {}
 
     /**
-     * @return Абстрактный итератор элементов этой абстрактной упорядоченной коллекции.
+     * @return Новый абстрактный итератор элементов этой абстрактной упорядоченной коллекции.
      *
      * @since 1.0.0-RC1
      */
@@ -67,7 +67,7 @@ public abstract class AbstractSequencedCollection<T> extends AbstractCollection<
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
          * @since 1.0.0-RC1
          */
         @Override
@@ -79,7 +79,7 @@ public abstract class AbstractSequencedCollection<T> extends AbstractCollection<
          *
          * @return {@code this}.
          *
-         * @see #next()
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
@@ -91,7 +91,7 @@ public abstract class AbstractSequencedCollection<T> extends AbstractCollection<
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #after()
          * @since 1.0.0-RC1
          */
         @Override
@@ -103,7 +103,7 @@ public abstract class AbstractSequencedCollection<T> extends AbstractCollection<
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #last()
          * @since 1.0.0-RC1
          */
         @Override
