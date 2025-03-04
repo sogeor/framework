@@ -18,6 +18,7 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.annotation.Nullable;
 
 /**
  * Представляет собой неупорядоченную коллекцию элементов.
@@ -30,14 +31,64 @@ import com.sogeor.framework.annotation.NonNull;
 public interface UnsequencedCollection<T> extends Collection<T> {
 
     /**
-     * @return Итератор элементов этой неупорядоченной коллекции.
+     * @return Новый итератор элементов этой неупорядоченной коллекции.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этой коллекции.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
     @NonNull
     Iterator<T> iterator();
+
+    /**
+     * Если {@code empty()}, то возвращает {@code 0}, иначе вычисляет хеш-код этой коллекции на основе её элементов и
+     * возвращает его.
+     *
+     * @return Хеш-код этой коллекции.
+     *
+     * @implSpec При переопределении должен соблюдаться следующий алгоритм:
+     * <pre>
+     * {@code
+     * var result = 0;
+     * for (final @NonNull var it = iterator(); it.after(); it.next()) {
+     *     result += Objects.hashCode(it.current());
+     * }
+     * return result;
+     * }
+     * </pre>
+     * @implNote Требуемая стандартная реализация обладает оценкой временной сложности {@code Θ(n)}.
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    int hashCode();
+
+    /**
+     * Если {@code this} эквивалентно {@code object}, то возвращает {@code true}, иначе — {@code false}.
+     *
+     * @param object объект.
+     *
+     * @return {@code true} или {@code false}.
+     *
+     * @implSpec При переопределении должен соблюдаться следующий алгоритм:
+     * <pre>
+     * {@code
+     * if (this == object) return true;
+     * if (!(object instanceof ReadableUnsequencedCollection<?> that) || size() != that.size()) return false;
+     *
+     * // Элементы этой и переданной коллекций эквивалентны, но вряд ли располагаются в одном и том же порядке.
+     * return contains(that);
+     * }
+     * </pre>
+     * @implNote Требуемая стандартная реализация обладает оценкой временной сложности {@code O(n²)}.
+     * <p>
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("? -> value")
+    boolean equals(final @Nullable Object object);
 
     /**
      * Представляет собой итератор элементов неупорядоченной коллекции.
@@ -50,12 +101,11 @@ public interface UnsequencedCollection<T> extends Collection<T> {
     interface Iterator<T> extends Collection.Iterator<T> {
 
         /**
-         * {@inheritDoc}
+         * Если {@code !first()}, то переходит к первому элементу, если он существует.
          *
          * @return {@code this}.
          *
          * @see #first()
-         * @see #canStart()
          * @since 1.0.0-RC1
          */
         @Override
@@ -64,12 +114,11 @@ public interface UnsequencedCollection<T> extends Collection<T> {
         Iterator<T> start();
 
         /**
-         * {@inheritDoc}
+         * Если {@code before()}, то переходит к элементу перед текущим.
          *
          * @return {@code this}.
          *
          * @see #before()
-         * @see #canPrevious()
          * @since 1.0.0-RC1
          */
         @Override
@@ -78,12 +127,11 @@ public interface UnsequencedCollection<T> extends Collection<T> {
         Iterator<T> previous();
 
         /**
-         * {@inheritDoc}
+         * Если {@code after()}, то переходит к элементу после текущего.
          *
          * @return {@code this}.
          *
          * @see #after()
-         * @see #canNext()
          * @since 1.0.0-RC1
          */
         @Override
@@ -92,12 +140,11 @@ public interface UnsequencedCollection<T> extends Collection<T> {
         Iterator<T> next();
 
         /**
-         * {@inheritDoc}
+         * Если {@code !last()}, то переходит к последнему элементу, если он существует.
          *
          * @return {@code this}.
          *
          * @see #last()
-         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Override
