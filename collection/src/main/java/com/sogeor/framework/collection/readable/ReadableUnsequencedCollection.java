@@ -103,7 +103,7 @@ public interface ReadableUnsequencedCollection<T> extends UnsequencedCollection<
      * if (!(object instanceof ReadableUnsequencedCollection<?> that) || size() != that.size()) return false;
      *
      * // Элементы этой и переданной коллекций эквивалентны, но вряд ли располагаются в одном и том же порядке.
-     * return contains(that);
+     * return contains((ReadableUnsequencedCollection<T>) that);
      * }
      * </pre>
      * @implNote Требуемая стандартная реализация обладает оценкой временной сложности {@code O(n²)}.
