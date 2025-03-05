@@ -30,8 +30,10 @@ import com.sogeor.framework.annotation.NonNull;
 public interface Set<T> extends UnsequencedCollection<T> {
 
     /**
-     * @return Итератор элементов этого множества.
+     * @return Новый итератор элементов этого множества.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этого множества.
      * @since 1.0.0-RC1
      */
     @Override
@@ -54,7 +56,7 @@ public interface Set<T> extends UnsequencedCollection<T> {
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
          * @since 1.0.0-RC1
          */
         @Override
@@ -67,7 +69,7 @@ public interface Set<T> extends UnsequencedCollection<T> {
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
@@ -80,7 +82,7 @@ public interface Set<T> extends UnsequencedCollection<T> {
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #after()
          * @since 1.0.0-RC1
          */
         @Override
