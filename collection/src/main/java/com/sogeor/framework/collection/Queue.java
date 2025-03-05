@@ -27,11 +27,13 @@ import com.sogeor.framework.annotation.NonNull;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface Queue<T> extends Collection<T> {
+public interface Queue<T> extends SequencedCollection<T> {
 
     /**
-     * @return Итератор элементов.
+     * @return Новый итератор элементов этой очереди.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этой очереди.
      * @since 1.0.0-RC1
      */
     @Override
@@ -44,38 +46,17 @@ public interface Queue<T> extends Collection<T> {
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see Queue
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends Collection.Iterator<T> {
+    interface Iterator<T> extends SequencedCollection.Iterator<T> {
 
         /**
          * {@inheritDoc}
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
          * @since 1.0.0-RC1
          */
         @Override
@@ -88,7 +69,7 @@ public interface Queue<T> extends Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
@@ -101,7 +82,7 @@ public interface Queue<T> extends Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #after()
          * @since 1.0.0-RC1
          */
         @Override
@@ -121,6 +102,24 @@ public interface Queue<T> extends Collection<T> {
         @Contract("-> this")
         @NonNull
         Iterator<T> end();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @param index индекс элемента.
+         *
+         * @return {@code this}.
+         *
+         * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
+         * @see #exists(long)
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("value -> this")
+        default @NonNull Iterator<T> move(final long index) {
+            SequencedCollection.Iterator.super.move(index);
+            return this;
+        }
 
     }
 
