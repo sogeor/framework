@@ -18,6 +18,7 @@ package com.sogeor.framework.collection.readable;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.collection.SequencedCollection;
 import com.sogeor.framework.function.Consumer;
 import com.sogeor.framework.validation.NullValidationFault;
@@ -54,14 +55,71 @@ public interface ReadableSequencedCollection<T> extends SequencedCollection<T>, 
     }
 
     /**
-     * @return Итератор элементов этой читаемой упорядоченной коллекции.
+     * @return Новый итератор элементов этой коллекции.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этой коллекции.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
     @NonNull
     Iterator<T> iterator();
+
+    /**
+     * Если {@code empty()}, то возвращает {@code 1}, иначе вычисляет хеш-код этой коллекции на основе её элементов и
+     * возвращает его.
+     *
+     * @return Хеш-код этой коллекции.
+     *
+     * @implSpec При переопределении должен соблюдаться следующий алгоритм:
+     * <pre>
+     * {@code
+     * var result = 1;
+     * for (final @NonNull var it = iterator(); it.after(); it.next()) {
+     *     result = 31 * result + Objects.hashCode(it.current());
+     * }
+     * return result;
+     * }
+     * </pre>
+     * @implNote Требуемая стандартная реализация обладает оценкой временной сложности {@code Θ(n)}.
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    int hashCode();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param object объект.
+     *
+     * @return {@code true} или {@code false}.
+     *
+     * @implSpec При переопределении должен соблюдаться следующий алгоритм:
+     * <pre>
+     * {@code
+     * if (this == object) return true;
+     * if (!(object instanceof ReadableSequencedCollection<?> that) || size() != that.size()) return false;
+     *
+     * final @NonNull var it = iterator();
+     * final @NonNull var _it = that.iterator();
+     * for (; it.after() && _it.after(); it.next(), _it.next()) {
+     *     if (!Objects.equals(it.element(), _it.element())) {
+     *         return false;
+     *     }
+     * }
+     *
+     * // Элементы этой и переданной коллекций располагаются в одном и том же порядке, а также попарно эквивалентны.
+     * return true;
+     * }
+     * </pre>
+     * @implNote Требуемая стандартная реализация обладает оценкой временной сложности {@code O(n)}.
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("? -> value")
+    boolean equals(final @Nullable Object object);
 
     /**
      * Представляет собой итератор элементов читаемой упорядоченной коллекции.
@@ -79,7 +137,6 @@ public interface ReadableSequencedCollection<T> extends SequencedCollection<T>, 
          * @return {@code this}.
          *
          * @see #first()
-         * @see #canStart()
          * @since 1.0.0-RC1
          */
         @Override
@@ -93,7 +150,6 @@ public interface ReadableSequencedCollection<T> extends SequencedCollection<T>, 
          * @return {@code this}.
          *
          * @see #before()
-         * @see #canPrevious()
          * @since 1.0.0-RC1
          */
         @Override
@@ -107,7 +163,6 @@ public interface ReadableSequencedCollection<T> extends SequencedCollection<T>, 
          * @return {@code this}.
          *
          * @see #after()
-         * @see #canNext()
          * @since 1.0.0-RC1
          */
         @Override
@@ -121,7 +176,6 @@ public interface ReadableSequencedCollection<T> extends SequencedCollection<T>, 
          * @return {@code this}.
          *
          * @see #last()
-         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Override
