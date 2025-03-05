@@ -37,8 +37,10 @@ public abstract class AbstractUnsequencedCollection<T> extends AbstractCollectio
     protected AbstractUnsequencedCollection() {}
 
     /**
-     * @return Новый абстрактный итератор элементов этой абстрактной неупорядоченной коллекции.
+     * @return Новый итератор элементов этой коллекции.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этой коллекции.
      * @since 1.0.0-RC1
      */
     @Override
