@@ -30,8 +30,10 @@ import com.sogeor.framework.annotation.NonNull;
 public interface Multiset<T> extends UnsequencedCollection<T> {
 
     /**
-     * @return Итератор элементов этого мультимножества.
+     * @return Новый итератор элементов этого мультимножества.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этого множества.
      * @since 1.0.0-RC1
      */
     @Override
