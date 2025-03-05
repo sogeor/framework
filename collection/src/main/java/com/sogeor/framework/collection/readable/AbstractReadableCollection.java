@@ -61,8 +61,10 @@ public abstract class AbstractReadableCollection<T> extends AbstractCollection<T
     }
 
     /**
-     * @return Абстрактный итератор элементов этой абстрактной читаемой коллекции.
+     * @return Новый итератор элементов этой коллекции.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этой коллекции.
      * @since 1.0.0-RC1
      */
     @Override
@@ -91,7 +93,7 @@ public abstract class AbstractReadableCollection<T> extends AbstractCollection<T
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
          * @since 1.0.0-RC1
          */
         @Override
@@ -103,7 +105,7 @@ public abstract class AbstractReadableCollection<T> extends AbstractCollection<T
          *
          * @return {@code this}.
          *
-         * @see #next()
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
@@ -115,7 +117,7 @@ public abstract class AbstractReadableCollection<T> extends AbstractCollection<T
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #after()
          * @since 1.0.0-RC1
          */
         @Override
@@ -127,7 +129,7 @@ public abstract class AbstractReadableCollection<T> extends AbstractCollection<T
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #last()
          * @since 1.0.0-RC1
          */
         @Override
