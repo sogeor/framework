@@ -213,6 +213,24 @@ public interface Collection<T> {
         boolean current();
 
         /**
+         * @return Если этот итератор находится в определённом состоянии, то {@code true}, иначе {@code false}.
+         *
+         * @since 1.0.0-RC1
+         */
+        @Contract("-> value")
+        boolean determined();
+
+        /**
+         * @return Если этот итератор находится в неопределённом состоянии, то {@code true}, иначе {@code false}.
+         *
+         * @since 1.0.0-RC1
+         */
+        @Contract("-> value")
+        default boolean undetermined() {
+            return !determined();
+        }
+
+        /**
          * @return {@code super.hashCode()}.
          *
          * @see Object#hashCode()
