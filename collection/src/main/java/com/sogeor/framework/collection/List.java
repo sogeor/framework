@@ -30,8 +30,10 @@ import com.sogeor.framework.annotation.NonNull;
 public interface List<T> extends SequencedCollection<T> {
 
     /**
-     * @return Итератор элементов этого списка.
+     * @return Новый итератор элементов этого списка.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этого списка.
      * @since 1.0.0-RC1
      */
     @Override
@@ -54,7 +56,7 @@ public interface List<T> extends SequencedCollection<T> {
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
          * @since 1.0.0-RC1
          */
         @Override
@@ -67,7 +69,7 @@ public interface List<T> extends SequencedCollection<T> {
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
@@ -80,7 +82,7 @@ public interface List<T> extends SequencedCollection<T> {
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #after()
          * @since 1.0.0-RC1
          */
         @Override
@@ -100,6 +102,51 @@ public interface List<T> extends SequencedCollection<T> {
         @Contract("-> this")
         @NonNull
         Iterator<T> end();
+
+        /**
+         * Если {@code exists(index)}, то переходит к элементу по {@code index}.
+         *
+         * @param index индекс элемента.
+         *
+         * @return {@code this}.
+         *
+         * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
+         * @see #exists(long)
+         * @since 1.0.0-RC1
+         */
+        @Contract("value -> this")
+        default @NonNull Iterator<T> move(final long index) {
+            if (!exists(index)) return this;
+            if (index == index()) return this;
+            while (index > index() && after()) next();
+            while (index < index() && before()) previous();
+            return this;
+        }
+
+        /**
+         * @param index индекс элемента.
+         *
+         * @return Если элемент по {@code index} существует, то {@code true}, иначе {@code false}.
+         *
+         * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
+         * @since 1.0.0-RC1
+         */
+        @Contract("value -> value")
+        default boolean exists(final long index) {
+            if (index < 0 || undetermined()) return false;
+            while (index > index() && after()) next();
+            while (index < index() && before()) previous();
+            return index == index();
+        }
+
+        /**
+         * @return Если {@code current()}, то индекс текущего элемента, иначе {@code -1}.
+         *
+         * @see #current()
+         * @since 1.0.0-RC1
+         */
+        @Contract("-> value")
+        long index();
 
     }
 
