@@ -55,9 +55,7 @@ public interface ReadableCollection<T> extends Collection<T> {
             final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
         Validator.nonNull(consumer, "The passed consumer");
         if (empty()) return this;
-        final @NonNull var it = iterator();
-        if (it.canNext()) for (it.start(); it.after(); it.next()) consumer.consume(it.element());
-        else for (it.end(); it.before(); it.previous()) consumer.consume(it.element());
+        for (final @NonNull var it = iterator(); it.after(); it.next()) consumer.consume(it.element());
         return this;
     }
 
@@ -79,10 +77,8 @@ public interface ReadableCollection<T> extends Collection<T> {
                                                                                                        F {
         Validator.nonNull(predicate, "The passed predicate");
         if (empty()) return true;
-        final @NonNull var it = iterator();
-        if (it.canNext()) {
-            for (it.start(); it.after(); it.next()) if (!predicate.evaluate(it.element())) return false;
-        } else for (it.end(); it.before(); it.previous()) if (!predicate.evaluate(it.element())) return false;
+        for (final @NonNull var it = iterator(); it.after(); it.next())
+            if (!predicate.evaluate(it.element())) return false;
         return true;
     }
 
@@ -104,10 +100,8 @@ public interface ReadableCollection<T> extends Collection<T> {
                                                                                                        F {
         Validator.nonNull(predicate, "The passed predicate");
         if (empty()) return false;
-        final @NonNull var it = iterator();
-        if (it.canNext()) {
-            for (it.start(); it.after(); it.next()) if (predicate.evaluate(it.element())) return true;
-        } else for (it.end(); it.before(); it.previous()) if (predicate.evaluate(it.element())) return true;
+        for (final @NonNull var it = iterator(); it.after(); it.next())
+            if (predicate.evaluate(it.element())) return true;
         return false;
     }
 
@@ -165,8 +159,10 @@ public interface ReadableCollection<T> extends Collection<T> {
     }
 
     /**
-     * @return Итератор элементов этой читаемой коллекции.
+     * @return Новый итератор элементов этой коллекции.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этой коллекции.
      * @since 1.0.0-RC1
      */
     @Override
@@ -189,7 +185,7 @@ public interface ReadableCollection<T> extends Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
          * @since 1.0.0-RC1
          */
         @Override
@@ -202,7 +198,7 @@ public interface ReadableCollection<T> extends Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
@@ -215,7 +211,7 @@ public interface ReadableCollection<T> extends Collection<T> {
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #after()
          * @since 1.0.0-RC1
          */
         @Override
