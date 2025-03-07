@@ -27,7 +27,7 @@ import com.sogeor.framework.annotation.NonNull;
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractQueue<T> extends AbstractSequencedCollection<T> implements SequencedCollection<T> {
+public abstract class AbstractQueue<T> extends AbstractSequencedCollection<T> implements Queue<T> {
 
     /**
      * Создаёт экземпляр.
