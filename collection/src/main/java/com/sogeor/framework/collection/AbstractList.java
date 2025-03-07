@@ -37,8 +37,10 @@ public abstract class AbstractList<T> extends AbstractSequencedCollection<T> imp
     protected AbstractList() {}
 
     /**
-     * @return Абстрактный итератор элементов этого абстрактного списка.
+     * @return Новый итератор элементов этого списка.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этого списка.
      * @since 1.0.0-RC1
      */
     @Override
@@ -67,7 +69,7 @@ public abstract class AbstractList<T> extends AbstractSequencedCollection<T> imp
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
          * @since 1.0.0-RC1
          */
         @Override
@@ -79,7 +81,7 @@ public abstract class AbstractList<T> extends AbstractSequencedCollection<T> imp
          *
          * @return {@code this}.
          *
-         * @see #next()
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
@@ -91,7 +93,7 @@ public abstract class AbstractList<T> extends AbstractSequencedCollection<T> imp
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #after()
          * @since 1.0.0-RC1
          */
         @Override
@@ -103,12 +105,30 @@ public abstract class AbstractList<T> extends AbstractSequencedCollection<T> imp
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #last()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
         public abstract @NonNull AbstractIterator<T> end();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @param index индекс элемента.
+         *
+         * @return {@code this}.
+         *
+         * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
+         * @see #exists(long)
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("value -> this")
+        public @NonNull AbstractIterator<T> move(final long index) {
+            List.Iterator.super.move(index);
+            return this;
+        }
 
     }
 
