@@ -18,6 +18,7 @@ package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.annotation.Nullable;
 
 /**
  * Представляет собой многозначный ассоциативный массив элементов — пар, каждая из которых состоит из ключа и
@@ -56,7 +57,46 @@ public interface Multimap<K, V, T extends Multimap.Entry<K, V>> extends Multiset
      * @see Iterator
      * @since 1.0.0-RC1
      */
-    interface Entry<K, V> {}
+    interface Entry<K, V> {
+
+        /**
+         * Вычисляет хеш-код этого элемента и возвращает его.
+         *
+         * @return Хеш-код этого элемента.
+         *
+         * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Ω(1)}.
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> value")
+        int hashCode();
+
+        /**
+         * Если {@code this} эквивалентно {@code object}, то возвращает {@code true}, иначе — {@code false}.
+         *
+         * @param object объект.
+         *
+         * @return {@code true} или {@code false}.
+         *
+         * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Ω(1)}.
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("? -> value")
+        boolean equals(final @Nullable Object object);
+
+        /**
+         * @return {@code super.toString()}.
+         *
+         * @see Object#toString()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> $value")
+        @NonNull
+        String toString();
+
+    }
 
     /**
      * Представляет собой итератор элементов многозначного ассоциативного массива — пар, каждая из которых состоит из
