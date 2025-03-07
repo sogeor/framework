@@ -20,14 +20,14 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 
 /**
- * Представляет собой абстрактная очередь элементов.
+ * Представляет собой абстрактную очередь элементов.
  *
  * @param <T> тип элементов.
  *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractQueue<T> extends AbstractCollection<T> implements Queue<T> {
+public abstract class AbstractQueue<T> extends AbstractSequencedCollection<T> implements SequencedCollection<T> {
 
     /**
      * Создаёт экземпляр.
@@ -37,35 +37,25 @@ public abstract class AbstractQueue<T> extends AbstractCollection<T> implements 
     protected AbstractQueue() {}
 
     /**
-     * Представляет собой абстрактный итератор элементов очереди.
+     * @return Новый итератор элементов этой очереди.
+     *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этой очереди.
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractIterator<T> iterator();
+
+    /**
+     * Представляет собой абстрактный итератор элементов абстрактной очереди.
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see AbstractQueue
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractCollection.AbstractIterator<T> implements Queue.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements Queue.Iterator<T> {
 
         /**
          * Создаёт экземпляр.
@@ -79,7 +69,7 @@ public abstract class AbstractQueue<T> extends AbstractCollection<T> implements 
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
          * @since 1.0.0-RC1
          */
         @Override
@@ -91,7 +81,7 @@ public abstract class AbstractQueue<T> extends AbstractCollection<T> implements 
          *
          * @return {@code this}.
          *
-         * @see #next()
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
@@ -103,7 +93,7 @@ public abstract class AbstractQueue<T> extends AbstractCollection<T> implements 
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #after()
          * @since 1.0.0-RC1
          */
         @Override
@@ -115,12 +105,30 @@ public abstract class AbstractQueue<T> extends AbstractCollection<T> implements 
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #last()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
         public abstract @NonNull AbstractIterator<T> end();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @param index индекс элемента.
+         *
+         * @return {@code this}.
+         *
+         * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
+         * @see #exists(long)
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("value -> this")
+        public @NonNull AbstractIterator<T> move(final long index) {
+            Queue.Iterator.super.move(index);
+            return this;
+        }
 
     }
 
