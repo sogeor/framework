@@ -27,7 +27,7 @@ import com.sogeor.framework.annotation.NonNull;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface Deque<T> extends Queue<T> {
+public interface Deque<T> extends SequencedCollection<T> {
 
     /**
      * @return Новый итератор элементов этой очереди.
@@ -49,7 +49,7 @@ public interface Deque<T> extends Queue<T> {
      * @see Deque
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends Queue.Iterator<T> {
+    interface Iterator<T> extends SequencedCollection.Iterator<T> {
 
         /**
          * {@inheritDoc}
@@ -117,7 +117,7 @@ public interface Deque<T> extends Queue<T> {
         @Override
         @Contract("value -> this")
         default @NonNull Iterator<T> move(final long index) {
-            Queue.Iterator.super.move(index);
+            SequencedCollection.Iterator.super.move(index);
             return this;
         }
 
