@@ -20,14 +20,14 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 
 /**
- * Представляет собой абстрактная двусторонняя очередь элементов.
+ * Представляет собой абстрактную двустороннюю очередь элементов.
  *
  * @param <T> тип элементов.
  *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractDeque<T> extends AbstractCollection<T> implements Deque<T> {
+public abstract class AbstractDeque<T> extends AbstractQueue<T> implements Deque<T> {
 
     /**
      * Создаёт экземпляр.
@@ -37,35 +37,25 @@ public abstract class AbstractDeque<T> extends AbstractCollection<T> implements 
     protected AbstractDeque() {}
 
     /**
-     * Представляет собой абстрактный итератор элементов двусторонней очереди.
+     * @return Новый итератор элементов этой очереди.
+     *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этой очереди.
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractIterator<T> iterator();
+
+    /**
+     * Представляет собой абстрактный итератор элементов абстрактной двусторонней очереди.
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see AbstractDeque
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractCollection.AbstractIterator<T> implements Deque.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractQueue.AbstractIterator<T> implements Deque.Iterator<T> {
 
         /**
          * Создаёт экземпляр.
@@ -79,48 +69,66 @@ public abstract class AbstractDeque<T> extends AbstractCollection<T> implements 
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
-        public abstract @NonNull AbstractDeque.AbstractIterator<T> start();
+        public abstract @NonNull AbstractIterator<T> start();
 
         /**
          * {@inheritDoc}
          *
          * @return {@code this}.
          *
-         * @see #next()
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
-        public abstract @NonNull AbstractDeque.AbstractIterator<T> previous();
+        public abstract @NonNull AbstractIterator<T> previous();
 
         /**
          * {@inheritDoc}
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #after()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
-        public abstract @NonNull AbstractDeque.AbstractIterator<T> next();
+        public abstract @NonNull AbstractIterator<T> next();
 
         /**
          * {@inheritDoc}
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #last()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
-        public abstract @NonNull AbstractDeque.AbstractIterator<T> end();
+        public abstract @NonNull AbstractIterator<T> end();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @param index индекс элемента.
+         *
+         * @return {@code this}.
+         *
+         * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
+         * @see #exists(long)
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("value -> this")
+        public @NonNull AbstractIterator<T> move(final long index) {
+            Deque.Iterator.super.move(index);
+            return this;
+        }
 
     }
 
