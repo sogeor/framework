@@ -37,8 +37,10 @@ public abstract class AbstractSet<T> extends AbstractUnsequencedCollection<T> im
     protected AbstractSet() {}
 
     /**
-     * @return Абстрактный итератор элементов этого абстрактного множества.
+     * @return Новый итератор элементов этого множества.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этого множества.
      * @since 1.0.0-RC1
      */
     @Override
@@ -67,7 +69,7 @@ public abstract class AbstractSet<T> extends AbstractUnsequencedCollection<T> im
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
          * @since 1.0.0-RC1
          */
         @Override
@@ -79,7 +81,7 @@ public abstract class AbstractSet<T> extends AbstractUnsequencedCollection<T> im
          *
          * @return {@code this}.
          *
-         * @see #next()
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
@@ -91,7 +93,7 @@ public abstract class AbstractSet<T> extends AbstractUnsequencedCollection<T> im
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #after()
          * @since 1.0.0-RC1
          */
         @Override
@@ -103,7 +105,7 @@ public abstract class AbstractSet<T> extends AbstractUnsequencedCollection<T> im
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #last()
          * @since 1.0.0-RC1
          */
         @Override
