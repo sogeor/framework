@@ -112,6 +112,24 @@ public abstract class AbstractSequencedCollection<T> extends AbstractCollection<
         @Contract("-> this")
         public abstract @NonNull AbstractIterator<T> end();
 
+        /**
+         * {@inheritDoc}
+         *
+         * @param index индекс элемента.
+         *
+         * @return {@code this}.
+         *
+         * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
+         * @see #exists(long)
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("value -> this")
+        public @NonNull AbstractIterator<T> move(final long index) {
+            SequencedCollection.Iterator.super.move(index);
+            return this;
+        }
+
     }
 
 }
