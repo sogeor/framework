@@ -27,7 +27,7 @@ import com.sogeor.framework.annotation.NonNull;
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractDeque<T> extends AbstractQueue<T> implements Deque<T> {
+public abstract class AbstractDeque<T> extends AbstractSequencedCollection<T> implements Deque<T> {
 
     /**
      * Создаёт экземпляр.
@@ -55,7 +55,7 @@ public abstract class AbstractDeque<T> extends AbstractQueue<T> implements Deque
      * @see AbstractDeque
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractQueue.AbstractIterator<T> implements Deque.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements Deque.Iterator<T> {
 
         /**
          * Создаёт экземпляр.
