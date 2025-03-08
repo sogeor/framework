@@ -44,6 +44,7 @@ public interface ReadableUnsequencedCollection<T> extends UnsequencedCollection<
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Override
