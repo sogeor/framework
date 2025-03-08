@@ -19,24 +19,115 @@ package com.sogeor.framework.collection.immutable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.readable.ReadableSet;
+import com.sogeor.framework.function.Consumer;
+import com.sogeor.framework.validation.NullValidationFault;
+import com.sogeor.framework.validation.ValidationFault;
 
 /**
- * Представляет собой неизменяемое множество элементов (1).
+ * Представляет собой неизменяемое множество элементов.
  *
- * @param <T> тип [1].
+ * @param <T> тип элементов.
  *
+ * @see Iterator
  * @since 1.0.0-RC1
  */
 public interface ImmutableSet<T> extends ReadableSet<T>, ImmutableCollection<T> {
 
     /**
-     * @return Итератор {1}.
+     * {@inheritDoc}
      *
+     * @param consumer потребитель элементов.
+     *
+     * @return {@code this}.
+     *
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
+     * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("!null -> this; null -> fault")
+    default <F extends Throwable> @NonNull ImmutableSet<T> iterate(
+            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
+        ImmutableCollection.super.iterate(consumer);
+        return this;
+    }
+
+    /**
+     * @return Новый итератор элементов этого множества.
+     *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этого множества.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
     @NonNull
-    ImmutableSetIterator<T> iterator();
+    Iterator<T> iterator();
+
+    /**
+     * Представляет собой итератор элементов неизменяемого множества.
+     *
+     * @param <T> тип элементов.
+     *
+     * @see ImmutableSet
+     * @since 1.0.0-RC1
+     */
+    interface Iterator<T> extends ReadableSet.Iterator<T>, ImmutableCollection.Iterator<T> {
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #first()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> start();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #before()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> previous();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #after()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> next();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@code this}.
+         *
+         * @see #last()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> this")
+        @NonNull
+        Iterator<T> end();
+
+    }
 
 }
