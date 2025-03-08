@@ -44,6 +44,7 @@ public interface ReadableSequencedCollection<T> extends SequencedCollection<T>, 
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Override
@@ -182,6 +183,24 @@ public interface ReadableSequencedCollection<T> extends SequencedCollection<T>, 
         @Contract("-> this")
         @NonNull
         Iterator<T> end();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @param index индекс элемента.
+         *
+         * @return {@code this}.
+         *
+         * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
+         * @see #exists(long)
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("value -> this")
+        default @NonNull Iterator<T> move(final long index) {
+            SequencedCollection.Iterator.super.move(index);
+            return this;
+        }
 
     }
 
