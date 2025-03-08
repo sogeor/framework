@@ -53,6 +53,7 @@ public abstract class AbstractReadableUnsequencedCollection<T> extends AbstractU
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Override
@@ -90,7 +91,7 @@ public abstract class AbstractReadableUnsequencedCollection<T> extends AbstractU
      * return result;
      * }
      * </pre>
-     * @implNote Требуемая стандартная реализация обладает оценкой временной сложности {@code Θ(n)}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code Θ(n)}.
      * @see Objects#hashCode(Object)
      * @since 1.0.0-RC1
      */
@@ -119,7 +120,7 @@ public abstract class AbstractReadableUnsequencedCollection<T> extends AbstractU
      * return contains((ReadableUnsequencedCollection<T>) that);
      * }
      * </pre>
-     * @implNote Требуемая стандартная реализация обладает оценкой временной сложности {@code O(n²)}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n²)}.
      * @since 1.0.0-RC1
      */
     @SuppressWarnings("unchecked")
@@ -132,7 +133,7 @@ public abstract class AbstractReadableUnsequencedCollection<T> extends AbstractU
     }
 
     /**
-     * Представляет собой абстрактный итератор элементов читаемой неупорядоченной коллекции.
+     * Представляет собой абстрактный итератор элементов абстрактной читаемой неупорядоченной коллекции.
      *
      * @param <T> тип элементов.
      *
