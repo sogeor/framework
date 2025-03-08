@@ -43,6 +43,7 @@ public interface ReadableMultiset<T> extends Multiset<T>, ReadableUnsequencedCol
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Override
@@ -54,8 +55,10 @@ public interface ReadableMultiset<T> extends Multiset<T>, ReadableUnsequencedCol
     }
 
     /**
-     * @return Итератор элементов этого читаемого мультимножества.
+     * @return Новый итератор элементов этого мультимножества.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этого мультимножества.
      * @since 1.0.0-RC1
      */
     @Override
@@ -79,7 +82,6 @@ public interface ReadableMultiset<T> extends Multiset<T>, ReadableUnsequencedCol
          * @return {@code this}.
          *
          * @see #first()
-         * @see #canStart()
          * @since 1.0.0-RC1
          */
         @Override
@@ -93,7 +95,6 @@ public interface ReadableMultiset<T> extends Multiset<T>, ReadableUnsequencedCol
          * @return {@code this}.
          *
          * @see #before()
-         * @see #canPrevious()
          * @since 1.0.0-RC1
          */
         @Override
@@ -107,7 +108,6 @@ public interface ReadableMultiset<T> extends Multiset<T>, ReadableUnsequencedCol
          * @return {@code this}.
          *
          * @see #after()
-         * @see #canNext()
          * @since 1.0.0-RC1
          */
         @Override
@@ -121,7 +121,6 @@ public interface ReadableMultiset<T> extends Multiset<T>, ReadableUnsequencedCol
          * @return {@code this}.
          *
          * @see #last()
-         * @see #canEnd()
          * @since 1.0.0-RC1
          */
         @Override
