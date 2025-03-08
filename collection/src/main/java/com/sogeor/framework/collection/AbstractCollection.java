@@ -126,6 +126,18 @@ public abstract class AbstractCollection<T> implements Collection<T> {
         public abstract @NonNull AbstractIterator<T> end();
 
         /**
+         * @return {@code super.hashCode()}.
+         *
+         * @see Object#hashCode()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> $value")
+        public int hashCode() {
+            return super.hashCode();
+        }
+
+        /**
          * @param object объект.
          *
          * @return {@code this == object}.
@@ -136,6 +148,18 @@ public abstract class AbstractCollection<T> implements Collection<T> {
         @Contract("$? -> $value")
         public boolean equals(final @Nullable Object object) {
             return this == object;
+        }
+
+        /**
+         * @return {@code super.toString()}.
+         *
+         * @see Object#toString()
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("-> value")
+        public @NonNull String toString() {
+            return super.toString();
         }
 
     }
