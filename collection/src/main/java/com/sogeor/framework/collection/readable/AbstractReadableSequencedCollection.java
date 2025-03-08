@@ -53,6 +53,7 @@ public abstract class AbstractReadableSequencedCollection<T> extends AbstractSeq
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Override
@@ -145,7 +146,7 @@ public abstract class AbstractReadableSequencedCollection<T> extends AbstractSeq
     }
 
     /**
-     * Представляет собой абстрактный итератор элементов читаемой упорядоченной коллекции.
+     * Представляет собой абстрактный итератор элементов абстрактной читаемой упорядоченной коллекции.
      *
      * @param <T> тип элементов.
      *
@@ -208,6 +209,24 @@ public abstract class AbstractReadableSequencedCollection<T> extends AbstractSeq
         @Override
         @Contract("-> this")
         public abstract @NonNull AbstractIterator<T> end();
+
+        /**
+         * {@inheritDoc}
+         *
+         * @param index индекс элемента.
+         *
+         * @return {@code this}.
+         *
+         * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
+         * @see #exists(long)
+         * @since 1.0.0-RC1
+         */
+        @Override
+        @Contract("value -> this")
+        public @NonNull AbstractIterator<T> move(final long index) {
+            ReadableSequencedCollection.Iterator.super.move(index);
+            return this;
+        }
 
     }
 
