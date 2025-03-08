@@ -58,6 +58,8 @@ public interface Collection<T> {
     /**
      * @return {@code size() == 0}.
      *
+     * @implNote Стандартная реализация с оценкой временной сложности {@code O(n)} неэффективна и должна быть
+     * переопределена.
      * @since 1.0.0-RC1
      */
     @Contract("-> value")
@@ -93,9 +95,8 @@ public interface Collection<T> {
     boolean equals(final @Nullable Object object);
 
     /**
-     * @return {@code super.toString()}.
+     * @return Строковое представление этой коллекции.
      *
-     * @see Object#toString()
      * @since 1.0.0-RC1
      */
     @Override
@@ -252,9 +253,8 @@ public interface Collection<T> {
         boolean equals(final @Nullable Object object);
 
         /**
-         * @return {@code super.toString()}.
+         * @return Строковое представление этого итератора.
          *
-         * @see Object#toString()
          * @since 1.0.0-RC1
          */
         @Override
