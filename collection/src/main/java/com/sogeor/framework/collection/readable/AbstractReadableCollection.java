@@ -50,6 +50,7 @@ public abstract class AbstractReadableCollection<T> extends AbstractCollection<T
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Override
@@ -72,7 +73,7 @@ public abstract class AbstractReadableCollection<T> extends AbstractCollection<T
     public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
-     * Представляет собой абстрактный итератор элементов читаемой коллекции.
+     * Представляет собой абстрактный итератор элементов абстрактной читаемой коллекции.
      *
      * @param <T> тип элементов.
      *
