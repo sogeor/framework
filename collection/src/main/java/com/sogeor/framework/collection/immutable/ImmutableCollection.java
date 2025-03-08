@@ -93,6 +93,16 @@ public interface ImmutableCollection<T> extends ReadableCollection<T> {
     }
 
     /**
+     * @return Строковое представление этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> $value")
+    @NonNull
+    String toString();
+
+    /**
      * Представляет собой итератор элементов неизменяемой коллекции.
      *
      * @param <T> тип элементов.
