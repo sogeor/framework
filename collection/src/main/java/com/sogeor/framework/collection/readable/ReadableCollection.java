@@ -48,6 +48,7 @@ public interface ReadableCollection<T> extends Collection<T> {
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> this; null -> fault")
@@ -70,6 +71,7 @@ public interface ReadableCollection<T> extends Collection<T> {
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
      * @throws F неудачное оценивание элемента с помощью {@code predicate}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> value; null -> fault")
@@ -93,6 +95,7 @@ public interface ReadableCollection<T> extends Collection<T> {
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
      * @throws F неудачное оценивание элемента с помощью {@code predicate}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Contract("!null -> value; null -> fault")
@@ -112,6 +115,7 @@ public interface ReadableCollection<T> extends Collection<T> {
      *
      * @return {@code true} или {@code false}.
      *
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Contract("? -> value")
@@ -129,6 +133,7 @@ public interface ReadableCollection<T> extends Collection<T> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code elements} не должны быть {@code null}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n²)}.
      * @since 1.0.0-RC1
      */
     @SuppressWarnings("unchecked")
@@ -150,6 +155,7 @@ public interface ReadableCollection<T> extends Collection<T> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code elements} не должны быть {@code null}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n²)}.
      * @since 1.0.0-RC1
      */
     @Contract("? -> value")
