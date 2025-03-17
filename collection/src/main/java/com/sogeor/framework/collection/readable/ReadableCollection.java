@@ -39,7 +39,8 @@ import java.util.Objects;
 public interface ReadableCollection<T> extends Collection<T> {
 
     /**
-     * Потребляет каждый из элементов с помощью {@code consumer}.
+     * Потребляет каждый из элементов этой коллекции с помощью {@code consumer}, пока не возникнет программный сбой или
+     * неисправность.
      *
      * @param consumer потребитель элементов.
      *
@@ -61,8 +62,9 @@ public interface ReadableCollection<T> extends Collection<T> {
     }
 
     /**
-     * Оценивает каждый из элементов с помощью {@code predicate}. Если оценки всех элементов равны {@code true}, то
-     * возвращает {@code true}, иначе — {@code false}.
+     * Оценивает каждый из элементов этой коллекции с помощью {@code predicate}, пока не возникнет программный сбой или
+     * неисправность и все оценки равны {@code true}. Если хотя бы одна оценка равна {@code false}, то возвращает
+     * {@code false}, иначе — {@code true}.
      *
      * @param predicate предикат элементов.
      *
@@ -85,8 +87,9 @@ public interface ReadableCollection<T> extends Collection<T> {
     }
 
     /**
-     * Оценивает каждый из элементов с помощью {@code predicate}. Если оценка хотя бы одного элемента равна
-     * {@code true}, то возвращает {@code true}, иначе — {@code false}.
+     * Оценивает каждый из элементов этой коллекции с помощью {@code predicate}, пока не возникнет программный сбой или
+     * неисправность и все оценки равны {@code false}. Если хотя бы одна оценка равна {@code true}, то возвращает
+     * {@code true}, иначе — {@code false}.
      *
      * @param predicate предикат элементов.
      *
