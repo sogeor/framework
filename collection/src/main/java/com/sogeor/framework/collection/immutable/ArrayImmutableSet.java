@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2025 Sogeor
  *
@@ -21,12 +20,17 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.function.Consumer;
-import com.sogeor.framework.function.Predicate;
 import com.sogeor.framework.validation.NullValidationFault;
+import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой неизменяемое множество элементов на основе массива.
+ * Представляет собой неизменяемое множество элементов на основе двумерного массива.
+ * <p>
+ * Данное множество не способно содержать максимальное теоретическое количество элементов — {@code 9223372036854775807},
+ * — однако способно содержать {@code 4611686018427387903} элементов. Так как даже для хранения такого количества
+ * элементов размером {@code 1} байт потребуется {@code 4} эксбибайт, то данное ограничение не создаст проблем в
+ * ближайшем будущем.
  *
  * @param <T> тип элементов.
  *
@@ -36,21 +40,58 @@ import com.sogeor.framework.validation.Validator;
 public class ArrayImmutableSet<T> extends AbstractImmutableSet<T> {
 
     /**
-     * Содержит элементы.
+     * Содержит элементы в виде пустого двумерного массива.
      *
      * @since 1.0.0-RC1
      */
-    protected final @Nullable T @NonNull [] elements;
+    protected static final @Nullable Object @NonNull [] @NonNull [] EMPTY_ELEMENTS = new Object[0][];
+
+    /**
+     * Содержит элементы в виде двумерного массива.
+     *
+     * @since 1.0.0-RC1
+     */
+    protected final @Nullable T @NonNull [] @NonNull [] elements;
 
     /**
      * Создаёт экземпляр на основе {@code elements}.
      *
-     * @param elements элементы.
+     * @param elements элементы в виде одномерного массива.
      *
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code elements} не должны быть {@code null}.
      * @since 1.0.0-RC1
      */
     @SafeVarargs
-    public ArrayImmutableSet(final @Nullable T @NonNull ... elements) {
+    @SuppressWarnings("unchecked")
+    public ArrayImmutableSet(final @Nullable T @NonNull ... elements) throws ValidationFault {
+        Validator.nonNull(elements, "The passed elements");
+        if (elements.length == 0) {
+            this.elements = (T[][]) EMPTY_ELEMENTS;
+            return;
+        }
+        this.elements = (T[][]) new Object[1][];
+        this.elements[0] = elements;
+    }
+
+    /**
+     * Создаёт экземпляр на основе {@code elements}.
+     *
+     * @param elements элементы в виде двумерного массива.
+     *
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code elements} не должны быть {@code null} и не должны содержать равные
+     * {@code null} одномерные массивы элементов.
+     * @since 1.0.0-RC1
+     */
+    @SafeVarargs
+    @SuppressWarnings("ConstantValue")
+    public ArrayImmutableSet(final @Nullable T @NonNull [] @NonNull ... elements) throws ValidationFault {
+        Validator.nonNull(elements, "The passed elements");
+        var i = 0;
+        while (i < elements.length && elements[i] != null) ++i;
+        if (i < elements.length && (i != 0 || elements[i] == null))
+            Validator.nonNull(elements[i], "The subarray of the passed elements with index %s".formatted(i));
         this.elements = elements;
     }
 
@@ -61,78 +102,28 @@ public class ArrayImmutableSet<T> extends AbstractImmutableSet<T> {
      *
      * @return {@code this}.
      *
+     * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("!null -> this; null -> fault")
     public <F extends Throwable> @NonNull ArrayImmutableSet<T> iterate(
-            final @NonNull Consumer<? super T, F> consumer) throws NullValidationFault, F {
+            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
         Validator.nonNull(consumer, "The passed consumer");
-        for (final @Nullable var element : elements) consumer.consume(element);
+        if (empty()) return this;
+        for (final @Nullable T @NonNull [] _elements : elements)
+            for (final @Nullable T element : _elements) consumer.consume(element);
         return this;
     }
 
     /**
-     * {@inheritDoc}
+     * @return Новый итератор элементов этого множества.
      *
-     * @param predicate предикат элементов.
-     *
-     * @return {@code true} или {@code false}.
-     *
-     * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
-     * @throws F неудачное оценивание элемента с помощью {@code predicate}.
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("!null -> value; null -> fault")
-    public <F extends Throwable> boolean all(final @NonNull Predicate<? super T, F> predicate) throws
-                                                                                               NullValidationFault, F {
-        Validator.nonNull(predicate, "The passed predicate");
-        for (final @Nullable var element : elements) if (!predicate.evaluate(element)) return false;
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param predicate предикат элементов.
-     *
-     * @return {@code true} или {@code false}.
-     *
-     * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
-     * @throws F неудачное оценивание элемента с помощью {@code predicate}.
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("!null -> value; null -> fault")
-    public <F extends Throwable> boolean any(final @NonNull Predicate<? super T, F> predicate) throws
-                                                                                               NullValidationFault, F {
-        Validator.nonNull(predicate, "The passed predicate");
-        for (final @Nullable var element : elements) if (predicate.evaluate(element)) return true;
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param value элемент.
-     *
-     * @return Если {@code value} один из {2}, то {@code true}, иначе {@code false}.
-     *
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("? -> value")
-    public boolean contains(final @Nullable T value) {
-        for (final @Nullable var element : elements) if (value == element) return true;
-        return false;
-    }
-
-    /**
-     * @return Итератор элементов.
-     *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этого множества.
      * @since 1.0.0-RC1
      */
     @Override
@@ -142,49 +133,17 @@ public class ArrayImmutableSet<T> extends AbstractImmutableSet<T> {
     }
 
     /**
-     * @return Размер коллекции.
-     *
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("-> $value")
-    public long size() {
-        return elements.length;
-    }
-
-    /**
-     * Представляет собой итератор элементов неизменяемого множества на основе массива.
+     * Представляет собой итератор элементов неизменяемого множества на основе двумерного массива.
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see ArrayImmutableSet
      * @since 1.0.0-RC1
      */
     public static class Iterator<T> extends AbstractIterator<T> {
 
         /**
-         * Содержит неизменяемое множество элементов на основе массива.
+         * Содержит неизменяемое множество элементов на основе двумерного массива.
          *
          * @since 1.0.0-RC1
          */
@@ -202,33 +161,38 @@ public class ArrayImmutableSet<T> extends AbstractImmutableSet<T> {
          *
          * @param set неизменяемое множество элементов на основе массива.
          *
+         * @throws ValidationFault неудачная валидация.
+         * @throws NullValidationFault {@code set} не должно быть {@code null}.
          * @since 1.0.0-RC1
          */
-        protected Iterator(final @NonNull ArrayImmutableSet<T> set) {
-            this.set = set;
+        protected Iterator(final @NonNull ArrayImmutableSet<T> set) throws ValidationFault {
+            this.set = Validator.nonNull(set, "The passed set");
+            index = set.empty() ? -1 : 0;
         }
 
         /**
-         * Если {@linkplain #first() текущий элемент не первый}, то переходит к первому элементу, если он существует.
+         * {@inheritDoc}
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @implSpec Стандартная реализация обладает оценкой временной сложности {@code O(1)}.
+         * @see #first()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
         public @NonNull Iterator<T> start() {
-            index = 0;
+            if (index > 0) index = 0;
             return this;
         }
 
         /**
-         * Если {@linkplain #before() перед текущим элементом существует другой}, то переходит к нему.
+         * {@inheritDoc}
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @implSpec Стандартная реализация обладает оценкой временной сложности {@code O(1)}.
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
@@ -239,11 +203,12 @@ public class ArrayImmutableSet<T> extends AbstractImmutableSet<T> {
         }
 
         /**
-         * Если {@linkplain #after() после текущего элемента существует другой}, то переходит к нему.
+         * {@inheritDoc}
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @implSpec Стандартная реализация обладает оценкой временной сложности {@code O(1)}.
+         * @see #after()
          * @since 1.0.0-RC1
          */
         @Override
@@ -254,25 +219,25 @@ public class ArrayImmutableSet<T> extends AbstractImmutableSet<T> {
         }
 
         /**
-         * Если {@linkplain #last() текущий элемент не последний}, то переходит к последнему элементу, если он
-         * существует.
+         * {@inheritDoc}
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @implSpec Стандартная реализация обладает оценкой временной сложности {@code O(1)}.
+         * @see #last()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> this")
         public @NonNull Iterator<T> end() {
-            index = set.elements.length - 1;
+            if (index != -1) index = set.size() - 1;
             return this;
         }
 
         /**
          * @return Если текущий элемент первый, то {@code true}, иначе {@code false}.
          *
-         * @see #last()
+         * @implSpec Стандартная реализация обладает оценкой временной сложности {@code O(1)}.
          * @since 1.0.0-RC1
          */
         @Override
@@ -284,8 +249,7 @@ public class ArrayImmutableSet<T> extends AbstractImmutableSet<T> {
         /**
          * @return Если перед текущим элементом существует другой, то {@code true}, иначе {@code false}.
          *
-         * @see #after()
-         * @see #current()
+         * @implSpec Стандартная реализация обладает оценкой временной сложности {@code O(1)}.
          * @since 1.0.0-RC1
          */
         @Override
@@ -297,108 +261,80 @@ public class ArrayImmutableSet<T> extends AbstractImmutableSet<T> {
         /**
          * @return Если после текущего элемента существует другой, то {@code true}, иначе {@code false}.
          *
-         * @see #before()
-         * @see #current()
+         * @implSpec Стандартная реализация обладает оценкой временной сложности {@code O(1)}.
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> value")
         public boolean after() {
-            return index < set.elements.length - 1;
+            return index < set.size() - 1;
         }
 
         /**
          * @return Если текущий элемент последний, то {@code true}, иначе {@code false}.
          *
-         * @see #first()
+         * @implSpec Стандартная реализация обладает оценкой временной сложности {@code O(1)}.
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> value")
         public boolean last() {
-            return index == set.elements.length - 1;
+            return index == set.size() - 1;
         }
 
         /**
          * @return Если текущий элемент существует, то {@code true}, иначе {@code false}.
          *
-         * @see #after()
-         * @see #before()
+         * @implSpec Стандартная реализация обладает оценкой временной сложности {@code O(1)}.
          * @since 1.0.0-RC1
          */
         @Override
-        @Contract("-> true")
+        @Contract("-> $value")
         public boolean current() {
-            return true;
+            return index >= 0;
         }
 
         /**
-         * @return Если итератор способен переходить к первому элементу, то {@code true}, иначе {@code false}.
+         * @return Если этот итератор находится в определённом состоянии, то {@code true}, иначе {@code false}.
          *
-         * @see #canPrevious()
-         * @see #canNext()
-         * @see #canEnd()
+         * @implSpec Стандартная реализация обладает оценкой временной сложности {@code O(1)}.
          * @since 1.0.0-RC1
          */
         @Override
-        @Contract("-> true")
-        public boolean canStart() {
-            return true;
+        @Contract("-> $value")
+        public boolean determined() {
+            return index != -1;
         }
 
         /**
-         * @return Если итератор способен переходить к элементу, расположенному перед текущим, то {@code true}, иначе
-         * {@code false}.
+         * @return Если этот итератор находится в неопределённом состоянии, то {@code true}, иначе {@code false}.
          *
-         * @see #canStart()
-         * @see #canNext()
-         * @see #canEnd()
+         * @implSpec Стандартная реализация обладает оценкой временной сложности {@code O(1)}.
          * @since 1.0.0-RC1
          */
         @Override
-        @Contract("-> true")
-        public boolean canPrevious() {
-            return true;
+        @Contract("-> $value")
+        public boolean undetermined() {
+            return index == -1;
         }
 
         /**
-         * @return Если итератор способен переходить к элементу, расположенному после текущего, то {@code true}, иначе
-         * {@code false}.
+         * {@inheritDoc}
          *
-         * @see #canStart()
-         * @see #canPrevious()
-         * @see #canEnd()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> true")
-        public boolean canNext() {
-            return true;
-        }
-
-        /**
-         * @return Если итератор способен переходить к последнему элементу, то {@code true}, иначе {@code false}.
+         * @return Текущий элемент или {@code null}.
          *
-         * @see #canStart()
-         * @see #canPrevious()
-         * @see #canNext()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> true")
-        public boolean canEnd() {
-            return true;
-        }
-
-        /**
-         * @return Если {@linkplain #current()}, то текущий элемент, иначе {@code null}.
-         *
+         * @see #current()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> value")
         public @Nullable T element() {
-            return index < set.elements.length ? set.elements[(int) index] : null;
+            if (!current()) return null;
+            var t = 0L;
+            for (var i = 0; i < set.elements.length; ++i)
+                if (index >= t - 1 && index <= t + set.elements[i].length - 1)
+                    return set.elements[i][(int) (index - t)];
+            return null;
         }
 
     }
