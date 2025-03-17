@@ -50,6 +50,7 @@ public abstract class AbstractImmutableCollection<T> extends AbstractReadableCol
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
      * @throws F неудачное потребление элемента с помощью {@code consumer}.
+     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Override
@@ -61,8 +62,10 @@ public abstract class AbstractImmutableCollection<T> extends AbstractReadableCol
     }
 
     /**
-     * @return Абстрактный итератор элементов этой абстрактной неизменяемой коллекции.
+     * @return Новый итератор элементов этой коллекции.
      *
+     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
+     * текущим элементом должен быть первый элемент этой коллекции.
      * @since 1.0.0-RC1
      */
     @Override
@@ -70,7 +73,7 @@ public abstract class AbstractImmutableCollection<T> extends AbstractReadableCol
     public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
-     * Представляет собой абстрактный итератор элементов неизменяемой коллекции.
+     * Представляет собой абстрактный итератор элементов абстрактной неизменяемой коллекции.
      *
      * @param <T> тип элементов.
      *
@@ -91,7 +94,7 @@ public abstract class AbstractImmutableCollection<T> extends AbstractReadableCol
          *
          * @return {@code this}.
          *
-         * @see #end()
+         * @see #first()
          * @since 1.0.0-RC1
          */
         @Override
@@ -103,7 +106,7 @@ public abstract class AbstractImmutableCollection<T> extends AbstractReadableCol
          *
          * @return {@code this}.
          *
-         * @see #next()
+         * @see #before()
          * @since 1.0.0-RC1
          */
         @Override
@@ -115,7 +118,7 @@ public abstract class AbstractImmutableCollection<T> extends AbstractReadableCol
          *
          * @return {@code this}.
          *
-         * @see #previous()
+         * @see #after()
          * @since 1.0.0-RC1
          */
         @Override
@@ -127,7 +130,7 @@ public abstract class AbstractImmutableCollection<T> extends AbstractReadableCol
          *
          * @return {@code this}.
          *
-         * @see #start()
+         * @see #last()
          * @since 1.0.0-RC1
          */
         @Override
