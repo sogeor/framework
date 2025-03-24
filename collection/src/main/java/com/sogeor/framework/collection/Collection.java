@@ -126,52 +126,52 @@ public interface Collection<T> {
     interface Iterator<T> {
 
         /**
-         * Если {@code !first()}, то переходит к первому элементу, если он существует.
+         * Если {@code !first()}, то переходит к первому элементу, если он существует, и возвращает {@code true}, иначе
+         * — {@code false}.
          *
-         * @return {@code this}.
+         * @return {@code true} или {@code false}.
          *
          * @see #first()
          * @since 1.0.0-RC1
          */
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> start();
+        @Contract("-> value")
+        boolean start();
 
         /**
-         * Если {@code before()}, то переходит к элементу перед текущим.
+         * Если {@code before()}, то переходит к элементу перед текущим и возвращает {@code true}, иначе —
+         * {@code false}.
          *
-         * @return {@code this}.
+         * @return {@code true} или {@code false}.
          *
          * @see #before()
          * @since 1.0.0-RC1
          */
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> previous();
+        @Contract("-> value")
+        boolean previous();
 
         /**
-         * Если {@code after()}, то переходит к элементу после текущего.
+         * Если {@code after()}, то переходит к элементу после текущего и возвращает {@code true}, иначе —
+         * {@code false}.
          *
-         * @return {@code this}.
+         * @return {@code true} или {@code false}.
          *
          * @see #after()
          * @since 1.0.0-RC1
          */
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> next();
+        @Contract("-> value")
+        boolean next();
 
         /**
-         * Если {@code !last()}, то переходит к последнему элементу, если он существует.
+         * Если {@code !last()}, то переходит к последнему элементу, если он существует, и возвращает {@code true},
+         * иначе — {@code false}.
          *
-         * @return {@code this}.
+         * @return {@code true} или {@code false}.
          *
          * @see #last()
          * @since 1.0.0-RC1
          */
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> end();
+        @Contract("-> value")
+        boolean end();
 
         /**
          * @return Если текущий элемент первый, то {@code true}, иначе {@code false}.
