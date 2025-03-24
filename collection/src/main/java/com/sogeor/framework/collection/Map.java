@@ -109,60 +109,6 @@ public interface Map<K, V, T extends Map.Entry<K, V>> extends Set<T> {
      * @see Entry
      * @since 1.0.0-RC1
      */
-    interface Iterator<K, V, T extends Entry<K, V>> extends Set.Iterator<T> {
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #first()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<K, V, T> start();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #before()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<K, V, T> previous();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #after()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<K, V, T> next();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #last()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<K, V, T> end();
-
-    }
+    interface Iterator<K, V, T extends Entry<K, V>> extends Set.Iterator<T> {}
 
 }
