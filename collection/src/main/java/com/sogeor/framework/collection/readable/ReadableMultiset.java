@@ -19,9 +19,6 @@ package com.sogeor.framework.collection.readable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.Multiset;
-import com.sogeor.framework.function.Consumer;
-import com.sogeor.framework.validation.NullValidationFault;
-import com.sogeor.framework.validation.ValidationFault;
 
 /**
  * Представляет собой читаемое мультимножество элементов.
@@ -31,28 +28,7 @@ import com.sogeor.framework.validation.ValidationFault;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface ReadableMultiset<T> extends Multiset<T>, ReadableUnsequencedCollection<T> {
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param consumer потребитель элементов.
-     *
-     * @return {@code this}.
-     *
-     * @throws ValidationFault неудачная валидация.
-     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
-     * @throws F неудачное потребление элемента с помощью {@code consumer}.
-     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("!null -> this; null -> fault")
-    default <F extends Throwable> @NonNull ReadableMultiset<T> iterate(
-            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
-        ReadableUnsequencedCollection.super.iterate(consumer);
-        return this;
-    }
+public interface ReadableMultiset<T> extends ReadableUnsequencedCollection<T>, Multiset<T> {
 
     /**
      * @return Новый итератор элементов этого мультимножества.
@@ -74,60 +50,6 @@ public interface ReadableMultiset<T> extends Multiset<T>, ReadableUnsequencedCol
      * @see ReadableMultiset
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends Multiset.Iterator<T>, ReadableUnsequencedCollection.Iterator<T> {
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #first()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> start();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #before()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> previous();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #after()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> next();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #last()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> end();
-
-    }
+    interface Iterator<T> extends ReadableUnsequencedCollection.Iterator<T>, Multiset.Iterator<T> {}
 
 }
