@@ -99,54 +99,6 @@ public abstract class AbstractMultimap<K, V, T extends Multimap.Entry<K, V>> ext
          */
         protected AbstractIterator() {}
 
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #first()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<K, V, T> start();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #before()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<K, V, T> previous();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #after()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<K, V, T> next();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #last()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<K, V, T> end();
-
     }
 
 }
