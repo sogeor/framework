@@ -20,9 +20,6 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.collection.SequencedCollection;
-import com.sogeor.framework.function.Consumer;
-import com.sogeor.framework.validation.NullValidationFault;
-import com.sogeor.framework.validation.ValidationFault;
 
 /**
  * Представляет собой читаемую упорядоченную коллекцию элементов.
@@ -32,28 +29,7 @@ import com.sogeor.framework.validation.ValidationFault;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface ReadableSequencedCollection<T> extends SequencedCollection<T>, ReadableCollection<T> {
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param consumer потребитель элементов.
-     *
-     * @return {@code this}.
-     *
-     * @throws ValidationFault неудачная валидация.
-     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
-     * @throws F неудачное потребление элемента с помощью {@code consumer}.
-     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("!null -> this; null -> fault")
-    default <F extends Throwable> @NonNull ReadableSequencedCollection<T> iterate(
-            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
-        ReadableCollection.super.iterate(consumer);
-        return this;
-    }
+public interface ReadableSequencedCollection<T> extends ReadableCollection<T>, SequencedCollection<T> {
 
     /**
      * @return Новый итератор элементов этой коллекции.
@@ -130,78 +106,6 @@ public interface ReadableSequencedCollection<T> extends SequencedCollection<T>, 
      * @see ReadableSequencedCollection
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends SequencedCollection.Iterator<T>, ReadableCollection.Iterator<T> {
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #first()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> start();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #before()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> previous();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #after()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> next();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #last()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> end();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @param index индекс элемента.
-         *
-         * @return {@code this}.
-         *
-         * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
-         * @see #exists(long)
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("value -> this")
-        default @NonNull Iterator<T> move(final long index) {
-            SequencedCollection.Iterator.super.move(index);
-            return this;
-        }
-
-    }
+    interface Iterator<T> extends ReadableCollection.Iterator<T>, SequencedCollection.Iterator<T> {}
 
 }
