@@ -65,86 +65,36 @@ public interface SequencedCollection<T> extends Collection<T> {
     interface Iterator<T> extends Collection.Iterator<T> {
 
         /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #first()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> start();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #before()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> previous();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #after()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> next();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #last()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> end();
-
-        /**
-         * Если {@code exists(index)}, то переходит к элементу по {@code index}.
+         * Если {@code exists(index)}, то переходит к элементу по {@code index} и возвращает {@code true}, иначе —
+         * {@code false}.
          *
          * @param index индекс элемента.
          *
-         * @return {@code this}.
+         * @return {@code true} или {@code false}.
          *
          * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
          * @see #exists(long)
          * @since 1.0.0-RC1
          */
-        @Contract("value -> this")
-        default @NonNull Iterator<T> move(final long index) {
-            if (!exists(index)) return this;
-            if (index == index()) return this;
+        @Contract("? -> value")
+        default boolean move(final long index) {
+            if (!exists(index)) return false;
             while (index > index() && after()) next();
             while (index < index() && before()) previous();
-            return this;
+            return index == index();
         }
 
         /**
+         * Если элемент по {@code index} существует, то возвращает {@code true}, иначе — {@code false}.
+         *
          * @param index индекс элемента.
          *
-         * @return Если элемент по {@code index} существует, то {@code true}, иначе {@code false}.
+         * @return {@code true} или {@code false}.
          *
          * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
          * @since 1.0.0-RC1
          */
-        @Contract("value -> value")
+        @Contract("? -> value")
         default boolean exists(final long index) {
             if (index < 0 || undetermined()) return false;
             while (index > index() && after()) next();
