@@ -78,54 +78,6 @@ public abstract class AbstractCollection<T> implements Collection<T> {
         protected AbstractIterator() {}
 
         /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #first()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> start();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #before()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> previous();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #after()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> next();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #last()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> end();
-
-        /**
          * @return {@code super.hashCode()}.
          *
          * @see Object#hashCode()
