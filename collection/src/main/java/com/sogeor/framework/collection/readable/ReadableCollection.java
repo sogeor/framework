@@ -39,12 +39,13 @@ import java.util.Objects;
 public interface ReadableCollection<T> extends Collection<T> {
 
     /**
-     * Потребляет каждый из элементов этой коллекции с помощью {@code consumer}, пока не возникнет программный сбой или
-     * неисправность.
+     * Если {@code empty()}, то возвращает {@code false}, иначе потребляет каждый из элементов этой коллекции с помощью
+     * {@code consumer}, пока не возникнет программный сбой или неисправность. Если удалось, то возвращает
+     * {@code true}.
      *
      * @param consumer потребитель элементов.
      *
-     * @return {@code this}.
+     * @return {@code true} или {@code false}.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
@@ -52,13 +53,13 @@ public interface ReadableCollection<T> extends Collection<T> {
      * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
-    @Contract("!null -> this; null -> fault")
-    default <F extends Throwable> @NonNull ReadableCollection<T> iterate(
-            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
+    @Contract("!null -> ?; null -> fault")
+    default <F extends Throwable> boolean iterate(final @NonNull Consumer<? super T, F> consumer) throws
+                                                                                                  ValidationFault, F {
         Validator.nonNull(consumer, "The passed consumer");
-        if (empty()) return this;
+        if (empty()) return false;
         for (final @NonNull var it = iterator(); it.after(); it.next()) consumer.consume(it.element());
-        return this;
+        return true;
     }
 
     /**
@@ -188,58 +189,6 @@ public interface ReadableCollection<T> extends Collection<T> {
      * @since 1.0.0-RC1
      */
     interface Iterator<T> extends Collection.Iterator<T> {
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #first()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> start();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #before()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> previous();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #after()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> next();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #last()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> end();
 
         /**
          * Если {@code current()}, то возвращает текущий элемент, иначе — {@code null}.
