@@ -110,60 +110,6 @@ public interface Multimap<K, V, T extends Multimap.Entry<K, V>> extends Multiset
      * @see Entry
      * @since 1.0.0-RC1
      */
-    interface Iterator<K, V, T extends Entry<K, V>> extends Multiset.Iterator<T> {
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #first()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<K, V, T> start();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #before()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<K, V, T> previous();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #after()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<K, V, T> next();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #last()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<K, V, T> end();
-
-    }
+    interface Iterator<K, V, T extends Entry<K, V>> extends Multiset.Iterator<T> {}
 
 }
