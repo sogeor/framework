@@ -39,8 +39,9 @@ public abstract class AbstractUnsequencedCollection<T> extends AbstractCollectio
     /**
      * @return Новый итератор элементов этой коллекции.
      *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этой коллекции.
+     * @implSpec Возвращаемый итератор должен находится в неопределённом состоянии.
+     * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
+     * @see AbstractIterator
      * @since 1.0.0-RC1
      */
     @Override
