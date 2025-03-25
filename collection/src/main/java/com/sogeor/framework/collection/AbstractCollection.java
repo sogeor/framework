@@ -40,8 +40,9 @@ public abstract class AbstractCollection<T> implements Collection<T> {
     /**
      * @return Новый итератор элементов этой коллекции.
      *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этой коллекции.
+     * @implSpec Возвращаемый итератор должен находится в неопределённом состоянии.
+     * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
+     * @see Iterator
      * @since 1.0.0-RC1
      */
     @Override
@@ -51,13 +52,14 @@ public abstract class AbstractCollection<T> implements Collection<T> {
     /**
      * @return {@code super.toString() + '{' + size() + '}'}.
      *
+     * @see #capacity()
      * @see #size()
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> value")
     public @NonNull String toString() {
-        return super.toString() + '{' + size() + '}';
+        return super.toString() + "{capacity=" + capacity() + ",size=" + size() + '}';
     }
 
     /**
