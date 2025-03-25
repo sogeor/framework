@@ -50,8 +50,9 @@ public abstract class AbstractCollection<T> implements Collection<T> {
     public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
-     * @return {@code super.toString() + '{' + size() + '}'}.
+     * @return {@code super.toString() + "{capacity=" + capacity() + ",size=" + size() + '}'}.
      *
+     * @implNote Стандартная реализация обладает оценками временной сложности {@code Ω(1)} и {@code O(n)}.
      * @see #capacity()
      * @see #size()
      * @since 1.0.0-RC1
@@ -82,6 +83,7 @@ public abstract class AbstractCollection<T> implements Collection<T> {
         /**
          * @return {@code super.hashCode()}.
          *
+         * @implNote Стандартная реализация обладает оценкой временной сложности {@code Θ(1)}.
          * @see Object#hashCode()
          * @since 1.0.0-RC1
          */
@@ -96,6 +98,7 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          *
          * @return {@code this == object}.
          *
+         * @implNote Стандартная реализация обладает оценкой временной сложности {@code Θ(1)}.
          * @since 1.0.0-RC1
          */
         @Override
@@ -107,11 +110,12 @@ public abstract class AbstractCollection<T> implements Collection<T> {
         /**
          * @return {@code super.toString()}.
          *
+         * @implNote Стандартная реализация обладает оценкой временной сложности {@code Θ(1)}.
          * @see Object#toString()
          * @since 1.0.0-RC1
          */
         @Override
-        @Contract("-> value")
+        @Contract("-> $value")
         public @NonNull String toString() {
             return super.toString();
         }
