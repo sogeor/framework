@@ -42,7 +42,7 @@ public abstract class AbstractCollection<T> implements Collection<T> {
      *
      * @implSpec Возвращаемый итератор должен находится в неопределённом состоянии.
      * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
-     * @see Iterator
+     * @see AbstractIterator
      * @since 1.0.0-RC1
      */
     @Override
