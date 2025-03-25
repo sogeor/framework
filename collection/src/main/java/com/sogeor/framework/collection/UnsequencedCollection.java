@@ -32,8 +32,9 @@ public interface UnsequencedCollection<T> extends Collection<T> {
     /**
      * @return Новый итератор элементов этой коллекции.
      *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этой коллекции.
+     * @implSpec Возвращаемый итератор должен находится в неопределённом состоянии.
+     * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
+     * @see Iterator
      * @since 1.0.0-RC1
      */
     @Override
@@ -47,7 +48,7 @@ public interface UnsequencedCollection<T> extends Collection<T> {
      *
      * @return Хеш-код этой коллекции.
      *
-     * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Ω(1)}.
+     * @implNote Ожидаемая реализация обладает оценками временной сложности {@code Ω(1)} и {@code O(n)}.
      * @since 1.0.0-RC1
      */
     @Override
