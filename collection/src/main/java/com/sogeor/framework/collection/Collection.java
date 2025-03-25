@@ -188,6 +188,7 @@ public interface Collection<T> {
          *
          * @return {@code true} или {@code false}.
          *
+         * @implNote Ожидаемая реализация обладает оценками временной сложности {@code Ω(1)} и {@code O(n)}.
          * @see #first()
          * @since 1.0.0-RC1
          */
@@ -200,6 +201,7 @@ public interface Collection<T> {
          *
          * @return {@code true} или {@code false}.
          *
+         * @implNote Ожидаемая реализация обладает оценками временной сложности {@code Θ(1)}.
          * @see #before()
          * @since 1.0.0-RC1
          */
@@ -212,6 +214,7 @@ public interface Collection<T> {
          *
          * @return {@code true} или {@code false}.
          *
+         * @implNote Ожидаемая реализация обладает оценками временной сложности {@code Θ(1)}.
          * @see #after()
          * @since 1.0.0-RC1
          */
@@ -224,6 +227,7 @@ public interface Collection<T> {
          *
          * @return {@code true} или {@code false}.
          *
+         * @implNote Ожидаемая реализация обладает оценками временной сложности {@code Ω(1)} и {@code O(n)}.
          * @see #last()
          * @since 1.0.0-RC1
          */
@@ -233,6 +237,7 @@ public interface Collection<T> {
         /**
          * @return Если текущий элемент первый, то {@code true}, иначе {@code false}.
          *
+         * @implNote Ожидаемая реализация обладает оценками временной сложности {@code Θ(1)}.
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -241,6 +246,7 @@ public interface Collection<T> {
         /**
          * @return Если перед текущим элементом существует другой, то {@code true}, иначе {@code false}.
          *
+         * @implNote Ожидаемая реализация обладает оценками временной сложности {@code Θ(1)}.
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -249,6 +255,7 @@ public interface Collection<T> {
         /**
          * @return Если после текущего элемента существует другой, то {@code true}, иначе {@code false}.
          *
+         * @implNote Ожидаемая реализация обладает оценками временной сложности {@code Θ(1)}.
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -257,6 +264,7 @@ public interface Collection<T> {
         /**
          * @return Если текущий элемент последний, то {@code true}, иначе {@code false}.
          *
+         * @implNote Ожидаемая реализация обладает оценками временной сложности {@code Θ(1)}.
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -265,6 +273,7 @@ public interface Collection<T> {
         /**
          * @return Если текущий элемент существует, то {@code true}, иначе {@code false}.
          *
+         * @implNote Ожидаемая реализация обладает оценками временной сложности {@code Θ(1)}.
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -273,6 +282,7 @@ public interface Collection<T> {
         /**
          * @return Если этот итератор находится в определённом состоянии, то {@code true}, иначе {@code false}.
          *
+         * @implNote Ожидаемая реализация обладает оценками временной сложности {@code Θ(1)}.
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -281,6 +291,7 @@ public interface Collection<T> {
         /**
          * @return Если этот итератор находится в неопределённом состоянии, то {@code true}, иначе {@code false}.
          *
+         * @implNote Ожидаемая реализация обладает оценками временной сложности {@code Θ(1)}.
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
@@ -294,6 +305,7 @@ public interface Collection<T> {
          *
          * @return {@code true} или {@code false}.
          *
+         * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
          * @see #determined()
          * @since 1.0.0-RC1
          */
@@ -303,6 +315,7 @@ public interface Collection<T> {
         /**
          * @return {@code super.hashCode()}.
          *
+         * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
          * @see Object#hashCode()
          * @since 1.0.0-RC1
          */
@@ -315,6 +328,7 @@ public interface Collection<T> {
          *
          * @return {@code this == object}.
          *
+         * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
          * @since 1.0.0-RC1
          */
         @Override
@@ -324,10 +338,11 @@ public interface Collection<T> {
         /**
          * @return Строковое представление этого итератора.
          *
+         * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
          * @since 1.0.0-RC1
          */
         @Override
-        @Contract("-> value")
+        @Contract("-> $value")
         @NonNull
         String toString();
 
