@@ -78,8 +78,10 @@ public interface Action<F extends Throwable> {
      * Создаёт действие со следующей реализацией метода {@code perform()}:
      * <pre>
      * {@code
-     * perform();
-     * action.perform();
+     * () -> {
+     *     perform();
+     *     action.perform();
+     * };
      * }
      * </pre>
      *
@@ -89,6 +91,7 @@ public interface Action<F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
+     * @see #perform()
      * @since 1.0.0-RC1
      */
     @Experimental
@@ -105,16 +108,18 @@ public interface Action<F extends Throwable> {
      * Создаёт действие со следующей реализацией метода {@code perform()}:
      * <pre>
      * {@code
-     * try {
-     *     perform();
-     * } catch (final @NonNull Throwable primary) {
+     * () -> {
      *     try {
-     *         action.perform();
-     *     } catch (final @NonNull Throwable secondary) {
-     *         primary.addSuppressed(secondary);
-     *         throw primary;
+     *         perform();
+     *     } catch (final @NonNull Throwable primary) {
+     *         try {
+     *             action.perform();
+     *         } catch (final @NonNull Throwable secondary) {
+     *             primary.addSuppressed(secondary);
+     *             throw primary;
+     *         }
      *     }
-     * }
+     * };
      * }
      * </pre>
      *
@@ -124,6 +129,7 @@ public interface Action<F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
+     * @see #perform()
      * @since 1.0.0-RC1
      */
     @Experimental
