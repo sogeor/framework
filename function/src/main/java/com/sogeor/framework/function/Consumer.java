@@ -17,6 +17,7 @@
 package com.sogeor.framework.function;
 
 import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.Experimental;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.validation.NullValidationFault;
@@ -27,7 +28,7 @@ import com.sogeor.framework.validation.Validator;
  * Представляет собой потребитель объектов.
  *
  * @param <T> тип объектов.
- * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов.
+ * @param <F> тип программного дефекта, возникающего при неудачном потреблении объектов.
  *
  * @since 1.0.0-RC1
  */
@@ -35,14 +36,14 @@ import com.sogeor.framework.validation.Validator;
 public interface Consumer<T, F extends Throwable> {
 
     /**
-     * Создаёт потребитель объектов с пустым методом {@linkplain #consume(Object)}.
+     * Создаёт потребитель объектов с пустым методом {@code consume(Object)}.
      *
      * @param <T> тип объектов, потребляемых новым потребителем.
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов новым
-     * потребителем.
+     * @param <F> тип программного дефекта, возникающего при неудачном потреблении объектов новым потребителем.
      *
      * @return Новый потребитель.
      *
+     * @see #consume(Object)
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
@@ -55,8 +56,7 @@ public interface Consumer<T, F extends Throwable> {
      *
      * @param consumer потребитель объектов.
      * @param <T> тип объектов, потребляемых {@code consumer}.
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов
-     * {@code consumer}.
+     * @param <F> тип программного дефекта, возникающего при неудачном потреблении объектов {@code consumer}.
      *
      * @return {@code consumer}.
      *
@@ -69,21 +69,27 @@ public interface Consumer<T, F extends Throwable> {
     }
 
     /**
-     * Потребляет {@code object}.
+     * Потребляет {@code object} с помощью этого потребителя.
      *
      * @param object объект.
      *
      * @throws ValidationFault неудачная валидация, предположительно, {@code object}.
-     * @throws F неудачное потребление {@code object}.
+     * @throws F неудачное потребление {@code object} с помощью этого потребителя.
      * @since 1.0.0-RC1
      */
     @Contract("? -> ?")
     void consume(final @Nullable T object) throws ValidationFault, F;
 
     /**
-     * Создаёт потребитель объектов с методом {@linkplain #consume(Object)}, выполняющим сначала метод
-     * {@linkplain #consume(Object) this.consume(Object)}, а потом метод
-     * {@linkplain #consume(Object) consumer.consume(Object)}.
+     * Создаёт потребитель объектов со следующей реализацией метода {@code consume(Object)}:
+     * <pre>
+     * {@code
+     * object -> {
+     *     consume(object);
+     *     consumer.consume(object);
+     * };
+     * }
+     * </pre>
      *
      * @param consumer потребитель объектов.
      *
@@ -91,8 +97,10 @@ public interface Consumer<T, F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
+     * @see #consume(Object)
      * @since 1.0.0-RC1
      */
+    @Experimental
     @Contract("!null -> new; null -> fault")
     default @NonNull Consumer<T, F> and(final @NonNull Consumer<? super T, ? extends F> consumer) throws
                                                                                                   ValidationFault {
@@ -104,9 +112,23 @@ public interface Consumer<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт потребитель объектов с методом {@linkplain #consume(Object)}, пытающимся выполнить сначала метод
-     * {@linkplain #consume(Object) this.consume(Object)}, а потом, если неудачно, метод
-     * {@linkplain #consume(Object) consumer.consume(Object)}.
+     * Создаёт потребитель объектов со следующей реализацией метода {@code consume(Object)}:
+     * <pre>
+     * {@code
+     * object -> {
+     *     try {
+     *         consume(object);
+     *     } catch (final @NonNull Throwable primary) {
+     *         try {
+     *             consumer.consume(object);
+     *         } catch (final @NonNull Throwable secondary) {
+     *             primary.addSuppressed(secondary);
+     *             throw primary;
+     *         }
+     *     }
+     * };
+     * }
+     * </pre>
      *
      * @param consumer потребитель объектов.
      *
@@ -114,8 +136,10 @@ public interface Consumer<T, F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
+     * @see #consume(Object)
      * @since 1.0.0-RC1
      */
+    @Experimental
     @Contract("!null -> new; null -> fault")
     default @NonNull Consumer<T, F> or(final @NonNull Consumer<? super T, ? extends F> consumer) throws
                                                                                                  ValidationFault {
