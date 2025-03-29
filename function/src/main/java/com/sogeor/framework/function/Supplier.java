@@ -17,6 +17,7 @@
 package com.sogeor.framework.function;
 
 import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.Experimental;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.validation.NullValidationFault;
@@ -27,7 +28,7 @@ import com.sogeor.framework.validation.Validator;
  * Представляет собой поставщик объектов.
  *
  * @param <T> тип объектов.
- * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке объектов.
+ * @param <F> тип программного дефекта, возникающего при неудачной поставке объектов.
  *
  * @since 1.0.0-RC1
  */
@@ -35,15 +36,41 @@ import com.sogeor.framework.validation.Validator;
 public interface Supplier<T, F extends Throwable> {
 
     /**
-     * Создаёт поставщик объектов с методом {@linkplain #get()}, поставляющим {@code object}.
+     * Создаёт поставщик объектов со следующей реализацией метода {@code get()}:
+     * <pre>
+     * {@code
+     * () -> null;
+     * }
+     * </pre>
      *
-     * @param object объект.
      * @param <T> тип объектов, поставляемых новым поставщиком.
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке объектов новым
-     * поставщиком.
+     * @param <F> тип программного дефекта, возникающего при неудачной поставке объектов новым поставщиком.
      *
      * @return Новый поставщик объектов.
      *
+     * @see #get()
+     * @since 1.0.0-RC1
+     */
+    @Contract("-> new")
+    static <T, F extends Throwable> @NonNull Supplier<T, F> empty() {
+        return () -> null;
+    }
+
+    /**
+     * Создаёт поставщик объектов со следующей реализацией метода {@code get()}:
+     * <pre>
+     * {@code
+     * () -> object;
+     * }
+     * </pre>
+     *
+     * @param object объект.
+     * @param <T> тип объектов, поставляемых новым поставщиком.
+     * @param <F> тип программного дефекта, возникающего при неудачной поставке объектов новым поставщиком.
+     *
+     * @return Новый поставщик объектов.
+     *
+     * @see #get()
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
@@ -56,8 +83,7 @@ public interface Supplier<T, F extends Throwable> {
      *
      * @param supplier поставщик объектов.
      * @param <T> тип объектов, поставляемых {@code supplier}.
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке объектов
-     * {@code supplier}.
+     * @param <F> тип программного дефекта, возникающего при неудачной поставке объектов {@code supplier}.
      *
      * @return Новый поставщик объектов.
      *
@@ -70,12 +96,12 @@ public interface Supplier<T, F extends Throwable> {
     }
 
     /**
-     * Поставляет объект.
+     * Поставляет объект с помощью этого поставщика.
      *
-     * @return Поставляемый этим поставщиком объект.
+     * @return Поставленный этим поставщиком объект.
      *
-     * @throws ValidationFault неудачная валидация, предположительно, поставляемого объекта.
-     * @throws F неудачная поставка объекта.
+     * @throws ValidationFault неудачная валидация, предположительно, поставленного объекта.
+     * @throws F неудачная поставка объекта с помощью этого поставщика.
      * @since 1.0.0-RC1
      */
     @Contract("-> ?")
@@ -83,15 +109,27 @@ public interface Supplier<T, F extends Throwable> {
     T get() throws ValidationFault, F;
 
     /**
-     * Создаёт поставщик объектов с методом {@linkplain #get()}, сначала пытающимся получить с помощью метода
-     * {@linkplain #get() this.get()} объект и вернуть его, а потом, если неудачно, возвращающим {@code object}.
+     * Создаёт поставщик объектов со следующей реализацией метода {@code get()}:
+     * <pre>
+     * {@code
+     * () -> {
+     *     try {
+     *         return get();
+     *     } catch (final @NonNull Throwable ignored) {
+     *         return object;
+     *     }
+     * };
+     * }
+     * </pre>
      *
      * @param object объект.
      *
      * @return Новый поставщик объектов.
      *
+     * @see #get()
      * @since 1.0.0-RC1
      */
+    @Experimental
     @Contract("? -> new")
     default @NonNull Supplier<T, F> passed(final @Nullable T object) {
         return () -> {
@@ -104,9 +142,23 @@ public interface Supplier<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт поставщик объектов с методом {@linkplain #get()}, пытающимся получить сначала от метода
-     * {@linkplain #get() this.get()}, а потом, если неудачно, от метода {@linkplain #get() supplier.get()} объект и
-     * вернуть его.
+     * Создаёт поставщик объектов со следующей реализацией метода {@code get()}:
+     * <pre>
+     * {@code
+     * () -> {
+     *     try {
+     *         return get();
+     *     } catch (final @NonNull Throwable primary) {
+     *         try {
+     *             return supplier.get();
+     *         } catch (final @NonNull Throwable secondary) {
+     *             primary.addSuppressed(secondary);
+     *             throw primary;
+     *         }
+     *     }
+     * };
+     * }
+     * </pre>
      *
      * @param supplier поставщик объектов.
      *
@@ -114,8 +166,10 @@ public interface Supplier<T, F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code supplier} не должен быть {@code null}.
+     * @see #get()
      * @since 1.0.0-RC1
      */
+    @Experimental
     @Contract("!null -> new; null -> fault")
     default @NonNull Supplier<T, F> supplied(final @NonNull Supplier<? extends T, ? extends F> supplier) throws
                                                                                                          ValidationFault {
