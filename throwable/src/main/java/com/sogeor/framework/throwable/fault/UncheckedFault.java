@@ -17,15 +17,43 @@
 package com.sogeor.framework.throwable.fault;
 
 import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.Null;
 import com.sogeor.framework.annotation.Nullable;
-import com.sogeor.framework.throwable.SoftwareDefect;
 
 /**
  * Представляет собой непроверяемую программную неисправность.
  *
  * @since 1.0.0-RC1
  */
-public class UncheckedFault extends RuntimeException implements SoftwareDefect {
+public class UncheckedFault extends RuntimeException {
+
+    /**
+     * Содержит сообщение по умолчанию.
+     *
+     * @since 1.0.0-RC1
+     */
+    public static final @Null String DEFAULT_MESSAGE = null;
+
+    /**
+     * Содержит причину возникновения по умолчанию.
+     *
+     * @since 1.0.0-RC1
+     */
+    public static final @Null Throwable DEFAULT_CAUSE = null;
+
+    /**
+     * Содержит параметр подавления по умолчанию.
+     *
+     * @since 1.0.0-RC1
+     */
+    public static final boolean DEFAULT_SUPPRESSION = true;
+
+    /**
+     * Содержит параметр трассировки стека по умолчанию.
+     *
+     * @since 1.0.0-RC1
+     */
+    public static final boolean DEFAULT_STACK_TRACE = true;
 
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, {@linkplain #DEFAULT_CAUSE причиной возникновения},
