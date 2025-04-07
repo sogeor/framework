@@ -20,6 +20,7 @@
  * @see com.sogeor.framework.throwable
  * @see com.sogeor.framework.throwable.fault.singleton
  * @see com.sogeor.framework.throwable.fault.CheckedFault
+ * @see com.sogeor.framework.throwable.fault.ImaginaryFault
  * @see com.sogeor.framework.throwable.fault.UncheckedFault
  * @since 1.0.0-RC1
  */
