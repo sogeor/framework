@@ -43,7 +43,7 @@ public @interface Contract {
      * <clause> ::= <args> " -> " <result>
      * <args> ::= <arg> (", " <arg>)*
      * <arg> ::= ("this" | "null" | "false" | "true") | "$"? ("?" | "!null")
-     * <result> ::= ("this" | "new" | "null" | "false" | "true" | "failure" | "fault" | [1-9]+) | "$"? ("?" | "value" | "!null")
+     * <result> ::= ("this" | "new" | "null" | "false" | "true" | "failure" | "fault" | [0-9]+) | "$"? ("?" | "value" | "!null")
      * }</pre>
      * @implNote Подробности, связанные с синтаксисом, будут добавлены сюда позже.
      * @since 1.0.0-RC1
