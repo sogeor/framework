@@ -29,18 +29,18 @@ import com.sogeor.framework.throwable.fault.UncheckedFault;
 public class ValidationFault extends UncheckedFault {
 
     /**
-     * Содержит сообщение по умолчанию.
-     *
-     * @since 1.0.0-RC1
-     */
-    public static final @NonNull String DEFAULT_MESSAGE = "Failed to validate";
-
-    /**
      * Содержит шаблонное сообщение.
      *
      * @since 1.0.0-RC1
      */
     public static final @NonNull String TEMPLATE_MESSAGE = "Failed to validate %s";
+
+    /**
+     * Содержит сообщение по умолчанию.
+     *
+     * @since 1.0.0-RC1
+     */
+    public static final @NonNull String DEFAULT_MESSAGE = "Failed to validate";
 
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, {@linkplain #DEFAULT_CAUSE причиной возникновения},
