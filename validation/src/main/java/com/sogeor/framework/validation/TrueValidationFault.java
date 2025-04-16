@@ -22,7 +22,7 @@ import com.sogeor.framework.annotation.Nullable;
 
 /**
  * Представляет собой непроверяемую программную неисправность, связанную с неудачной валидацией значения, которое должно
- * быть {@code false}, но им не является.
+ * быть {@code false}.
  *
  * @see FalseValidationFault
  * @since 1.0.0-RC1
@@ -30,11 +30,18 @@ import com.sogeor.framework.annotation.Nullable;
 public class TrueValidationFault extends ValidationFault {
 
     /**
+     * Содержит шаблонное сообщение.
+     *
+     * @since 1.0.0-RC1
+     */
+    public static final @NonNull String TEMPLATE_MESSAGE = "%s must be false";
+
+    /**
      * Содержит сообщение по умолчанию.
      *
      * @since 1.0.0-RC1
      */
-    public static final @NonNull String DEFAULT_MESSAGE = "The value must be false";
+    public static final @NonNull String DEFAULT_MESSAGE = TEMPLATE_MESSAGE.formatted("The value");
 
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, {@linkplain #DEFAULT_CAUSE причиной возникновения},
