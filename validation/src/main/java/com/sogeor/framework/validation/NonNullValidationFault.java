@@ -22,18 +22,11 @@ import com.sogeor.framework.annotation.Nullable;
 
 /**
  * Представляет собой непроверяемую программную неисправность, связанную с неудачной валидацией объекта, который должен
- * быть {@code null}, но им не является.
+ * быть {@code null}.
  *
  * @since 1.0.0-RC1
  */
 public class NonNullValidationFault extends ValidationFault {
-
-    /**
-     * Содержит сообщение по умолчанию.
-     *
-     * @since 1.0.0-RC1
-     */
-    public static final @NonNull String DEFAULT_MESSAGE = "The object must be null";
 
     /**
      * Содержит шаблонное сообщение.
@@ -41,6 +34,13 @@ public class NonNullValidationFault extends ValidationFault {
      * @since 1.0.0-RC1
      */
     public static final @NonNull String TEMPLATE_MESSAGE = "%s must be null";
+
+    /**
+     * Содержит сообщение по умолчанию.
+     *
+     * @since 1.0.0-RC1
+     */
+    public static final @NonNull String DEFAULT_MESSAGE = TEMPLATE_MESSAGE.formatted("The object");
 
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, {@linkplain #DEFAULT_CAUSE причиной возникновения},
