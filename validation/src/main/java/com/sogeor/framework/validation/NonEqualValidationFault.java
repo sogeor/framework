@@ -29,25 +29,25 @@ import com.sogeor.framework.annotation.Nullable;
 public class NonEqualValidationFault extends ValidationFault {
 
     /**
+     * Содержит шаблонное сообщение.
+     *
+     * @since 1.0.0-RC1
+     */
+    public static final @NonNull String TEMPLATE_MESSAGE = "%s must be equal";
+
+    /**
      * Содержит сообщение для объектов по умолчанию.
      *
      * @since 1.0.0-RC1
      */
-    public static final @NonNull String DEFAULT_OBJECTS_MESSAGE = "The objects must be equal";
+    public static final @NonNull String DEFAULT_OBJECTS_MESSAGE = TEMPLATE_MESSAGE.formatted("The objects");
 
     /**
      * Содержит сообщение для значений по умолчанию.
      *
      * @since 1.0.0-RC1
      */
-    public static final @NonNull String DEFAULT_VALUES_MESSAGE = "The values must be equal";
-
-    /**
-     * Содержит шаблонное сообщение.
-     *
-     * @since 1.0.0-RC1
-     */
-    public static final @NonNull String TEMPLATE_MESSAGE = "%s must be equal";
+    public static final @NonNull String DEFAULT_VALUES_MESSAGE = TEMPLATE_MESSAGE.formatted("The values");
 
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, {@linkplain #DEFAULT_CAUSE причиной возникновения},
