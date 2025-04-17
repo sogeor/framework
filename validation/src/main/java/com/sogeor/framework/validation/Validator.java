@@ -2151,4 +2151,1324 @@ public final class Validator {
         throw new MoreValidationFault(MoreValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName));
     }
 
+    /**
+     * Если {@code primaryValue < secondaryValue || primaryValue > tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotOutsideValidationFault {@code primaryValue} должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #outside(byte, byte, byte, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static byte outside(final byte primaryValue, final byte secondaryValue, final byte tertiaryValue) throws
+                                                                                                             NotOutsideValidationFault {
+        if (primaryValue < secondaryValue || primaryValue > tertiaryValue) return primaryValue;
+        throw new NotOutsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue < secondaryValue || primaryValue > tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotOutsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotOutsideValidationFault {@code primaryValue} должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #outside(byte, byte, byte)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static byte outside(final byte primaryValue, final byte secondaryValue, final byte tertiaryValue,
+                               final @Nullable String primaryName, final @Nullable String secondaryName,
+                               final @Nullable String tertiaryName) throws NotOutsideValidationFault {
+        if (primaryValue < secondaryValue || primaryValue > tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new NotOutsideValidationFault();
+        throw new NotOutsideValidationFault(
+                NotOutsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue < secondaryValue || primaryValue > tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotOutsideValidationFault {@code primaryValue} должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #outside(short, short, short, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static short outside(final short primaryValue, final short secondaryValue, final short tertiaryValue) throws
+                                                                                                                 NotOutsideValidationFault {
+        if (primaryValue < secondaryValue || primaryValue > tertiaryValue) return primaryValue;
+        throw new NotOutsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue < secondaryValue || primaryValue > tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotOutsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotOutsideValidationFault {@code primaryValue} должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #outside(short, short, short)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static short outside(final short primaryValue, final short secondaryValue, final short tertiaryValue,
+                                final @Nullable String primaryName, final @Nullable String secondaryName,
+                                final @Nullable String tertiaryName) throws NotOutsideValidationFault {
+        if (primaryValue < secondaryValue || primaryValue > tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new NotOutsideValidationFault();
+        throw new NotOutsideValidationFault(
+                NotOutsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue < secondaryValue || primaryValue > tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotOutsideValidationFault {@code primaryValue} должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #outside(int, int, int, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static int outside(final int primaryValue, final int secondaryValue, final int tertiaryValue) throws
+                                                                                                         NotOutsideValidationFault {
+        if (primaryValue < secondaryValue || primaryValue > tertiaryValue) return primaryValue;
+        throw new NotOutsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue < secondaryValue || primaryValue > tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotOutsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotOutsideValidationFault {@code primaryValue} должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #outside(int, int, int)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static int outside(final int primaryValue, final int secondaryValue, final int tertiaryValue,
+                              final @Nullable String primaryName, final @Nullable String secondaryName,
+                              final @Nullable String tertiaryName) throws NotOutsideValidationFault {
+        if (primaryValue < secondaryValue || primaryValue > tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new NotOutsideValidationFault();
+        throw new NotOutsideValidationFault(
+                NotOutsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue < secondaryValue || primaryValue > tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotOutsideValidationFault {@code primaryValue} должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #outside(long, long, long, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static long outside(final long primaryValue, final long secondaryValue, final long tertiaryValue) throws
+                                                                                                             NotOutsideValidationFault {
+        if (primaryValue < secondaryValue || primaryValue > tertiaryValue) return primaryValue;
+        throw new NotOutsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue < secondaryValue || primaryValue > tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotOutsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotOutsideValidationFault {@code primaryValue} должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #outside(long, long, long)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static long outside(final long primaryValue, final long secondaryValue, final long tertiaryValue,
+                               final @Nullable String primaryName, final @Nullable String secondaryName,
+                               final @Nullable String tertiaryName) throws NotOutsideValidationFault {
+        if (primaryValue < secondaryValue || primaryValue > tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new NotOutsideValidationFault();
+        throw new NotOutsideValidationFault(
+                NotOutsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue < secondaryValue || primaryValue > tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotOutsideValidationFault {@code primaryValue} должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #outside(float, float, float, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static float outside(final float primaryValue, final float secondaryValue, final float tertiaryValue) throws
+                                                                                                                 NotOutsideValidationFault {
+        if (primaryValue < secondaryValue || primaryValue > tertiaryValue) return primaryValue;
+        throw new NotOutsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue < secondaryValue || primaryValue > tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotOutsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotOutsideValidationFault {@code primaryValue} должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #outside(float, float, float)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static float outside(final float primaryValue, final float secondaryValue, final float tertiaryValue,
+                                final @Nullable String primaryName, final @Nullable String secondaryName,
+                                final @Nullable String tertiaryName) throws NotOutsideValidationFault {
+        if (primaryValue < secondaryValue || primaryValue > tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new NotOutsideValidationFault();
+        throw new NotOutsideValidationFault(
+                NotOutsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue < secondaryValue || primaryValue > tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotOutsideValidationFault {@code primaryValue} должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #outside(double, double, double, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static double outside(final double primaryValue, final double secondaryValue,
+                                 final double tertiaryValue) throws NotOutsideValidationFault {
+        if (primaryValue < secondaryValue || primaryValue > tertiaryValue) return primaryValue;
+        throw new NotOutsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue < secondaryValue || primaryValue > tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotOutsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotOutsideValidationFault {@code primaryValue} должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #outside(double, double, double)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static double outside(final double primaryValue, final double secondaryValue, final double tertiaryValue,
+                                 final @Nullable String primaryName, final @Nullable String secondaryName,
+                                 final @Nullable String tertiaryName) throws NotOutsideValidationFault {
+        if (primaryValue < secondaryValue || primaryValue > tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new NotOutsideValidationFault();
+        throw new NotOutsideValidationFault(
+                NotOutsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue > secondaryValue && primaryValue < tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotInsideValidationFault {@code primaryValue} должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #inside(byte, byte, byte, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static byte inside(final byte primaryValue, final byte secondaryValue, final byte tertiaryValue) throws
+                                                                                                            NotInsideValidationFault {
+        if (primaryValue > secondaryValue && primaryValue < tertiaryValue) return primaryValue;
+        throw new NotInsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue > secondaryValue && primaryValue < tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotInsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotInsideValidationFault {@code primaryValue} должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #inside(byte, byte, byte)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static byte inside(final byte primaryValue, final byte secondaryValue, final byte tertiaryValue,
+                              final @Nullable String primaryName, final @Nullable String secondaryName,
+                              final @Nullable String tertiaryName) throws NotInsideValidationFault {
+        if (primaryValue > secondaryValue && primaryValue < tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new NotInsideValidationFault();
+        throw new NotInsideValidationFault(
+                NotInsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue > secondaryValue && primaryValue < tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotInsideValidationFault {@code primaryValue} должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #inside(short, short, short, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static short inside(final short primaryValue, final short secondaryValue, final short tertiaryValue) throws
+                                                                                                                NotInsideValidationFault {
+        if (primaryValue > secondaryValue && primaryValue < tertiaryValue) return primaryValue;
+        throw new NotInsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue > secondaryValue && primaryValue < tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotInsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotInsideValidationFault {@code primaryValue} должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #inside(short, short, short)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static short inside(final short primaryValue, final short secondaryValue, final short tertiaryValue,
+                               final @Nullable String primaryName, final @Nullable String secondaryName,
+                               final @Nullable String tertiaryName) throws NotInsideValidationFault {
+        if (primaryValue > secondaryValue && primaryValue < tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new NotInsideValidationFault();
+        throw new NotInsideValidationFault(
+                NotInsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue > secondaryValue && primaryValue < tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotInsideValidationFault {@code primaryValue} должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #inside(int, int, int, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static int inside(final int primaryValue, final int secondaryValue, final int tertiaryValue) throws
+                                                                                                        NotInsideValidationFault {
+        if (primaryValue > secondaryValue && primaryValue < tertiaryValue) return primaryValue;
+        throw new NotInsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue > secondaryValue && primaryValue < tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotInsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotInsideValidationFault {@code primaryValue} должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #inside(int, int, int)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static int inside(final int primaryValue, final int secondaryValue, final int tertiaryValue,
+                             final @Nullable String primaryName, final @Nullable String secondaryName,
+                             final @Nullable String tertiaryName) throws NotInsideValidationFault {
+        if (primaryValue > secondaryValue && primaryValue < tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new NotInsideValidationFault();
+        throw new NotInsideValidationFault(
+                NotInsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue > secondaryValue && primaryValue < tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotInsideValidationFault {@code primaryValue} должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #inside(long, long, long, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static long inside(final long primaryValue, final long secondaryValue, final long tertiaryValue) throws
+                                                                                                            NotInsideValidationFault {
+        if (primaryValue > secondaryValue && primaryValue < tertiaryValue) return primaryValue;
+        throw new NotInsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue > secondaryValue && primaryValue < tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotInsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotInsideValidationFault {@code primaryValue} должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #inside(long, long, long)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static long inside(final long primaryValue, final long secondaryValue, final long tertiaryValue,
+                              final @Nullable String primaryName, final @Nullable String secondaryName,
+                              final @Nullable String tertiaryName) throws NotInsideValidationFault {
+        if (primaryValue > secondaryValue && primaryValue < tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new NotInsideValidationFault();
+        throw new NotInsideValidationFault(
+                NotInsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue > secondaryValue && primaryValue < tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotInsideValidationFault {@code primaryValue} должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #inside(float, float, float, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static float inside(final float primaryValue, final float secondaryValue, final float tertiaryValue) throws
+                                                                                                                NotInsideValidationFault {
+        if (primaryValue > secondaryValue && primaryValue < tertiaryValue) return primaryValue;
+        throw new NotInsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue > secondaryValue && primaryValue < tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotInsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotInsideValidationFault {@code primaryValue} должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #inside(float, float, float)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static float inside(final float primaryValue, final float secondaryValue, final float tertiaryValue,
+                               final @Nullable String primaryName, final @Nullable String secondaryName,
+                               final @Nullable String tertiaryName) throws NotInsideValidationFault {
+        if (primaryValue > secondaryValue && primaryValue < tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new NotInsideValidationFault();
+        throw new NotInsideValidationFault(
+                NotInsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue > secondaryValue && primaryValue < tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotInsideValidationFault {@code primaryValue} должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #inside(double, double, double, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static double inside(final double primaryValue, final double secondaryValue,
+                                final double tertiaryValue) throws NotInsideValidationFault {
+        if (primaryValue > secondaryValue && primaryValue < tertiaryValue) return primaryValue;
+        throw new NotInsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue > secondaryValue && primaryValue < tertiaryValue}, то возвращает {@code primaryValue}, в
+     * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NotInsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws NotInsideValidationFault {@code primaryValue} должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #inside(double, double, double)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static double inside(final double primaryValue, final double secondaryValue, final double tertiaryValue,
+                                final @Nullable String primaryName, final @Nullable String secondaryName,
+                                final @Nullable String tertiaryName) throws NotInsideValidationFault {
+        if (primaryValue > secondaryValue && primaryValue < tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new NotInsideValidationFault();
+        throw new NotInsideValidationFault(
+                NotInsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue >= secondaryValue && primaryValue <= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws OutsideValidationFault {@code primaryValue} не должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #notOutside(byte, byte, byte, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static byte notOutside(final byte primaryValue, final byte secondaryValue, final byte tertiaryValue) throws
+                                                                                                                OutsideValidationFault {
+        if (primaryValue >= secondaryValue && primaryValue <= tertiaryValue) return primaryValue;
+        throw new OutsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue >= secondaryValue && primaryValue <= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain OutsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws OutsideValidationFault {@code primaryValue} не должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #notOutside(byte, byte, byte)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static byte notOutside(final byte primaryValue, final byte secondaryValue, final byte tertiaryValue,
+                                  final @Nullable String primaryName, final @Nullable String secondaryName,
+                                  final @Nullable String tertiaryName) throws OutsideValidationFault {
+        if (primaryValue >= secondaryValue && primaryValue <= tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new OutsideValidationFault();
+        throw new OutsideValidationFault(
+                OutsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue >= secondaryValue && primaryValue <= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws OutsideValidationFault {@code primaryValue} не должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #notOutside(short, short, short, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static short notOutside(final short primaryValue, final short secondaryValue,
+                                   final short tertiaryValue) throws OutsideValidationFault {
+        if (primaryValue >= secondaryValue && primaryValue <= tertiaryValue) return primaryValue;
+        throw new OutsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue >= secondaryValue && primaryValue <= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain OutsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws OutsideValidationFault {@code primaryValue} не должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #notOutside(short, short, short)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static short notOutside(final short primaryValue, final short secondaryValue, final short tertiaryValue,
+                                   final @Nullable String primaryName, final @Nullable String secondaryName,
+                                   final @Nullable String tertiaryName) throws OutsideValidationFault {
+        if (primaryValue >= secondaryValue && primaryValue <= tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new OutsideValidationFault();
+        throw new OutsideValidationFault(
+                OutsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue >= secondaryValue && primaryValue <= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws OutsideValidationFault {@code primaryValue} не должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #notOutside(int, int, int, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static int notOutside(final int primaryValue, final int secondaryValue, final int tertiaryValue) throws
+                                                                                                            OutsideValidationFault {
+        if (primaryValue >= secondaryValue && primaryValue <= tertiaryValue) return primaryValue;
+        throw new OutsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue >= secondaryValue && primaryValue <= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain OutsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws OutsideValidationFault {@code primaryValue} не должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #notOutside(int, int, int)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static int notOutside(final int primaryValue, final int secondaryValue, final int tertiaryValue,
+                                 final @Nullable String primaryName, final @Nullable String secondaryName,
+                                 final @Nullable String tertiaryName) throws OutsideValidationFault {
+        if (primaryValue >= secondaryValue && primaryValue <= tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new OutsideValidationFault();
+        throw new OutsideValidationFault(
+                OutsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue >= secondaryValue && primaryValue <= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws OutsideValidationFault {@code primaryValue} не должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #notOutside(long, long, long, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static long notOutside(final long primaryValue, final long secondaryValue, final long tertiaryValue) throws
+                                                                                                                OutsideValidationFault {
+        if (primaryValue >= secondaryValue && primaryValue <= tertiaryValue) return primaryValue;
+        throw new OutsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue >= secondaryValue && primaryValue <= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain OutsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws OutsideValidationFault {@code primaryValue} не должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #notOutside(long, long, long)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static long notOutside(final long primaryValue, final long secondaryValue, final long tertiaryValue,
+                                  final @Nullable String primaryName, final @Nullable String secondaryName,
+                                  final @Nullable String tertiaryName) throws OutsideValidationFault {
+        if (primaryValue >= secondaryValue && primaryValue <= tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new OutsideValidationFault();
+        throw new OutsideValidationFault(
+                OutsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue >= secondaryValue && primaryValue <= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws OutsideValidationFault {@code primaryValue} не должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #notOutside(float, float, float, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static float notOutside(final float primaryValue, final float secondaryValue,
+                                   final float tertiaryValue) throws OutsideValidationFault {
+        if (primaryValue >= secondaryValue && primaryValue <= tertiaryValue) return primaryValue;
+        throw new OutsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue >= secondaryValue && primaryValue <= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain OutsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws OutsideValidationFault {@code primaryValue} не должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #notOutside(float, float, float)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static float notOutside(final float primaryValue, final float secondaryValue, final float tertiaryValue,
+                                   final @Nullable String primaryName, final @Nullable String secondaryName,
+                                   final @Nullable String tertiaryName) throws OutsideValidationFault {
+        if (primaryValue >= secondaryValue && primaryValue <= tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new OutsideValidationFault();
+        throw new OutsideValidationFault(
+                OutsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue >= secondaryValue && primaryValue <= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws OutsideValidationFault {@code primaryValue} не должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #notOutside(double, double, double, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static double notOutside(final double primaryValue, final double secondaryValue,
+                                    final double tertiaryValue) throws OutsideValidationFault {
+        if (primaryValue >= secondaryValue && primaryValue <= tertiaryValue) return primaryValue;
+        throw new OutsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue >= secondaryValue && primaryValue <= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain OutsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws OutsideValidationFault {@code primaryValue} не должно быть меньше {@code secondaryValue} или больше
+     * {@code tertiaryValue}.
+     * @see #notOutside(double, double, double)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static double notOutside(final double primaryValue, final double secondaryValue, final double tertiaryValue,
+                                    final @Nullable String primaryName, final @Nullable String secondaryName,
+                                    final @Nullable String tertiaryName) throws OutsideValidationFault {
+        if (primaryValue >= secondaryValue && primaryValue <= tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new OutsideValidationFault();
+        throw new OutsideValidationFault(
+                OutsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue <= secondaryValue || primaryValue >= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws InsideValidationFault {@code primaryValue} не должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #notInside(byte, byte, byte, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static byte notInside(final byte primaryValue, final byte secondaryValue, final byte tertiaryValue) throws
+                                                                                                               InsideValidationFault {
+        if (primaryValue <= secondaryValue || primaryValue >= tertiaryValue) return primaryValue;
+        throw new InsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue <= secondaryValue || primaryValue >= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws InsideValidationFault {@code primaryValue} не должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #notInside(byte, byte, byte)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static byte notInside(final byte primaryValue, final byte secondaryValue, final byte tertiaryValue,
+                                 final @Nullable String primaryName, final @Nullable String secondaryName,
+                                 final @Nullable String tertiaryName) throws InsideValidationFault {
+        if (primaryValue <= secondaryValue || primaryValue >= tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new InsideValidationFault();
+        throw new InsideValidationFault(
+                InsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue <= secondaryValue || primaryValue >= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws InsideValidationFault {@code primaryValue} не должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #notInside(short, short, short, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static short notInside(final short primaryValue, final short secondaryValue,
+                                  final short tertiaryValue) throws InsideValidationFault {
+        if (primaryValue <= secondaryValue || primaryValue >= tertiaryValue) return primaryValue;
+        throw new InsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue <= secondaryValue || primaryValue >= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws InsideValidationFault {@code primaryValue} не должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #notInside(short, short, short)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static short notInside(final short primaryValue, final short secondaryValue, final short tertiaryValue,
+                                  final @Nullable String primaryName, final @Nullable String secondaryName,
+                                  final @Nullable String tertiaryName) throws InsideValidationFault {
+        if (primaryValue <= secondaryValue || primaryValue >= tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new InsideValidationFault();
+        throw new InsideValidationFault(
+                InsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue <= secondaryValue || primaryValue >= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws InsideValidationFault {@code primaryValue} не должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #notInside(int, int, int, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static int notInside(final int primaryValue, final int secondaryValue, final int tertiaryValue) throws
+                                                                                                           InsideValidationFault {
+        if (primaryValue <= secondaryValue || primaryValue >= tertiaryValue) return primaryValue;
+        throw new InsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue <= secondaryValue || primaryValue >= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws InsideValidationFault {@code primaryValue} не должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #notInside(int, int, int)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static int notInside(final int primaryValue, final int secondaryValue, final int tertiaryValue,
+                                final @Nullable String primaryName, final @Nullable String secondaryName,
+                                final @Nullable String tertiaryName) throws InsideValidationFault {
+        if (primaryValue <= secondaryValue || primaryValue >= tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new InsideValidationFault();
+        throw new InsideValidationFault(
+                InsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue <= secondaryValue || primaryValue >= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws InsideValidationFault {@code primaryValue} не должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #notInside(long, long, long, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static long notInside(final long primaryValue, final long secondaryValue, final long tertiaryValue) throws
+                                                                                                               InsideValidationFault {
+        if (primaryValue <= secondaryValue || primaryValue >= tertiaryValue) return primaryValue;
+        throw new InsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue <= secondaryValue || primaryValue >= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws InsideValidationFault {@code primaryValue} не должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #notInside(long, long, long)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static long notInside(final long primaryValue, final long secondaryValue, final long tertiaryValue,
+                                 final @Nullable String primaryName, final @Nullable String secondaryName,
+                                 final @Nullable String tertiaryName) throws InsideValidationFault {
+        if (primaryValue <= secondaryValue || primaryValue >= tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new InsideValidationFault();
+        throw new InsideValidationFault(
+                InsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue <= secondaryValue || primaryValue >= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws InsideValidationFault {@code primaryValue} не должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #notInside(float, float, float, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static float notInside(final float primaryValue, final float secondaryValue,
+                                  final float tertiaryValue) throws InsideValidationFault {
+        if (primaryValue <= secondaryValue || primaryValue >= tertiaryValue) return primaryValue;
+        throw new InsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue <= secondaryValue || primaryValue >= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws InsideValidationFault {@code primaryValue} не должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #notInside(float, float, float)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static float notInside(final float primaryValue, final float secondaryValue, final float tertiaryValue,
+                                  final @Nullable String primaryName, final @Nullable String secondaryName,
+                                  final @Nullable String tertiaryName) throws InsideValidationFault {
+        if (primaryValue <= secondaryValue || primaryValue >= tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new InsideValidationFault();
+        throw new InsideValidationFault(
+                InsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
+    /**
+     * Если {@code primaryValue <= secondaryValue || primaryValue >= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws InsideValidationFault {@code primaryValue} не должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #notInside(double, double, double, String, String, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ? -> ?")
+    public static double notInside(final double primaryValue, final double secondaryValue,
+                                   final double tertiaryValue) throws InsideValidationFault {
+        if (primaryValue <= secondaryValue || primaryValue >= tertiaryValue) return primaryValue;
+        throw new InsideValidationFault();
+    }
+
+    /**
+     * Если {@code primaryValue <= secondaryValue || primaryValue >= tertiaryValue}, то возвращает {@code primaryValue},
+     * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InsideValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName},
+     * {@code secondaryName} и {@code tertiaryName}, или, если
+     * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
+     * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param primaryValue первичное численное значение.
+     * @param secondaryValue вторичное численное значение.
+     * @param tertiaryValue третичное численное значение.
+     * @param primaryName имя {@code primaryValue}.
+     * @param secondaryName имя {@code secondaryValue}.
+     * @param tertiaryName имя {@code tertiaryValue}.
+     *
+     * @return {@code primaryValue}.
+     *
+     * @throws InsideValidationFault {@code primaryValue} не должно быть больше {@code secondaryValue} и меньше
+     * {@code tertiaryValue}.
+     * @see #notInside(double, double, double)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ?, ?, ?, ?, ? -> ?")
+    public static double notInside(final double primaryValue, final double secondaryValue, final double tertiaryValue,
+                                   final @Nullable String primaryName, final @Nullable String secondaryName,
+                                   final @Nullable String tertiaryName) throws InsideValidationFault {
+        if (primaryValue <= secondaryValue || primaryValue >= tertiaryValue) return primaryValue;
+        if (primaryName == null || secondaryName == null || tertiaryName == null) throw new InsideValidationFault();
+        throw new InsideValidationFault(
+                InsideValidationFault.TEMPLATE_MESSAGE.formatted(primaryName, secondaryName, tertiaryName));
+    }
+
 }
