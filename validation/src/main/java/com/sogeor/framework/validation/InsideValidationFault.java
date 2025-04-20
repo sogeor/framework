@@ -22,7 +22,7 @@ import com.sogeor.framework.annotation.Nullable;
 
 /**
  * Представляет собой непроверяемую программную неисправность, связанную с неудачной валидацией первичного численного
- * значения, которое должно быть меньше минимального или больше максимального.
+ * значения, которое не должно быть больше вторичного и меньше третичного.
  *
  * @since 1.0.0-RC1
  */
@@ -33,7 +33,7 @@ public class InsideValidationFault extends ValidationFault {
      *
      * @since 1.0.0-RC1
      */
-    public static final @NonNull String TEMPLATE_MESSAGE = "%s must be less than %s or more than %s";
+    public static final @NonNull String TEMPLATE_MESSAGE = "%s must not be more than %s and less than %s";
 
     /**
      * Содержит сообщение по умолчанию.
@@ -41,8 +41,8 @@ public class InsideValidationFault extends ValidationFault {
      * @since 1.0.0-RC1
      */
     public static final @NonNull String DEFAULT_MESSAGE = TEMPLATE_MESSAGE.formatted("The primary value",
-                                                                                     "the minimal value",
-                                                                                     "the maximal value");
+                                                                                     "the secondary value",
+                                                                                     "the tertiary value");
 
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, {@linkplain #DEFAULT_CAUSE причиной возникновения},
