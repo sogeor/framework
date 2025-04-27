@@ -26,7 +26,7 @@ import com.sogeor.framework.validation.Validator;
 /**
  * Представляет собой потребитель объектов.
  *
- * @param <T> тип объектов.
+ * @param <T> тип потребляемых объектов.
  * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов.
  *
  * @since 1.0.0-RC1
@@ -46,7 +46,7 @@ public interface Consumer<T, F extends Throwable> {
      * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении объектов новым
      * потребителем.
      *
-     * @return Новый потребитель.
+     * @return Новый потребитель объектов.
      *
      * @see #consume(Object)
      * @since 1.0.0-RC1
@@ -77,7 +77,7 @@ public interface Consumer<T, F extends Throwable> {
     /**
      * Потребляет {@code object} с помощью этого потребителя.
      *
-     * @param object объект.
+     * @param object объект, потребляемый этим потребителем.
      *
      * @throws ValidationFault неудачная валидация, предположительно, {@code object}.
      * @throws F неудачное потребление {@code object} с помощью этого потребителя.
