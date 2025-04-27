@@ -17,7 +17,6 @@
 package com.sogeor.framework.function;
 
 import com.sogeor.framework.annotation.Contract;
-import com.sogeor.framework.annotation.Experimental;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
@@ -26,7 +25,7 @@ import com.sogeor.framework.validation.Validator;
 /**
  * Представляет собой действие.
  *
- * @param <F> тип программного дефекта, возникающего во время выполнения.
+ * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения.
  *
  * @since 1.0.0-RC1
  */
@@ -34,9 +33,14 @@ import com.sogeor.framework.validation.Validator;
 public interface Action<F extends Throwable> {
 
     /**
-     * Создаёт действие с пустым методом {@code perform()}.
+     * Создаёт действие со следующей реализацией метода {@code perform()}:
+     * <pre>
+     * {@code
+     * () -> {};
+     * }
+     * </pre>
      *
-     * @param <F> тип программного дефекта, возникающего во время выполнения нового действия.
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения нового действия.
      *
      * @return Новое действие.
      *
@@ -52,7 +56,7 @@ public interface Action<F extends Throwable> {
      * Возвращает {@code action}.
      *
      * @param action действие.
-     * @param <F> тип программного дефекта, возникающего во время выполнения {@code action}.
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения {@code action}.
      *
      * @return {@code action}.
      *
@@ -94,7 +98,6 @@ public interface Action<F extends Throwable> {
      * @see #perform()
      * @since 1.0.0-RC1
      */
-    @Experimental
     @Contract("!null -> new; null -> fault")
     default @NonNull Action<F> and(final @NonNull Action<? extends F> action) throws ValidationFault {
         Validator.nonNull(action, "The passed action");
@@ -132,7 +135,6 @@ public interface Action<F extends Throwable> {
      * @see #perform()
      * @since 1.0.0-RC1
      */
-    @Experimental
     @Contract("!null -> new; null -> fault")
     default @NonNull Action<F> or(final @NonNull Action<?> action) throws ValidationFault {
         Validator.nonNull(action, "The passed action");
