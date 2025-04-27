@@ -17,7 +17,6 @@
 package com.sogeor.framework.function;
 
 import com.sogeor.framework.annotation.Contract;
-import com.sogeor.framework.annotation.Experimental;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.validation.NullValidationFault;
@@ -28,7 +27,7 @@ import com.sogeor.framework.validation.Validator;
  * Представляет собой поставщик объектов.
  *
  * @param <T> тип объектов.
- * @param <F> тип программного дефекта, возникающего при неудачной поставке объектов.
+ * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке объектов.
  *
  * @since 1.0.0-RC1
  */
@@ -44,7 +43,8 @@ public interface Supplier<T, F extends Throwable> {
      * </pre>
      *
      * @param <T> тип объектов, поставляемых новым поставщиком.
-     * @param <F> тип программного дефекта, возникающего при неудачной поставке объектов новым поставщиком.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке объектов новым
+     * поставщиком.
      *
      * @return Новый поставщик объектов.
      *
@@ -64,9 +64,10 @@ public interface Supplier<T, F extends Throwable> {
      * }
      * </pre>
      *
-     * @param object объект.
+     * @param object объект, поставляемый новым поставщиком.
      * @param <T> тип объектов, поставляемых новым поставщиком.
-     * @param <F> тип программного дефекта, возникающего при неудачной поставке объектов новым поставщиком.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке объектов новым
+     * поставщиком.
      *
      * @return Новый поставщик объектов.
      *
@@ -83,7 +84,8 @@ public interface Supplier<T, F extends Throwable> {
      *
      * @param supplier поставщик объектов.
      * @param <T> тип объектов, поставляемых {@code supplier}.
-     * @param <F> тип программного дефекта, возникающего при неудачной поставке объектов {@code supplier}.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке объектов
+     * {@code supplier}.
      *
      * @return Новый поставщик объектов.
      *
@@ -129,7 +131,6 @@ public interface Supplier<T, F extends Throwable> {
      * @see #get()
      * @since 1.0.0-RC1
      */
-    @Experimental
     @Contract("? -> new")
     default @NonNull Supplier<T, F> passed(final @Nullable T object) {
         return () -> {
@@ -169,7 +170,6 @@ public interface Supplier<T, F extends Throwable> {
      * @see #get()
      * @since 1.0.0-RC1
      */
-    @Experimental
     @Contract("!null -> new; null -> fault")
     default @NonNull Supplier<T, F> supplied(final @NonNull Supplier<? extends T, ? extends F> supplier) throws
                                                                                                          ValidationFault {
