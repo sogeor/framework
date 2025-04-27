@@ -23,7 +23,7 @@ import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой условие.
+ * Представляет собой условное выражение.
  *
  * @param <F> тип программного сбоя или неисправности, возникающей при неудачном вычислении.
  *
@@ -33,13 +33,20 @@ import com.sogeor.framework.validation.Validator;
 public interface Condition<F extends Throwable> {
 
     /**
-     * Создаёт условие с методом {@linkplain #compute()}, возвращающим {@code value}.
+     * Создаёт условное выражение со следующей реализацией метода {@code compute()}:
+     * <pre>
+     * {@code
+     * () -> value;
+     * }
+     * </pre>
      *
-     * @param value результат вычисления.
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном вычислении нового условия.
+     * @param value результат вычисления нового условного выражения.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном вычислении нового условного
+     * выражения.
      *
-     * @return Новое условие.
+     * @return Новое условное выражение.
      *
+     * @see #compute()
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
@@ -50,7 +57,7 @@ public interface Condition<F extends Throwable> {
     /**
      * Возвращает {@code condition}.
      *
-     * @param condition условие.
+     * @param condition условное выражение.
      * @param <F> тип программного сбоя или неисправности, возникающей при неудачном вычислении {@code condition}.
      *
      * @return {@code condition}.
@@ -64,22 +71,26 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Вычисляет это условие и возвращает результат его вычисления.
+     * Вычисляет это условное выражение и возвращает результат его вычисления.
      *
-     * @return Результат вычисления этого условия.
+     * @return Результат вычисления этого условного выражения.
      *
      * @throws ValidationFault неудачная валидация.
-     * @throws F неудачное вычисление этого условия.
+     * @throws F неудачное вычисление этого условного выражения.
      * @since 1.0.0-RC1
      */
     @Contract("-> ?")
     boolean compute() throws ValidationFault, F;
 
     /**
-     * Создаёт условие с методом {@linkplain #compute()}, получающим от метода {@linkplain #compute() this.compute()}
-     * результат вычисления и возвращающим его инверсию.
+     * Создаёт условное выражение со следующей реализацией метода {@code compute()}:
+     * <pre>
+     * {@code
+     * () -> !compute();
+     * }
+     * </pre>
      *
-     * @return Новое условие.
+     * @return Новое условное выражение.
      *
      * @since 1.0.0-RC1
      */
@@ -89,12 +100,16 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
-     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их конъюнкцию.
+     * Создаёт условное выражение со следующей реализацией метода {@code compute()}:
+     * <pre>
+     * {@code
+     * () -> compute() && condition.compute();
+     * }
+     * </pre>
      *
-     * @param condition условие.
+     * @param condition условное выражение.
      *
-     * @return Новое условие.
+     * @return Новое условное выражение.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
@@ -107,12 +122,16 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
-     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их штрих Шеффера.
+     * Создаёт условное выражение со следующей реализацией метода {@code compute()}:
+     * <pre>
+     * {@code
+     * () -> !(compute() && condition.compute());
+     * }
+     * </pre>
      *
-     * @param condition условие.
+     * @param condition условное выражение.
      *
-     * @return Новое условие.
+     * @return Новое условное выражение.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
@@ -125,12 +144,16 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
-     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их мягкую дизъюнкцию.
+     * Создаёт условное выражение со следующей реализацией метода {@code compute()}:
+     * <pre>
+     * {@code
+     * () -> compute() || condition.compute();
+     * }
+     * </pre>
      *
-     * @param condition условие.
+     * @param condition условное выражение.
      *
-     * @return Новое условие.
+     * @return Новое условное выражение.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
@@ -143,12 +166,16 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
-     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их стрелку Пирса.
+     * Создаёт условное выражение со следующей реализацией метода {@code compute()}:
+     * <pre>
+     * {@code
+     * () -> !(compute() || condition.compute());
+     * }
+     * </pre>
      *
-     * @param condition условие.
+     * @param condition условное выражение.
      *
-     * @return Новое условие.
+     * @return Новое условное выражение.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
@@ -161,12 +188,16 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
-     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их эквивалентность.
+     * Создаёт условное выражение со следующей реализацией метода {@code compute()}:
+     * <pre>
+     * {@code
+     * () -> compute() == condition.compute();
+     * }
+     * </pre>
      *
-     * @param condition условие.
+     * @param condition условное выражение.
      *
-     * @return Новое условие.
+     * @return Новое условное выражение.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
@@ -179,12 +210,16 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
-     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их строгую дизъюнкцию.
+     * Создаёт условное выражение со следующей реализацией метода {@code compute()}:
+     * <pre>
+     * {@code
+     * () -> compute() ^ condition.compute();
+     * }
+     * </pre>
      *
-     * @param condition условие.
+     * @param condition условное выражение.
      *
-     * @return Новое условие.
+     * @return Новое условное выражение.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
@@ -197,12 +232,16 @@ public interface Condition<F extends Throwable> {
     }
 
     /**
-     * Создаёт условие с методом {@linkplain #compute()}, получающим от методов {@linkplain #compute() this.compute()} и
-     * {@linkplain #compute() condition.compute()} результаты вычислений и возвращающим их импликацию.
+     * Создаёт условное выражение со следующей реализацией метода {@code compute()}:
+     * <pre>
+     * {@code
+     * () -> !compute() || condition.compute();
+     * }
+     * </pre>
      *
-     * @param condition условие.
+     * @param condition условное выражение.
      *
-     * @return Новое условие.
+     * @return Новое условное выражение.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code condition} не должно быть {@code null}.
