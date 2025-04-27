@@ -60,7 +60,7 @@ public final class Immutable<T> extends Optional<T> {
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
     private Immutable() throws SingletonCreationFault {
-        if (EMPTY != null) {
+        if (EMPTY == null) {
             this.object = null;
             return;
         }
@@ -108,7 +108,7 @@ public final class Immutable<T> extends Optional<T> {
      * @see #empty()
      * @since 1.0.0-RC1
      */
-    @Contract("null -> $!null; $!null -> new")
+    @Contract("!null -> new; null -> $!null")
     public static <T> @NonNull Immutable<T> of(final @Nullable T object) {
         return object == null ? empty() : new Immutable<>(object);
     }
