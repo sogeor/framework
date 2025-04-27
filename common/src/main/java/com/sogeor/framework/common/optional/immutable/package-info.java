@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Sogeor
+ * Copyright 2025 Sogeor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  * Предоставляет обёртки над неизменяемыми объектами и значениями.
  *
  * @see com.sogeor.framework.common
- * @see com.sogeor.framework.common.immutable.Immutable
+ * @see com.sogeor.framework.common.optional.immutable.Immutable
  * @since 1.0.0-RC1
  */
-package com.sogeor.framework.common.immutable;
+package com.sogeor.framework.common.optional.immutable;
