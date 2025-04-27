@@ -48,6 +48,7 @@ public interface Predicate<T, F extends Throwable> {
      *
      * @return Новый предикат объектов.
      *
+     * @see #evaluate(Object)
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
@@ -96,6 +97,7 @@ public interface Predicate<T, F extends Throwable> {
      *
      * @return Новый предикат объектов.
      *
+     * @see #evaluate(Object)
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
@@ -117,6 +119,7 @@ public interface Predicate<T, F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
+     * @see #evaluate(Object)
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -140,6 +143,7 @@ public interface Predicate<T, F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
+     * @see #evaluate(Object)
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -163,6 +167,7 @@ public interface Predicate<T, F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
+     * @see #evaluate(Object)
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -186,6 +191,7 @@ public interface Predicate<T, F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
+     * @see #evaluate(Object)
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -209,6 +215,7 @@ public interface Predicate<T, F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
+     * @see #evaluate(Object)
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -232,6 +239,7 @@ public interface Predicate<T, F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
+     * @see #evaluate(Object)
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -255,6 +263,7 @@ public interface Predicate<T, F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code predicate} не должен быть {@code null}.
+     * @see #evaluate(Object)
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
