@@ -19,8 +19,15 @@
  *
  * @see com.sogeor.framework.validation.EqualValidationFault
  * @see com.sogeor.framework.validation.FalseValidationFault
+ * @see com.sogeor.framework.validation.InsideValidationFault
+ * @see com.sogeor.framework.validation.LessValidationFault
+ * @see com.sogeor.framework.validation.MoreValidationFault
  * @see com.sogeor.framework.validation.NonEqualValidationFault
  * @see com.sogeor.framework.validation.NonNullValidationFault
+ * @see com.sogeor.framework.validation.NotInsideValidationFault
+ * @see com.sogeor.framework.validation.NotLessValidationFault
+ * @see com.sogeor.framework.validation.NotMoreValidationFault
+ * @see com.sogeor.framework.validation.NotOutsideValidationFault
  * @see com.sogeor.framework.validation.NullValidationFault
  * @see com.sogeor.framework.validation.TrueValidationFault
  * @see com.sogeor.framework.validation.ValidationFault
