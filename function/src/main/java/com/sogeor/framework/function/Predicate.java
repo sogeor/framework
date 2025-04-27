@@ -26,7 +26,7 @@ import com.sogeor.framework.validation.Validator;
 /**
  * Представляет собой предикат объектов.
  *
- * @param <T> тип объектов.
+ * @param <T> тип оцениваемых объектов.
  * @param <F> тип программного сбоя или неисправности, возникающей при неудачной оценке объектов.
  *
  * @since 1.0.0-RC1
@@ -35,7 +35,12 @@ import com.sogeor.framework.validation.Validator;
 public interface Predicate<T, F extends Throwable> {
 
     /**
-     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, возвращающим {@code value}.
+     * Создаёт предикат объектов со следующей реализацией метода {@code evaluate(Object)}:
+     * <pre>
+     * {@code
+     * ignored -> value;
+     * }
+     * </pre>
      *
      * @param value оценка объекта.
      * @param <T> тип объектов, оцениваемых новым предикатом.
@@ -54,8 +59,8 @@ public interface Predicate<T, F extends Throwable> {
      * Возвращает {@code predicate}.
      *
      * @param predicate предикат объектов.
-     * @param <T> тип объектов.
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной оценке объектов.
+     * @param <T> тип объектов, оцениваемых {@code predicate}.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной оценке объектов {@code predicate}.
      *
      * @return {@code predicate}.
      *
@@ -68,9 +73,9 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Оценивает {@code object} и возвращает его оценку.
+     * Оценивает {@code object} с помощью этого предиката и возвращает его оценку.
      *
-     * @param object объект.
+     * @param object объект, оцениваемый этим обработчиком.
      *
      * @return Оценка {@code object}.
      *
@@ -82,8 +87,12 @@ public interface Predicate<T, F extends Throwable> {
     boolean evaluate(final @Nullable T object) throws ValidationFault, F;
 
     /**
-     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от метода
-     * {@linkplain #evaluate(Object) this.evaluate(Object)} оценку и возвращающим её инверсию.
+     * Создаёт предикат объектов со следующей реализацией метода {@code evaluate(Object)}:
+     * <pre>
+     * {@code
+     * object -> !evaluate(object);
+     * }
+     * </pre>
      *
      * @return Новый предикат объектов.
      *
@@ -95,9 +104,12 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
-     * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
-     * оценки и возвращающим их конъюнкцию.
+     * Создаёт предикат объектов со следующей реализацией метода {@code evaluate(Object)}:
+     * <pre>
+     * {@code
+     * object -> evaluate(object) && predicate.evaluate(object);
+     * }
+     * </pre>
      *
      * @param predicate предикат объектов.
      *
@@ -115,9 +127,12 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
-     * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
-     * оценки и возвращающим их штрих Шеффера.
+     * Создаёт предикат объектов со следующей реализацией метода {@code evaluate(Object)}:
+     * <pre>
+     * {@code
+     * object -> !(evaluate(object) && predicate.evaluate(object));
+     * }
+     * </pre>
      *
      * @param predicate предикат объектов.
      *
@@ -135,9 +150,12 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
-     * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
-     * оценки и возвращающим их мягкую дизъюнкцию.
+     * Создаёт предикат объектов со следующей реализацией метода {@code evaluate(Object)}:
+     * <pre>
+     * {@code
+     * object -> evaluate(object) || predicate.evaluate(object);
+     * }
+     * </pre>
      *
      * @param predicate предикат объектов.
      *
@@ -155,9 +173,12 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
-     * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
-     * оценки и возвращающим их стрелку Пирса.
+     * Создаёт предикат объектов со следующей реализацией метода {@code evaluate(Object)}:
+     * <pre>
+     * {@code
+     * object -> !(evaluate(object) || predicate.evaluate(object));
+     * }
+     * </pre>
      *
      * @param predicate предикат объектов.
      *
@@ -175,9 +196,12 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
-     * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
-     * оценки и возвращающим их эквивалентность.
+     * Создаёт предикат объектов со следующей реализацией метода {@code evaluate(Object)}:
+     * <pre>
+     * {@code
+     * object -> evaluate(object) == predicate.evaluate(object);
+     * }
+     * </pre>
      *
      * @param predicate предикат объектов.
      *
@@ -195,9 +219,12 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
-     * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
-     * оценки и возвращающим их строгую дизъюнкцию.
+     * Создаёт предикат объектов со следующей реализацией метода {@code evaluate(Object)}:
+     * <pre>
+     * {@code
+     * object -> evaluate(object) ^ predicate.evaluate(object);
+     * }
+     * </pre>
      *
      * @param predicate предикат объектов.
      *
@@ -215,9 +242,12 @@ public interface Predicate<T, F extends Throwable> {
     }
 
     /**
-     * Создаёт предикат объектов с методом {@linkplain #evaluate(Object)}, получающим от методов
-     * {@linkplain #evaluate(Object) this.evaluate(Object)} и {@linkplain #evaluate(Object) predicate.evaluate(Object)}
-     * оценки и возвращающим их импликацию.
+     * Создаёт предикат объектов со следующей реализацией метода {@code evaluate(Object)}:
+     * <pre>
+     * {@code
+     * object -> !evaluate(object) || predicate.evaluate(object);
+     * }
+     * </pre>
      *
      * @param predicate предикат объектов.
      *
