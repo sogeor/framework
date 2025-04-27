@@ -36,9 +36,13 @@ import com.sogeor.framework.validation.Validator;
 public interface Handler<T, R, F extends Throwable> {
 
     /**
-     * Создаёт обработчик объектов с методом {@linkplain #handle(Object)}, возвращающим {@code object}.
+     * Создаёт обработчик объектов со следующей реализацией метода {@code handle(Object)}:
+     * <pre>
+     * {@code
+     * ignored -> null;
+     * }
+     * </pre>
      *
-     * @param object объект.
      * @param <T> тип объектов, обрабатываемых новым обработчиком.
      * @param <R> тип объектов, возвращаемых новым обработчиком.
      * @param <F> тип программного сбоя или неисправности, возникающей при неудачной обработке или возврате объектов
@@ -46,6 +50,31 @@ public interface Handler<T, R, F extends Throwable> {
      *
      * @return Новый обработчик объектов.
      *
+     * @see #handle(Object)
+     * @since 1.0.0-RC1
+     */
+    @Contract("-> new")
+    static <T, R, F extends Throwable> @NonNull Handler<T, R, F> empty() {
+        return ignored -> null;
+    }
+
+    /**
+     * Создаёт обработчик объектов со следующей реализацией метода {@code handle(Object)}:
+     * <pre>
+     * {@code
+     * ignored -> object;
+     * }
+     * </pre>
+     *
+     * @param object объект, обрабатываемый новым обработчиком.
+     * @param <T> тип объектов, обрабатываемых новым обработчиком.
+     * @param <R> тип объектов, возвращаемых новым обработчиком.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной обработке или возврате объектов
+     * новым обработчиком.
+     *
+     * @return Новый обработчик объектов.
+     *
+     * @see #handle(Object)
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
@@ -73,7 +102,7 @@ public interface Handler<T, R, F extends Throwable> {
     }
 
     /**
-     * Обрабатывает {@code object} и возвращает, предположительно, другой объект.
+     * Обрабатывает {@code object} с помощью этого обработчика и возвращает объект.
      *
      * @param object объект.
      *
@@ -88,9 +117,12 @@ public interface Handler<T, R, F extends Throwable> {
     R handle(final @Nullable T object) throws ValidationFault, F;
 
     /**
-     * Создаёт обработчик объектов с методом {@linkplain #handle(Object)}, выполняющим сначала метод
-     * {@linkplain #handle(Object) this.handle(Object)}, а потом получающим от метода
-     * {@linkplain #handle(Object) handler.handle(Object)} объект и возвращающим его.
+     * Создаёт обработчик объектов со следующей реализацией метода {@code handle(Object)}:
+     * <pre>
+     * {@code
+     * object -> handler.handle(handle(object));
+     * }
+     * </pre>
      *
      * @param handler обработчик объектов.
      * @param <R2> тип объектов, возвращаемых {@code handler}.
@@ -99,6 +131,7 @@ public interface Handler<T, R, F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code handler} не должен быть {@code null}.
+     * @see #handle(Object)
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
@@ -109,9 +142,23 @@ public interface Handler<T, R, F extends Throwable> {
     }
 
     /**
-     * Создаёт обработчик объектов с методом {@linkplain #handle(Object)}, пытающимся получить сначала от метода
-     * {@linkplain #handle(Object) this.handle(Object)}, а потом, если неудачно, от метода
-     * {@linkplain #handle(Object) handler.handle(Object)} объект и вернуть его.
+     * Создаёт обработчик объектов со следующей реализацией метода {@code handle(Object)}:
+     * <pre>
+     * {@code
+     * object -> {
+     *     try {
+     *         return handle(object);
+     *     } catch (final @NonNull Throwable primary) {
+     *         try {
+     *             return handler.handle(object);
+     *         } catch (final @NonNull Throwable secondary) {
+     *             primary.addSuppressed(secondary);
+     *             throw primary;
+     *         }
+     *     }
+     * };
+     * }
+     * </pre>
      *
      * @param handler обработчик объектов.
      *
@@ -119,6 +166,7 @@ public interface Handler<T, R, F extends Throwable> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code handler} не должен быть {@code null}.
+     * @see #handle(Object)
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
