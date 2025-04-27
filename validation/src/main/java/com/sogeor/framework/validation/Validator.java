@@ -1040,8 +1040,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue < secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1060,8 +1060,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue < secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1086,8 +1086,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue < secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1106,8 +1106,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue < secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1132,8 +1132,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue < secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1152,8 +1152,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue < secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1178,8 +1178,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue < secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1198,8 +1198,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue < secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1224,8 +1224,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue < secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1244,8 +1244,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue < secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1270,8 +1270,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue < secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1290,8 +1290,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue < secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1317,8 +1317,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue > secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1337,8 +1337,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue > secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1363,8 +1363,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue > secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1383,8 +1383,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue > secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1409,8 +1409,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue > secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1429,8 +1429,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue > secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1455,8 +1455,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue > secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1475,8 +1475,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue > secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1501,8 +1501,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue > secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1521,8 +1521,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue > secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1547,8 +1547,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue > secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1567,8 +1567,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном случае
-     * генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue > secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1594,8 +1594,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain LessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue >= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1614,8 +1614,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain LessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue >= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1640,8 +1640,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain LessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue >= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1660,8 +1660,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain LessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue >= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1687,8 +1687,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain LessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue >= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1707,8 +1707,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain LessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue >= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1733,8 +1733,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain LessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue >= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1753,8 +1753,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain LessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue >= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1779,8 +1779,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain LessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue >= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1799,8 +1799,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain LessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue >= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1826,8 +1826,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain LessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue >= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1846,8 +1846,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не меньше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain LessValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue >= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1873,8 +1873,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue <= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1893,8 +1893,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain MoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue <= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1919,8 +1919,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain MoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue <= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1939,8 +1939,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain MoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue <= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -1966,8 +1966,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain MoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue <= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -1986,8 +1986,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain MoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue <= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -2012,8 +2012,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain MoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue <= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -2032,8 +2032,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain MoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue <= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -2058,8 +2058,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain MoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue <= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -2078,8 +2078,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain MoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue <= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
@@ -2105,8 +2105,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain MoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue <= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
      * @param primaryValue первичное численное значение.
@@ -2125,8 +2125,8 @@ public final class Validator {
     }
 
     /**
-     * Если {@code primaryValue} не больше {@code secondaryValue}, то возвращает {@code primaryValue}, в противном
-     * случае генерирует {@linkplain MoreValidationFault непроверяемую программную неисправность} с
+     * Если {@code primaryValue <= secondaryValue}, то возвращает {@code primaryValue}, в противном случае генерирует
+     * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code primaryName} и
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
