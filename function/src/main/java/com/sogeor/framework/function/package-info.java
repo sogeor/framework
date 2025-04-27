@@ -18,6 +18,9 @@
  * Предоставляет функциональные инструменты.
  *
  * @see com.sogeor.framework.function.Action
+ * @see com.sogeor.framework.function.BiConsumer
+ * @see com.sogeor.framework.function.BiHandler
+ * @see com.sogeor.framework.function.BiPredicate
  * @see com.sogeor.framework.function.Condition
  * @see com.sogeor.framework.function.Consumer
  * @see com.sogeor.framework.function.Handler
