@@ -104,7 +104,7 @@ public interface Handler<T, R, F extends Throwable> {
     /**
      * Обрабатывает {@code object} с помощью этого обработчика и возвращает объект.
      *
-     * @param object объект.
+     * @param object объект, обрабатываемый этим обработчиком.
      *
      * @return Возвращаемый объект.
      *
