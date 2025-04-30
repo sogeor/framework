@@ -19,7 +19,8 @@ package com.sogeor.framework.common.optional.mutable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
-import com.sogeor.framework.common.optional.Optional;
+import com.sogeor.framework.common.optional.OptionalObject;
+import com.sogeor.framework.common.optional.immutable.Immutable;
 import com.sogeor.framework.function.Action;
 import com.sogeor.framework.function.Consumer;
 import com.sogeor.framework.function.Handler;
@@ -28,20 +29,21 @@ import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
+import java.util.Objects;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Представляет собой изменяемую обёртку над объектом.
  * <p>
- * Изменяемая обёртка основана на паре блокировок для чтения и записи, из-за чего она способна обеспечить правильный
- * доступ к объекту и его существованию.
+ * Изменяемая обёртка основана на паре блокировок для чтения и записи, поэтому она обеспечивает правильный доступ к
+ * объекту и его существованию даже в многопоточной среде.
  *
  * @param <T> тип объекта.
  *
  * @since 1.0.0-RC1
  */
-public final class Mutable<T> extends Optional<T> {
+public final class Mutable<T> extends OptionalObject<T> {
 
     /**
      * Содержит пару блокировок для чтения и записи.
@@ -56,16 +58,6 @@ public final class Mutable<T> extends Optional<T> {
      * @since 1.0.0-RC1
      */
     private @Nullable T object;
-
-    /**
-     * Создаёт экземпляр на основе {@code null}.
-     *
-     * @since 1.0.0-RC1
-     */
-    @Contract("-> new")
-    private Mutable() {
-        this(null);
-    }
 
     /**
      * Создаёт экземпляр на основе {@code object}.
@@ -90,7 +82,7 @@ public final class Mutable<T> extends Optional<T> {
      */
     @Contract("-> new")
     public static <T> @NonNull Mutable<T> empty() {
-        return new Mutable<>();
+        return of(null);
     }
 
     /**
@@ -109,6 +101,8 @@ public final class Mutable<T> extends Optional<T> {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @return {@code object}.
      *
      * @see #object
@@ -165,7 +159,7 @@ public final class Mutable<T> extends Optional<T> {
         final @NonNull var lock = this.lock.writeLock();
         lock.lock();
         try {
-            object = handler.handle(get());
+            object = handler.handle(object);
         } finally {
             lock.unlock();
         }
@@ -203,6 +197,8 @@ public final class Mutable<T> extends Optional<T> {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @return {@code object == null}.
      *
      * @see #object
@@ -219,6 +215,8 @@ public final class Mutable<T> extends Optional<T> {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @return {@code object != null}.
      *
      * @see #object
@@ -244,7 +242,6 @@ public final class Mutable<T> extends Optional<T> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
-     * @see Action
      * @see #absent()
      * @since 1.0.0-RC1
      */
@@ -274,7 +271,6 @@ public final class Mutable<T> extends Optional<T> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
-     * @see Consumer
      * @see #absent()
      * @since 1.0.0-RC1
      */
@@ -305,7 +301,6 @@ public final class Mutable<T> extends Optional<T> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
-     * @see Action
      * @see #present()
      * @since 1.0.0-RC1
      */
@@ -336,9 +331,8 @@ public final class Mutable<T> extends Optional<T> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
-     * @see Consumer
-     * @see #get()
      * @see #present()
+     * @see #get()
      * @since 1.0.0-RC1
      */
     @Override
@@ -351,11 +345,55 @@ public final class Mutable<T> extends Optional<T> {
         lock.lock();
         if (absent()) lock.unlock();
         else try {
-            consumer.consume(get());
+            consumer.consume(object);
         } finally {
             lock.unlock();
         }
         return this;
+    }
+
+    /**
+     * Если {@code this == object}, то возвращает {@code true}.
+     * <p>
+     * Если {@code object instanceof Immutable<?> that}, то возвращает {@code Objects.equals(get(), that.get())}.
+     * <p>
+     * Если {@code object instanceof Mutable<?> that}, то возвращает {@code Objects.equals(object, that.object)}, иначе
+     * — {@code false}.
+     *
+     * @param object объект.
+     *
+     * @return {@code true} или {@code false}.
+     *
+     * @see Immutable
+     * @see #get()
+     * @see Objects#equals(Object, Object)
+     * @see #object
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    public boolean equals(final @Nullable Object object) {
+        if (this == object) return true;
+        if (object instanceof final @NonNull Immutable<?> that) {
+            final @NonNull var lock = this.lock.readLock();
+            lock.lock();
+            try {
+                return Objects.equals(object, that.get());
+            } finally {
+                lock.unlock();
+            }
+        }
+        if (!(object instanceof final @NonNull Mutable<?> that)) return false;
+        final @NonNull var lock = this.lock.readLock();
+        final @NonNull var thatLock = that.lock.readLock();
+        lock.lock();
+        thatLock.lock();
+        try {
+            return Objects.equals(object, that.object);
+        } finally {
+            lock.unlock();
+            thatLock.unlock();
+        }
     }
 
 }
