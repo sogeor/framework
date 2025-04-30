@@ -27,6 +27,8 @@ import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
+import java.util.Objects;
+
 /**
  * Представляет собой неизменяемую обёртку над объектом.
  *
@@ -168,7 +170,6 @@ public final class Immutable<T> extends OptionalObject<T> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
-     * @see Action
      * @see #absent()
      * @since 1.0.0-RC1
      */
@@ -213,7 +214,6 @@ public final class Immutable<T> extends OptionalObject<T> {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
-     * @see Action
      * @see #present()
      * @since 1.0.0-RC1
      */
@@ -247,6 +247,27 @@ public final class Immutable<T> extends OptionalObject<T> {
                                                                                                                F {
         super.present(consumer);
         return this;
+    }
+
+    /**
+     * Если {@code this == object}, то возвращает {@code true}.
+     * <p>
+     * Если {@code object instanceof Immutable<?> that}, то возвращает {@code Objects.equals(get(), that.get())}, иначе
+     * — {@code false}.
+     *
+     * @param object объект.
+     *
+     * @return {@code true} или {@code false}.
+     *
+     * @see #get()
+     * @see Objects#equals(Object, Object)
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    public boolean equals(final @Nullable Object object) {
+        return this == object ||
+               object instanceof final @NonNull Immutable<?> that && Objects.equals(get(), that.get());
     }
 
 }
