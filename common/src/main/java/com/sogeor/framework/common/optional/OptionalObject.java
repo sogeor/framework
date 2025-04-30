@@ -116,7 +116,6 @@ public abstract sealed class OptionalObject<T> extends Optional permits Immutabl
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
-     * @see Consumer
      * @see #absent()
      * @since 1.0.0-RC1
      */
@@ -162,9 +161,8 @@ public abstract sealed class OptionalObject<T> extends Optional permits Immutabl
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
-     * @see Consumer
-     * @see #get()
      * @see #present()
+     * @see #get()
      * @since 1.0.0-RC1
      */
     @Contract("!null -> this; null -> fault")
