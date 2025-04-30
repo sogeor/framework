@@ -50,7 +50,9 @@ public abstract sealed class Optional permits OptionalInteger, OptionalObject {
     protected Optional() {}
 
     /**
-     * @return Если текущий объект или значение не существует, то {@code true}, иначе {@code false}.
+     * Если текущий объект или значение не существует, то возвращает {@code true}, иначе — {@code false}.
+     *
+     * @return {@code true} или {@code false}.
      *
      * @since 1.0.0-RC1
      */
@@ -60,7 +62,9 @@ public abstract sealed class Optional permits OptionalInteger, OptionalObject {
     }
 
     /**
-     * @return Если текущий объект или значение существует, то {@code true}, иначе {@code false}.
+     * Если текущий объект или значение существует, то возвращает {@code true}, иначе — {@code false}.
+     *
+     * @return {@code true} или {@code false}.
      *
      * @since 1.0.0-RC1
      */
