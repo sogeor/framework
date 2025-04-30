@@ -93,7 +93,6 @@ public abstract sealed class OptionalObject<T> extends Optional permits Immutabl
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
-     * @see Action
      * @see #absent()
      * @since 1.0.0-RC1
      */
@@ -137,7 +136,6 @@ public abstract sealed class OptionalObject<T> extends Optional permits Immutabl
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
-     * @see Action
      * @see #present()
      * @since 1.0.0-RC1
      */
