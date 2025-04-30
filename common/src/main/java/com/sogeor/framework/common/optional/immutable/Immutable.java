@@ -19,8 +19,11 @@ package com.sogeor.framework.common.optional.immutable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
-import com.sogeor.framework.common.optional.Optional;
+import com.sogeor.framework.common.optional.OptionalObject;
+import com.sogeor.framework.function.Action;
+import com.sogeor.framework.function.Consumer;
 import com.sogeor.framework.throwable.fault.singleton.SingletonCreationFault;
+import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
@@ -31,7 +34,7 @@ import com.sogeor.framework.validation.Validator;
  *
  * @since 1.0.0-RC1
  */
-public final class Immutable<T> extends Optional<T> {
+public final class Immutable<T> extends OptionalObject<T> {
 
     /**
      * Содержит неизменяемую обёртку над {@code null}.
@@ -53,7 +56,7 @@ public final class Immutable<T> extends Optional<T> {
      * {@linkplain SingletonCreationFault проверяемый программный сбой} с
      * {@linkplain SingletonCreationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе имени этого класса.
      *
-     * @throws SingletonCreationFault второй экземпляр этого класса не должен быть создан.
+     * @throws SingletonCreationFault второй экземпляр этого класса на основе {@code null} не должен быть создан.
      * @see #EMPTY
      * @since 1.0.0-RC1
      */
@@ -61,7 +64,7 @@ public final class Immutable<T> extends Optional<T> {
     @SuppressWarnings("ConstantValue")
     private Immutable() throws SingletonCreationFault {
         if (EMPTY == null) {
-            this.object = null;
+            object = null;
             return;
         }
         throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("the Immutable class"));
@@ -114,6 +117,8 @@ public final class Immutable<T> extends Optional<T> {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @return {@code object}.
      *
      * @see #object
@@ -126,6 +131,8 @@ public final class Immutable<T> extends Optional<T> {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @return {@code object == null}.
      *
      * @see #object
@@ -138,6 +145,8 @@ public final class Immutable<T> extends Optional<T> {
     }
 
     /**
+     * {@inheritDoc}
+     *
      * @return {@code object != null}.
      *
      * @see #object
@@ -147,6 +156,97 @@ public final class Immutable<T> extends Optional<T> {
     @Contract("-> $value")
     public boolean present() {
         return object != null;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param action действие.
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения {@code action}.
+     *
+     * @return {@code this}.
+     *
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code action} не должно быть {@code null}.
+     * @see Action
+     * @see #absent()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("!null -> this; null -> fault")
+    public <F extends Throwable> @NonNull Immutable<T> absent(final @NonNull Action<F> action) throws ValidationFault,
+                                                                                                      F {
+        super.absent(action);
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param consumer потребитель объектов.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении {@code null} с помощью
+     * {@code consumer}.
+     *
+     * @return {@code this}.
+     *
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
+     * @see #absent()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("!null -> this; null -> fault")
+    public <F extends Throwable> @NonNull Immutable<T> absent(final @NonNull Consumer<? super T, F> consumer) throws
+                                                                                                              ValidationFault,
+                                                                                                              F {
+        super.absent(consumer);
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param action действие.
+     * @param <F> тип программного сбоя или неисправности, возникающей во время выполнения {@code action}.
+     *
+     * @return {@code this}.
+     *
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code action} не должно быть {@code null}.
+     * @see Action
+     * @see #present()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("!null -> this; null -> fault")
+    public <F extends Throwable> @NonNull Immutable<T> present(final @NonNull Action<F> action) throws ValidationFault,
+                                                                                                       F {
+        super.present(action);
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param consumer потребитель объектов.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении {@code get()} с помощью
+     * {@code consumer}.
+     *
+     * @return {@code this}.
+     *
+     * @throws ValidationFault неудачная валидация.
+     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
+     * @see #present()
+     * @see #get()
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("!null -> this; null -> fault")
+    public <F extends Throwable> @NonNull Immutable<T> present(final @NonNull Consumer<? super T, F> consumer) throws
+                                                                                                               ValidationFault,
+                                                                                                               F {
+        super.present(consumer);
+        return this;
     }
 
 }
