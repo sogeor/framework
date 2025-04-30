@@ -58,7 +58,9 @@ public abstract sealed class OptionalObject<T> extends Optional permits Immutabl
     public abstract @Nullable T get();
 
     /**
-     * @return Если текущий объект не существует, то {@code true}, иначе {@code false}.
+     * Если текущий объект не существует, то возвращает {@code true}, иначе — {@code false}.
+     *
+     * @return {@code true} или {@code false}.
      *
      * @since 1.0.0-RC1
      */
@@ -69,7 +71,9 @@ public abstract sealed class OptionalObject<T> extends Optional permits Immutabl
     }
 
     /**
-     * @return Если текущий объект существует, то {@code true}, иначе {@code false}.
+     * Если текущий объект существует, то возвращает {@code true}, иначе — {@code false}.
+     *
+     * @return {@code true} или {@code false}.
      *
      * @since 1.0.0-RC1
      */
@@ -187,23 +191,28 @@ public abstract sealed class OptionalObject<T> extends Optional permits Immutabl
     /**
      * Если {@code this == object}, то возвращает {@code true}.
      * <p>
-     * Если {@code !(object instanceof OptionalObject<?> that)}, то возвращает {@code false}.
+     * Если {@code object instanceof Immutable<?> that}, то возвращает {@code Objects.equals(get(), that.get())}.
      * <p>
-     * Если {@code Objects.equals(get(), that.get())}, то возвращает {@code true}, иначе — {@code false}.
+     * Если {@code object instanceof Mutable<?> that}, то возвращает {@code that.equals(this)}, иначе — {@code false}.
      *
      * @param object объект.
      *
      * @return {@code true} или {@code false}.
      *
+     * @see Immutable
      * @see #get()
      * @see Objects#equals(Object, Object)
+     * @see Mutable
+     * @see Mutable#equals(Object)
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> value")
     public boolean equals(final @Nullable Object object) {
-        return this == object ||
-               object instanceof final @NonNull OptionalObject<?> that && Objects.equals(get(), that.get());
+        if (this == object) return true;
+        if (object instanceof final @NonNull Immutable<?> that) return Objects.equals(get(), that.get());
+        if (object instanceof final @NonNull Mutable<?> that) return that.equals(this);
+        return false;
     }
 
     /**
