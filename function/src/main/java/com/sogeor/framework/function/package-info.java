@@ -22,16 +22,28 @@
  * @see com.sogeor.framework.function.BiHandler
  * @see com.sogeor.framework.function.BiPredicate
  * @see com.sogeor.framework.function.BooleanConsumer
+ * @see com.sogeor.framework.function.BooleanSupplier
+ * @see com.sogeor.framework.function.BooleanToBooleanHandler
  * @see com.sogeor.framework.function.ByteConsumer
+ * @see com.sogeor.framework.function.ByteSupplier
+ * @see com.sogeor.framework.function.ByteToByteHandler
  * @see com.sogeor.framework.function.Condition
  * @see com.sogeor.framework.function.Consumer
  * @see com.sogeor.framework.function.DoubleConsumer
+ * @see com.sogeor.framework.function.DoubleSupplier
+ * @see com.sogeor.framework.function.DoubleToDoubleHandler
  * @see com.sogeor.framework.function.FloatConsumer
+ * @see com.sogeor.framework.function.FloatSupplier
+ * @see com.sogeor.framework.function.FloatToFloatHandler
  * @see com.sogeor.framework.function.Handler
  * @see com.sogeor.framework.function.IntegerConsumer
  * @see com.sogeor.framework.function.LongConsumer
+ * @see com.sogeor.framework.function.LongSupplier
+ * @see com.sogeor.framework.function.LongToLongHandler
  * @see com.sogeor.framework.function.Predicate
  * @see com.sogeor.framework.function.ShortConsumer
+ * @see com.sogeor.framework.function.ShortSupplier
+ * @see com.sogeor.framework.function.ShortToShortHandler
  * @see com.sogeor.framework.function.Supplier
  * @since 1.0.0-RC1
  */
