@@ -20,6 +20,7 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.common.optional.immutable.ImmutableInteger;
+import com.sogeor.framework.common.optional.mutable.MutableInteger;
 import com.sogeor.framework.function.Action;
 import com.sogeor.framework.function.IntegerConsumer;
 import com.sogeor.framework.validation.NullValidationFault;
@@ -34,7 +35,7 @@ import java.util.Objects;
  * @see #present(Action)
  * @since 1.0.0-RC1
  */
-public abstract sealed class OptionalInteger extends Optional permits ImmutableInteger {
+public abstract sealed class OptionalInteger extends Optional permits ImmutableInteger, MutableInteger {
 
     /**
      * Создаёт экземпляр.
@@ -64,7 +65,6 @@ public abstract sealed class OptionalInteger extends Optional permits ImmutableI
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
-     * @see Action
      * @see #absent()
      * @since 1.0.0-RC1
      */
@@ -86,7 +86,6 @@ public abstract sealed class OptionalInteger extends Optional permits ImmutableI
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code action} не должно быть {@code null}.
-     * @see Action
      * @see #present()
      * @since 1.0.0-RC1
      */
@@ -109,9 +108,8 @@ public abstract sealed class OptionalInteger extends Optional permits ImmutableI
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
-     * @see IntegerConsumer
-     * @see #get()
      * @see #present()
+     * @see #get()
      * @since 1.0.0-RC1
      */
     @Contract("!null -> this; null -> fault")
@@ -139,24 +137,23 @@ public abstract sealed class OptionalInteger extends Optional permits ImmutableI
     /**
      * Если {@code this == object}, то возвращает {@code true}.
      * <p>
-     * Если {@code !(object instanceof OptionalInteger that)}, то возвращает {@code false}.
-     * <p>
-     * Если {@code present() && that.present() && get() == that.get()}, то возвращает {@code true}, иначе —
-     * {@code false}.
+     * Если {@code object instanceof OptionalInteger that}, то возвращает
+     * {@code present() == that.present() && (absent() || get() == that.get())}, иначе — {@code false}.
      *
      * @param object объект.
      *
      * @return {@code true} или {@code false}.
      *
      * @see #present()
+     * @see #absent()
      * @see #get()
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> value")
     public boolean equals(final @Nullable Object object) {
-        return this == object || object instanceof final @NonNull OptionalInteger that && present() && that.present() &&
-                                 get() == that.get();
+        return this == object || object instanceof final @NonNull OptionalInteger that && present() == that.present() &&
+                                 (absent() || get() == that.get());
     }
 
     /**
