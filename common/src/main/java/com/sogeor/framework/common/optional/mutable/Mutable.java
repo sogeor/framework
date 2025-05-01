@@ -17,6 +17,7 @@
 package com.sogeor.framework.common.optional.mutable;
 
 import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.Experimental;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.common.optional.OptionalObject;
@@ -151,6 +152,7 @@ public final class Mutable<T> extends OptionalObject<T> {
      * @see Handler#handle(Object)
      * @since 1.0.0-RC1
      */
+    @Experimental
     @Contract("!null -> this; null -> fault")
     public <F extends Throwable> @NonNull Mutable<T> set(
             final @NonNull Handler<? super T, ? extends T, F> handler) throws ValidationFault, F {
@@ -180,6 +182,7 @@ public final class Mutable<T> extends OptionalObject<T> {
      * @see Supplier#get()
      * @since 1.0.0-RC1
      */
+    @Experimental
     @Contract("!null -> this; null -> fault")
     public <F extends Throwable> @NonNull Mutable<T> set(final @NonNull Supplier<? extends T, F> supplier) throws
                                                                                                            ValidationFault,
