@@ -252,14 +252,14 @@ public final class Immutable<T> extends OptionalObject<T> {
     /**
      * Если {@code this == object}, то возвращает {@code true}.
      * <p>
-     * Если {@code object instanceof Immutable<?> that}, то возвращает {@code Objects.equals(get(), that.get())}, иначе
-     * — {@code false}.
+     * Если {@code object instanceof Immutable<?> that}, то возвращает {@code Objects.equals(object, that.object)},
+     * иначе — {@code false}.
      *
      * @param object объект.
      *
      * @return {@code true} или {@code false}.
      *
-     * @see #get()
+     * @see #object
      * @see Objects#equals(Object, Object)
      * @since 1.0.0-RC1
      */
@@ -267,7 +267,7 @@ public final class Immutable<T> extends OptionalObject<T> {
     @Contract("-> value")
     public boolean equals(final @Nullable Object object) {
         return this == object ||
-               object instanceof final @NonNull Immutable<?> that && Objects.equals(get(), that.get());
+               object instanceof final @NonNull Immutable<?> that && Objects.equals(object, that.object);
     }
 
 }
