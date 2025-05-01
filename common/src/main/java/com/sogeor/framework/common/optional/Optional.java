@@ -39,7 +39,8 @@ import com.sogeor.framework.validation.Validator;
  * @see #present(Action)
  * @since 1.0.0-RC1
  */
-public abstract sealed class Optional permits OptionalInteger, OptionalObject {
+public abstract sealed class Optional permits OptionalBoolean, OptionalByte, OptionalDouble, OptionalFloat,
+                                              OptionalInteger, OptionalLong, OptionalObject, OptionalShort {
 
     /**
      * Создаёт экземпляр.
