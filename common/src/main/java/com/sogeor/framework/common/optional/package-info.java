@@ -21,6 +21,14 @@
  * @see com.sogeor.framework.common.optional.immutable
  * @see com.sogeor.framework.common.optional.mutable
  * @see com.sogeor.framework.common.optional.Optional
+ * @see com.sogeor.framework.common.optional.OptionalBoolean
+ * @see com.sogeor.framework.common.optional.OptionalByte
+ * @see com.sogeor.framework.common.optional.OptionalDouble
+ * @see com.sogeor.framework.common.optional.OptionalFloat
+ * @see com.sogeor.framework.common.optional.OptionalInteger
+ * @see com.sogeor.framework.common.optional.OptionalLong
+ * @see com.sogeor.framework.common.optional.OptionalObject
+ * @see com.sogeor.framework.common.optional.OptionalShort
  * @since 1.0.0-RC1
  */
 package com.sogeor.framework.common.optional;
