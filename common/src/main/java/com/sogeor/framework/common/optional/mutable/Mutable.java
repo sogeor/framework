@@ -378,7 +378,7 @@ public final class Mutable<T> extends OptionalObject<T> {
         lock.lock();
         thatLock.lock();
         try {
-            return Objects.equals(object, that.object);
+            return Objects.equals(this.object, that.object);
         } finally {
             lock.unlock();
             thatLock.unlock();
