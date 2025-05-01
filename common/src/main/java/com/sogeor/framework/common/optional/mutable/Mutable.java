@@ -20,7 +20,6 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.common.optional.OptionalObject;
-import com.sogeor.framework.common.optional.immutable.Immutable;
 import com.sogeor.framework.function.Action;
 import com.sogeor.framework.function.Consumer;
 import com.sogeor.framework.function.Handler;
@@ -355,8 +354,6 @@ public final class Mutable<T> extends OptionalObject<T> {
     /**
      * Если {@code this == object}, то возвращает {@code true}.
      * <p>
-     * Если {@code object instanceof Immutable<?> that}, то возвращает {@code Objects.equals(get(), that.get())}.
-     * <p>
      * Если {@code object instanceof Mutable<?> that}, то возвращает {@code Objects.equals(object, that.object)}, иначе
      * — {@code false}.
      *
@@ -364,25 +361,14 @@ public final class Mutable<T> extends OptionalObject<T> {
      *
      * @return {@code true} или {@code false}.
      *
-     * @see Immutable
-     * @see #get()
-     * @see Objects#equals(Object, Object)
      * @see #object
+     * @see Objects#equals(Object, Object)
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> value")
     public boolean equals(final @Nullable Object object) {
         if (this == object) return true;
-        if (object instanceof final @NonNull Immutable<?> that) {
-            final @NonNull var lock = this.lock.readLock();
-            lock.lock();
-            try {
-                return Objects.equals(object, that.get());
-            } finally {
-                lock.unlock();
-            }
-        }
         if (!(object instanceof final @NonNull Mutable<?> that)) return false;
         final @NonNull var lock = this.lock.readLock();
         final @NonNull var thatLock = that.lock.readLock();
