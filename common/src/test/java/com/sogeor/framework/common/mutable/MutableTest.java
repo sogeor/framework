@@ -16,6 +16,7 @@
 
 package com.sogeor.framework.common.mutable;
 
+import com.sogeor.framework.common.optional.mutable.Mutable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ final class MutableTest {
     @Test
     @DisplayName("of(Object)")
     void of() {
-        Assertions.assertNotEquals(Mutable.empty(), Mutable.of(null));
+        Assertions.assertEquals(Mutable.empty(), Mutable.of(null));
     }
 
 }
