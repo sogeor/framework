@@ -16,6 +16,7 @@
 
 package com.sogeor.framework.common.immutable;
 
+import com.sogeor.framework.common.optional.immutable.Immutable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
