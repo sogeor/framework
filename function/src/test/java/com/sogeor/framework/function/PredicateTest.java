@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-final class PredicateTest {
+final class PredicateTest { // TODO: rewrite it
 
     @Test
     void methodDirect() {
