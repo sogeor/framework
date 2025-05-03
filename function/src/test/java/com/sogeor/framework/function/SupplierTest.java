@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-final class SupplierTest {
+final class SupplierTest { // TODO: rewrite it
 
     @Test
     void methodDirect() {
