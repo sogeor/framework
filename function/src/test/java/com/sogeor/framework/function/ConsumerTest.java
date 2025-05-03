@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-final class ConsumerTest {
+final class ConsumerTest { // TODO: rewrite it
 
     @Test
     void methodEmpty() {
