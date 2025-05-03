@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-final class MutableTest {
+final class MutableTest { // TODO: rewrite it
 
     @Test
     @DisplayName("of(Object)")
