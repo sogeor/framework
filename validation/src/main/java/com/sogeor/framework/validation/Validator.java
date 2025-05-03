@@ -45,7 +45,7 @@ public final class Validator {
      * Если {@code !value}, то генерирует {@linkplain ValidationFault непроверяемую программную неисправность} с
      * {@linkplain ValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param value логическое значение.
+     * @param value значение типа {@code boolean}.
      *
      * @throws ValidationFault {@code value} должно быть {@code true}.
      * @apiNote Предназначен для удобной валидации {@code value} — результата вычисления условия.
@@ -63,8 +63,8 @@ public final class Validator {
      * {@code message}, или, если {@code message == null}, с
      * {@linkplain ValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param value логическое значение.
-     * @param message сообщение о неисправности.
+     * @param value значение типа {@code boolean}.
+     * @param message сообщение о неудачной валидации.
      *
      * @throws ValidationFault {@code value} должно быть {@code true}.
      * @apiNote Предназначен для удобной валидации {@code value} — результата вычисления условия.
@@ -171,7 +171,7 @@ public final class Validator {
      * {@linkplain TrueValidationFault непроверяемую программную неисправность} с
      * {@linkplain TrueValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param value логическое значение.
+     * @param value значение типа {@code boolean}.
      *
      * @return {@code false}.
      *
@@ -191,7 +191,7 @@ public final class Validator {
      * {@linkplain TrueValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или, если
      * {@code name == null}, с {@linkplain TrueValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param value логическое значение.
+     * @param value значение типа {@code boolean}.
      * @param name имя {@code value}.
      *
      * @return {@code false}.
@@ -212,7 +212,7 @@ public final class Validator {
      * {@linkplain FalseValidationFault непроверяемую программную неисправность} с
      * {@linkplain FalseValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param value логическое значение.
+     * @param value значение типа {@code boolean}.
      *
      * @return {@code true}.
      *
@@ -232,7 +232,7 @@ public final class Validator {
      * {@linkplain FalseValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или, если
      * {@code name == null}, с {@linkplain FalseValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param value логическое значение.
+     * @param value значение типа {@code boolean}.
      * @param name имя {@code value}.
      *
      * @return {@code true}.
@@ -246,6 +246,264 @@ public final class Validator {
         if (value) return true;
         if (name == null) throw new FalseValidationFault();
         throw new FalseValidationFault(FalseValidationFault.TEMPLATE_MESSAGE.formatted(name));
+    }
+
+    /**
+     * Если {@code Float.isNaN(value)}, то возвращает {@code value}, в противном случае генерирует
+     * {@linkplain NumberValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NumberValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param value значение типа {@code float}.
+     *
+     * @return {@code value}.
+     *
+     * @throws NumberValidationFault {@code value} не должно быть числом.
+     * @see Float#isNaN(float)
+     * @see #isNaN(float, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("? -> ?")
+    public static float isNaN(final float value) throws NumberValidationFault {
+        if (Float.isNaN(value)) return value;
+        throw new NumberValidationFault();
+    }
+
+    /**
+     * Если {@code Float.isNaN(value)}, то возвращает {@code value}, в противном случае генерирует
+     * {@linkplain NumberValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NumberValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или, если
+     * {@code name == null}, с {@linkplain NumberValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param value значение типа {@code float}.
+     * @param name имя {@code value}.
+     *
+     * @return {@code value}.
+     *
+     * @throws NumberValidationFault {@code value} не должно быть числом.
+     * @see Float#isNaN(float)
+     * @see #isNaN(float)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ? -> ?")
+    public static float isNaN(final float value, final @Nullable String name) throws NumberValidationFault {
+        if (Float.isNaN(value)) return value;
+        if (name == null) throw new NumberValidationFault();
+        throw new NumberValidationFault(NumberValidationFault.TEMPLATE_MESSAGE.formatted(name));
+    }
+
+    /**
+     * Если {@code Double.isNaN(value)}, то возвращает {@code value}, в противном случае генерирует
+     * {@linkplain NumberValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NumberValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param value значение типа {@code double}.
+     *
+     * @return {@code value}.
+     *
+     * @throws NumberValidationFault {@code value} не должно быть числом.
+     * @see Double#isNaN(double)
+     * @see #isNaN(double, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("? -> ?")
+    public static double isNaN(final double value) throws NumberValidationFault {
+        if (Double.isNaN(value)) return value;
+        throw new NumberValidationFault();
+    }
+
+    /**
+     * Если {@code Double.isNaN(value)}, то возвращает {@code value}, в противном случае генерирует
+     * {@linkplain NumberValidationFault непроверяемую программную неисправность} с
+     * {@linkplain NumberValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или, если
+     * {@code name == null}, с {@linkplain NumberValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param value значение типа {@code double}.
+     * @param name имя {@code value}.
+     *
+     * @return {@code value}.
+     *
+     * @throws NumberValidationFault {@code value} не должно быть числом.
+     * @see Double#isNaN(double)
+     * @see #isNaN(double)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ? -> ?")
+    public static double isNaN(final double value, final @Nullable String name) throws NumberValidationFault {
+        if (Double.isNaN(value)) return value;
+        if (name == null) throw new NumberValidationFault();
+        throw new NumberValidationFault(NumberValidationFault.TEMPLATE_MESSAGE.formatted(name));
+    }
+
+    /**
+     * Если {@code Float.isInfinite(value)}, то возвращает {@code value}, в противном случае генерирует
+     * {@linkplain FiniteValidationFault непроверяемую программную неисправность} с
+     * {@linkplain FiniteValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param value значение типа {@code float}.
+     *
+     * @return {@code value}.
+     *
+     * @throws FiniteValidationFault {@code value} не должно быть конечным числом.
+     * @see Float#isInfinite(float)
+     * @see #isInfinite(float, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("? -> ?")
+    public static float isInfinite(final float value) throws FiniteValidationFault {
+        if (Float.isInfinite(value)) return value;
+        throw new FiniteValidationFault();
+    }
+
+    /**
+     * Если {@code Float.isInfinite(value)}, то возвращает {@code value}, в противном случае генерирует
+     * {@linkplain FiniteValidationFault непроверяемую программную неисправность} с
+     * {@linkplain FiniteValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или, если
+     * {@code name == null}, с {@linkplain FiniteValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param value значение типа {@code float}.
+     * @param name имя {@code value}.
+     *
+     * @return {@code value}.
+     *
+     * @throws FiniteValidationFault {@code value} не должно быть конечным числом.
+     * @see Float#isInfinite(float)
+     * @see #isInfinite(float)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ? -> ?")
+    public static float isInfinite(final float value, final @Nullable String name) throws FiniteValidationFault {
+        if (Float.isInfinite(value)) return value;
+        if (name == null) throw new FiniteValidationFault();
+        throw new FiniteValidationFault(FiniteValidationFault.TEMPLATE_MESSAGE.formatted(name));
+    }
+
+    /**
+     * Если {@code Double.isInfinite(value)}, то возвращает {@code value}, в противном случае генерирует
+     * {@linkplain FiniteValidationFault непроверяемую программную неисправность} с
+     * {@linkplain FiniteValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param value значение типа {@code double}.
+     *
+     * @return {@code value}.
+     *
+     * @throws FiniteValidationFault {@code value} не должно быть конечным числом.
+     * @see Double#isInfinite(double)
+     * @see #isInfinite(double, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("? -> ?")
+    public static double isInfinite(final double value) throws FiniteValidationFault {
+        if (Double.isInfinite(value)) return value;
+        throw new FiniteValidationFault();
+    }
+
+    /**
+     * Если {@code Double.isInfinite(value)}, то возвращает {@code value}, в противном случае генерирует
+     * {@linkplain FiniteValidationFault непроверяемую программную неисправность} с
+     * {@linkplain FiniteValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или, если
+     * {@code name == null}, с {@linkplain FiniteValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param value значение типа {@code double}.
+     * @param name имя {@code value}.
+     *
+     * @return {@code value}.
+     *
+     * @throws FiniteValidationFault {@code value} не должно быть конечным числом.
+     * @see Double#isInfinite(double)
+     * @see #isInfinite(double)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ? -> ?")
+    public static double isInfinite(final double value, final @Nullable String name) throws FiniteValidationFault {
+        if (Double.isInfinite(value)) return value;
+        if (name == null) throw new FiniteValidationFault();
+        throw new FiniteValidationFault(FiniteValidationFault.TEMPLATE_MESSAGE.formatted(name));
+    }
+
+    /**
+     * Если {@code Float.isFinite(value)}, то возвращает {@code value}, в противном случае генерирует
+     * {@linkplain InfiniteValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InfiniteValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param value значение типа {@code float}.
+     *
+     * @return {@code value}.
+     *
+     * @throws InfiniteValidationFault {@code value} должно быть конечным числом.
+     * @see Float#isFinite(float)
+     * @see #isFinite(float, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("? -> ?")
+    public static float isFinite(final float value) throws InfiniteValidationFault {
+        if (Float.isFinite(value)) return value;
+        throw new InfiniteValidationFault();
+    }
+
+    /**
+     * Если {@code Float.isFinite(value)}, то возвращает {@code value}, в противном случае генерирует
+     * {@linkplain InfiniteValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InfiniteValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или, если
+     * {@code name == null}, с {@linkplain InfiniteValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param value значение типа {@code float}.
+     * @param name имя {@code value}.
+     *
+     * @return {@code value}.
+     *
+     * @throws InfiniteValidationFault {@code value} должно быть конечным числом.
+     * @see Float#isFinite(float)
+     * @see #isFinite(float)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ? -> ?")
+    public static float isFinite(final float value, final @Nullable String name) throws InfiniteValidationFault {
+        if (Float.isFinite(value)) return value;
+        if (name == null) throw new InfiniteValidationFault();
+        throw new InfiniteValidationFault(InfiniteValidationFault.TEMPLATE_MESSAGE.formatted(name));
+    }
+
+    /**
+     * Если {@code Double.isFinite(value)}, то возвращает {@code value}, в противном случае генерирует
+     * {@linkplain InfiniteValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InfiniteValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param value значение типа {@code double}.
+     *
+     * @return {@code value}.
+     *
+     * @throws InfiniteValidationFault {@code value} должно быть конечным числом.
+     * @see Double#isFinite(double)
+     * @see #isFinite(double, String)
+     * @since 1.0.0-RC1
+     */
+    @Contract("? -> ?")
+    public static double isFinite(final double value) throws InfiniteValidationFault {
+        if (Double.isFinite(value)) return value;
+        throw new InfiniteValidationFault();
+    }
+
+    /**
+     * Если {@code Double.isFinite(value)}, то возвращает {@code value}, в противном случае генерирует
+     * {@linkplain InfiniteValidationFault непроверяемую программную неисправность} с
+     * {@linkplain InfiniteValidationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе {@code name}, или, если
+     * {@code name == null}, с {@linkplain InfiniteValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     *
+     * @param value значение типа {@code double}.
+     * @param name имя {@code value}.
+     *
+     * @return {@code value}.
+     *
+     * @throws InfiniteValidationFault {@code value} должно быть конечным числом.
+     * @see Double#isFinite(double)
+     * @see #isFinite(double)
+     * @since 1.0.0-RC1
+     */
+    @Contract("?, ? -> ?")
+    public static double isFinite(final double value, final @Nullable String name) throws InfiniteValidationFault {
+        if (Double.isFinite(value)) return value;
+        if (name == null) throw new InfiniteValidationFault();
+        throw new InfiniteValidationFault(InfiniteValidationFault.TEMPLATE_MESSAGE.formatted(name));
     }
 
     /**
@@ -308,8 +566,8 @@ public final class Validator {
      * генерирует {@linkplain NonEqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное логическое значение.
-     * @param secondaryValue вторичное логическое значение.
+     * @param primaryValue первичное значение типа {@code boolean}.
+     * @param secondaryValue вторичное значение типа {@code boolean}.
      *
      * @return {@code primaryValue}.
      *
@@ -331,8 +589,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное логическое значение.
-     * @param secondaryValue вторичное логическое значение.
+     * @param primaryValue первичное значение типа {@code boolean}.
+     * @param secondaryValue вторичное значение типа {@code boolean}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -359,8 +617,8 @@ public final class Validator {
      * генерирует {@linkplain NonEqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
      *
      * @return {@code primaryValue}.
      *
@@ -381,8 +639,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -407,8 +665,8 @@ public final class Validator {
      * генерирует {@linkplain NonEqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
      *
      * @return {@code primaryValue}.
      *
@@ -429,8 +687,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -455,8 +713,8 @@ public final class Validator {
      * генерирует {@linkplain NonEqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
      *
      * @return {@code primaryValue}.
      *
@@ -477,8 +735,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -503,8 +761,8 @@ public final class Validator {
      * генерирует {@linkplain NonEqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
      *
      * @return {@code primaryValue}.
      *
@@ -525,8 +783,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -551,8 +809,8 @@ public final class Validator {
      * генерирует {@linkplain NonEqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
      *
      * @return {@code primaryValue}.
      *
@@ -573,8 +831,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -599,8 +857,8 @@ public final class Validator {
      * генерирует {@linkplain NonEqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
      *
      * @return {@code primaryValue}.
      *
@@ -621,8 +879,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NonEqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -702,8 +960,8 @@ public final class Validator {
      * генерирует {@linkplain EqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное логическое значение.
-     * @param secondaryValue вторичное логическое значение.
+     * @param primaryValue первичное значение типа {@code boolean}.
+     * @param secondaryValue вторичное значение типа {@code boolean}.
      *
      * @return {@code primaryValue}.
      *
@@ -725,8 +983,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное логическое значение.
-     * @param secondaryValue вторичное логическое значение.
+     * @param primaryValue первичное значение типа {@code boolean}.
+     * @param secondaryValue вторичное значение типа {@code boolean}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -753,8 +1011,8 @@ public final class Validator {
      * генерирует {@linkplain EqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
      *
      * @return {@code primaryValue}.
      *
@@ -775,8 +1033,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -801,8 +1059,8 @@ public final class Validator {
      * генерирует {@linkplain EqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
      *
      * @return {@code primaryValue}.
      *
@@ -823,8 +1081,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -850,8 +1108,8 @@ public final class Validator {
      * генерирует {@linkplain EqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
      *
      * @return {@code primaryValue}.
      *
@@ -872,8 +1130,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -898,8 +1156,8 @@ public final class Validator {
      * генерирует {@linkplain EqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
      *
      * @return {@code primaryValue}.
      *
@@ -920,8 +1178,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -946,8 +1204,8 @@ public final class Validator {
      * генерирует {@linkplain EqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
      *
      * @return {@code primaryValue}.
      *
@@ -968,8 +1226,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -995,8 +1253,8 @@ public final class Validator {
      * генерирует {@linkplain EqualValidationFault непроверяемую программную неисправность} с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
      *
      * @return {@code primaryValue}.
      *
@@ -1017,8 +1275,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain EqualValidationFault#DEFAULT_VALUES_MESSAGE сообщением для значений по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1044,8 +1302,8 @@ public final class Validator {
      * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
      *
      * @return {@code primaryValue}.
      *
@@ -1066,8 +1324,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1090,8 +1348,8 @@ public final class Validator {
      * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
      *
      * @return {@code primaryValue}.
      *
@@ -1112,8 +1370,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1136,8 +1394,8 @@ public final class Validator {
      * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
      *
      * @return {@code primaryValue}.
      *
@@ -1158,8 +1416,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1182,8 +1440,8 @@ public final class Validator {
      * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
      *
      * @return {@code primaryValue}.
      *
@@ -1204,8 +1462,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1228,8 +1486,8 @@ public final class Validator {
      * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
      *
      * @return {@code primaryValue}.
      *
@@ -1250,8 +1508,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1274,8 +1532,8 @@ public final class Validator {
      * {@linkplain NotLessValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
      *
      * @return {@code primaryValue}.
      *
@@ -1296,8 +1554,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotLessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1321,8 +1579,8 @@ public final class Validator {
      * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
      *
      * @return {@code primaryValue}.
      *
@@ -1343,8 +1601,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1367,8 +1625,8 @@ public final class Validator {
      * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
      *
      * @return {@code primaryValue}.
      *
@@ -1389,8 +1647,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1413,8 +1671,8 @@ public final class Validator {
      * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
      *
      * @return {@code primaryValue}.
      *
@@ -1435,8 +1693,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1459,8 +1717,8 @@ public final class Validator {
      * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
      *
      * @return {@code primaryValue}.
      *
@@ -1481,8 +1739,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1505,8 +1763,8 @@ public final class Validator {
      * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
      *
      * @return {@code primaryValue}.
      *
@@ -1527,8 +1785,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1551,8 +1809,8 @@ public final class Validator {
      * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
      *
      * @return {@code primaryValue}.
      *
@@ -1573,8 +1831,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1598,8 +1856,8 @@ public final class Validator {
      * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
      *
      * @return {@code primaryValue}.
      *
@@ -1620,8 +1878,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1644,8 +1902,8 @@ public final class Validator {
      * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
      *
      * @return {@code primaryValue}.
      *
@@ -1666,8 +1924,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1691,8 +1949,8 @@ public final class Validator {
      * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
      *
      * @return {@code primaryValue}.
      *
@@ -1713,8 +1971,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1737,8 +1995,8 @@ public final class Validator {
      * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
      *
      * @return {@code primaryValue}.
      *
@@ -1759,8 +2017,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1783,8 +2041,8 @@ public final class Validator {
      * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
      *
      * @return {@code primaryValue}.
      *
@@ -1805,8 +2063,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1830,8 +2088,8 @@ public final class Validator {
      * {@linkplain LessValidationFault непроверяемую программную неисправность} с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
      *
      * @return {@code primaryValue}.
      *
@@ -1852,8 +2110,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain LessValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1877,8 +2135,8 @@ public final class Validator {
      * {@linkplain NotMoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotMoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
      *
      * @return {@code primaryValue}.
      *
@@ -1899,8 +2157,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1923,8 +2181,8 @@ public final class Validator {
      * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
      *
      * @return {@code primaryValue}.
      *
@@ -1945,8 +2203,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -1970,8 +2228,8 @@ public final class Validator {
      * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
      *
      * @return {@code primaryValue}.
      *
@@ -1992,8 +2250,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -2016,8 +2274,8 @@ public final class Validator {
      * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
      *
      * @return {@code primaryValue}.
      *
@@ -2038,8 +2296,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -2062,8 +2320,8 @@ public final class Validator {
      * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
      *
      * @return {@code primaryValue}.
      *
@@ -2084,8 +2342,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -2109,8 +2367,8 @@ public final class Validator {
      * {@linkplain MoreValidationFault непроверяемую программную неисправность} с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
      *
      * @return {@code primaryValue}.
      *
@@ -2131,8 +2389,8 @@ public final class Validator {
      * {@code secondaryName}, или, если {@code primaryName == null || secondaryName == null}, с
      * {@linkplain MoreValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      *
@@ -2156,9 +2414,9 @@ public final class Validator {
      * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
+     * @param tertiaryValue третичное значение типа {@code byte}.
      *
      * @return {@code primaryValue}.
      *
@@ -2182,9 +2440,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
+     * @param tertiaryValue третичное значение типа {@code byte}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2211,9 +2469,9 @@ public final class Validator {
      * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
+     * @param tertiaryValue третичное значение типа {@code short}.
      *
      * @return {@code primaryValue}.
      *
@@ -2237,9 +2495,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
+     * @param tertiaryValue третичное значение типа {@code short}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2266,9 +2524,9 @@ public final class Validator {
      * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
+     * @param tertiaryValue третичное значение типа {@code int}.
      *
      * @return {@code primaryValue}.
      *
@@ -2292,9 +2550,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
+     * @param tertiaryValue третичное значение типа {@code int}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2321,9 +2579,9 @@ public final class Validator {
      * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
+     * @param tertiaryValue третичное значение типа {@code long}.
      *
      * @return {@code primaryValue}.
      *
@@ -2347,9 +2605,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
+     * @param tertiaryValue третичное значение типа {@code long}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2376,9 +2634,9 @@ public final class Validator {
      * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
+     * @param tertiaryValue третичное значение типа {@code float}.
      *
      * @return {@code primaryValue}.
      *
@@ -2402,9 +2660,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
+     * @param tertiaryValue третичное значение типа {@code float}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2431,9 +2689,9 @@ public final class Validator {
      * противном случае генерирует {@linkplain NotOutsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
+     * @param tertiaryValue третичное значение типа {@code double}.
      *
      * @return {@code primaryValue}.
      *
@@ -2457,9 +2715,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain NotOutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
+     * @param tertiaryValue третичное значение типа {@code double}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2486,9 +2744,9 @@ public final class Validator {
      * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
+     * @param tertiaryValue третичное значение типа {@code byte}.
      *
      * @return {@code primaryValue}.
      *
@@ -2512,9 +2770,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
+     * @param tertiaryValue третичное значение типа {@code byte}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2541,9 +2799,9 @@ public final class Validator {
      * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
+     * @param tertiaryValue третичное значение типа {@code short}.
      *
      * @return {@code primaryValue}.
      *
@@ -2567,9 +2825,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
+     * @param tertiaryValue третичное значение типа {@code short}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2596,9 +2854,9 @@ public final class Validator {
      * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
+     * @param tertiaryValue третичное значение типа {@code int}.
      *
      * @return {@code primaryValue}.
      *
@@ -2622,9 +2880,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
+     * @param tertiaryValue третичное значение типа {@code int}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2651,9 +2909,9 @@ public final class Validator {
      * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
+     * @param tertiaryValue третичное значение типа {@code long}.
      *
      * @return {@code primaryValue}.
      *
@@ -2677,9 +2935,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
+     * @param tertiaryValue третичное значение типа {@code long}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2706,9 +2964,9 @@ public final class Validator {
      * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
+     * @param tertiaryValue третичное значение типа {@code float}.
      *
      * @return {@code primaryValue}.
      *
@@ -2732,9 +2990,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
+     * @param tertiaryValue третичное значение типа {@code float}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2761,9 +3019,9 @@ public final class Validator {
      * противном случае генерирует {@linkplain NotInsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
+     * @param tertiaryValue третичное значение типа {@code double}.
      *
      * @return {@code primaryValue}.
      *
@@ -2787,9 +3045,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain NotInsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
+     * @param tertiaryValue третичное значение типа {@code double}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2816,9 +3074,9 @@ public final class Validator {
      * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
+     * @param tertiaryValue третичное значение типа {@code byte}.
      *
      * @return {@code primaryValue}.
      *
@@ -2842,9 +3100,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
+     * @param tertiaryValue третичное значение типа {@code byte}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2871,9 +3129,9 @@ public final class Validator {
      * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
+     * @param tertiaryValue третичное значение типа {@code short}.
      *
      * @return {@code primaryValue}.
      *
@@ -2897,9 +3155,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
+     * @param tertiaryValue третичное значение типа {@code short}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2926,9 +3184,9 @@ public final class Validator {
      * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
+     * @param tertiaryValue третичное значение типа {@code int}.
      *
      * @return {@code primaryValue}.
      *
@@ -2952,9 +3210,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
+     * @param tertiaryValue третичное значение типа {@code int}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -2981,9 +3239,9 @@ public final class Validator {
      * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
+     * @param tertiaryValue третичное значение типа {@code long}.
      *
      * @return {@code primaryValue}.
      *
@@ -3007,9 +3265,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
+     * @param tertiaryValue третичное значение типа {@code long}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -3036,9 +3294,9 @@ public final class Validator {
      * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
+     * @param tertiaryValue третичное значение типа {@code float}.
      *
      * @return {@code primaryValue}.
      *
@@ -3062,9 +3320,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
+     * @param tertiaryValue третичное значение типа {@code float}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -3091,9 +3349,9 @@ public final class Validator {
      * в противном случае генерирует {@linkplain OutsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
+     * @param tertiaryValue третичное значение типа {@code double}.
      *
      * @return {@code primaryValue}.
      *
@@ -3117,9 +3375,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain OutsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
+     * @param tertiaryValue третичное значение типа {@code double}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -3146,9 +3404,9 @@ public final class Validator {
      * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
+     * @param tertiaryValue третичное значение типа {@code byte}.
      *
      * @return {@code primaryValue}.
      *
@@ -3172,9 +3430,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code byte}.
+     * @param secondaryValue вторичное значение типа {@code byte}.
+     * @param tertiaryValue третичное значение типа {@code byte}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -3201,9 +3459,9 @@ public final class Validator {
      * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
+     * @param tertiaryValue третичное значение типа {@code short}.
      *
      * @return {@code primaryValue}.
      *
@@ -3227,9 +3485,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code short}.
+     * @param secondaryValue вторичное значение типа {@code short}.
+     * @param tertiaryValue третичное значение типа {@code short}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -3256,9 +3514,9 @@ public final class Validator {
      * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
+     * @param tertiaryValue третичное значение типа {@code int}.
      *
      * @return {@code primaryValue}.
      *
@@ -3282,9 +3540,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code int}.
+     * @param secondaryValue вторичное значение типа {@code int}.
+     * @param tertiaryValue третичное значение типа {@code int}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -3311,9 +3569,9 @@ public final class Validator {
      * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
+     * @param tertiaryValue третичное значение типа {@code long}.
      *
      * @return {@code primaryValue}.
      *
@@ -3337,9 +3595,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code long}.
+     * @param secondaryValue вторичное значение типа {@code long}.
+     * @param tertiaryValue третичное значение типа {@code long}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -3366,9 +3624,9 @@ public final class Validator {
      * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
+     * @param tertiaryValue третичное значение типа {@code float}.
      *
      * @return {@code primaryValue}.
      *
@@ -3392,9 +3650,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code float}.
+     * @param secondaryValue вторичное значение типа {@code float}.
+     * @param tertiaryValue третичное значение типа {@code float}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
@@ -3421,9 +3679,9 @@ public final class Validator {
      * в противном случае генерирует {@linkplain InsideValidationFault непроверяемую программную неисправность} с
      * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
+     * @param tertiaryValue третичное значение типа {@code double}.
      *
      * @return {@code primaryValue}.
      *
@@ -3447,9 +3705,9 @@ public final class Validator {
      * {@code primaryName == null || secondaryName == null || tertiaryName == null}, с
      * {@linkplain InsideValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
      *
-     * @param primaryValue первичное численное значение.
-     * @param secondaryValue вторичное численное значение.
-     * @param tertiaryValue третичное численное значение.
+     * @param primaryValue первичное значение типа {@code double}.
+     * @param secondaryValue вторичное значение типа {@code double}.
+     * @param tertiaryValue третичное значение типа {@code double}.
      * @param primaryName имя {@code primaryValue}.
      * @param secondaryName имя {@code secondaryValue}.
      * @param tertiaryName имя {@code tertiaryValue}.
