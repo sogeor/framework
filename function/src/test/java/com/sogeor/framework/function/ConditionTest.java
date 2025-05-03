@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @since 1.0.0-RC1
  */
-final class ConditionTest {
+final class ConditionTest { // TODO: rewrite it
 
     /**
      * @since 1.0.0-RC1
