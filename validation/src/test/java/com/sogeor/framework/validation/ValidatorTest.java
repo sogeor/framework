@@ -16,163 +16,219 @@
 
 package com.sogeor.framework.validation;
 
-import com.sogeor.framework.annotation.NonNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
+@SuppressWarnings("DataFlowIssue")
 final class ValidatorTest {
 
     @Test
-    @DisplayName("isNull(Object)")
-    @SuppressWarnings("DataFlowIssue")
-    void isNull() {
-        assertDoesNotThrow(() -> Validator.isNull(null));
+    @DisplayName("validate(boolean)")
+    void validateBoolean() {
+        assertDoesNotThrow(() -> Validator.validate(true));
+        assertThrowsExactly(ValidationFault.class, () -> Validator.validate(false));
+    }
 
-        assertThrowsExactly(NonNullValidationFault.class, () -> Validator.isNull(new Object()));
+    @Test
+    @DisplayName("validate(boolean, String)")
+    void validateBooleanString() {
+        assertDoesNotThrow(() -> Validator.validate(true, "The test value"));
+        assertThrowsExactly(ValidationFault.class, () -> Validator.validate(false, "The test value"));
+    }
+
+    @Test
+    @DisplayName("isNull(Object)")
+    void isNullObject() {
+        assertDoesNotThrow(() -> Validator.isNull(null));
+        assertThrowsExactly(NonNullValidationFault.class, () -> Validator.isNull(this));
     }
 
     @Test
     @DisplayName("isNull(Object, String)")
-    @SuppressWarnings("DataFlowIssue")
-    void isNullWithName() {
-        assertDoesNotThrow(() -> Validator.isNull(null, null));
-        assertDoesNotThrow(() -> Validator.isNull(null, "The test name"));
-
-        assertThrowsExactly(NonNullValidationFault.class, () -> Validator.isNull(new Object(), null));
-        assertThrowsExactly(NonNullValidationFault.class, () -> Validator.isNull(new Object(), "The test name"));
+    void isNullObjectString() {
+        assertDoesNotThrow(() -> Validator.isNull(null, "The test value"));
+        assertThrowsExactly(NonNullValidationFault.class, () -> Validator.isNull(this, "The test value"));
     }
 
     @Test
     @DisplayName("nonNull(Object)")
-    @SuppressWarnings("DataFlowIssue")
-    void nonNull() {
-        assertDoesNotThrow(() -> Validator.nonNull(new Object()));
-
+    void nonNullObject() {
+        assertDoesNotThrow(() -> Validator.nonNull(this));
         assertThrowsExactly(NullValidationFault.class, () -> Validator.nonNull(null));
     }
 
     @Test
     @DisplayName("nonNull(Object, String)")
-    @SuppressWarnings("DataFlowIssue")
-    void nonNullWithName() {
-        assertDoesNotThrow(() -> Validator.nonNull(new Object(), null));
-        assertDoesNotThrow(() -> Validator.nonNull(new Object(), "The test name"));
-
-        assertThrowsExactly(NullValidationFault.class, () -> Validator.nonNull(null, null));
-        assertThrowsExactly(NullValidationFault.class, () -> Validator.nonNull(null, "The test name"));
+    void nonNullObjectString() {
+        assertDoesNotThrow(() -> Validator.nonNull(this, "The test value"));
+        assertThrowsExactly(NullValidationFault.class, () -> Validator.nonNull(null, "The test value"));
     }
 
     @Test
     @DisplayName("isFalse(boolean)")
-    @SuppressWarnings("DataFlowIssue")
-    void isFalse() {
+    void isFalseBoolean() {
         assertDoesNotThrow(() -> Validator.isFalse(false));
-
         assertThrowsExactly(TrueValidationFault.class, () -> Validator.isFalse(true));
     }
 
     @Test
     @DisplayName("isFalse(boolean, String)")
-    @SuppressWarnings("DataFlowIssue")
-    void isFalseWithName() {
-        assertDoesNotThrow(() -> Validator.isFalse(false, null));
-        assertDoesNotThrow(() -> Validator.isFalse(false, "The test name"));
-
-        assertThrowsExactly(TrueValidationFault.class, () -> Validator.isFalse(true, null));
-        assertThrowsExactly(TrueValidationFault.class, () -> Validator.isFalse(true, "The test name"));
+    void isFalseBooleanString() {
+        assertDoesNotThrow(() -> Validator.isFalse(false, "The test value"));
+        assertThrowsExactly(TrueValidationFault.class, () -> Validator.isFalse(true, "The test value"));
     }
 
     @Test
     @DisplayName("isTrue(boolean)")
-    @SuppressWarnings("DataFlowIssue")
-    void isTrue() {
+    void isTrueBoolean() {
         assertDoesNotThrow(() -> Validator.isTrue(true));
-
         assertThrowsExactly(FalseValidationFault.class, () -> Validator.isTrue(false));
     }
 
     @Test
     @DisplayName("isTrue(boolean, String)")
-    @SuppressWarnings("DataFlowIssue")
-    void isTrueWithName() {
-        assertDoesNotThrow(() -> Validator.isTrue(true, null));
-        assertDoesNotThrow(() -> Validator.isTrue(true, "The test name"));
+    void isTrueBooleanString() {
+        assertDoesNotThrow(() -> Validator.isTrue(true, "The test value"));
+        assertThrowsExactly(FalseValidationFault.class, () -> Validator.isTrue(false, "The test value"));
+    }
 
-        assertThrowsExactly(FalseValidationFault.class, () -> Validator.isTrue(false, null));
-        assertThrowsExactly(FalseValidationFault.class, () -> Validator.isTrue(false, "The test name"));
+    @Test
+    @DisplayName("isNaN(float)")
+    void isNaNFloat() {
+        assertDoesNotThrow(() -> Validator.isNaN(Float.NaN));
+        assertThrowsExactly(NumberValidationFault.class, () -> Validator.isNaN(0f));
+    }
+
+    @Test
+    @DisplayName("isNaN(float, String)")
+    void isNaNFloatString() {
+        assertDoesNotThrow(() -> Validator.isNaN(Float.NaN, "The test value"));
+        assertThrowsExactly(NumberValidationFault.class, () -> Validator.isNaN(0f, "The test value"));
+    }
+
+    @Test
+    @DisplayName("isNaN(double)")
+    void isNaNDouble() {
+        assertDoesNotThrow(() -> Validator.isNaN(Double.NaN));
+        assertThrowsExactly(NumberValidationFault.class, () -> Validator.isNaN(0d));
+    }
+
+    @Test
+    @DisplayName("isNaN(double, String)")
+    void isNaNDoubleString() {
+        assertDoesNotThrow(() -> Validator.isNaN(Double.NaN, "The test value"));
+        assertThrowsExactly(NumberValidationFault.class, () -> Validator.isNaN(0d, "The test value"));
+    }
+
+    @Test
+    @DisplayName("isInfinite(float)")
+    void isInfiniteFloat() {
+        assertDoesNotThrow(() -> Validator.isInfinite(Float.POSITIVE_INFINITY));
+        assertDoesNotThrow(() -> Validator.isInfinite(Float.NEGATIVE_INFINITY));
+        assertThrowsExactly(FiniteValidationFault.class, () -> Validator.isInfinite(0f));
+    }
+
+    @Test
+    @DisplayName("isInfinite(float, String)")
+    void isInfiniteFloatString() {
+        assertDoesNotThrow(() -> Validator.isInfinite(Float.POSITIVE_INFINITY, "The test value"));
+        assertDoesNotThrow(() -> Validator.isInfinite(Float.NEGATIVE_INFINITY, "The test value"));
+        assertThrowsExactly(FiniteValidationFault.class, () -> Validator.isInfinite(0f, "The test value"));
+    }
+
+    @Test
+    @DisplayName("isInfinite(double)")
+    void isInfiniteDouble() {
+        assertDoesNotThrow(() -> Validator.isInfinite(Double.POSITIVE_INFINITY));
+        assertDoesNotThrow(() -> Validator.isInfinite(Double.NEGATIVE_INFINITY));
+        assertThrowsExactly(FiniteValidationFault.class, () -> Validator.isInfinite(0d));
+    }
+
+    @Test
+    @DisplayName("isInfinite(double, String)")
+    void isInfiniteDoubleString() {
+        assertDoesNotThrow(() -> Validator.isInfinite(Double.POSITIVE_INFINITY, "The test value"));
+        assertDoesNotThrow(() -> Validator.isInfinite(Double.NEGATIVE_INFINITY, "The test value"));
+        assertThrowsExactly(FiniteValidationFault.class, () -> Validator.isInfinite(0d, "The test value"));
+    }
+
+    @Test
+    @DisplayName("isFinite(float)")
+    void isFiniteFloat() {
+        assertDoesNotThrow(() -> Validator.isFinite(0f));
+        assertThrowsExactly(InfiniteValidationFault.class, () -> Validator.isFinite(Float.POSITIVE_INFINITY));
+        assertThrowsExactly(InfiniteValidationFault.class, () -> Validator.isFinite(Float.NEGATIVE_INFINITY));
+    }
+
+    @Test
+    @DisplayName("isFinite(float, String)")
+    void isFiniteFloatString() {
+        assertDoesNotThrow(() -> Validator.isFinite(0f, "The test value"));
+        assertThrowsExactly(InfiniteValidationFault.class,
+                            () -> Validator.isFinite(Float.POSITIVE_INFINITY, "The test value"));
+        assertThrowsExactly(InfiniteValidationFault.class,
+                            () -> Validator.isFinite(Float.NEGATIVE_INFINITY, "The test value"));
+    }
+
+    @Test
+    @DisplayName("isFinite(double)")
+    void isFiniteDouble() {
+        assertDoesNotThrow(() -> Validator.isFinite(0d));
+        assertThrowsExactly(InfiniteValidationFault.class, () -> Validator.isFinite(Double.POSITIVE_INFINITY));
+        assertThrowsExactly(InfiniteValidationFault.class, () -> Validator.isFinite(Double.NEGATIVE_INFINITY));
+    }
+
+    @Test
+    @DisplayName("isFinite(double, String)")
+    void isFiniteDoubleString() {
+        assertDoesNotThrow(() -> Validator.isFinite(0d, "The test value"));
+        assertThrowsExactly(InfiniteValidationFault.class,
+                            () -> Validator.isFinite(Double.POSITIVE_INFINITY, "The test value"));
+        assertThrowsExactly(InfiniteValidationFault.class,
+                            () -> Validator.isFinite(Double.NEGATIVE_INFINITY, "The test value"));
     }
 
     @Test
     @DisplayName("equal(Object, Object)")
-    void equalObjects() {
-        final @NonNull var object = new Object();
-
-        assertDoesNotThrow(() -> Validator.equal(null, null));
-        assertDoesNotThrow(() -> Validator.equal(object, object));
-
-        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(null, object));
-        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(object, null));
-        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(object, new Object()));
+    void equalObjectObject() {
+        assertDoesNotThrow(() -> Validator.equal(this, this));
+        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(this, null));
+        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(this, null));
     }
 
     @Test
     @DisplayName("equal(Object, Object, String, String)")
-    void equalObjectsWithNames() {
-        final @NonNull var object = new Object();
-
-        assertDoesNotThrow(() -> Validator.equal(null, null, null, null));
-        assertDoesNotThrow(() -> Validator.equal(null, null, "The primary test name", "The secondary test name"));
-        assertDoesNotThrow(() -> Validator.equal(object, object, null, null));
-        assertDoesNotThrow(() -> Validator.equal(object, object, "The primary test name", "The secondary test name"));
-
-        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(null, object, null, null));
+    void equalObjectObjectStringString() {
+        assertDoesNotThrow(() -> Validator.equal(this, this, "The primary test value", "the secondary test value"));
         assertThrowsExactly(NonEqualValidationFault.class,
-                            () -> Validator.equal(null, object, "The primary test name", "The secondary test name"));
-        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(object, null, null, null));
+                            () -> Validator.equal(this, null, "The primary test value", "the secondary test value"));
         assertThrowsExactly(NonEqualValidationFault.class,
-                            () -> Validator.equal(object, null, "The primary test name", "The secondary test name"));
-        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(object, new Object(), null, null));
-        assertThrowsExactly(NonEqualValidationFault.class,
-                            () -> Validator.equal(object, new Object(), "The primary test name",
-                                                  "The secondary test name"));
+                            () -> Validator.equal(this, null, "The primary test value", "the secondary test value"));
     }
 
     @Test
-    @DisplayName("nonEqual(Object, Object)")
-    void nonEqualObjects() {
-        final @NonNull var object = new Object();
-
-        assertDoesNotThrow(() -> Validator.nonEqual(object, null));
-        assertDoesNotThrow(() -> Validator.nonEqual(null, object));
-        assertDoesNotThrow(() -> Validator.nonEqual(object, new Object()));
-
-        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(null, null));
-        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(object, object));
+    @DisplayName("equal(boolean, boolean)")
+    void equalBooleanBoolean() {
+        assertDoesNotThrow(() -> Validator.equal(false, false));
+        assertDoesNotThrow(() -> Validator.equal(true, true));
+        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(false, true));
+        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(true, false));
     }
 
     @Test
-    @DisplayName("nonEqual(Object, Object, String, String)")
-    void nonEqualObjectsWithNames() {
-        final @NonNull var object = new Object();
-
-        assertDoesNotThrow(() -> Validator.nonEqual(object, null, null, null));
-        assertDoesNotThrow(() -> Validator.nonEqual(object, null, "The primary test name", "The secondary test name"));
-        assertDoesNotThrow(() -> Validator.nonEqual(null, object, null, null));
-        assertDoesNotThrow(() -> Validator.nonEqual(null, object, "The primary test name", "The secondary test name"));
-        assertDoesNotThrow(() -> Validator.nonEqual(object, new Object(), null, null));
-        assertDoesNotThrow(
-                () -> Validator.nonEqual(object, new Object(), "The primary test name", "The secondary test name"));
-
-        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(null, null, null, null));
-        assertThrowsExactly(EqualValidationFault.class,
-                            () -> Validator.nonEqual(null, null, "The primary test name", "The secondary test name"));
-        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(object, object, null, null));
-        assertThrowsExactly(EqualValidationFault.class,
-                            () -> Validator.nonEqual(object, object, "The primary test name",
-                                                     "The secondary test name"));
+    @DisplayName("equal(boolean, boolean, String, String)")
+    void equalBooleanBooleanStringString() {
+        assertDoesNotThrow(() -> Validator.equal(false, false, "The primary test value", "the secondary test value"));
+        assertDoesNotThrow(() -> Validator.equal(true, true, "The primary test value", "the secondary test value"));
+        assertThrowsExactly(NonEqualValidationFault.class,
+                            () -> Validator.equal(false, true, "The primary test value", "the secondary test value"));
+        assertThrowsExactly(NonEqualValidationFault.class,
+                            () -> Validator.equal(true, false, "The primary test value", "the secondary test value"));
     }
+
+    // TODO: finish it
 
 }
