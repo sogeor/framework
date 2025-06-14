@@ -23,9 +23,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Обозначает элемент, который больше не поддерживается и с высокой долей вероятности может быть изменён или удалён.
- * Несмотря на то, что он больше не поддерживается, он всё ещё может быть использован, поэтому его изменение или
- * удаление может быть отложено.
+ * Представляет собой аннотацию, применимую к устаревшему элементу, который может быть изменён или вовсе удалён без
+ * предварительного предупреждения.
+ * <p>
+ * Элемент может быть чем угодно, кроме локальной переменной.
  *
  * @see Experimental
  * @since 1.0.0-RC1
@@ -34,7 +35,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.CLASS)
 @Target({
         ElementType.TYPE, ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.CONSTRUCTOR,
-        ElementType.ANNOTATION_TYPE, ElementType.PACKAGE, ElementType.TYPE_USE, ElementType.MODULE,
-        ElementType.RECORD_COMPONENT
+        ElementType.ANNOTATION_TYPE, ElementType.PACKAGE, ElementType.TYPE_PARAMETER, ElementType.TYPE_USE,
+        ElementType.MODULE, ElementType.RECORD_COMPONENT
 })
 public @interface Obsolete {}
