@@ -16,14 +16,19 @@
 
 package com.sogeor.framework.validation;
 
+import com.sogeor.framework.annotation.NonNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 @SuppressWarnings("DataFlowIssue")
 final class ValidatorTest {
+
+    final @NonNull Random random = new Random();
 
     @Test
     @DisplayName("validate(boolean)")
@@ -194,19 +199,21 @@ final class ValidatorTest {
     @Test
     @DisplayName("equal(Object, Object)")
     void equalObjectObject() {
+        assertDoesNotThrow(() -> Validator.equal(null, null));
         assertDoesNotThrow(() -> Validator.equal(this, this));
         assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(this, null));
-        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(this, null));
+        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(null, this));
     }
 
     @Test
     @DisplayName("equal(Object, Object, String, String)")
     void equalObjectObjectStringString() {
+        assertDoesNotThrow(() -> Validator.equal(null, null, "The primary test value", "the secondary test value"));
         assertDoesNotThrow(() -> Validator.equal(this, this, "The primary test value", "the secondary test value"));
         assertThrowsExactly(NonEqualValidationFault.class,
                             () -> Validator.equal(this, null, "The primary test value", "the secondary test value"));
         assertThrowsExactly(NonEqualValidationFault.class,
-                            () -> Validator.equal(this, null, "The primary test value", "the secondary test value"));
+                            () -> Validator.equal(null, this, "The primary test value", "the secondary test value"));
     }
 
     @Test
@@ -227,6 +234,242 @@ final class ValidatorTest {
                             () -> Validator.equal(false, true, "The primary test value", "the secondary test value"));
         assertThrowsExactly(NonEqualValidationFault.class,
                             () -> Validator.equal(true, false, "The primary test value", "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("equal(byte, byte)")
+    void equalByteByte() {
+        assertDoesNotThrow(() -> Validator.equal((byte) 0, (byte) 0));
+        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(Byte.MIN_VALUE, Byte.MAX_VALUE));
+    }
+
+    @Test
+    @DisplayName("equal(byte, byte, String, String)")
+    void equalByteByteStringString() {
+        assertDoesNotThrow(
+                () -> Validator.equal((byte) 0, (byte) 0, "The primary test value", "the secondary test value"));
+        assertThrowsExactly(NonEqualValidationFault.class,
+                            () -> Validator.equal(Byte.MIN_VALUE, Byte.MAX_VALUE, "The primary test value",
+                                                  "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("equal(short, short)")
+    void equalShortShort() {
+        assertDoesNotThrow(() -> Validator.equal((short) 0, (short) 0));
+        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(Short.MIN_VALUE, Short.MAX_VALUE));
+    }
+
+    @Test
+    @DisplayName("equal(short, short, String, String)")
+    void equalShortShortStringString() {
+        assertDoesNotThrow(
+                () -> Validator.equal((short) 0, (short) 0, "The primary test value", "the secondary test value"));
+        assertThrowsExactly(NonEqualValidationFault.class,
+                            () -> Validator.equal(Short.MIN_VALUE, Short.MAX_VALUE, "The primary test value",
+                                                  "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("equal(int, int)")
+    void equalIntegerInteger() {
+        assertDoesNotThrow(() -> Validator.equal(0, 0));
+        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(Integer.MIN_VALUE, Integer.MAX_VALUE));
+    }
+
+    @Test
+    @DisplayName("equal(int, int, String, String)")
+    void equalIntegerIntegerStringString() {
+        assertDoesNotThrow(() -> Validator.equal(0, 0, "The primary test value", "the secondary test value"));
+        assertThrowsExactly(NonEqualValidationFault.class,
+                            () -> Validator.equal(Integer.MIN_VALUE, Integer.MAX_VALUE, "The primary test value",
+                                                  "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("equal(long, long)")
+    void equalLongLong() {
+        assertDoesNotThrow(() -> Validator.equal(0L, 0L));
+        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(Long.MIN_VALUE, Long.MAX_VALUE));
+    }
+
+    @Test
+    @DisplayName("equal(long, long, String, String)")
+    void equalLongLongStringString() {
+        assertDoesNotThrow(() -> Validator.equal(0L, 0L, "The primary test value", "the secondary test value"));
+        assertThrowsExactly(NonEqualValidationFault.class,
+                            () -> Validator.equal(Long.MIN_VALUE, Long.MAX_VALUE, "The primary test value",
+                                                  "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("equal(float, float)")
+    void equalFloatFloat() {
+        assertDoesNotThrow(() -> Validator.equal(0f, 0f));
+        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(Float.MIN_VALUE, Float.MAX_VALUE));
+    }
+
+    @Test
+    @DisplayName("equal(float, float, String, String)")
+    void equalFloatFloatStringString() {
+        assertDoesNotThrow(() -> Validator.equal(0f, 0f, "The primary test value", "the secondary test value"));
+        assertThrowsExactly(NonEqualValidationFault.class,
+                            () -> Validator.equal(Float.MIN_VALUE, Float.MAX_VALUE, "The primary test value",
+                                                  "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("equal(double, double)")
+    void equalDoubleDouble() {
+        assertDoesNotThrow(() -> Validator.equal(0d, 0d));
+        assertThrowsExactly(NonEqualValidationFault.class, () -> Validator.equal(Double.MIN_VALUE, Double.MAX_VALUE));
+    }
+
+    @Test
+    @DisplayName("equal(double, double, String, String)")
+    void equalDoubleDoubleStringString() {
+        assertDoesNotThrow(() -> Validator.equal(0d, 0d, "The primary test value", "the secondary test value"));
+        assertThrowsExactly(NonEqualValidationFault.class,
+                            () -> Validator.equal(Double.MIN_VALUE, Double.MAX_VALUE, "The primary test value",
+                                                  "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("nonEqual(Object, Object)")
+    void nonEqualObjectObject() {
+        assertDoesNotThrow(() -> Validator.nonEqual(this, null));
+        assertDoesNotThrow(() -> Validator.nonEqual(null, this));
+        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(null, null));
+        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(this, this));
+    }
+
+    @Test
+    @DisplayName("nonEqual(Object, Object, String, String)")
+    void nonEqualObjectObjectStringString() {
+        assertDoesNotThrow(() -> Validator.nonEqual(this, null, "The primary test value", "the secondary test value"));
+        assertDoesNotThrow(() -> Validator.nonEqual(null, this, "The primary test value", "the secondary test value"));
+        assertThrowsExactly(EqualValidationFault.class,
+                            () -> Validator.nonEqual(null, null, "The primary test value", "the secondary test value"));
+        assertThrowsExactly(EqualValidationFault.class,
+                            () -> Validator.nonEqual(this, this, "The primary test value", "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("nonEqual(boolean, boolean)")
+    void nonEqualBooleanBoolean() {
+        assertDoesNotThrow(() -> Validator.nonEqual(false, true));
+        assertDoesNotThrow(() -> Validator.nonEqual(true, false));
+        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(false, false));
+        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(true, true));
+    }
+
+    @Test
+    @DisplayName("nonEqual(boolean, boolean, String, String)")
+    void nonEqualBooleanBooleanStringString() {
+        assertDoesNotThrow(() -> Validator.nonEqual(false, true, "The primary test value", "the secondary test value"));
+        assertDoesNotThrow(() -> Validator.nonEqual(true, false, "The primary test value", "the secondary test value"));
+        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(false, false, "The primary test value",
+                                                                                 "the secondary test value"));
+        assertThrowsExactly(EqualValidationFault.class,
+                            () -> Validator.nonEqual(true, true, "The primary test value", "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("nonEqual(byte, byte)")
+    void nonEqualByteByte() {
+        assertDoesNotThrow(() -> Validator.nonEqual(Byte.MIN_VALUE, Byte.MAX_VALUE));
+        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual((byte) 0, (byte) 0));
+    }
+
+    @Test
+    @DisplayName("nonEqual(byte, byte, String, String)")
+    void nonEqualByteByteStringString() {
+        assertDoesNotThrow(() -> Validator.nonEqual(Byte.MIN_VALUE, Byte.MAX_VALUE, "The primary test value",
+                                                    "the secondary test value"));
+        assertThrowsExactly(EqualValidationFault.class,
+                            () -> Validator.nonEqual((byte) 0, (byte) 0, "The primary test value",
+                                                     "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("nonEqual(short, short)")
+    void nonEqualShortShort() {
+        assertDoesNotThrow(() -> Validator.nonEqual(Short.MIN_VALUE, Short.MAX_VALUE));
+        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual((short) 0, (short) 0));
+    }
+
+    @Test
+    @DisplayName("nonEqual(short, short, String, String)")
+    void nonEqualShortShortStringString() {
+        assertDoesNotThrow(() -> Validator.nonEqual(Short.MIN_VALUE, Short.MAX_VALUE, "The primary test value",
+                                                    "the secondary test value"));
+        assertThrowsExactly(EqualValidationFault.class,
+                            () -> Validator.nonEqual((short) 0, (short) 0, "The primary test value",
+                                                     "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("nonEqual(int, int)")
+    void nonEqualIntegerInteger() {
+        assertDoesNotThrow(() -> Validator.nonEqual(Integer.MIN_VALUE, Integer.MAX_VALUE));
+        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(0, 0));
+    }
+
+    @Test
+    @DisplayName("equal(int, int, String, String)")
+    void nonEqualIntegerIntegerStringString() {
+        assertDoesNotThrow(() -> Validator.nonEqual(Integer.MIN_VALUE, Integer.MAX_VALUE, "The primary test value",
+                                                    "the secondary test value"));
+        assertThrowsExactly(EqualValidationFault.class,
+                            () -> Validator.nonEqual(0, 0, "The primary test value", "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("nonEqual(long, long)")
+    void nonEqualLongLong() {
+        assertDoesNotThrow(() -> Validator.nonEqual(Long.MIN_VALUE, Long.MAX_VALUE));
+        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(0L, 0L));
+    }
+
+    @Test
+    @DisplayName("nonEqual(long, long, String, String)")
+    void nonEqualLongLongStringString() {
+        assertDoesNotThrow(() -> Validator.nonEqual(Long.MIN_VALUE, Long.MAX_VALUE, "The primary test value",
+                                                    "the secondary test value"));
+        assertThrowsExactly(EqualValidationFault.class,
+                            () -> Validator.nonEqual(0L, 0L, "The primary test value", "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("nonEqual(float, float)")
+    void nonEqualFloatFloat() {
+        assertDoesNotThrow(() -> Validator.nonEqual(Float.MIN_VALUE, Float.MAX_VALUE));
+        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(0f, 0f));
+    }
+
+    @Test
+    @DisplayName("nonEqual(float, float, String, String)")
+    void nonEqualFloatFloatStringString() {
+        assertDoesNotThrow(() -> Validator.nonEqual(Float.MIN_VALUE, Float.MAX_VALUE, "The primary test value",
+                                                    "the secondary test value"));
+        assertThrowsExactly(EqualValidationFault.class,
+                            () -> Validator.nonEqual(0f, 0f, "The primary test value", "the secondary test value"));
+    }
+
+    @Test
+    @DisplayName("nonEqual(double, double)")
+    void nonEqualDoubleDouble() {
+        assertDoesNotThrow(() -> Validator.nonEqual(Double.MIN_VALUE, Double.MAX_VALUE));
+        assertThrowsExactly(EqualValidationFault.class, () -> Validator.nonEqual(0d, 0d));
+    }
+
+    @Test
+    @DisplayName("nonEqual(double, double, String, String)")
+    void nonEqualDoubleDoubleStringString() {
+        assertDoesNotThrow(() -> Validator.nonEqual(Double.MIN_VALUE, Double.MAX_VALUE, "The primary test value",
+                                                    "the secondary test value"));
+        assertThrowsExactly(EqualValidationFault.class,
+                            () -> Validator.nonEqual(0d, 0d, "The primary test value", "the secondary test value"));
     }
 
     // TODO: finish it
