@@ -1,13 +1,10 @@
-plugins {
-    id("java")
-}
-
 description = "Предоставляет фундаментальные коллекции."
 
 dependencies {
+    api(project(":common"))
+
     implementation(project(":annotation"))
-    implementation(project(":common"))
-    implementation(project(":function"))
-    implementation(project(":throwable"))
-    implementation(project(":validation"))
+
+    testImplementation(platform("org.junit:junit-bom:${rootProject.ext["junit"]}"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
 }
