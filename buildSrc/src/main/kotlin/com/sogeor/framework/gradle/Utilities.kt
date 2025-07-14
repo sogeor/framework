@@ -14,25 +14,13 @@
  * limitations under the License.
  */
 
-package com.sogeor.framework.collection;
+package com.sogeor.framework.gradle
 
-import com.sogeor.framework.annotation.Contract;
-import com.sogeor.framework.annotation.NonNull;
+import org.gradle.api.Project
 
 /**
- * Представляет собой особенность коллекции элементов.
- *
  * @since 1.0.0-RC1
  */
-public interface CollectionFeature {
-
-    /**
-     * @return Имя особенности.
-     *
-     * @since 1.0.0-RC1
-     */
-    @Contract("-> $value")
-    @NonNull
-    String name();
-
+fun loadProperty(name: String, project: Project): String? {
+    return System.getenv(name) ?: project.findProperty(name)?.toString()
 }
