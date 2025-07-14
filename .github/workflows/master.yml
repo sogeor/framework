@@ -1,70 +1,62 @@
 name: CI/CD
+
 on:
   pull_request:
-    branches:
-      - master
     paths-ignore:
-      - .idea
+      - .idea/
       - .editorconfig
       - .gitattributes
       - .gitignore
-      - LICENSE
-      - README.md
+      - LICENSE*
+      - README*
   push:
-    branches:
-      - master
     paths-ignore:
-      - .idea
+      - .idea/
       - .editorconfig
       - .gitattributes
       - .gitignore
-      - LICENSE
-      - README.md
+      - LICENSE*
+      - README*
+
 jobs:
   ci:
-    name: "CI"
-    runs-on: ${{ matrix.os }}
+    name: CI
+    runs-on: ubuntu-latest
     steps:
-      - name: "Инициализация рабочего процесса"
+      - name: Инициализация рабочего процесса
         uses: actions/checkout@v4
-      - name: "Подготовка JDK"
+      - name: Подготовка JDK
         uses: actions/setup-java@v4
         with:
           java-version: 21
           distribution: temurin
-      - name: "Подготовка Gradle"
+      - name: Подготовка Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "8.10"
-      - name: "Сборка и тестирование проекта"
-        run: gradle test
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
-#  cd:
-#    name: "CD"
-#    needs: ci
-#    runs-on: ${{ matrix.os }}
-#    steps:
-#      - name: "Инициализация рабочего процесса"
-#        uses: actions/checkout@v4
-#      - name: "Подготовка JDK"
-#        uses: actions/setup-java@v4
-#        with:
-#          java-version: 21
-#          distribution: temurin
-#      - name: "Подготовка Gradle"
-#        uses: gradle/actions/setup-gradle@v4
-#        with:
-#          gradle-version: "8.10"
-#      - name: "Сборка и публикация проекта"
-#        env:
-#          OSSRH_CREDENTIALS_USERNAME: ${{ secrets.OSSRH_CREDENTIALS_USERNAME }}
-#          OSSRH_CREDENTIALS_PASSWORD: ${{ secrets.OSSRH_CREDENTIALS_PASSWORD }}
-#          SINGING_KEY_ID: ${{ secrets.SINGING_KEY_ID }}
-#          SINGING_KEY_PASSWORD: ${{ secrets.SINGING_KEY_PASSWORD }}
-#          SINGING_KEY_SECRET: ${{ secrets.SINGING_KEY_SECRET }}
-#        run: gradle publish
-#    strategy:
-#      matrix:
-#        os: [ ubuntu-latest, macos-latest, windows-latest ]
+          gradle-version: "8.14"
+      - name: Сборка и тестирование проекта
+        run: gradle check
+  cd:
+    name: CD
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Инициализация рабочего процесса
+        uses: actions/checkout@v4
+      - name: Подготовка JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+      - name: Подготовка Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.14"
+      - name: Сборка и публикация проекта
+        env:
+          SONATYPE_CREDENTIALS_USERNAME: ${{ secrets.SONATYPE_CREDENTIALS_USERNAME }}
+          SONATYPE_CREDENTIALS_PASSWORD: ${{ secrets.SONATYPE_CREDENTIALS_PASSWORD }}
+          SINGING_KEY_ID: ${{ secrets.SINGING_KEY_ID }}
+          SINGING_KEY_PASSWORD: ${{ secrets.SINGING_KEY_PASSWORD }}
+          SINGING_KEY_SECRET: ${{ secrets.SINGING_KEY_SECRET }}
+        run: gradle publishAndNotify
