@@ -1,10 +1,10 @@
-plugins {
-    id("java")
-}
-
 description = "Предоставляет инструменты для валидации объектов и значений."
 
 dependencies {
+    api(project(":throwable"))
+
     implementation(project(":annotation"))
-    implementation(project(":throwable"))
+
+    testImplementation(platform("org.junit:junit-bom:${rootProject.ext["junit"]}"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
 }
