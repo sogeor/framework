@@ -1,12 +1,10 @@
-plugins {
-    id("java")
-}
-
 description = "Предоставляет фундаментальные инструменты."
 
 dependencies {
+    api(project(":function"))
+
     implementation(project(":annotation"))
-    implementation(project(":function"))
-    implementation(project(":throwable"))
-    implementation(project(":validation"))
+
+    testImplementation(platform("org.junit:junit-bom:${rootProject.ext["junit"]}"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
 }
