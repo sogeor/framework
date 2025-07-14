@@ -5,8 +5,27 @@
 
 ## Введение
 
-Представляет собой модульный многофункциональный фреймворк, каждый модуль которого стремится к совершенству и
-минимальному объёму зависимостей, а документация написана на русском языке и также стремится к совершенству.
+Представляет собой модульный многофункциональный фреймворк.
+
+## Подключение к проекту
+
+### Снимок
+
+```kotlin
+repositories {
+    maven("https://central.sonatype.com/repository/maven-snapshots/")
+}
+
+dependencies {
+    implementation(platform("com.sogeor.framework:bom:1.0.0-SNAPSHOT"))
+    implementation("com.sogeor.framework:annotation")
+    implementation("com.sogeor.framework:collection")
+    implementation("com.sogeor.framework:common")
+    implementation("com.sogeor.framework:function")
+    implementation("com.sogeor.framework:throwable")
+    implementation("com.sogeor.framework:validation")
+}
+```
 
 ## Модули
 
