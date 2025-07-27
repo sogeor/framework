@@ -22,8 +22,7 @@ import com.sogeor.framework.annotation.Nullable;
 
 /**
  * Представляет собой непроверяемую программную неисправность, связанную с неудачной валидацией значения типа
- * {@code byte}, {@code short}, {@code int}, {@code long}, {@code float} и {@code double}, которое должно быть
- * конечным.
+ * {@code float} и {@code double}, которое должно быть конечным.
  *
  * @since 1.0.0-RC1
  */
