@@ -18,7 +18,6 @@ package com.sogeor.framework.function;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
@@ -91,7 +90,7 @@ public interface BiPredicate<T, U, F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("?, ? -> ?")
-    boolean evaluate(final @Nullable T primaryObject, final @Nullable U secondaryObject) throws ValidationFault, F;
+    boolean evaluate(final T primaryObject, final U secondaryObject) throws ValidationFault, F;
 
     /**
      * Создаёт двойной предикат объектов со следующей реализацией метода {@code evaluate(Object, Object)}:
