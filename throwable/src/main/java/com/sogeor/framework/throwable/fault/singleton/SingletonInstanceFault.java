@@ -40,7 +40,7 @@ public class SingletonInstanceFault extends SingletonFault {
      *
      * @since 1.0.0-RC1
      */
-    public static final @NonNull String TEMPLATE_MESSAGE = "An instance of %s has not been created";
+    public static final @NonNull String TEMPLATE_MESSAGE = "An instance of the `%s` class has not been created";
 
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, {@linkplain #DEFAULT_CAUSE причиной возникновения},
