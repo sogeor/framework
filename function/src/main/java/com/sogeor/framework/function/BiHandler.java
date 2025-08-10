@@ -120,8 +120,7 @@ public interface BiHandler<T, U, R, F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("?, ? -> ?")
-    @Nullable
-    R handle(final @Nullable T primaryObject, final @Nullable U secondaryObject) throws ValidationFault, F;
+    R handle(final T primaryObject, final U secondaryObject) throws ValidationFault, F;
 
     /**
      * Создаёт двойной обработчик объектов со следующей реализацией метода {@code handle(Object, Object)}:
