@@ -107,7 +107,6 @@ public interface Supplier<T, F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("-> ?")
-    @Nullable
     T get() throws ValidationFault, F;
 
     /**
