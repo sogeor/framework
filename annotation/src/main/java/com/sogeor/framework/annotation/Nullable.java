@@ -28,7 +28,6 @@ import java.lang.annotation.Target;
  * Элемент может быть: полем, методом, параметром, локальной переменной, применением типа и компонентом записи.
  *
  * @see NonNull
- * @see Null
  * @since 1.0.0-RC1
  */
 @Documented
