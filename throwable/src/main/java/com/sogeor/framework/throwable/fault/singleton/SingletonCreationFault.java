@@ -24,6 +24,7 @@ import com.sogeor.framework.annotation.Nullable;
  * Представляет собой непроверяемую программную неисправность, связанную с созданием второго экземпляра класса,
  * спроектированного согласно порождающему шаблону проектирования — одиночке.
  *
+ * @see SingletonInstanceFault
  * @since 1.0.0-RC1
  */
 public class SingletonCreationFault extends SingletonFault {
@@ -33,14 +34,14 @@ public class SingletonCreationFault extends SingletonFault {
      *
      * @since 1.0.0-RC1
      */
-    public static final @NonNull String DEFAULT_MESSAGE = "A second instance of the singleton class must not be created";
+    public static final @NonNull String DEFAULT_MESSAGE = "The second instance of the singleton class must not be created";
 
     /**
      * Содержит шаблонное сообщение.
      *
      * @since 1.0.0-RC1
      */
-    public static final @NonNull String TEMPLATE_MESSAGE = "A second instance of the `%s` class must not be created";
+    public static final @NonNull String TEMPLATE_MESSAGE = "The second instance of the `%s` singleton class must not be created";
 
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, {@linkplain #DEFAULT_CAUSE причиной возникновения},
