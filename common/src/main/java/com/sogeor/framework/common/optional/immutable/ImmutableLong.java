@@ -69,12 +69,10 @@ public final class ImmutableLong extends OptionalLong {
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
     private ImmutableLong() throws SingletonCreationFault {
-        if (EMPTY == null) {
-            contains = false;
-            value = 0;
-            return;
-        }
-        throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("the ImmutableLong class"));
+        if (EMPTY != null)
+            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("ImmutableLong"));
+        contains = false;
+        value = 0;
     }
 
     /**
