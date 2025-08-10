@@ -20,7 +20,6 @@
  * @see com.sogeor.framework.annotation.Contract
  * @see com.sogeor.framework.annotation.Experimental
  * @see com.sogeor.framework.annotation.NonNull
- * @see com.sogeor.framework.annotation.Null
  * @see com.sogeor.framework.annotation.Nullable
  * @see com.sogeor.framework.annotation.Obsolete
  * @since 1.0.0-RC1
