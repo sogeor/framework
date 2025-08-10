@@ -17,7 +17,6 @@
 package com.sogeor.framework.throwable.failure;
 
 import com.sogeor.framework.annotation.Contract;
-import com.sogeor.framework.annotation.Null;
 import com.sogeor.framework.annotation.Nullable;
 
 /**
@@ -32,14 +31,14 @@ public class UncheckedFailure extends Error {
      *
      * @since 1.0.0-RC1
      */
-    public static final @Null String DEFAULT_MESSAGE = null;
+    public static final @Nullable String DEFAULT_MESSAGE = null;
 
     /**
      * Содержит причину возникновения по умолчанию.
      *
      * @since 1.0.0-RC1
      */
-    public static final @Null Throwable DEFAULT_CAUSE = null;
+    public static final @Nullable Throwable DEFAULT_CAUSE = null;
 
     /**
      * Содержит параметр подавления по умолчанию.
