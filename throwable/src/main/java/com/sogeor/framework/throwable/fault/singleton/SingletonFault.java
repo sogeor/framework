@@ -24,6 +24,8 @@ import com.sogeor.framework.throwable.fault.UncheckedFault;
  * Представляет собой непроверяемую программную неисправность, связанную с классами, спроектированными согласно
  * порождающему шаблону проектирования — одиночке.
  *
+ * @see SingletonCreationFault
+ * @see SingletonInstanceFault
  * @since 1.0.0-RC1
  */
 public class SingletonFault extends UncheckedFault {
