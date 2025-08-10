@@ -69,13 +69,10 @@ public final class ImmutableBoolean extends OptionalBoolean {
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
     private ImmutableBoolean() throws SingletonCreationFault {
-        if (EMPTY == null) {
-            contains = false;
-            value = false;
-            return;
-        }
-        throw new SingletonCreationFault(
-                SingletonCreationFault.TEMPLATE_MESSAGE.formatted("the ImmutableBoolean class"));
+        if (EMPTY != null)
+            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("ImmutableBoolean"));
+        contains = false;
+        value = false;
     }
 
     /**
