@@ -22,6 +22,7 @@ import com.sogeor.framework.annotation.Nullable;
 /**
  * Представляет собой непроверяемый программный сбой.
  *
+ * @see CriticalFailure
  * @since 1.0.0-RC1
  */
 public class UncheckedFailure extends Error {
