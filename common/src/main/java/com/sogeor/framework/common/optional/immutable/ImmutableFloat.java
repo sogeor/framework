@@ -69,12 +69,10 @@ public final class ImmutableFloat extends OptionalFloat {
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
     private ImmutableFloat() throws SingletonCreationFault {
-        if (EMPTY == null) {
-            contains = false;
-            value = 0;
-            return;
-        }
-        throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("the ImmutableFloat class"));
+        if (EMPTY != null)
+            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("ImmutableFloat"));
+        contains = false;
+        value = 0;
     }
 
     /**
