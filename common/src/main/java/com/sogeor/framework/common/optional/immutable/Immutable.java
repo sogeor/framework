@@ -65,11 +65,9 @@ public final class Immutable<T> extends OptionalObject<T> {
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
     private Immutable() throws SingletonCreationFault {
-        if (EMPTY == null) {
-            object = null;
-            return;
-        }
-        throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("the Immutable class"));
+        if (EMPTY != null)
+            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("Immutable"));
+        object = null;
     }
 
     /**
