@@ -113,8 +113,7 @@ public interface Handler<T, R, F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("? -> ?")
-    @Nullable
-    R handle(final @Nullable T object) throws ValidationFault, F;
+    R handle(final T object) throws ValidationFault, F;
 
     /**
      * Создаёт обработчик объектов со следующей реализацией метода {@code handle(Object)}:
