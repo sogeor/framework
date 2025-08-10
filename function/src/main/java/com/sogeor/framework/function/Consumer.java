@@ -18,7 +18,6 @@ package com.sogeor.framework.function;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
@@ -84,7 +83,7 @@ public interface Consumer<T, F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("? -> ?")
-    void consume(final @Nullable T object) throws ValidationFault, F;
+    void consume(final T object) throws ValidationFault, F;
 
     /**
      * Создаёт потребитель объектов со следующей реализацией метода {@code consume(Object)}:
