@@ -18,7 +18,6 @@ package com.sogeor.framework.function;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
@@ -85,7 +84,7 @@ public interface Predicate<T, F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("? -> ?")
-    boolean evaluate(final @Nullable T object) throws ValidationFault, F;
+    boolean evaluate(final T object) throws ValidationFault, F;
 
     /**
      * Создаёт предикат объектов со следующей реализацией метода {@code evaluate(Object)}:
