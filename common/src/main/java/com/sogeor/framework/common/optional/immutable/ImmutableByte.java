@@ -69,12 +69,10 @@ public final class ImmutableByte extends OptionalByte {
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
     private ImmutableByte() throws SingletonCreationFault {
-        if (EMPTY == null) {
-            contains = false;
-            value = 0;
-            return;
-        }
-        throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("the ImmutableByte class"));
+        if (EMPTY != null)
+            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("ImmutableByte"));
+        contains = false;
+        value = 0;
     }
 
     /**
