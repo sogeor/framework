@@ -22,6 +22,7 @@ import com.sogeor.framework.annotation.Nullable;
 /**
  * Представляет собой непроверяемую программную неисправность.
  *
+ * @see ImaginaryFault
  * @since 1.0.0-RC1
  */
 public class UncheckedFault extends RuntimeException {
