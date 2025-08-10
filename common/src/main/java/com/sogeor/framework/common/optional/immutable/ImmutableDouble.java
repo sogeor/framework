@@ -69,13 +69,10 @@ public final class ImmutableDouble extends OptionalDouble {
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
     private ImmutableDouble() throws SingletonCreationFault {
-        if (EMPTY == null) {
-            contains = false;
-            value = 0;
-            return;
-        }
-        throw new SingletonCreationFault(
-                SingletonCreationFault.TEMPLATE_MESSAGE.formatted("the ImmutableDouble class"));
+        if (EMPTY != null)
+            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("ImmutableDouble"));
+        contains = false;
+        value = 0;
     }
 
     /**
