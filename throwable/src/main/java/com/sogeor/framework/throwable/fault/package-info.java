@@ -18,6 +18,7 @@
  * Предоставляет фундаментальные программные неисправности.
  *
  * @see com.sogeor.framework.throwable
+ * @see com.sogeor.framework.throwable.fault.builder
  * @see com.sogeor.framework.throwable.fault.singleton
  * @see com.sogeor.framework.throwable.fault.CheckedFault
  * @see com.sogeor.framework.throwable.fault.ImaginaryFault
