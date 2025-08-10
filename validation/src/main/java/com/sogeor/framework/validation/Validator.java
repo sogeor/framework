@@ -18,7 +18,6 @@ package com.sogeor.framework.validation;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.annotation.Null;
 import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.throwable.failure.utility.UtilityCreationFailure;
 
@@ -38,7 +37,7 @@ public final class Validator {
      */
     @Contract("-> failure")
     private Validator() throws UtilityCreationFailure {
-        throw new UtilityCreationFailure(UtilityCreationFailure.TEMPLATE_MESSAGE.formatted("the Validator class"));
+        throw new UtilityCreationFailure(UtilityCreationFailure.TEMPLATE_MESSAGE.formatted("Validator"));
     }
 
     /**
@@ -93,7 +92,7 @@ public final class Validator {
      * @since 1.0.0-RC1
      */
     @Contract("null -> null; !null -> fault")
-    public static <T> @Null T isNull(final @Nullable T object) throws NonNullValidationFault {
+    public static <T> @Nullable T isNull(final @Nullable T object) throws NonNullValidationFault {
         if (object == null) return null;
         throw new NonNullValidationFault();
     }
@@ -115,8 +114,8 @@ public final class Validator {
      * @since 1.0.0-RC1
      */
     @Contract("null, ? -> null; !null, ? -> fault")
-    public static <T> @Null T isNull(final @Nullable T object, final @Nullable String name) throws
-                                                                                            NonNullValidationFault {
+    public static <T> @Nullable T isNull(final @Nullable T object, final @Nullable String name) throws
+                                                                                                NonNullValidationFault {
         if (object == null) return null;
         if (name == null) throw new NonNullValidationFault();
         throw new NonNullValidationFault(NonNullValidationFault.TEMPLATE_MESSAGE.formatted(name));
