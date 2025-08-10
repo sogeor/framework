@@ -69,13 +69,10 @@ public final class ImmutableInteger extends OptionalInteger {
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
     private ImmutableInteger() throws SingletonCreationFault {
-        if (EMPTY == null) {
-            contains = false;
-            value = 0;
-            return;
-        }
-        throw new SingletonCreationFault(
-                SingletonCreationFault.TEMPLATE_MESSAGE.formatted("the ImmutableInteger class"));
+        if (EMPTY != null)
+            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("ImmutableInteger"));
+        contains = false;
+        value = 0;
     }
 
     /**
