@@ -69,12 +69,10 @@ public final class ImmutableShort extends OptionalShort {
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
     private ImmutableShort() throws SingletonCreationFault {
-        if (EMPTY == null) {
-            contains = false;
-            value = 0;
-            return;
-        }
-        throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("the ImmutableShort class"));
+        if (EMPTY != null)
+            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("ImmutableShort"));
+        contains = false;
+        value = 0;
     }
 
     /**
