@@ -23,6 +23,7 @@ import com.sogeor.framework.throwable.failure.CheckedFailure;
 /**
  * Представляет собой проверяемый программный сбой, связанный с утилитарными классами.
  *
+ * @see UtilityCreationFailure
  * @since 1.0.0-RC1
  */
 public class UtilityFailure extends CheckedFailure {
