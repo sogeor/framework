@@ -1,4 +1,3 @@
-import com.sogeor.framework.gradle.loadProperty
 import java.net.HttpURLConnection
 import java.net.URI
 import java.util.*
@@ -44,9 +43,13 @@ publishing {
     }
 }
 
+fun loadProperty(name: String): String? {
+    return System.getenv(name) ?: rootProject.findProperty(name)?.toString()
+}
+
 val isSnapshotVersion = "-SNAPSHOT" in version.toString()
-val sonatypeUsername = loadProperty("SONATYPE_CREDENTIALS_USERNAME", rootProject)
-val sonatypePassword = loadProperty("SONATYPE_CREDENTIALS_PASSWORD", rootProject)
+val sonatypeUsername = loadProperty("SONATYPE_CREDENTIALS_USERNAME")
+val sonatypePassword = loadProperty("SONATYPE_CREDENTIALS_PASSWORD")
 
 allprojects {
     apply(plugin = "maven-publish")
@@ -121,12 +124,16 @@ allprojects {
 
     signing {
         useInMemoryPgpKeys(
-            loadProperty("SINGING_KEY_ID", rootProject),
-            loadProperty("SINGING_KEY_SECRET", rootProject),
-            loadProperty("SINGING_KEY_PASSWORD", rootProject)
+            loadProperty("SINGING_KEY_ID"), loadProperty("SINGING_KEY_SECRET"), loadProperty("SINGING_KEY_PASSWORD")
         )
 
         sign(publishing.publications)
+    }
+
+    tasks.register("publishAndNotify") {
+        dependsOn("publish")
+        dependsOn("notifySonatypeRepository")
+        tasks.findByName("notifySonatypeRepository")?.mustRunAfter("publish")
     }
 }
 
@@ -177,31 +184,27 @@ subprojects {
 
                 pom {
                     name = project.name
+                    description = project.description
+                    url = "https://github.com/sogeor/framework"
                 }
             }
         }
     }
+}
 
-    tasks.register("notifySonatypeRepository") {
-        if (isSnapshotVersion) return@register
+tasks.register("notifySonatypeRepository") {
+    if (isSnapshotVersion) return@register
 
-        val connection =
-            (URI("https://ossrh-staging-api.central.sonatype.com/manual/upload/defaultRepository/com.sogeor.framework").toURL()
-                .openConnection() as HttpURLConnection)
-        connection.requestMethod = "POST"
-        connection.setRequestProperty(
-            "Authorization", "Basic ${
-                Base64.getEncoder().encodeToString("${sonatypeUsername}:${sonatypePassword}".toByteArray())
-            }"
-        )
+    val connection =
+        (URI("https://ossrh-staging-api.central.sonatype.com/manual/upload/defaultRepository/com.sogeor.framework").toURL()
+            .openConnection() as HttpURLConnection)
+    connection.requestMethod = "POST"
+    connection.setRequestProperty(
+        "Authorization", "Basic ${
+            Base64.getEncoder().encodeToString("${sonatypeUsername}:${sonatypePassword}".toByteArray())
+        }"
+    )
 
-        connection.connect()
-        println("Response (${connection.responseCode}): ${connection.responseMessage}")
-    }
-
-    tasks.register("publishAndNotify") {
-        dependsOn("publish")
-        dependsOn("notifySonatypeRepository")
-        tasks.findByName("notifySonatypeRepository")?.mustRunAfter("publish")
-    }
+    connection.connect()
+    println("Response (${connection.responseCode}): ${connection.responseMessage}")
 }
