@@ -19,10 +19,10 @@ package com.sogeor.framework.common.optional;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
-import com.sogeor.framework.common.optional.immutable.ImmutableInteger;
-import com.sogeor.framework.common.optional.mutable.MutableInteger;
+import com.sogeor.framework.common.optional.immutable.ImmutableInt;
+import com.sogeor.framework.common.optional.mutable.MutableInt;
 import com.sogeor.framework.function.Action;
-import com.sogeor.framework.function.IntegerConsumer;
+import com.sogeor.framework.function.IntConsumer;
 import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
@@ -35,7 +35,7 @@ import java.util.Objects;
  * @see #present(Action)
  * @since 1.0.0-RC1
  */
-public abstract sealed class OptionalInteger extends Optional permits ImmutableInteger, MutableInteger {
+public abstract sealed class OptionalInt extends Optional permits ImmutableInt, MutableInt {
 
     /**
      * Создаёт экземпляр.
@@ -43,7 +43,7 @@ public abstract sealed class OptionalInteger extends Optional permits ImmutableI
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
-    protected OptionalInteger() {}
+    protected OptionalInt() {}
 
     /**
      * Если {@code present()}, то возвращает текущее значение типа {@code int}, иначе — {@code 0}.
@@ -70,8 +70,8 @@ public abstract sealed class OptionalInteger extends Optional permits ImmutableI
      */
     @Override
     @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull OptionalInteger absent(final @NonNull Action<F> action) throws
-                                                                                                  ValidationFault, F {
+    public <F extends Throwable> @NonNull OptionalInt absent(final @NonNull Action<F> action) throws ValidationFault,
+                                                                                                     F {
         super.absent(action);
         return this;
     }
@@ -91,8 +91,8 @@ public abstract sealed class OptionalInteger extends Optional permits ImmutableI
      */
     @Override
     @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull OptionalInteger present(final @NonNull Action<F> action) throws
-                                                                                                   ValidationFault, F {
+    public <F extends Throwable> @NonNull OptionalInt present(final @NonNull Action<F> action) throws ValidationFault,
+                                                                                                      F {
         super.present(action);
         return this;
     }
@@ -113,9 +113,9 @@ public abstract sealed class OptionalInteger extends Optional permits ImmutableI
      * @since 1.0.0-RC1
      */
     @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull OptionalInteger present(final @NonNull IntegerConsumer<F> consumer) throws
-                                                                                                              ValidationFault,
-                                                                                                              F {
+    public <F extends Throwable> @NonNull OptionalInt present(final @NonNull IntConsumer<F> consumer) throws
+                                                                                                      ValidationFault,
+                                                                                                      F {
         Validator.nonNull(consumer, "The passed consumer");
         if (present()) consumer.consume(get());
         return this;
@@ -152,7 +152,7 @@ public abstract sealed class OptionalInteger extends Optional permits ImmutableI
     @Override
     @Contract("-> value")
     public boolean equals(final @Nullable Object object) {
-        return this == object || object instanceof final @NonNull OptionalInteger that && present() == that.present() &&
+        return this == object || object instanceof final @NonNull OptionalInt that && present() == that.present() &&
                                  (absent() || get() == that.get());
     }
 

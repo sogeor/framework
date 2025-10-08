@@ -19,58 +19,58 @@ package com.sogeor.framework.common.optional.immutable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
-import com.sogeor.framework.common.optional.OptionalInteger;
+import com.sogeor.framework.common.optional.OptionalChar;
 import com.sogeor.framework.function.Action;
-import com.sogeor.framework.function.IntegerConsumer;
+import com.sogeor.framework.function.CharConsumer;
 import com.sogeor.framework.throwable.fault.singleton.SingletonCreationFault;
 import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой неизменяемую обёртку над значением типа {@code int}.
+ * Представляет собой неизменяемую обёртку над значением типа {@code char}.
  *
  * @since 1.0.0-RC1
  */
-public final class ImmutableInteger extends OptionalInteger {
+public final class ImmutableChar extends OptionalChar {
 
     /**
-     * Содержит неизменяемую обёртку без значения типа {@code int}.
+     * Содержит неизменяемую обёртку без значения типа {@code char}.
      *
-     * @see #ImmutableInteger()
+     * @see #ImmutableChar()
      * @since 1.0.0-RC1
      */
-    private static final @NonNull ImmutableInteger EMPTY = new ImmutableInteger();
+    private static final @NonNull ImmutableChar EMPTY = new ImmutableChar();
 
     /**
-     * Если текущее значение типа {@code int} существует, то содержит {@code true}, иначе — {@code false}.
+     * Если текущее значение типа {@code char} существует, то содержит {@code true}, иначе — {@code false}.
      *
      * @since 1.0.0-RC1
      */
     private final boolean contains;
 
     /**
-     * Содержит текущее значение типа {@code int}.
+     * Содержит текущее значение типа {@code char}.
      *
      * @since 1.0.0-RC1
      */
-    private final int value;
+    private final char value;
 
     /**
-     * Если {@code EMPTY == null}, то создаёт экземпляр без значения типа {@code int}, иначе генерирует
+     * Если {@code EMPTY == null}, то создаёт экземпляр без значения типа {@code char}, иначе генерирует
      * {@linkplain SingletonCreationFault проверяемый программный сбой} с
      * {@linkplain SingletonCreationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе имени этого класса.
      *
-     * @throws SingletonCreationFault второй экземпляр этого класса без значения типа {@code int} не должен быть
+     * @throws SingletonCreationFault второй экземпляр этого класса без значения типа {@code char} не должен быть
      * создан.
      * @see #EMPTY
      * @since 1.0.0-RC1
      */
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
-    private ImmutableInteger() throws SingletonCreationFault {
+    private ImmutableChar() throws SingletonCreationFault {
         if (EMPTY != null)
-            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("ImmutableInteger"));
+            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("ImmutableChar"));
         contains = false;
         value = 0;
     }
@@ -78,51 +78,51 @@ public final class ImmutableInteger extends OptionalInteger {
     /**
      * Создаёт экземпляр на основе {@code value}.
      *
-     * @param value значение типа {@code int}.
+     * @param value значение типа {@code char}.
      *
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
-    private ImmutableInteger(final int value) {
+    private ImmutableChar(final char value) {
         contains = true;
         this.value = value;
     }
 
     /**
-     * @return Неизменяемую обёртку без значения типа {@code int}.
+     * @return Неизменяемую обёртку без значения типа {@code char}.
      *
      * @see #EMPTY
      * @since 1.0.0-RC1
      */
     @Contract("-> $!null")
-    public static @NonNull ImmutableInteger empty() {
+    public static @NonNull ImmutableChar empty() {
         return EMPTY;
     }
 
     /**
      * Создаёт неизменяемую обёртку над {@code value}.
      *
-     * @param value значение типа {@code int}.
+     * @param value значение типа {@code char}.
      *
      * @return Новую неизменяемую обёртку над {@code value}.
      *
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
-    public static @NonNull ImmutableInteger of(final int value) {
-        return new ImmutableInteger(value);
+    public static @NonNull ImmutableChar of(final char value) {
+        return new ImmutableChar(value);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @return Текущее значение типа {@code int} или {@code 0}.
+     * @return Текущее значение типа {@code char} или {@code 0}.
      *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $value")
-    public int get() {
+    public char get() {
         return value;
     }
 
@@ -170,8 +170,8 @@ public final class ImmutableInteger extends OptionalInteger {
      */
     @Override
     @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull ImmutableInteger absent(final @NonNull Action<F> action) throws
-                                                                                                   ValidationFault, F {
+    public <F extends Throwable> @NonNull ImmutableChar absent(final @NonNull Action<F> action) throws ValidationFault,
+                                                                                                       F {
         super.absent(action);
         return this;
     }
@@ -192,8 +192,8 @@ public final class ImmutableInteger extends OptionalInteger {
      */
     @Override
     @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull ImmutableInteger present(final @NonNull Action<F> action) throws
-                                                                                                    ValidationFault, F {
+    public <F extends Throwable> @NonNull ImmutableChar present(final @NonNull Action<F> action) throws ValidationFault,
+                                                                                                        F {
         super.present(action);
         return this;
     }
@@ -201,7 +201,7 @@ public final class ImmutableInteger extends OptionalInteger {
     /**
      * Если {@code present()}, то потребляет {@code get()} с помощью {@code consumer}.
      *
-     * @param consumer потребитель значений типа {@code int}.
+     * @param consumer потребитель значений типа {@code char}.
      * @param <F> тип программного сбоя или неисправности, возникающей при неудачном потреблении {@code get()} с помощью
      * {@code consumer}.
      *
@@ -209,16 +209,16 @@ public final class ImmutableInteger extends OptionalInteger {
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
-     * @see IntegerConsumer
+     * @see CharConsumer
      * @see #get()
      * @see #present()
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull ImmutableInteger present(final @NonNull IntegerConsumer<F> consumer) throws
-                                                                                                               ValidationFault,
-                                                                                                               F {
+    public <F extends Throwable> @NonNull ImmutableChar present(final @NonNull CharConsumer<F> consumer) throws
+                                                                                                         ValidationFault,
+                                                                                                         F {
         Validator.nonNull(consumer, "The passed consumer");
         if (present()) consumer.consume(get());
         return this;
@@ -227,7 +227,7 @@ public final class ImmutableInteger extends OptionalInteger {
     /**
      * Если {@code this == object}, то возвращает {@code true}.
      * <p>
-     * Если {@code object instanceof ImmutableInteger that}, то возвращает
+     * Если {@code object instanceof ImmutableChar that}, то возвращает
      * {@code contains == that.contains && (!contains || value == that.value)}, иначе — {@code false}.
      *
      * @param object объект.
@@ -241,7 +241,7 @@ public final class ImmutableInteger extends OptionalInteger {
     @Override
     @Contract("-> value")
     public boolean equals(final @Nullable Object object) {
-        return this == object || object instanceof final @NonNull ImmutableInteger that && contains == that.contains &&
+        return this == object || object instanceof final @NonNull ImmutableChar that && contains == that.contains &&
                                  (!contains || value == that.value);
     }
 

@@ -20,11 +20,11 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.Experimental;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
-import com.sogeor.framework.common.optional.OptionalInteger;
+import com.sogeor.framework.common.optional.OptionalInt;
 import com.sogeor.framework.function.Action;
-import com.sogeor.framework.function.IntegerConsumer;
-import com.sogeor.framework.function.IntegerSupplier;
-import com.sogeor.framework.function.IntegerToIntegerHandler;
+import com.sogeor.framework.function.IntConsumer;
+import com.sogeor.framework.function.IntSupplier;
+import com.sogeor.framework.function.IntToIntHandler;
 import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
@@ -40,7 +40,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  *
  * @since 1.0.0-RC1
  */
-public final class MutableInteger extends OptionalInteger {
+public final class MutableInt extends OptionalInt {
 
     /**
      * Содержит пару блокировок для чтения и записи.
@@ -70,7 +70,7 @@ public final class MutableInteger extends OptionalInteger {
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
-    private MutableInteger() {
+    private MutableInt() {
         contains = false;
         value = 0;
     }
@@ -83,7 +83,7 @@ public final class MutableInteger extends OptionalInteger {
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
-    private MutableInteger(final int value) {
+    private MutableInt(final int value) {
         contains = true;
         this.value = value;
     }
@@ -96,8 +96,8 @@ public final class MutableInteger extends OptionalInteger {
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
-    public static @NonNull MutableInteger empty() {
-        return new MutableInteger();
+    public static @NonNull MutableInt empty() {
+        return new MutableInt();
     }
 
     /**
@@ -110,8 +110,8 @@ public final class MutableInteger extends OptionalInteger {
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
-    public static @NonNull MutableInteger of(final int value) {
-        return new MutableInteger(value);
+    public static @NonNull MutableInt of(final int value) {
+        return new MutableInt(value);
     }
 
     /**
@@ -140,7 +140,7 @@ public final class MutableInteger extends OptionalInteger {
      * @since 1.0.0-RC1
      */
     @Contract("? -> this")
-    public @NonNull MutableInteger reset() {
+    public @NonNull MutableInt reset() {
         final @NonNull var lock = this.lock.writeLock();
         lock.lock();
         contains = false;
@@ -160,7 +160,7 @@ public final class MutableInteger extends OptionalInteger {
      * @since 1.0.0-RC1
      */
     @Contract("? -> this")
-    public @NonNull MutableInteger set(final int value) {
+    public @NonNull MutableInt set(final int value) {
         final @NonNull var lock = this.lock.writeLock();
         lock.lock();
         contains = true;
@@ -181,14 +181,13 @@ public final class MutableInteger extends OptionalInteger {
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code handler} не должен быть {@code null}.
      * @see #value
-     * @see IntegerToIntegerHandler#handle(int)
+     * @see IntToIntHandler#handle(int)
      * @since 1.0.0-RC1
      */
     @Experimental
     @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull MutableInteger set(final @NonNull IntegerToIntegerHandler<F> handler) throws
-                                                                                                                ValidationFault,
-                                                                                                                F {
+    public <F extends Throwable> @NonNull MutableInt set(final @NonNull IntToIntHandler<F> handler) throws
+                                                                                                    ValidationFault, F {
         Validator.nonNull(handler, "The passed handler");
         final @NonNull var lock = this.lock.writeLock();
         lock.lock();
@@ -213,14 +212,13 @@ public final class MutableInteger extends OptionalInteger {
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code supplier} не должен быть {@code null}.
      * @see #value
-     * @see IntegerSupplier#get()
+     * @see IntSupplier#get()
      * @since 1.0.0-RC1
      */
     @Experimental
     @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull MutableInteger set(final @NonNull IntegerSupplier<F> supplier) throws
-                                                                                                         ValidationFault,
-                                                                                                         F {
+    public <F extends Throwable> @NonNull MutableInt set(final @NonNull IntSupplier<F> supplier) throws ValidationFault,
+                                                                                                        F {
         Validator.nonNull(supplier, "The passed supplier");
         final @NonNull var lock = this.lock.writeLock();
         lock.lock();
@@ -284,8 +282,7 @@ public final class MutableInteger extends OptionalInteger {
      */
     @Override
     @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull MutableInteger absent(final @NonNull Action<F> action) throws ValidationFault,
-                                                                                                        F {
+    public <F extends Throwable> @NonNull MutableInt absent(final @NonNull Action<F> action) throws ValidationFault, F {
         Validator.nonNull(action, "The passed action");
         final @NonNull var lock = this.lock.readLock();
         lock.lock();
@@ -313,8 +310,8 @@ public final class MutableInteger extends OptionalInteger {
      */
     @Override
     @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull MutableInteger present(final @NonNull Action<F> action) throws
-                                                                                                  ValidationFault, F {
+    public <F extends Throwable> @NonNull MutableInt present(final @NonNull Action<F> action) throws ValidationFault,
+                                                                                                     F {
         Validator.nonNull(action, "The passed action");
         final @NonNull var lock = this.lock.readLock();
         lock.lock();
@@ -344,9 +341,9 @@ public final class MutableInteger extends OptionalInteger {
      */
     @Override
     @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull MutableInteger present(final @NonNull IntegerConsumer<F> consumer) throws
-                                                                                                             ValidationFault,
-                                                                                                             F {
+    public <F extends Throwable> @NonNull MutableInt present(final @NonNull IntConsumer<F> consumer) throws
+                                                                                                     ValidationFault,
+                                                                                                     F {
         super.present(consumer);
         return this;
     }
@@ -369,7 +366,7 @@ public final class MutableInteger extends OptionalInteger {
     @Override
     @Contract("-> value")
     public boolean equals(final @Nullable Object object) {
-        return this == object || object instanceof final @NonNull MutableInteger that && present() == that.present() &&
+        return this == object || object instanceof final @NonNull MutableInt that && present() == that.present() &&
                                  (absent() || get() == that.get());
     }
 

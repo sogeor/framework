@@ -21,9 +21,10 @@
  * @see com.sogeor.framework.common.optional.immutable.Immutable
  * @see com.sogeor.framework.common.optional.immutable.ImmutableBoolean
  * @see com.sogeor.framework.common.optional.immutable.ImmutableByte
+ * @see com.sogeor.framework.common.optional.immutable.ImmutableChar
  * @see com.sogeor.framework.common.optional.immutable.ImmutableDouble
  * @see com.sogeor.framework.common.optional.immutable.ImmutableFloat
- * @see com.sogeor.framework.common.optional.immutable.ImmutableInteger
+ * @see com.sogeor.framework.common.optional.immutable.ImmutableInt
  * @see com.sogeor.framework.common.optional.immutable.ImmutableLong
  * @see com.sogeor.framework.common.optional.immutable.ImmutableShort
  * @since 1.0.0-RC1
