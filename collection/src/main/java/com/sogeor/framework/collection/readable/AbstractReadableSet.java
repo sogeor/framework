@@ -56,7 +56,8 @@ public abstract class AbstractReadableSet<T> extends AbstractSet<T> implements R
      * @see AbstractReadableSet
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractSet.AbstractIterator<T> implements ReadableSet.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractSet.AbstractIterator<T> implements
+                                                                                             ReadableSet.Iterator<T> {
 
         /**
          * Создаёт экземпляр.

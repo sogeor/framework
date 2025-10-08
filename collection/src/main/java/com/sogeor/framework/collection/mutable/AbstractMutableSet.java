@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Sogeor
+ * Copyright 2025 Sogeor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,24 @@
  * limitations under the License.
  */
 
-package com.sogeor.framework.collection.inherited;
+package com.sogeor.framework.collection.mutable;
 
-import java.util.Collection;
+import com.sogeor.framework.collection.readable.AbstractReadableCollection;
 
 /**
- * Представляет собой унаследованную коллекцию (1).
+ * Представляет собой абстрактное изменяемое множество (1) элементов (2).
  *
- * @param <T> тип элементов [1].
+ * @param <T> тип [2].
  *
  * @since 1.0.0-RC1
  */
-public interface InheritedCollection<T> extends InheritedIterable<T>, Collection<T> {}
+public abstract class AbstractMutableSet<T> extends AbstractReadableCollection<T> implements MutableSet<T> {
+
+    /**
+     * Создаёт экземпляр.
+     *
+     * @since 1.0.0-RC1
+     */
+    protected AbstractMutableSet() {}
+
+}

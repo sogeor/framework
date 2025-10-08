@@ -90,7 +90,9 @@ public abstract class AbstractMap<K, V, T extends Map.Entry<K, V>> extends Abstr
      * @see AbstractEntry
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<K, V, T extends Entry<K, V>> extends AbstractSet.AbstractIterator<T> implements Map.Iterator<K, V, T> {
+    public abstract static class AbstractIterator<K, V, T extends Entry<K, V>> extends
+                                                                               AbstractSet.AbstractIterator<T> implements
+                                                                                                               Map.Iterator<K, V, T> {
 
         /**
          * Создаёт экземпляр.

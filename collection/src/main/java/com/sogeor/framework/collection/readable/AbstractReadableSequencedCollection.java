@@ -31,7 +31,8 @@ import java.util.Objects;
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractReadableSequencedCollection<T> extends AbstractSequencedCollection<T> implements ReadableSequencedCollection<T> {
+public abstract class AbstractReadableSequencedCollection<T> extends AbstractSequencedCollection<T> implements
+                                                                                                    ReadableSequencedCollection<T> {
 
     /**
      * Создаёт экземпляр.
@@ -129,7 +130,8 @@ public abstract class AbstractReadableSequencedCollection<T> extends AbstractSeq
      * @see AbstractReadableSequencedCollection
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements ReadableSequencedCollection.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements
+                                                                                                             ReadableSequencedCollection.Iterator<T> {
 
         /**
          * Создаёт экземпляр.

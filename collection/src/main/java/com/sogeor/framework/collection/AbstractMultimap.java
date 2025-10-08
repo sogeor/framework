@@ -31,7 +31,8 @@ import com.sogeor.framework.annotation.NonNull;
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractMultimap<K, V, T extends Multimap.Entry<K, V>> extends AbstractMultiset<T> implements Multimap<K, V, T> {
+public abstract class AbstractMultimap<K, V, T extends Multimap.Entry<K, V>> extends AbstractMultiset<T> implements
+                                                                                                         Multimap<K, V, T> {
 
     /**
      * Создаёт экземпляр.
@@ -90,7 +91,9 @@ public abstract class AbstractMultimap<K, V, T extends Multimap.Entry<K, V>> ext
      * @see AbstractEntry
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<K, V, T extends Entry<K, V>> extends AbstractMultiset.AbstractIterator<T> implements Multimap.Iterator<K, V, T> {
+    public abstract static class AbstractIterator<K, V, T extends Entry<K, V>> extends
+                                                                               AbstractMultiset.AbstractIterator<T> implements
+                                                                                                                    Multimap.Iterator<K, V, T> {
 
         /**
          * Создаёт экземпляр.

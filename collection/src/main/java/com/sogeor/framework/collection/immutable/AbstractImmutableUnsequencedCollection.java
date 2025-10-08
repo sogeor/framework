@@ -19,9 +19,6 @@ package com.sogeor.framework.collection.immutable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.readable.AbstractReadableUnsequencedCollection;
-import com.sogeor.framework.function.Consumer;
-import com.sogeor.framework.validation.NullValidationFault;
-import com.sogeor.framework.validation.ValidationFault;
 
 /**
  * Представляет собой абстрактную неизменяемую неупорядоченную коллекцию элементов.
@@ -31,7 +28,9 @@ import com.sogeor.framework.validation.ValidationFault;
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractImmutableUnsequencedCollection<T> extends AbstractReadableUnsequencedCollection<T> implements ImmutableUnsequencedCollection<T> {
+public abstract class AbstractImmutableUnsequencedCollection<T> extends
+                                                                AbstractReadableUnsequencedCollection<T> implements
+                                                                                                         ImmutableUnsequencedCollection<T> {
 
     /**
      * Создаёт экземпляр.
@@ -39,26 +38,6 @@ public abstract class AbstractImmutableUnsequencedCollection<T> extends Abstract
      * @since 1.0.0-RC1
      */
     protected AbstractImmutableUnsequencedCollection() {}
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param consumer потребитель элементов.
-     *
-     * @return {@code this}.
-     *
-     * @throws ValidationFault неудачная валидация.
-     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
-     * @throws F неудачное потребление элемента с помощью {@code consumer}.
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull AbstractImmutableUnsequencedCollection<T> iterate(
-            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
-        ImmutableUnsequencedCollection.super.iterate(consumer);
-        return this;
-    }
 
     /**
      * @return Абстрактный итератор элементов этой абстрактной неизменяемой неупорядоченной коллекции.
@@ -77,7 +56,9 @@ public abstract class AbstractImmutableUnsequencedCollection<T> extends Abstract
      * @see AbstractImmutableUnsequencedCollection
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractReadableUnsequencedCollection.AbstractIterator<T> implements ImmutableUnsequencedCollection.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends
+                                                     AbstractReadableUnsequencedCollection.AbstractIterator<T> implements
+                                                                                                               ImmutableUnsequencedCollection.Iterator<T> {
 
         /**
          * Создаёт экземпляр.
@@ -85,54 +66,6 @@ public abstract class AbstractImmutableUnsequencedCollection<T> extends Abstract
          * @since 1.0.0-RC1
          */
         protected AbstractIterator() {}
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #end()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> start();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #next()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> previous();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #previous()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> next();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #start()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> end();
 
     }
 

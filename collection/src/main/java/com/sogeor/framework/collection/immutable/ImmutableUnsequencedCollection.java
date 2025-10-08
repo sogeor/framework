@@ -19,9 +19,6 @@ package com.sogeor.framework.collection.immutable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.readable.ReadableUnsequencedCollection;
-import com.sogeor.framework.function.Consumer;
-import com.sogeor.framework.validation.NullValidationFault;
-import com.sogeor.framework.validation.ValidationFault;
 
 /**
  * Представляет собой неизменяемую неупорядоченную коллекцию элементов.
@@ -31,28 +28,7 @@ import com.sogeor.framework.validation.ValidationFault;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface ImmutableUnsequencedCollection<T> extends ReadableUnsequencedCollection<T>, ImmutableCollection<T> {
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param consumer потребитель элементов.
-     *
-     * @return {@code this}.
-     *
-     * @throws ValidationFault неудачная валидация.
-     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
-     * @throws F неудачное потребление элемента с помощью {@code consumer}.
-     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("!null -> this; null -> fault")
-    default <F extends Throwable> @NonNull ImmutableUnsequencedCollection<T> iterate(
-            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
-        ImmutableCollection.super.iterate(consumer);
-        return this;
-    }
+public interface ImmutableUnsequencedCollection<T> extends ImmutableCollection<T>, ReadableUnsequencedCollection<T> {
 
     /**
      * @return Новый итератор элементов этой коллекции.
@@ -74,60 +50,6 @@ public interface ImmutableUnsequencedCollection<T> extends ReadableUnsequencedCo
      * @see ImmutableUnsequencedCollection
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends ReadableUnsequencedCollection.Iterator<T>, ImmutableCollection.Iterator<T> {
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #first()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> start();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #before()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> previous();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #after()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> next();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #last()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        @NonNull
-        Iterator<T> end();
-
-    }
+    interface Iterator<T> extends ImmutableCollection.Iterator<T>, ReadableUnsequencedCollection.Iterator<T> {}
 
 }

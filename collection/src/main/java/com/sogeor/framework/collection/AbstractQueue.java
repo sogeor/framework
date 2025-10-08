@@ -55,7 +55,8 @@ public abstract class AbstractQueue<T> extends AbstractSequencedCollection<T> im
      * @see AbstractQueue
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements Queue.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements
+                                                                                                             Queue.Iterator<T> {
 
         /**
          * Создаёт экземпляр.

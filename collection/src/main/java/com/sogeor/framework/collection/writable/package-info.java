@@ -19,7 +19,6 @@
  *
  * @see com.sogeor.framework.collection
  * @see com.sogeor.framework.collection.writable.WritableCollection
- * @see com.sogeor.framework.collection.writable.WritableCollectionFault
  * @see com.sogeor.framework.collection.writable.WritableIterator
  * @since 1.0.0-RC1
  */

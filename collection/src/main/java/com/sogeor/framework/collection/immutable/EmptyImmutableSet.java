@@ -27,7 +27,7 @@ import com.sogeor.framework.validation.NullValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой неизменяемое множество без элементов.
+ * Представляет собой пустое неизменяемое множество элементов.
  *
  * @param <T> тип элементов.
  *
@@ -57,7 +57,6 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     @Contract("!null -> this; null -> fault")
     public <F extends Throwable> @NonNull EmptyImmutableSet<T> iterate(
             final @NonNull Consumer<? super T, F> consumer) throws NullValidationFault {
-        Validator.nonNull(consumer, "The passed consumer");
         return this;
     }
 
@@ -148,7 +147,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     }
 
     /**
-     * @return Итератор элементов.
+     * @return Новый итератор элементов этого абстрактного неизменяемого множества.
      *
      * @since 1.0.0-RC1
      */
@@ -159,7 +158,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     }
 
     /**
-     * @return Размер коллекции.
+     * @return {@code 0}.
      *
      * @since 1.0.0-RC1
      */
@@ -170,7 +169,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     }
 
     /**
-     * @return Если элементы не существуют, то {@code true}, иначе {@code false}.
+     * @return {@code true}.
      *
      * @since 1.0.0-RC1
      */
@@ -181,31 +180,10 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
     }
 
     /**
-     * Представляет собой итератор несуществующих элементов неизменяемого множества.
+     * Представляет собой итератор элементов пустого неизменяемого множества.
      *
      * @param <T> тип элементов.
      *
-     * @implSpec Каждый итератор должен быть способен переходить к элементу, расположенному либо перед текущим, либо
-     * после него, либо к обоим из них.
-     * <p>
-     * Если итератор способен переходить к элементу, расположенному перед текущим, то он должен быть также способен
-     * переходить к последнему. И наоборот, если итератор способен переходить к элементу, расположенному после текущего,
-     * то он должен быть также способен переходить к первому. Это необходимо для корректной итерации, например:
-     * <pre>
-     * {@code
-     * void example(final @NonNull Iterator<?> it) {
-     *     if (it.canNext()) { // it.canStart() == true
-     *         for (it.start(); it.after(); it.next()) {
-     *             // ...
-     *         }
-     *     } else { // it.canPrevious() == true && it.canEnd() == true
-     *         for (it.end(); it.before(); it.previous()) {
-     *             // ...
-     *         }
-     *     }
-     * }
-     * }
-     * </pre>
      * @see EmptyImmutableSet
      * @since 1.0.0-RC1
      */
@@ -216,7 +194,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
          *
          * @since 1.0.0-RC1
          */
-        protected Iterator() {}
+        public Iterator() {}
 
         /**
          * @return {@code this}.
@@ -335,7 +313,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
          * @implSpec Если
          * {@linkplain #canNext() итератор способен переходить к элементу, расположенному после текущего}, то возвращает
          * {@code true}.
-         * @see #canPrevious()
+         * @see #reversible()
          * @see #canNext()
          * @see #canEnd()
          * @since 1.0.0-RC1
@@ -359,7 +337,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
          */
         @Override
         @Contract("-> true")
-        public boolean canPrevious() {
+        public boolean reversible() {
             return true;
         }
 
@@ -367,7 +345,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
          * @return {@code true}.
          *
          * @see #canStart()
-         * @see #canPrevious()
+         * @see #reversible()
          * @see #canEnd()
          * @since 1.0.0-RC1
          */
@@ -381,7 +359,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
          * @return {@code true}.
          *
          * @see #canStart()
-         * @see #canPrevious()
+         * @see #reversible()
          * @see #canNext()
          * @since 1.0.0-RC1
          */

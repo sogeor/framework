@@ -55,7 +55,9 @@ public abstract class AbstractMultiset<T> extends AbstractUnsequencedCollection<
      * @see AbstractMultiset
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractUnsequencedCollection.AbstractIterator<T> implements Multiset.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends
+                                                     AbstractUnsequencedCollection.AbstractIterator<T> implements
+                                                                                                       Multiset.Iterator<T> {
 
         /**
          * Создаёт экземпляр.

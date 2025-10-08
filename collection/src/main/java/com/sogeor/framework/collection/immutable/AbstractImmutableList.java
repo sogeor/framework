@@ -14,33 +14,34 @@
  * limitations under the License.
  */
 
-package com.sogeor.framework.collection;
+package com.sogeor.framework.collection.immutable;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.collection.readable.AbstractReadableList;
 
 /**
- * Представляет собой абстрактное множество элементов.
+ * Представляет собой абстрактный неизменяемый список элементов.
  *
  * @param <T> тип элементов.
  *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractSet<T> extends AbstractUnsequencedCollection<T> implements Set<T> {
+public abstract class AbstractImmutableList<T> extends AbstractReadableList<T> implements ImmutableList<T> {
 
     /**
      * Создаёт экземпляр.
      *
      * @since 1.0.0-RC1
      */
-    protected AbstractSet() {}
+    protected AbstractImmutableList() {}
 
     /**
-     * @return Новый итератор элементов этого множества.
+     * @return Новый итератор элементов этого списка.
      *
      * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этого множества.
+     * текущим элементом должен быть первый элемент этого списка.
      * @since 1.0.0-RC1
      */
     @Override
@@ -48,16 +49,15 @@ public abstract class AbstractSet<T> extends AbstractUnsequencedCollection<T> im
     public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
-     * Представляет собой абстрактный итератор элементов абстрактного множества.
+     * Представляет собой абстрактный итератор элементов абстрактного неизменяемого списка.
      *
      * @param <T> тип элементов.
      *
-     * @see AbstractSet
+     * @see AbstractImmutableList
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends
-                                                     AbstractUnsequencedCollection.AbstractIterator<T> implements
-                                                                                                       Set.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractReadableList.AbstractIterator<T> implements
+                                                                                                      ImmutableList.Iterator<T> {
 
         /**
          * Создаёт экземпляр.

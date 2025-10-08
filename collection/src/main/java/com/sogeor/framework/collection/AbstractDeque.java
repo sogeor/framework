@@ -55,7 +55,8 @@ public abstract class AbstractDeque<T> extends AbstractSequencedCollection<T> im
      * @see AbstractDeque
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements Deque.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements
+                                                                                                             Deque.Iterator<T> {
 
         /**
          * Создаёт экземпляр.

@@ -56,7 +56,8 @@ public abstract class AbstractReadableMultiset<T> extends AbstractMultiset<T> im
      * @see AbstractReadableMultiset
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractMultiset.AbstractIterator<T> implements ReadableMultiset.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractMultiset.AbstractIterator<T> implements
+                                                                                                  ReadableMultiset.Iterator<T> {
 
         /**
          * Создаёт экземпляр.

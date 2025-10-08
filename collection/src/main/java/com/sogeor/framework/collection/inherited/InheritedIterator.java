@@ -19,6 +19,10 @@ package com.sogeor.framework.collection.inherited;
 import java.util.Iterator;
 
 /**
+ * Представляет собой унаследованный итератор (1).
+ *
+ * @param <T> тип элементов [1].
+ *
  * @since 1.0.0-RC1
  */
 public interface InheritedIterator<T> extends Iterator<T> {}

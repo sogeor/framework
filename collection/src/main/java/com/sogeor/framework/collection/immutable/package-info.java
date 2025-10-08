@@ -15,12 +15,16 @@
  */
 
 /**
- * Представляет собой пакет для работы с неизменяемыми коллекциями.
+ * Предоставляет фундаментальные неизменяемые коллекции.
  *
  * @see com.sogeor.framework.collection
+ * @see com.sogeor.framework.collection.immutable.AbstractImmutableCollection
+ * @see com.sogeor.framework.collection.immutable.AbstractImmutableSet
+ * @see com.sogeor.framework.collection.immutable.ArrayImmutableSet
+ * @see com.sogeor.framework.collection.immutable.EmptyImmutableSet
  * @see com.sogeor.framework.collection.immutable.ImmutableCollection
  * @see com.sogeor.framework.collection.immutable.ImmutableCollectionFault
- * @see com.sogeor.framework.collection.immutable.ImmutableIterator
+ * @see com.sogeor.framework.collection.immutable.ImmutableSet
  * @since 1.0.0-RC1
  */
 package com.sogeor.framework.collection.immutable;

@@ -31,7 +31,8 @@ import java.util.Objects;
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractReadableUnsequencedCollection<T> extends AbstractUnsequencedCollection<T> implements ReadableUnsequencedCollection<T> {
+public abstract class AbstractReadableUnsequencedCollection<T> extends AbstractUnsequencedCollection<T> implements
+                                                                                                        ReadableUnsequencedCollection<T> {
 
     /**
      * Создаёт экземпляр.
@@ -116,7 +117,9 @@ public abstract class AbstractReadableUnsequencedCollection<T> extends AbstractU
      * @see AbstractReadableUnsequencedCollection
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractUnsequencedCollection.AbstractIterator<T> implements ReadableUnsequencedCollection.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends
+                                                     AbstractUnsequencedCollection.AbstractIterator<T> implements
+                                                                                                       ReadableUnsequencedCollection.Iterator<T> {
 
         /**
          * Создаёт экземпляр.

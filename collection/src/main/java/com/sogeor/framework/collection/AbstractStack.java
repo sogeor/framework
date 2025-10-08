@@ -55,7 +55,8 @@ public abstract class AbstractStack<T> extends AbstractSequencedCollection<T> im
      * @see AbstractStack
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements Stack.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements
+                                                                                                             Stack.Iterator<T> {
 
         /**
          * Создаёт экземпляр.

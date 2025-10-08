@@ -29,7 +29,7 @@ import com.sogeor.framework.collection.SequencedCollection;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface ReadableSequencedCollection<T> extends ReadableCollection<T>, SequencedCollection<T> {
+public interface ReadableSequencedCollection<T> extends ReadableIterableCollection<T>, SequencedCollection<T> {
 
     /**
      * @return Новый итератор элементов этой коллекции.

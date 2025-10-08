@@ -19,9 +19,6 @@ package com.sogeor.framework.collection.immutable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.collection.readable.AbstractReadableCollection;
-import com.sogeor.framework.function.Consumer;
-import com.sogeor.framework.validation.NullValidationFault;
-import com.sogeor.framework.validation.ValidationFault;
 
 /**
  * Представляет собой абстрактную неизменяемую коллекцию элементов.
@@ -31,7 +28,8 @@ import com.sogeor.framework.validation.ValidationFault;
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractImmutableCollection<T> extends AbstractReadableCollection<T> implements ImmutableCollection<T> {
+public abstract class AbstractImmutableCollection<T> extends AbstractReadableCollection<T> implements
+                                                                                           ImmutableCollection<T> {
 
     /**
      * Создаёт экземпляр.
@@ -39,27 +37,6 @@ public abstract class AbstractImmutableCollection<T> extends AbstractReadableCol
      * @since 1.0.0-RC1
      */
     protected AbstractImmutableCollection() {}
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param consumer потребитель элементов.
-     *
-     * @return {@code this}.
-     *
-     * @throws ValidationFault неудачная валидация.
-     * @throws NullValidationFault {@code consumer} не должен быть {@code null}.
-     * @throws F неудачное потребление элемента с помощью {@code consumer}.
-     * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("!null -> this; null -> fault")
-    public <F extends Throwable> @NonNull AbstractImmutableCollection<T> iterate(
-            final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
-        ImmutableCollection.super.iterate(consumer);
-        return this;
-    }
 
     /**
      * @return Новый итератор элементов этой коллекции.
@@ -80,7 +57,8 @@ public abstract class AbstractImmutableCollection<T> extends AbstractReadableCol
      * @see AbstractImmutableCollection
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractReadableCollection.AbstractIterator<T> implements ImmutableCollection.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractReadableCollection.AbstractIterator<T> implements
+                                                                                                            ImmutableCollection.Iterator<T> {
 
         /**
          * Создаёт экземпляр.
@@ -88,54 +66,6 @@ public abstract class AbstractImmutableCollection<T> extends AbstractReadableCol
          * @since 1.0.0-RC1
          */
         protected AbstractIterator() {}
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #first()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> start();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #before()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> previous();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #after()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> next();
-
-        /**
-         * {@inheritDoc}
-         *
-         * @return {@code this}.
-         *
-         * @see #last()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> this")
-        public abstract @NonNull AbstractIterator<T> end();
 
     }
 

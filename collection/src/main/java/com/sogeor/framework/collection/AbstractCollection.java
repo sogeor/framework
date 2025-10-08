@@ -102,7 +102,7 @@ public abstract class AbstractCollection<T> implements Collection<T> {
          * @since 1.0.0-RC1
          */
         @Override
-        @Contract("$? -> $value")
+        @Contract("? -> $value")
         public boolean equals(final @Nullable Object object) {
             return this == object;
         }

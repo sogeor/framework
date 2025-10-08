@@ -56,7 +56,8 @@ public abstract class AbstractReadableList<T> extends AbstractList<T> implements
      * @see AbstractReadableList
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractList.AbstractIterator<T> implements ReadableList.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractList.AbstractIterator<T> implements
+                                                                                              ReadableList.Iterator<T> {
 
         /**
          * Создаёт экземпляр.

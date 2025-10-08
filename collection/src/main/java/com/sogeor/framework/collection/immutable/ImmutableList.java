@@ -19,17 +19,17 @@ package com.sogeor.framework.collection.immutable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
-import com.sogeor.framework.collection.readable.ReadableSet;
+import com.sogeor.framework.collection.readable.ReadableList;
 
 /**
- * Представляет собой неизменяемое множество элементов.
+ * Представляет собой неизменяемый список элементов.
  *
  * @param <T> тип элементов.
  *
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface ImmutableSet<T> extends ImmutableUnsequencedCollection<T>, ReadableSet<T> {
+public interface ImmutableList<T> extends ImmutableSequencedCollection<T>, ReadableList<T> {
 
     /**
      * TODO
@@ -37,7 +37,7 @@ public interface ImmutableSet<T> extends ImmutableUnsequencedCollection<T>, Read
      * @since 1.0.0-RC1
      */
     @NonNull
-    ImmutableSet<?> EMPTY = new EmptyImmutableSet<>();
+    ImmutableList<?> EMPTY = new ArrayImmutableList<>();
 
     /**
      * TODO
@@ -46,8 +46,8 @@ public interface ImmutableSet<T> extends ImmutableUnsequencedCollection<T>, Read
      */
     @SuppressWarnings("unchecked")
     @Contract("-> $!null")
-    static <T> @NonNull ImmutableSet<T> of() {
-        return (ImmutableSet<T>) EMPTY;
+    static <T> @NonNull ImmutableList<T> of() {
+        return (ImmutableList<T>) EMPTY;
     }
 
     /**
@@ -56,8 +56,8 @@ public interface ImmutableSet<T> extends ImmutableUnsequencedCollection<T>, Read
      * @since 1.0.0-RC1
      */
     @Contract("? -> $!null")
-    static <T> @NonNull ImmutableSet<T> of(final @Nullable T element) {
-        return new ArrayImmutableSet<>(element);
+    static <T> @NonNull ImmutableList<T> of(final @Nullable T element) {
+        return new ArrayImmutableList<>(element);
     }
 
     /**
@@ -67,15 +67,15 @@ public interface ImmutableSet<T> extends ImmutableUnsequencedCollection<T>, Read
      */
     @SafeVarargs
     @Contract("? -> $!null")
-    static <T> @NonNull ImmutableSet<T> of(final @Nullable T @NonNull ... elements) {
-        return new ArrayImmutableSet<>(elements);
+    static <T> @NonNull ImmutableList<T> of(final @Nullable T @NonNull ... elements) {
+        return new ArrayImmutableList<>(elements);
     }
 
     /**
-     * @return Новый итератор элементов этого множества.
+     * @return Новый итератор элементов этого списка.
      *
      * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этого множества.
+     * текущим элементом должен быть первый элемент этого списка.
      * @since 1.0.0-RC1
      */
     @Override
@@ -84,15 +84,13 @@ public interface ImmutableSet<T> extends ImmutableUnsequencedCollection<T>, Read
     Iterator<T> iterator();
 
     /**
-     * Представляет собой итератор элементов неизменяемого множества.
+     * Представляет собой итератор элементов неизменяемого списка.
      *
      * @param <T> тип элементов.
      *
-     * @see ImmutableSet
+     * @see ImmutableList
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends ImmutableUnsequencedCollection.Iterator<T>, ReadableSet.Iterator<T> {
-
-    }
+    interface Iterator<T> extends ImmutableSequencedCollection.Iterator<T>, ReadableList.Iterator<T> {}
 
 }

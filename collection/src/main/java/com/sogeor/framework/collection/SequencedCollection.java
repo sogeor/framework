@@ -27,7 +27,7 @@ import com.sogeor.framework.annotation.NonNull;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface SequencedCollection<T> extends Collection<T> {
+public interface SequencedCollection<T> extends IterableCollection<T> {
 
     /**
      * @return Новый итератор элементов этой коллекции.
@@ -63,7 +63,7 @@ public interface SequencedCollection<T> extends Collection<T> {
      * @see SequencedCollection
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends Collection.Iterator<T> {
+    interface Iterator<T> extends IterableCollection.Iterator<T> {
 
         /**
          * Если {@code exists(index)}, то переходит к элементу по {@code index} и возвращает {@code true}, иначе —

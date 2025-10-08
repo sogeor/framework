@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Sogeor
+ * Copyright 2025 Sogeor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,28 +14,25 @@
  * limitations under the License.
  */
 
-package com.sogeor.framework.collection.inherited;
+package com.sogeor.framework.collection.mutable;
 
-import com.sogeor.framework.annotation.Contract;
-import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.collection.readable.AbstractReadableCollection;
 
 /**
- * Представляет собой унаследованный итерируемый объект, состоящий из элементов (1).
+ * Представляет собой абстрактную изменяемую коллекцию (1) элементов (2).
  *
- * @param <T> тип [1].
+ * @param <T> тип [2].
  *
  * @since 1.0.0-RC1
  */
-public interface InheritedIterable<T> extends Iterable<T> {
+public abstract class AbstractMutableCollection<T> extends AbstractReadableCollection<T> implements
+                                                                                         MutableCollection<T> {
 
     /**
-     * @return Унаследованный итератор.
+     * Создаёт экземпляр.
      *
      * @since 1.0.0-RC1
      */
-    @Override
-    @Contract(value = "-> !null")
-    @NonNull
-    InheritedIterator<T> iterator();
+    protected AbstractMutableCollection() {}
 
 }

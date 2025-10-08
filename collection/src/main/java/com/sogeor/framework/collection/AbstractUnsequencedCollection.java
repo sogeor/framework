@@ -27,7 +27,8 @@ import com.sogeor.framework.annotation.NonNull;
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractUnsequencedCollection<T> extends AbstractCollection<T> implements UnsequencedCollection<T> {
+public abstract class AbstractUnsequencedCollection<T> extends AbstractCollection<T> implements
+                                                                                     UnsequencedCollection<T> {
 
     /**
      * Создаёт экземпляр.
@@ -56,7 +57,8 @@ public abstract class AbstractUnsequencedCollection<T> extends AbstractCollectio
      * @see AbstractUnsequencedCollection
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractCollection.AbstractIterator<T> implements UnsequencedCollection.Iterator<T> {
+    public abstract static class AbstractIterator<T> extends AbstractCollection.AbstractIterator<T> implements
+                                                                                                    UnsequencedCollection.Iterator<T> {
 
         /**
          * Создаёт экземпляр.

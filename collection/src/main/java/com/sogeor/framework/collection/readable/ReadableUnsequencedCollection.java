@@ -29,7 +29,7 @@ import com.sogeor.framework.collection.UnsequencedCollection;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface ReadableUnsequencedCollection<T> extends ReadableCollection<T>, UnsequencedCollection<T> {
+public interface ReadableUnsequencedCollection<T> extends ReadableIterableCollection<T>, UnsequencedCollection<T> {
 
     /**
      * @return Новый итератор элементов этой коллекции.

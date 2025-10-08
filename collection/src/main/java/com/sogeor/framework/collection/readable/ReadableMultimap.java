@@ -14,60 +14,49 @@
  * limitations under the License.
  */
 
-package com.sogeor.framework.collection;
+package com.sogeor.framework.collection.readable;
 
 import com.sogeor.framework.annotation.Contract;
-import com.sogeor.framework.annotation.Experimental;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
+import com.sogeor.framework.collection.Multiset;
 
 /**
- * Представляет собой ассоциативный массив элементов — пар, каждая из которых состоит из ключа и соответствующего ему
- * значения.
+ * Представляет собой многозначный ассоциативный массив элементов — пар, каждая из которых состоит из ключа и
+ * соответствующего ему значения.
  *
  * @param <K> тип ключей.
  * @param <V> тип значений.
+ * @param <T> тип элементов.
  *
  * @see Entry
+ * @see Iterator
  * @since 1.0.0-RC1
  */
-@Experimental
-public interface Map<K, V> extends Collection {
+public interface ReadableMultimap<K, V> extends Multiset<ReadableMultimap.Entry<K, V>> {
 
     /**
-     * TODO
+     * @return Новый итератор элементов этого ассоциативного массива.
      *
+     * @implSpec Возвращаемый итератор должен находится в неопределённом состоянии.
+     * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
+     * @see Iterator
      * @since 1.0.0-RC1
      */
-    @Contract("-> $!null")
+    @Override
+    @Contract("-> new")
     @NonNull
-    Set<K> keys();
+    Iterator<K, V> iterator();
 
     /**
-     * TODO
-     *
-     * @since 1.0.0-RC1
-     */
-    @Contract("-> $!null")
-    @NonNull
-    Multiset<V> values();
-
-    /**
-     * TODO
-     *
-     * @since 1.0.0-RC1
-     */
-    @Contract("-> $!null")
-    @NonNull
-    Set<? extends Entry<K, V>> entries();
-
-    /**
-     * Представляет собой элемент ассоциативного массива — пару, состоящую из ключа и соответствующего ему значения.
+     * Представляет собой элемент многозначного ассоциативного массива — пару, состоящую из ключа и соответствующего ему
+     * значения.
      *
      * @param <K> тип ключей.
      * @param <V> тип значений.
      *
-     * @see Map
+     * @see ReadableMultimap
+     * @see Iterator
      * @since 1.0.0-RC1
      */
     interface Entry<K, V> {
@@ -101,7 +90,6 @@ public interface Map<K, V> extends Collection {
         /**
          * @return {@code super.toString()}.
          *
-         * @implNote Требуемая реализация обладает оценкой временной сложности {@code Ω(1)}.
          * @see Object#toString()
          * @since 1.0.0-RC1
          */
@@ -111,5 +99,19 @@ public interface Map<K, V> extends Collection {
         String toString();
 
     }
+
+    /**
+     * Представляет собой итератор элементов многозначного ассоциативного массива — пар, каждая из которых состоит из
+     * ключа и соответствующего ему значения.
+     *
+     * @param <K> тип ключей.
+     * @param <V> тип значений.
+     * @param <T> тип элементов.
+     *
+     * @see ReadableMultimap
+     * @see Entry
+     * @since 1.0.0-RC1
+     */
+    interface Iterator<K, V> extends Multiset.Iterator<Entry<K, V>> {}
 
 }

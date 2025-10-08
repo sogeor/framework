@@ -20,8 +20,7 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.collection.readable.ReadableCollection;
-import com.sogeor.framework.collection.readable.ReadableSetIterator;
-import com.sogeor.framework.collection.writable.WritableSetIterator;
+import com.sogeor.framework.collection.readable.ReadableSet;
 
 /**
  * Представляет собой итератор элементов (1) изменяемого множества.
@@ -30,7 +29,7 @@ import com.sogeor.framework.collection.writable.WritableSetIterator;
  *
  * @since 1.0.0-RC1
  */
-public interface MutableSetIterator<T> extends ReadableSetIterator<T>, WritableSetIterator<T>, MutableIterator<T> {
+public interface MutableSetIterator<T> extends ReadableSet.Iterator<T>, WritableSetIterator<T>, MutableIterator<T> {
 
     /**
      * {@inheritDoc}
