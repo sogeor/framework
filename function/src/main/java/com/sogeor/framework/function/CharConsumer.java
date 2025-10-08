@@ -32,7 +32,7 @@ import com.sogeor.framework.validation.Validator;
  * @since 1.0.0-RC1
  */
 @FunctionalInterface
-public interface CharacterConsumer<F extends Throwable> {
+public interface CharConsumer<F extends Throwable> {
 
     /**
      * Создаёт потребитель значений типа {@code char} со следующей реализацией метода {@code consume(char)}:
@@ -51,7 +51,7 @@ public interface CharacterConsumer<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
-    static <F extends Throwable> @NonNull CharacterConsumer<F> empty() {
+    static <F extends Throwable> @NonNull CharConsumer<F> empty() {
         return ignored -> {};
     }
 
@@ -68,7 +68,7 @@ public interface CharacterConsumer<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("? -> 1")
-    static <F extends Throwable> @NonNull CharacterConsumer<F> of(final @NonNull CharacterConsumer<F> consumer) {
+    static <F extends Throwable> @NonNull CharConsumer<F> of(final @NonNull CharConsumer<F> consumer) {
         return consumer;
     }
 
@@ -105,8 +105,7 @@ public interface CharacterConsumer<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull CharacterConsumer<F> and(final @NonNull CharacterConsumer<? extends F> consumer) throws
-                                                                                                      ValidationFault {
+    default @NonNull CharConsumer<F> and(final @NonNull CharConsumer<? extends F> consumer) throws ValidationFault {
         Validator.nonNull(consumer, "The passed consumer");
         return value -> {
             consume(value);
@@ -143,8 +142,7 @@ public interface CharacterConsumer<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull CharacterConsumer<F> or(final @NonNull CharacterConsumer<? extends F> consumer) throws
-                                                                                                     ValidationFault {
+    default @NonNull CharConsumer<F> or(final @NonNull CharConsumer<? extends F> consumer) throws ValidationFault {
         Validator.nonNull(consumer, "The passed consumer");
         return value -> {
             try {

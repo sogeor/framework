@@ -29,10 +29,10 @@
  * @see com.sogeor.framework.function.BytePredicate
  * @see com.sogeor.framework.function.ByteSupplier
  * @see com.sogeor.framework.function.ByteToByteHandler
- * @see com.sogeor.framework.function.CharacterConsumer
- * @see com.sogeor.framework.function.CharacterPredicate
- * @see com.sogeor.framework.function.CharacterSupplier
- * @see com.sogeor.framework.function.CharacterToCharacterHandler
+ * @see com.sogeor.framework.function.CharConsumer
+ * @see com.sogeor.framework.function.CharPredicate
+ * @see com.sogeor.framework.function.CharSupplier
+ * @see com.sogeor.framework.function.CharToCharHandler
  * @see com.sogeor.framework.function.Condition
  * @see com.sogeor.framework.function.Consumer
  * @see com.sogeor.framework.function.DoubleConsumer
@@ -44,10 +44,10 @@
  * @see com.sogeor.framework.function.FloatSupplier
  * @see com.sogeor.framework.function.FloatToFloatHandler
  * @see com.sogeor.framework.function.Handler
- * @see com.sogeor.framework.function.IntegerConsumer
- * @see com.sogeor.framework.function.IntegerPredicate
- * @see com.sogeor.framework.function.IntegerSupplier
- * @see com.sogeor.framework.function.IntegerToIntegerHandler
+ * @see com.sogeor.framework.function.IntConsumer
+ * @see com.sogeor.framework.function.IntPredicate
+ * @see com.sogeor.framework.function.IntSupplier
+ * @see com.sogeor.framework.function.IntToIntHandler
  * @see com.sogeor.framework.function.LongConsumer
  * @see com.sogeor.framework.function.LongPredicate
  * @see com.sogeor.framework.function.LongSupplier

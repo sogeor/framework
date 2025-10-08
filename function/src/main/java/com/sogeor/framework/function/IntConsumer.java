@@ -31,7 +31,7 @@ import com.sogeor.framework.validation.Validator;
  * @since 1.0.0-RC1
  */
 @FunctionalInterface
-public interface IntegerConsumer<F extends Throwable> {
+public interface IntConsumer<F extends Throwable> {
 
     /**
      * Создаёт потребитель значений типа {@code int} со следующей реализацией метода {@code consume(int)}:
@@ -50,7 +50,7 @@ public interface IntegerConsumer<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
-    static <F extends Throwable> @NonNull IntegerConsumer<F> empty() {
+    static <F extends Throwable> @NonNull IntConsumer<F> empty() {
         return ignored -> {};
     }
 
@@ -67,7 +67,7 @@ public interface IntegerConsumer<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("? -> 1")
-    static <F extends Throwable> @NonNull IntegerConsumer<F> of(final @NonNull IntegerConsumer<F> consumer) {
+    static <F extends Throwable> @NonNull IntConsumer<F> of(final @NonNull IntConsumer<F> consumer) {
         return consumer;
     }
 
@@ -104,8 +104,7 @@ public interface IntegerConsumer<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull IntegerConsumer<F> and(final @NonNull IntegerConsumer<? extends F> consumer) throws
-                                                                                                  ValidationFault {
+    default @NonNull IntConsumer<F> and(final @NonNull IntConsumer<? extends F> consumer) throws ValidationFault {
         Validator.nonNull(consumer, "The passed consumer");
         return value -> {
             consume(value);
@@ -142,8 +141,7 @@ public interface IntegerConsumer<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull IntegerConsumer<F> or(final @NonNull IntegerConsumer<? extends F> consumer) throws
-                                                                                                 ValidationFault {
+    default @NonNull IntConsumer<F> or(final @NonNull IntConsumer<? extends F> consumer) throws ValidationFault {
         Validator.nonNull(consumer, "The passed consumer");
         return value -> {
             try {

@@ -30,7 +30,7 @@ import com.sogeor.framework.validation.Validator;
  * @since 1.0.0-RC1
  */
 @FunctionalInterface
-public interface IntegerPredicate<F extends Throwable> {
+public interface IntPredicate<F extends Throwable> {
 
     /**
      * Создаёт предикат значений типа {@code int} со следующей реализацией метода {@code evaluate(int)}:
@@ -50,7 +50,7 @@ public interface IntegerPredicate<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
-    static <F extends Throwable> @NonNull IntegerPredicate<F> direct(final boolean value) {
+    static <F extends Throwable> @NonNull IntPredicate<F> direct(final boolean value) {
         return ignored -> value;
     }
 
@@ -67,7 +67,7 @@ public interface IntegerPredicate<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("? -> 1")
-    static <F extends Throwable> @NonNull IntegerPredicate<F> of(final @NonNull IntegerPredicate<F> predicate) {
+    static <F extends Throwable> @NonNull IntPredicate<F> of(final @NonNull IntPredicate<F> predicate) {
         return predicate;
     }
 
@@ -99,7 +99,7 @@ public interface IntegerPredicate<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
-    default @NonNull IntegerPredicate<F> not() {
+    default @NonNull IntPredicate<F> not() {
         return value -> !evaluate(value);
     }
 
@@ -121,8 +121,7 @@ public interface IntegerPredicate<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull IntegerPredicate<F> and(final @NonNull IntegerPredicate<? extends F> predicate) throws
-                                                                                                     ValidationFault {
+    default @NonNull IntPredicate<F> and(final @NonNull IntPredicate<? extends F> predicate) throws ValidationFault {
         Validator.nonNull(predicate, "The passed predicate");
         return value -> evaluate(value) && predicate.evaluate(value);
     }
@@ -145,8 +144,7 @@ public interface IntegerPredicate<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull IntegerPredicate<F> nand(final @NonNull IntegerPredicate<? extends F> predicate) throws
-                                                                                                      ValidationFault {
+    default @NonNull IntPredicate<F> nand(final @NonNull IntPredicate<? extends F> predicate) throws ValidationFault {
         Validator.nonNull(predicate, "The passed predicate");
         return value -> !(evaluate(value) && predicate.evaluate(value));
     }
@@ -169,8 +167,7 @@ public interface IntegerPredicate<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull IntegerPredicate<F> or(final @NonNull IntegerPredicate<? extends F> predicate) throws
-                                                                                                    ValidationFault {
+    default @NonNull IntPredicate<F> or(final @NonNull IntPredicate<? extends F> predicate) throws ValidationFault {
         Validator.nonNull(predicate, "The passed predicate");
         return value -> evaluate(value) || predicate.evaluate(value);
     }
@@ -193,8 +190,7 @@ public interface IntegerPredicate<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull IntegerPredicate<F> nor(final @NonNull IntegerPredicate<? extends F> predicate) throws
-                                                                                                     ValidationFault {
+    default @NonNull IntPredicate<F> nor(final @NonNull IntPredicate<? extends F> predicate) throws ValidationFault {
         Validator.nonNull(predicate, "The passed predicate");
         return value -> !(evaluate(value) || predicate.evaluate(value));
     }
@@ -217,8 +213,7 @@ public interface IntegerPredicate<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull IntegerPredicate<F> xnor(final @NonNull IntegerPredicate<? extends F> predicate) throws
-                                                                                                      ValidationFault {
+    default @NonNull IntPredicate<F> xnor(final @NonNull IntPredicate<? extends F> predicate) throws ValidationFault {
         Validator.nonNull(predicate, "The passed predicate");
         return value -> evaluate(value) == predicate.evaluate(value);
     }
@@ -241,8 +236,7 @@ public interface IntegerPredicate<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull IntegerPredicate<F> xor(final @NonNull IntegerPredicate<? extends F> predicate) throws
-                                                                                                     ValidationFault {
+    default @NonNull IntPredicate<F> xor(final @NonNull IntPredicate<? extends F> predicate) throws ValidationFault {
         Validator.nonNull(predicate, "The passed predicate");
         return value -> evaluate(value) ^ predicate.evaluate(value);
     }
@@ -265,8 +259,7 @@ public interface IntegerPredicate<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull IntegerPredicate<F> imply(final @NonNull IntegerPredicate<? extends F> predicate) throws
-                                                                                                       ValidationFault {
+    default @NonNull IntPredicate<F> imply(final @NonNull IntPredicate<? extends F> predicate) throws ValidationFault {
         Validator.nonNull(predicate, "The passed predicate");
         return value -> !evaluate(value) || predicate.evaluate(value);
     }

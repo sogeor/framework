@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Sogeor
+ * Copyright 2025 Sogeor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,68 +23,68 @@ import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой поставщик значений типа {@code int}.
+ * Представляет собой поставщик значений типа {@code char}.
  *
- * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке значений типа {@code int}.
+ * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке значений типа {@code char}.
  *
  * @since 1.0.0-RC1
  */
 @FunctionalInterface
-public interface IntegerSupplier<F extends Throwable> {
+public interface CharSupplier<F extends Throwable> {
 
     /**
-     * Создаёт поставщик значений типа {@code int} со следующей реализацией метода {@code get()}:
+     * Создаёт поставщик значений типа {@code char} со следующей реализацией метода {@code get()}:
      * <pre>
      * {@code
      * () -> value;
      * }
      * </pre>
      *
-     * @param value значение типа {@code int}, поставляемое новым поставщиком.
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке значений типа {@code int}
+     * @param value значение типа {@code char}, поставляемое новым поставщиком.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке значений типа {@code char}
      * новым поставщиком.
      *
-     * @return Новый поставщик значений типа {@code int}.
+     * @return Новый поставщик значений типа {@code char}.
      *
      * @see #get()
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
-    static <F extends Throwable> @NonNull IntegerSupplier<F> direct(final int value) {
+    static <F extends Throwable> @NonNull CharSupplier<F> direct(final char value) {
         return () -> value;
     }
 
     /**
      * Возвращает {@code supplier}.
      *
-     * @param supplier поставщик значений типа {@code int}.
-     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке значений типа {@code int}
+     * @param supplier поставщик значений типа {@code char}.
+     * @param <F> тип программного сбоя или неисправности, возникающей при неудачной поставке значений типа {@code char}
      * {@code supplier}.
      *
-     * @return Новый поставщик значений типа {@code int}.
+     * @return Новый поставщик значений типа {@code char}.
      *
      * @apiNote Предназначен для удобного создания {@code supplier} на основе лямбда-выражений.
      * @since 1.0.0-RC1
      */
     @Contract("? -> 1")
-    static <F extends Throwable> @NonNull IntegerSupplier<F> of(final @NonNull IntegerSupplier<F> supplier) {
+    static <F extends Throwable> @NonNull CharSupplier<F> of(final @NonNull CharSupplier<F> supplier) {
         return supplier;
     }
 
     /**
-     * Поставляет значение типа {@code int} с помощью этого поставщика.
+     * Поставляет значение типа {@code char} с помощью этого поставщика.
      *
-     * @return Поставляемое этим поставщиком значение типа {@code int}.
+     * @return Поставляемое этим поставщиком значение типа {@code char}.
      *
-     * @throws ValidationFault неудачная валидация, предположительно, поставленного значения типа {@code int}.
-     * @throws F неудачная поставка значения типа {@code int} с помощью этого поставщика.
+     * @throws ValidationFault неудачная валидация, предположительно, поставленного значения типа {@code char}.
+     * @throws F неудачная поставка значения типа {@code char} с помощью этого поставщика.
      * @since 1.0.0-RC1
      */
     @Contract("-> ?")
-    int get() throws ValidationFault, F;
+    char get() throws ValidationFault, F;
 
     /**
-     * Создаёт поставщик значений типа {@code int} со следующей реализацией метода {@code get()}:
+     * Создаёт поставщик значений типа {@code char} со следующей реализацией метода {@code get()}:
      * <pre>
      * {@code
      * () -> {
@@ -97,15 +97,15 @@ public interface IntegerSupplier<F extends Throwable> {
      * }
      * </pre>
      *
-     * @param value значение типа {@code int}.
+     * @param value значение типа {@code char}.
      *
-     * @return Новый поставщик значений типа {@code int}.
+     * @return Новый поставщик значений типа {@code char}.
      *
      * @see #get()
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
-    default @NonNull IntegerSupplier<F> passed(final int value) {
+    default @NonNull CharSupplier<F> passed(final char value) {
         return () -> {
             try {
                 return get();
@@ -116,7 +116,7 @@ public interface IntegerSupplier<F extends Throwable> {
     }
 
     /**
-     * Создаёт поставщик значений типа {@code int} со следующей реализацией метода {@code get()}:
+     * Создаёт поставщик значений типа {@code char} со следующей реализацией метода {@code get()}:
      * <pre>
      * {@code
      * () -> {
@@ -134,9 +134,9 @@ public interface IntegerSupplier<F extends Throwable> {
      * }
      * </pre>
      *
-     * @param supplier поставщик значений типа {@code int}.
+     * @param supplier поставщик значений типа {@code char}.
      *
-     * @return Новый поставщик значений типа {@code int}.
+     * @return Новый поставщик значений типа {@code char}.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code supplier} не должен быть {@code null}.
@@ -144,8 +144,8 @@ public interface IntegerSupplier<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull IntegerSupplier<F> supplied(final @NonNull IntegerSupplier<? extends F> supplier) throws
-                                                                                                       ValidationFault {
+    default @NonNull CharSupplier<F> supplied(final @NonNull CharSupplier<? extends F> supplier) throws
+                                                                                                 ValidationFault {
         Validator.nonNull(supplier, "The passed supplier");
         return () -> {
             try {

@@ -31,7 +31,7 @@ import com.sogeor.framework.validation.Validator;
  * @since 1.0.0-RC1
  */
 @FunctionalInterface
-public interface CharacterToCharacterHandler<F extends Throwable> {
+public interface CharToCharHandler<F extends Throwable> {
 
     /**
      * Создаёт обработчик значений типа {@code char} со следующей реализацией метода {@code handle(char)}:
@@ -50,7 +50,7 @@ public interface CharacterToCharacterHandler<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
-    static <F extends Throwable> @NonNull CharacterToCharacterHandler<F> empty() {
+    static <F extends Throwable> @NonNull CharToCharHandler<F> empty() {
         return value -> value;
     }
 
@@ -72,7 +72,7 @@ public interface CharacterToCharacterHandler<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
-    static <F extends Throwable> @NonNull CharacterToCharacterHandler<F> direct(final char value) {
+    static <F extends Throwable> @NonNull CharToCharHandler<F> direct(final char value) {
         return ignored -> value;
     }
 
@@ -89,8 +89,7 @@ public interface CharacterToCharacterHandler<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("? -> 1")
-    static <F extends Throwable> @NonNull CharacterToCharacterHandler<F> of(
-            final @NonNull CharacterToCharacterHandler<F> handler) {
+    static <F extends Throwable> @NonNull CharToCharHandler<F> of(final @NonNull CharToCharHandler<F> handler) {
         return handler;
     }
 
@@ -127,8 +126,8 @@ public interface CharacterToCharacterHandler<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull CharacterToCharacterHandler<F> and(
-            final @NonNull CharacterToCharacterHandler<? extends F> handler) throws ValidationFault {
+    default @NonNull CharToCharHandler<F> and(final @NonNull CharToCharHandler<? extends F> handler) throws
+                                                                                                     ValidationFault {
         Validator.nonNull(handler, "The passed handler");
         return value -> handler.handle(handle(value));
     }
@@ -162,8 +161,8 @@ public interface CharacterToCharacterHandler<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull CharacterToCharacterHandler<F> or(
-            final @NonNull CharacterToCharacterHandler<? extends F> handler) throws ValidationFault {
+    default @NonNull CharToCharHandler<F> or(final @NonNull CharToCharHandler<? extends F> handler) throws
+                                                                                                    ValidationFault {
         Validator.nonNull(handler, "The passed handler");
         return value -> {
             try {

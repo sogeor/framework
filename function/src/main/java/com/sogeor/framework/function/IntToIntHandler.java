@@ -31,7 +31,7 @@ import com.sogeor.framework.validation.Validator;
  * @since 1.0.0-RC1
  */
 @FunctionalInterface
-public interface IntegerToIntegerHandler<F extends Throwable> {
+public interface IntToIntHandler<F extends Throwable> {
 
     /**
      * Создаёт обработчик значений типа {@code int} со следующей реализацией метода {@code handle(int)}:
@@ -50,7 +50,7 @@ public interface IntegerToIntegerHandler<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
-    static <F extends Throwable> @NonNull IntegerToIntegerHandler<F> empty() {
+    static <F extends Throwable> @NonNull IntToIntHandler<F> empty() {
         return value -> value;
     }
 
@@ -72,7 +72,7 @@ public interface IntegerToIntegerHandler<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("? -> new")
-    static <F extends Throwable> @NonNull IntegerToIntegerHandler<F> direct(final int value) {
+    static <F extends Throwable> @NonNull IntToIntHandler<F> direct(final int value) {
         return ignored -> value;
     }
 
@@ -89,8 +89,7 @@ public interface IntegerToIntegerHandler<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("? -> 1")
-    static <F extends Throwable> @NonNull IntegerToIntegerHandler<F> of(
-            final @NonNull IntegerToIntegerHandler<F> handler) {
+    static <F extends Throwable> @NonNull IntToIntHandler<F> of(final @NonNull IntToIntHandler<F> handler) {
         return handler;
     }
 
@@ -127,8 +126,8 @@ public interface IntegerToIntegerHandler<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull IntegerToIntegerHandler<F> and(final @NonNull IntegerToIntegerHandler<? extends F> handler) throws
-                                                                                                                 ValidationFault {
+    default @NonNull IntToIntHandler<F> and(final @NonNull IntToIntHandler<? extends F> handler) throws
+                                                                                                 ValidationFault {
         Validator.nonNull(handler, "The passed handler");
         return value -> handler.handle(handle(value));
     }
@@ -162,8 +161,7 @@ public interface IntegerToIntegerHandler<F extends Throwable> {
      * @since 1.0.0-RC1
      */
     @Contract("!null -> new; null -> fault")
-    default @NonNull IntegerToIntegerHandler<F> or(final @NonNull IntegerToIntegerHandler<? extends F> handler) throws
-                                                                                                                ValidationFault {
+    default @NonNull IntToIntHandler<F> or(final @NonNull IntToIntHandler<? extends F> handler) throws ValidationFault {
         Validator.nonNull(handler, "The passed handler");
         return value -> {
             try {
