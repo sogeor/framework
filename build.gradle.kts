@@ -9,9 +9,13 @@ plugins {
     signing
 }
 
-description = "Предоставляет BOM модульного многофункционального фреймворка."
+description = "Представляет собой BOM модульного многофункционального фреймворка."
 group = "com.sogeor.framework"
 version = "1.0.0-SNAPSHOT"
+
+tasks.wrapper {
+    gradleVersion = "8.14"
+}
 
 dependencies {
     constraints {
@@ -38,10 +42,6 @@ publishing {
             }
         }
     }
-}
-
-tasks.wrapper {
-    gradleVersion = "8.14"
 }
 
 val isSnapshotVersion = "-SNAPSHOT" in version.toString()
