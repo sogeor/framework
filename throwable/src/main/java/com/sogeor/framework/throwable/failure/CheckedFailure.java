@@ -28,7 +28,7 @@ import com.sogeor.framework.annotation.Nullable;
 public class CheckedFailure extends Throwable {
 
     /**
-     * Создаёт экземпляр с сообщением, причиной возникновения, параметрами подавления и трассировки стека по умолчанию.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
@@ -36,8 +36,7 @@ public class CheckedFailure extends Throwable {
     public CheckedFailure() {}
 
     /**
-     * Создаёт экземпляр с причиной возникновения, параметрами подавления и трассировки стека по умолчанию, а также с
-     * {@code message}.
+     * Создаёт экземпляр на основе {@code message}.
      *
      * @param message сообщение.
      *
@@ -49,8 +48,7 @@ public class CheckedFailure extends Throwable {
     }
 
     /**
-     * Создаёт экземпляр с сообщением, параметрами подавления и трассировки стека по умолчанию, а также с
-     * {@code cause}.
+     * Создаёт экземпляр на основе {@code cause}.
      *
      * @param cause причина возникновения.
      *
@@ -62,8 +60,7 @@ public class CheckedFailure extends Throwable {
     }
 
     /**
-     * Создаёт экземпляр с параметрами подавления и трассировки стека по умолчанию, а также с {@code message} и
-     * {@code cause}.
+     * Создаёт экземпляр на основе {@code message} и {@code cause}.
      *
      * @param message сообщение.
      * @param cause причина возникновения.
