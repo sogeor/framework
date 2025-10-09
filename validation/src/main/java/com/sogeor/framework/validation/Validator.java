@@ -29,15 +29,14 @@ import com.sogeor.framework.throwable.failure.utility.UtilityCreationFailure;
 public final class Validator {
 
     /**
-     * Генерирует {@linkplain UtilityCreationFailure проверяемый программный сбой} с
-     * {@linkplain UtilityCreationFailure#TEMPLATE_MESSAGE шаблонным сообщением} на основе имени этого класса.
+     * Генерирует {@code UtilityCreationFailure} по умолчанию.
      *
      * @throws UtilityCreationFailure экземпляр этого класса не должен быть создан.
      * @since 1.0.0-RC1
      */
     @Contract("-> failure")
     private Validator() throws UtilityCreationFailure {
-        throw new UtilityCreationFailure(UtilityCreationFailure.TEMPLATE_MESSAGE.formatted("Validator"));
+        throw new UtilityCreationFailure();
     }
 
     /**
