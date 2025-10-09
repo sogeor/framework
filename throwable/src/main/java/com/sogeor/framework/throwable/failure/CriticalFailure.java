@@ -34,9 +34,7 @@ public class CriticalFailure extends UncheckedFailure {
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
-    public CriticalFailure() {
-        super(DEFAULT_MESSAGE, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
-    }
+    public CriticalFailure() {}
 
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_CAUSE причиной возникновения}, параметрами
@@ -49,7 +47,7 @@ public class CriticalFailure extends UncheckedFailure {
      */
     @Contract("? -> new")
     public CriticalFailure(final @Nullable String message) {
-        super(message, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(message);
     }
 
     /**
@@ -63,7 +61,7 @@ public class CriticalFailure extends UncheckedFailure {
      */
     @Contract("? -> new")
     public CriticalFailure(final @Nullable Throwable cause) {
-        super(DEFAULT_MESSAGE, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(cause);
     }
 
     /**
@@ -77,7 +75,7 @@ public class CriticalFailure extends UncheckedFailure {
      */
     @Contract("?, ? -> new")
     public CriticalFailure(final @Nullable String message, final @Nullable Throwable cause) {
-        super(message, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(message, cause);
     }
 
     /**
@@ -91,7 +89,7 @@ public class CriticalFailure extends UncheckedFailure {
      */
     @Contract("?, ? -> new")
     public CriticalFailure(final boolean suppression, final boolean stackTrace) {
-        super(DEFAULT_MESSAGE, DEFAULT_CAUSE, suppression, stackTrace);
+        super(suppression, stackTrace);
     }
 
     /**

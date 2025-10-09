@@ -22,54 +22,22 @@ import com.sogeor.framework.annotation.Nullable;
 /**
  * Представляет собой проверяемый программный сбой.
  *
+ * @see UncheckedFailure
  * @since 1.0.0-RC1
  */
 public class CheckedFailure extends Throwable {
 
     /**
-     * Содержит сообщение по умолчанию.
-     *
-     * @since 1.0.0-RC1
-     */
-    public static final @Nullable String DEFAULT_MESSAGE = null;
-
-    /**
-     * Содержит причину возникновения по умолчанию.
-     *
-     * @since 1.0.0-RC1
-     */
-    public static final @Nullable Throwable DEFAULT_CAUSE = null;
-
-    /**
-     * Содержит параметр подавления по умолчанию.
-     *
-     * @since 1.0.0-RC1
-     */
-    public static final boolean DEFAULT_SUPPRESSION = true;
-
-    /**
-     * Содержит параметр трассировки стека по умолчанию.
-     *
-     * @since 1.0.0-RC1
-     */
-    public static final boolean DEFAULT_STACK_TRACE = true;
-
-    /**
-     * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, {@linkplain #DEFAULT_CAUSE причиной возникновения},
-     * параметрами {@linkplain #DEFAULT_SUPPRESSION подавления} и {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по
-     * умолчанию.
+     * Создаёт экземпляр с сообщением, причиной возникновения, параметрами подавления и трассировки стека по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
-    public CheckedFailure() {
-        super(DEFAULT_MESSAGE, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
-    }
+    public CheckedFailure() {}
 
     /**
-     * Создаёт экземпляр с {@linkplain #DEFAULT_CAUSE причиной возникновения}, параметрами
-     * {@linkplain #DEFAULT_SUPPRESSION подавления} и {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию,
-     * а также с {@code message}.
+     * Создаёт экземпляр с причиной возникновения, параметрами подавления и трассировки стека по умолчанию, а также с
+     * {@code message}.
      *
      * @param message сообщение.
      *
@@ -77,13 +45,12 @@ public class CheckedFailure extends Throwable {
      */
     @Contract("? -> new")
     public CheckedFailure(final @Nullable String message) {
-        super(message, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(message);
     }
 
     /**
-     * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, параметрами
-     * {@linkplain #DEFAULT_SUPPRESSION подавления} и {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию,
-     * а также с {@code cause}.
+     * Создаёт экземпляр с сообщением, параметрами подавления и трассировки стека по умолчанию, а также с
+     * {@code cause}.
      *
      * @param cause причина возникновения.
      *
@@ -91,12 +58,12 @@ public class CheckedFailure extends Throwable {
      */
     @Contract("? -> new")
     public CheckedFailure(final @Nullable Throwable cause) {
-        super(DEFAULT_MESSAGE, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(cause);
     }
 
     /**
-     * Создаёт экземпляр с параметрами {@linkplain #DEFAULT_SUPPRESSION подавления} и
-     * {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию, а также с {@code message} и {@code cause}.
+     * Создаёт экземпляр с параметрами подавления и трассировки стека по умолчанию, а также с {@code message} и
+     * {@code cause}.
      *
      * @param message сообщение.
      * @param cause причина возникновения.
@@ -105,21 +72,7 @@ public class CheckedFailure extends Throwable {
      */
     @Contract("?, ? -> new")
     public CheckedFailure(final @Nullable String message, final @Nullable Throwable cause) {
-        super(message, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
-    }
-
-    /**
-     * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением} и {@linkplain #DEFAULT_CAUSE причиной возникновения}
-     * по умолчанию, а также с {@code suppression} и {@code stackTrace}.
-     *
-     * @param suppression параметр подавления.
-     * @param stackTrace параметр трассировки стека.
-     *
-     * @since 1.0.0-RC1
-     */
-    @Contract("?, ? -> new")
-    public CheckedFailure(final boolean suppression, final boolean stackTrace) {
-        super(DEFAULT_MESSAGE, DEFAULT_CAUSE, suppression, stackTrace);
+        super(message, cause);
     }
 
     /**

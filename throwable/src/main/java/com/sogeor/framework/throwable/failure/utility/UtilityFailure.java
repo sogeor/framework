@@ -36,9 +36,7 @@ public class UtilityFailure extends CheckedFailure {
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
-    public UtilityFailure() {
-        super(DEFAULT_MESSAGE, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
-    }
+    public UtilityFailure() {}
 
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_CAUSE причиной возникновения}, параметрами
@@ -51,7 +49,7 @@ public class UtilityFailure extends CheckedFailure {
      */
     @Contract("? -> new")
     public UtilityFailure(final @Nullable String message) {
-        super(message, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(message);
     }
 
     /**
@@ -65,7 +63,7 @@ public class UtilityFailure extends CheckedFailure {
      */
     @Contract("? -> new")
     public UtilityFailure(final @Nullable Throwable cause) {
-        super(DEFAULT_MESSAGE, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(cause);
     }
 
     /**
@@ -79,7 +77,7 @@ public class UtilityFailure extends CheckedFailure {
      */
     @Contract("?, ? -> new")
     public UtilityFailure(final @Nullable String message, final @Nullable Throwable cause) {
-        super(message, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(message, cause);
     }
 
     /**
@@ -93,7 +91,7 @@ public class UtilityFailure extends CheckedFailure {
      */
     @Contract("?, ? -> new")
     public UtilityFailure(final boolean suppression, final boolean stackTrace) {
-        super(DEFAULT_MESSAGE, DEFAULT_CAUSE, suppression, stackTrace);
+        super(suppression, stackTrace);
     }
 
     /**

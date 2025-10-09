@@ -50,7 +50,7 @@ public class UtilityCreationFailure extends UtilityFailure {
      */
     @Contract("-> new")
     public UtilityCreationFailure() {
-        super(DEFAULT_MESSAGE, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(DEFAULT_MESSAGE);
     }
 
     /**
@@ -64,7 +64,7 @@ public class UtilityCreationFailure extends UtilityFailure {
      */
     @Contract("? -> new")
     public UtilityCreationFailure(final @Nullable String message) {
-        super(message, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(message);
     }
 
     /**
@@ -78,7 +78,7 @@ public class UtilityCreationFailure extends UtilityFailure {
      */
     @Contract("? -> new")
     public UtilityCreationFailure(final @Nullable Throwable cause) {
-        super(DEFAULT_MESSAGE, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(DEFAULT_MESSAGE, cause);
     }
 
     /**
@@ -92,7 +92,7 @@ public class UtilityCreationFailure extends UtilityFailure {
      */
     @Contract("?, ? -> new")
     public UtilityCreationFailure(final @Nullable String message, final @Nullable Throwable cause) {
-        super(message, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(message, cause);
     }
 
     /**

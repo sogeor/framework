@@ -52,7 +52,7 @@ public class BuilderCreationFault extends BuilderFault {
      */
     @Contract("-> new")
     public BuilderCreationFault() {
-        super(DEFAULT_MESSAGE, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(DEFAULT_MESSAGE);
     }
 
     /**
@@ -66,7 +66,7 @@ public class BuilderCreationFault extends BuilderFault {
      */
     @Contract("? -> new")
     public BuilderCreationFault(final @Nullable String message) {
-        super(message, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(message);
     }
 
     /**
@@ -80,7 +80,7 @@ public class BuilderCreationFault extends BuilderFault {
      */
     @Contract("? -> new")
     public BuilderCreationFault(final @Nullable Throwable cause) {
-        super(DEFAULT_MESSAGE, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(DEFAULT_MESSAGE, cause);
     }
 
     /**
@@ -94,7 +94,7 @@ public class BuilderCreationFault extends BuilderFault {
      */
     @Contract("?, ? -> new")
     public BuilderCreationFault(final @Nullable String message, final @Nullable Throwable cause) {
-        super(message, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(message, cause);
     }
 
     /**

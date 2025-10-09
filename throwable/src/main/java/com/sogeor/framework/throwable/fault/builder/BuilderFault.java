@@ -38,9 +38,7 @@ public class BuilderFault extends UncheckedFault {
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
-    public BuilderFault() {
-        super(DEFAULT_MESSAGE, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
-    }
+    public BuilderFault() {}
 
     /**
      * Создаёт экземпляр с {@linkplain #DEFAULT_CAUSE причиной возникновения}, параметрами
@@ -53,7 +51,7 @@ public class BuilderFault extends UncheckedFault {
      */
     @Contract("? -> new")
     public BuilderFault(final @Nullable String message) {
-        super(message, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(message);
     }
 
     /**
@@ -67,7 +65,7 @@ public class BuilderFault extends UncheckedFault {
      */
     @Contract("? -> new")
     public BuilderFault(final @Nullable Throwable cause) {
-        super(DEFAULT_MESSAGE, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(cause);
     }
 
     /**
@@ -81,7 +79,7 @@ public class BuilderFault extends UncheckedFault {
      */
     @Contract("?, ? -> new")
     public BuilderFault(final @Nullable String message, final @Nullable Throwable cause) {
-        super(message, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(message, cause);
     }
 
     /**
@@ -95,7 +93,7 @@ public class BuilderFault extends UncheckedFault {
      */
     @Contract("?, ? -> new")
     public BuilderFault(final boolean suppression, final boolean stackTrace) {
-        super(DEFAULT_MESSAGE, DEFAULT_CAUSE, suppression, stackTrace);
+        super(suppression, stackTrace);
     }
 
     /**
