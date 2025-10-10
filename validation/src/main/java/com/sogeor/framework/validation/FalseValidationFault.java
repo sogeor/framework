@@ -44,21 +44,17 @@ public class FalseValidationFault extends ValidationFault {
     public static final @NonNull String DEFAULT_MESSAGE = TEMPLATE_MESSAGE.formatted("The value");
 
     /**
-     * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, {@linkplain #DEFAULT_CAUSE причиной возникновения},
-     * параметрами {@linkplain #DEFAULT_SUPPRESSION подавления} и {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по
-     * умолчанию.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     @Contract("-> new")
     public FalseValidationFault() {
-        super(DEFAULT_MESSAGE, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(DEFAULT_MESSAGE);
     }
 
     /**
-     * Создаёт экземпляр с {@linkplain #DEFAULT_CAUSE причиной возникновения}, параметрами
-     * {@linkplain #DEFAULT_SUPPRESSION подавления} и {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию,
-     * а также с {@code message}.
+     * Создаёт экземпляр на основе {@code message}.
      *
      * @param message сообщение.
      *
@@ -66,13 +62,11 @@ public class FalseValidationFault extends ValidationFault {
      */
     @Contract("? -> new")
     public FalseValidationFault(final @Nullable String message) {
-        super(message, DEFAULT_CAUSE, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(message);
     }
 
     /**
-     * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, параметрами
-     * {@linkplain #DEFAULT_SUPPRESSION подавления} и {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию,
-     * а также с {@code cause}.
+     * Создаёт экземпляр на основе {@code cause}.
      *
      * @param cause причина возникновения.
      *
@@ -80,12 +74,11 @@ public class FalseValidationFault extends ValidationFault {
      */
     @Contract("? -> new")
     public FalseValidationFault(final @Nullable Throwable cause) {
-        super(DEFAULT_MESSAGE, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
+        super(DEFAULT_MESSAGE, cause);
     }
 
     /**
-     * Создаёт экземпляр с параметрами {@linkplain #DEFAULT_SUPPRESSION подавления} и
-     * {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию, а также с {@code message} и {@code cause}.
+     * Создаёт экземпляр на основе {@code message} и {@code cause}.
      *
      * @param message сообщение.
      * @param cause причина возникновения.
@@ -94,21 +87,7 @@ public class FalseValidationFault extends ValidationFault {
      */
     @Contract("?, ? -> new")
     public FalseValidationFault(final @Nullable String message, final @Nullable Throwable cause) {
-        super(message, cause, DEFAULT_SUPPRESSION, DEFAULT_STACK_TRACE);
-    }
-
-    /**
-     * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением} и {@linkplain #DEFAULT_CAUSE причиной возникновения}
-     * по умолчанию, а также с {@code suppression} и {@code stackTrace}.
-     *
-     * @param suppression параметр подавления.
-     * @param stackTrace параметр трассировки стека.
-     *
-     * @since 1.0.0-RC1
-     */
-    @Contract("?, ? -> new")
-    public FalseValidationFault(final boolean suppression, final boolean stackTrace) {
-        super(DEFAULT_MESSAGE, DEFAULT_CAUSE, suppression, stackTrace);
+        super(message, cause);
     }
 
     /**
