@@ -17,7 +17,6 @@
 /**
  * Предоставляет фундаментальные программные сбои, связанные с утилитарными классами.
  *
- * @see com.sogeor.framework.throwable.failure
  * @see com.sogeor.framework.throwable.failure.utility.UtilityCreationFailure
  * @see com.sogeor.framework.throwable.failure.utility.UtilityFailure
  * @since 1.0.0-RC1

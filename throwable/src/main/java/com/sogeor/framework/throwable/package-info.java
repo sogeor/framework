@@ -17,8 +17,6 @@
 /**
  * Предоставляет фундаментальные программные сбои и неисправности.
  *
- * @see com.sogeor.framework.throwable.failure
- * @see com.sogeor.framework.throwable.fault
  * @since 1.0.0-RC1
  */
 package com.sogeor.framework.throwable;

@@ -31,9 +31,7 @@ import com.sogeor.framework.throwable.fault.UncheckedFault;
 public class BuilderFault extends UncheckedFault {
 
     /**
-     * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, {@linkplain #DEFAULT_CAUSE причиной возникновения},
-     * параметрами {@linkplain #DEFAULT_SUPPRESSION подавления} и {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по
-     * умолчанию.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
@@ -41,9 +39,7 @@ public class BuilderFault extends UncheckedFault {
     public BuilderFault() {}
 
     /**
-     * Создаёт экземпляр с {@linkplain #DEFAULT_CAUSE причиной возникновения}, параметрами
-     * {@linkplain #DEFAULT_SUPPRESSION подавления} и {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию,
-     * а также с {@code message}.
+     * Создаёт экземпляр на основе {@code message}.
      *
      * @param message сообщение.
      *
@@ -55,9 +51,7 @@ public class BuilderFault extends UncheckedFault {
     }
 
     /**
-     * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением}, параметрами
-     * {@linkplain #DEFAULT_SUPPRESSION подавления} и {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию,
-     * а также с {@code cause}.
+     * Создаёт экземпляр на основе {@code cause}.
      *
      * @param cause причина возникновения.
      *
@@ -69,8 +63,7 @@ public class BuilderFault extends UncheckedFault {
     }
 
     /**
-     * Создаёт экземпляр с параметрами {@linkplain #DEFAULT_SUPPRESSION подавления} и
-     * {@linkplain #DEFAULT_STACK_TRACE трассировки стека} по умолчанию, а также с {@code message} и {@code cause}.
+     * Создаёт экземпляр на основе {@code message} и {@code cause}.
      *
      * @param message сообщение.
      * @param cause причина возникновения.
@@ -80,20 +73,6 @@ public class BuilderFault extends UncheckedFault {
     @Contract("?, ? -> new")
     public BuilderFault(final @Nullable String message, final @Nullable Throwable cause) {
         super(message, cause);
-    }
-
-    /**
-     * Создаёт экземпляр с {@linkplain #DEFAULT_MESSAGE сообщением} и {@linkplain #DEFAULT_CAUSE причиной возникновения}
-     * по умолчанию, а также с {@code suppression} и {@code stackTrace}.
-     *
-     * @param suppression параметр подавления.
-     * @param stackTrace параметр трассировки стека.
-     *
-     * @since 1.0.0-RC1
-     */
-    @Contract("?, ? -> new")
-    public BuilderFault(final boolean suppression, final boolean stackTrace) {
-        super(suppression, stackTrace);
     }
 
     /**

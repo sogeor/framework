@@ -26,7 +26,7 @@ import com.sogeor.framework.annotation.Nullable;
  * @see CheckedFailure
  * @since 1.0.0-RC1
  */
-public class UncheckedFailure extends Throwable {
+public class UncheckedFailure extends Error {
 
     /**
      * Создаёт экземпляр по умолчанию.

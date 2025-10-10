@@ -18,11 +18,13 @@ package com.sogeor.framework.throwable.failure;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.Nullable;
+import com.sogeor.framework.throwable.failure.utility.UtilityFailure;
 
 /**
  * Представляет собой проверяемый программный сбой.
  *
  * @see UncheckedFailure
+ * @see UtilityFailure
  * @since 1.0.0-RC1
  */
 public class CheckedFailure extends Throwable {

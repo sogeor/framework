@@ -18,7 +18,6 @@
  * Предоставляет фундаментальные программные сбои, связанные с классами, спроектированными согласно порождающему шаблону
  * проектирования — строителю.
  *
- * @see com.sogeor.framework.throwable.fault
  * @see com.sogeor.framework.throwable.fault.builder.BuilderCreationFault
  * @see com.sogeor.framework.throwable.fault.builder.BuilderFault
  * @see com.sogeor.framework.throwable.fault.builder.BuilderInstanceFault

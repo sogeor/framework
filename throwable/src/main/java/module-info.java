@@ -25,5 +25,6 @@ module com.sogeor.framework.throwable {
     exports com.sogeor.framework.throwable.failure;
     exports com.sogeor.framework.throwable.failure.utility;
     exports com.sogeor.framework.throwable.fault;
+    exports com.sogeor.framework.throwable.fault.builder;
     exports com.sogeor.framework.throwable.fault.singleton;
 }

@@ -17,8 +17,6 @@
 /**
  * Предоставляет фундаментальные программные сбои.
  *
- * @see com.sogeor.framework.throwable
- * @see com.sogeor.framework.throwable.failure.utility
  * @see com.sogeor.framework.throwable.failure.CheckedFailure
  * @see com.sogeor.framework.throwable.failure.CriticalFailure
  * @see com.sogeor.framework.throwable.failure.UncheckedFailure
