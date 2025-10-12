@@ -22,34 +22,29 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой список элементов.
  *
- * @param <T> тип элементов.
- *
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface List<T> extends SequencedCollection<T> {
+public interface List extends IterableSequencedCollection {
 
     /**
-     * @return Новый итератор элементов этого списка.
+     * {@inheritDoc}
      *
-     * @implSpec Возвращаемый итератор должен находится в неопределённом состоянии.
-     * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
-     * @see Iterator
+     * @return Новый итератор этой коллекции в неопределённом состоянии.
+     *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
     @NonNull
-    Iterator<T> iterator();
+    Iterator iterator();
 
     /**
-     * Представляет собой итератор элементов списка.
-     *
-     * @param <T> тип элементов.
+     * Представляет собой итератор списка.
      *
      * @see List
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends SequencedCollection.Iterator<T> {}
+    interface Iterator extends IterableSequencedCollection.Iterator {}
 
 }
