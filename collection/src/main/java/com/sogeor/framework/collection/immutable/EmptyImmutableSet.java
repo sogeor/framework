@@ -260,7 +260,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
          * @return {@code false}.
          *
          * @see #after()
-         * @see #current()
+         * @see #exists()
          * @since 1.0.0-RC1
          */
         @Override
@@ -273,7 +273,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
          * @return {@code false}.
          *
          * @see #before()
-         * @see #current()
+         * @see #exists()
          * @since 1.0.0-RC1
          */
         @Override
@@ -303,7 +303,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
          */
         @Override
         @Contract("-> false")
-        public boolean current() {
+        public boolean exists() {
             return false;
         }
 

@@ -290,7 +290,7 @@ public class ArrayImmutableSet<T> extends AbstractImmutableSet<T> {
          */
         @Override
         @Contract("-> $value")
-        public boolean current() {
+        public boolean exists() {
             return index >= 0;
         }
 
@@ -323,13 +323,13 @@ public class ArrayImmutableSet<T> extends AbstractImmutableSet<T> {
          *
          * @return Текущий элемент или {@code null}.
          *
-         * @see #current()
+         * @see #exists()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> value")
         public @Nullable T element() {
-            if (!current()) return null;
+            if (!exists()) return null;
             var t = 0L;
             for (var i = 0; i < set.elements.length; ++i)
                 if (index >= t - 1 && index <= t + set.elements[i].length - 1)

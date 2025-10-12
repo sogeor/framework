@@ -244,7 +244,7 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          */
         @Override
         @Contract("-> value")
-        public boolean current() {
+        public boolean exists() {
             return determined();
         }
 
@@ -264,13 +264,13 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          *
          * @return Текущий элемент или {@code null}.
          *
-         * @see #current()
+         * @see #exists()
          * @since 1.0.0-RC1
          */
         @Override
         @Contract("-> value")
         public @Nullable T element() {
-            return current() ? list.elements[index] : null;
+            return exists() ? list.elements[index] : null;
         }
 
         /**
@@ -294,7 +294,7 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
         /**
          * @return Если {@code current()}, то индекс текущего элемента, иначе {@code -1}.
          *
-         * @see #current()
+         * @see #exists()
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
