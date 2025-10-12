@@ -16,56 +16,18 @@
 
 package com.sogeor.framework.collection;
 
-import com.sogeor.framework.annotation.Contract;
-import com.sogeor.framework.annotation.NonNull;
-
 /**
  * Представляет собой абстрактную упорядоченную коллекцию элементов.
  *
- * @param <T> тип элементов.
- *
- * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractSequencedCollection<T> extends AbstractCollection<T> implements SequencedCollection<T> {
+public abstract class AbstractSequencedCollection extends AbstractCollection implements SequencedCollection {
 
     /**
-     * Создаёт экземпляр.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     protected AbstractSequencedCollection() {}
-
-    /**
-     * @return Новый итератор элементов этой коллекции.
-     *
-     * @implSpec Возвращаемый итератор должен находится в неопределённом состоянии.
-     * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
-     * @see AbstractIterator
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("-> new")
-    public abstract @NonNull AbstractIterator<T> iterator();
-
-    /**
-     * Представляет собой абстрактный итератор элементов абстрактной упорядоченной коллекции.
-     *
-     * @param <T> тип элементов.
-     *
-     * @see AbstractSequencedCollection
-     * @since 1.0.0-RC1
-     */
-    public abstract static class AbstractIterator<T> extends AbstractCollection.AbstractIterator<T> implements
-                                                                                                    SequencedCollection.Iterator<T> {
-
-        /**
-         * Создаёт экземпляр.
-         *
-         * @since 1.0.0-RC1
-         */
-        protected AbstractIterator() {}
-
-    }
 
 }
