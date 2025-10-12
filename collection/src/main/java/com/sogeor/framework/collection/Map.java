@@ -17,7 +17,6 @@
 package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
-import com.sogeor.framework.annotation.Experimental;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 
@@ -25,59 +24,61 @@ import com.sogeor.framework.annotation.Nullable;
  * Представляет собой ассоциативный массив элементов — пар, каждая из которых состоит из ключа и соответствующего ему
  * значения.
  *
- * @param <K> тип ключей.
- * @param <V> тип значений.
- *
  * @see Entry
  * @since 1.0.0-RC1
  */
-@Experimental
-public interface Map<K, V> extends Collection {
+public interface Map extends Collection {
 
     /**
-     * TODO
+     * @return Множество ключей этого ассоциативного массива.
      *
+     * @implSpec Возвращаемое множество ключей должно быть тесно связано с этим ассоциативным массивом, так как оно
+     * предоставляет содержащиеся в нём ключи. К примеру, размер множества ключей должен совпадать с размером
+     * ассоциативного массива.
      * @since 1.0.0-RC1
      */
     @Contract("-> $!null")
     @NonNull
-    Set<K> keys();
+    Set keys();
 
     /**
-     * TODO
+     * @return Мультимножество значений этого ассоциативного массива.
      *
+     * @implSpec Возвращаемое мультимножество значений должно быть тесно связано с этим ассоциативным массивом, так как
+     * оно предоставляет содержащиеся в нём значения. К примеру, размер мультимножества значений должен совпадать с
+     * размером ассоциативного массива.
      * @since 1.0.0-RC1
      */
     @Contract("-> $!null")
     @NonNull
-    Multiset<V> values();
+    Multiset values();
 
     /**
-     * TODO
+     * @return Мультимножество элементов этого ассоциативного массива.
      *
+     * @implSpec Возвращаемое мультимножество элементов должно быть тесно связано с этим ассоциативным массивом, так как
+     * оно предоставляет содержащиеся в нём элементы. К примеру, размер мультимножества элементов должен совпадать с
+     * размером ассоциативного массива.
+     * @apiNote По сути возвращаемое мультимножество элементов — это этот ассоциативный массив, но в другом виде.
      * @since 1.0.0-RC1
      */
     @Contract("-> $!null")
     @NonNull
-    Set<? extends Entry<K, V>> entries();
+    Set entries();
 
     /**
      * Представляет собой элемент ассоциативного массива — пару, состоящую из ключа и соответствующего ему значения.
      *
-     * @param <K> тип ключей.
-     * @param <V> тип значений.
-     *
      * @see Map
      * @since 1.0.0-RC1
      */
-    interface Entry<K, V> {
+    interface Entry {
 
         /**
-         * Вычисляет хеш-код этого элемента и возвращает его.
+         * Вычисляет хеш-код на основе ключа и соответствующего ему значения этого элемента и возвращает его.
          *
-         * @return Хеш-код этого элемента.
+         * @return Хеш-код на основе ключа и соответствующего ему значения этого элемента.
          *
-         * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Ω(1)}.
          * @since 1.0.0-RC1
          */
         @Override
@@ -85,28 +86,30 @@ public interface Map<K, V> extends Collection {
         int hashCode();
 
         /**
-         * Если {@code this} эквивалентно {@code object}, то возвращает {@code true}, иначе — {@code false}.
+         * Если {@code object} является элементом ассоциативного массива, то сравнивает его с этим элементом, а именно
+         * убеждается, что у обоих элементов один и тот же ключ, а также одно и то же соответствующее ключу значение.
+         * Если все условия истинны, то есть {@code object} эквивалентен этому элементу, то возвращает {@code true},
+         * иначе — {@code false}.
          *
          * @param object объект.
          *
-         * @return {@code true} или {@code false}.
+         * @return Если {@code object} эквивалентен этому элементу, то {@code true}, иначе {@code false}.
          *
-         * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Ω(1)}.
          * @since 1.0.0-RC1
          */
         @Override
-        @Contract("? -> value")
+        @Contract("null -> false; !null -> value")
         boolean equals(final @Nullable Object object);
 
         /**
-         * @return {@code super.toString()}.
+         * Представляет ключ и соответствующее ему значение этого элемента в виде строки и возвращает её.
          *
-         * @implNote Требуемая реализация обладает оценкой временной сложности {@code Ω(1)}.
-         * @see Object#toString()
+         * @return Строка, представляющая ключ и соответствующее ему значение этого элемента.
+         *
          * @since 1.0.0-RC1
          */
         @Override
-        @Contract("-> $value")
+        @Contract("-> value")
         @NonNull
         String toString();
 

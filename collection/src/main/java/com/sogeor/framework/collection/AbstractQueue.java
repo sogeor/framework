@@ -22,44 +22,41 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактную очередь элементов.
  *
- * @param <T> тип элементов.
- *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractQueue<T> extends AbstractSequencedCollection<T> implements Queue<T> {
+public abstract class AbstractQueue extends AbstractIterableSequencedCollection implements Queue {
 
     /**
-     * Создаёт экземпляр.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     protected AbstractQueue() {}
 
     /**
-     * @return Новый итератор элементов этой очереди.
+     * {@inheritDoc}
      *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этой очереди.
+     * @return Новый итератор этой коллекции в неопределённом состоянии.
+     *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator<T> iterator();
+    public abstract @NonNull AbstractIterator iterator();
 
     /**
-     * Представляет собой абстрактный итератор элементов абстрактной очереди.
-     *
-     * @param <T> тип элементов.
+     * Представляет собой абстрактный итератор абстрактной очереди.
      *
      * @see AbstractQueue
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements
-                                                                                                             Queue.Iterator<T> {
+    public abstract static class AbstractIterator extends
+                                                  AbstractIterableSequencedCollection.AbstractIterator implements
+                                                                                                       Queue.Iterator {
 
         /**
-         * Создаёт экземпляр.
+         * Создаёт экземпляр по умолчанию.
          *
          * @since 1.0.0-RC1
          */

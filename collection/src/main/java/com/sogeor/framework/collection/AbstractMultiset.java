@@ -22,45 +22,40 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактное мультимножество элементов.
  *
- * @param <T> тип элементов.
- *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractMultiset<T> extends AbstractUnsequencedCollection<T> implements Multiset<T> {
+public abstract class AbstractMultiset extends AbstractIterableCollection implements Multiset {
 
     /**
-     * Создаёт экземпляр.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     protected AbstractMultiset() {}
 
     /**
-     * @return Новый итератор элементов этого мультимножества.
+     * {@inheritDoc}
      *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этого мультимножества.
+     * @return Новый итератор этой коллекции в неопределённом состоянии.
+     *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator<T> iterator();
+    public abstract @NonNull AbstractIterator iterator();
 
     /**
-     * Представляет собой абстрактный итератор элементов абстрактного мультимножества.
-     *
-     * @param <T> тип элементов.
+     * Представляет собой абстрактный итератор мультимножества.
      *
      * @see AbstractMultiset
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends
-                                                     AbstractUnsequencedCollection.AbstractIterator<T> implements
-                                                                                                       Multiset.Iterator<T> {
+    public abstract static class AbstractIterator extends AbstractIterableCollection.AbstractIterator implements
+                                                                                                      Multiset.Iterator {
 
         /**
-         * Создаёт экземпляр.
+         * Создаёт экземпляр по умолчанию.
          *
          * @since 1.0.0-RC1
          */

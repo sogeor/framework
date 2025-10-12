@@ -22,33 +22,29 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой стек элементов.
  *
- * @param <T> тип элементов.
- *
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface Stack<T> extends SequencedCollection<T> {
+public interface Stack extends IterableSequencedCollection {
 
     /**
-     * @return Новый итератор элементов этого стека.
+     * {@inheritDoc}
      *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этого стека.
+     * @return Новый итератор этой коллекции в неопределённом состоянии.
+     *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
     @NonNull
-    Iterator<T> iterator();
+    Iterator iterator();
 
     /**
-     * Представляет собой итератор элементов стека.
-     *
-     * @param <T> тип элементов.
+     * Представляет собой итератор стека.
      *
      * @see Stack
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends SequencedCollection.Iterator<T> {}
+    interface Iterator extends IterableSequencedCollection.Iterator {}
 
 }

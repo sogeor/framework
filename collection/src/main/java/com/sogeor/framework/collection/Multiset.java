@@ -22,34 +22,29 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой мультимножество элементов.
  *
- * @param <T> тип элементов.
- *
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface Multiset<T> extends UnsequencedCollection<T> {
+public interface Multiset extends IterableCollection {
 
     /**
-     * @return Новый итератор элементов этого мультимножества.
+     * {@inheritDoc}
      *
-     * @implSpec Возвращаемый итератор должен находится в неопределённом состоянии.
-     * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
-     * @see Iterator
+     * @return Новый итератор этой коллекции в неопределённом состоянии.
+     *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
     @NonNull
-    Iterator<T> iterator();
+    Iterator iterator();
 
     /**
-     * Представляет собой итератор элементов мультимножества.
-     *
-     * @param <T> тип элементов.
+     * Представляет собой итератор мультимножества.
      *
      * @see Multiset
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends UnsequencedCollection.Iterator<T> {}
+    interface Iterator extends IterableCollection.Iterator {}
 
 }

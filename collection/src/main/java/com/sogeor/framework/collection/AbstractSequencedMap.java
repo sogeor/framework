@@ -17,27 +17,27 @@
 package com.sogeor.framework.collection;
 
 /**
- * Представляет собой абстрактный многозначный ассоциативный массив элементов.
+ * Представляет собой абстрактный упорядоченный ассоциативный массив элементов.
  *
  * @see AbstractEntry
  * @since 1.0.0-RC1
  */
-public abstract class AbstractMultimap extends AbstractCollection implements Multimap {
+public abstract class AbstractSequencedMap extends AbstractSequencedCollection implements SequencedMap {
 
     /**
      * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
-    protected AbstractMultimap() {}
+    protected AbstractSequencedMap() {}
 
     /**
-     * Представляет собой абстрактный элемент многозначного ассоциативного массива.
+     * Представляет собой абстрактный элемент упорядоченного ассоциативного массива.
      *
-     * @see AbstractMultimap
+     * @see AbstractSequencedMap
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractEntry implements Entry {
+    public abstract static class AbstractEntry extends AbstractMap.AbstractEntry implements Entry {
 
         /**
          * Создаёт экземпляр по умолчанию.

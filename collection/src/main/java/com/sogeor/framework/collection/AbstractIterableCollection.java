@@ -23,6 +23,7 @@ import com.sogeor.framework.annotation.Nullable;
 /**
  * Представляет собой абстрактную итерируемую коллекцию элементов.
  *
+ * @see AbstractIterator
  * @since 1.0.0-RC1
  */
 public abstract class AbstractIterableCollection extends AbstractCollection implements IterableCollection {

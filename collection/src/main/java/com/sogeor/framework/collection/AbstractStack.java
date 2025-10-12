@@ -22,44 +22,41 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактный стек элементов.
  *
- * @param <T> тип элементов.
- *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractStack<T> extends AbstractSequencedCollection<T> implements Stack<T> {
+public abstract class AbstractStack extends AbstractIterableSequencedCollection implements Stack {
 
     /**
-     * Создаёт экземпляр.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     protected AbstractStack() {}
 
     /**
-     * @return Новый итератор элементов этого стека.
+     * {@inheritDoc}
      *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этого стека.
+     * @return Новый итератор этой коллекции в неопределённом состоянии.
+     *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator<T> iterator();
+    public abstract @NonNull AbstractIterator iterator();
 
     /**
-     * Представляет собой абстрактный итератор элементов абстрактного стека.
-     *
-     * @param <T> тип элементов.
+     * Представляет собой абстрактный итератор стека.
      *
      * @see AbstractStack
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements
-                                                                                                             Stack.Iterator<T> {
+    public abstract static class AbstractIterator extends
+                                                  AbstractIterableSequencedCollection.AbstractIterator implements
+                                                                                                       Stack.Iterator {
 
         /**
-         * Создаёт экземпляр.
+         * Создаёт экземпляр по умолчанию.
          *
          * @since 1.0.0-RC1
          */

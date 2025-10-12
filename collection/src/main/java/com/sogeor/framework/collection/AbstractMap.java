@@ -16,90 +16,35 @@
 
 package com.sogeor.framework.collection;
 
-import com.sogeor.framework.annotation.Contract;
-import com.sogeor.framework.annotation.NonNull;
-
 /**
- * Представляет собой абстрактный ассоциативный массив элементов — пар, каждая из которых состоит из ключа и
- * соответствующего ему значения.
- *
- * @param <K> тип ключей.
- * @param <V> тип значений.
- * @param <T> тип элементов.
+ * Представляет собой абстрактный ассоциативный массив элементов.
  *
  * @see AbstractEntry
- * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractMap<K, V, T extends Map.Entry<K, V>> extends AbstractSet<T> implements Map<K, V, T> {
+public abstract class AbstractMap extends AbstractCollection implements Map {
 
     /**
-     * Создаёт экземпляр.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     protected AbstractMap() {}
 
     /**
-     * @return Новый итератор элементов этого ассоциативного массива.
-     *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этого ассоциативного массива.
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("-> new")
-    public abstract @NonNull AbstractIterator<K, V, T> iterator();
-
-    /**
-     * Представляет собой абстрактный элемент ассоциативного массива — абстрактную пару, состоящую из ключа и
-     * соответствующего ему значения.
-     *
-     * @param <K> тип ключей.
-     * @param <V> тип значений.
+     * Представляет собой абстрактный элемент ассоциативного массива.
      *
      * @see AbstractMap
-     * @see AbstractIterator
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractEntry<K, V> implements Entry<K, V> {
+    public abstract static class AbstractEntry implements Entry {
 
         /**
-         * @return {@code super.toString()}.
-         *
-         * @see Object#toString()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> $value")
-        public @NonNull String toString() {
-            return super.toString();
-        }
-
-    }
-
-    /**
-     * Представляет собой абстрактный итератор элементов абстрактного ассоциативного массива — пар, каждая из которых
-     * состоит из ключа и соответствующего ему значения.
-     *
-     * @param <K> тип ключей.
-     * @param <V> тип значений.
-     * @param <T> тип элементов.
-     *
-     * @see AbstractMap
-     * @see AbstractEntry
-     * @since 1.0.0-RC1
-     */
-    public abstract static class AbstractIterator<K, V, T extends Entry<K, V>> extends
-                                                                               AbstractSet.AbstractIterator<T> implements
-                                                                                                               Map.Iterator<K, V, T> {
-
-        /**
-         * Создаёт экземпляр.
+         * Создаёт экземпляр по умолчанию.
          *
          * @since 1.0.0-RC1
          */
-        protected AbstractIterator() {}
+        protected AbstractEntry() {}
 
     }
 

@@ -20,19 +20,19 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 
 /**
- * Представляет собой абстрактное множество элементов.
+ * Представляет собой абстрактное упорядоченное множество элементов.
  *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractSet extends AbstractIterableCollection implements Set {
+public abstract class AbstractSequencedSet extends AbstractIterableSequencedCollection implements SequencedSet {
 
     /**
      * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
-    protected AbstractSet() {}
+    protected AbstractSequencedSet() {}
 
     /**
      * {@inheritDoc}
@@ -48,11 +48,12 @@ public abstract class AbstractSet extends AbstractIterableCollection implements 
     /**
      * Представляет собой абстрактный итератор множества.
      *
-     * @see AbstractSet
+     * @see AbstractSequencedSet
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator extends AbstractIterableCollection.AbstractIterator implements
-                                                                                                      Set.Iterator {
+    public abstract static class AbstractIterator extends
+                                                  AbstractIterableSequencedCollection.AbstractIterator implements
+                                                                                                       SequencedSet.Iterator {
 
         /**
          * Создаёт экземпляр по умолчанию.

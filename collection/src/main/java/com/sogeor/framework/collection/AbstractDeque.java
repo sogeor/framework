@@ -22,44 +22,40 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактную двустороннюю очередь элементов.
  *
- * @param <T> тип элементов.
- *
- * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractDeque<T> extends AbstractSequencedCollection<T> implements Deque<T> {
+public abstract class AbstractDeque extends AbstractIterableSequencedCollection implements Deque {
 
     /**
-     * Создаёт экземпляр.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     protected AbstractDeque() {}
 
     /**
-     * @return Новый итератор элементов этой очереди.
+     * {@inheritDoc}
      *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этой очереди.
+     * @return Новый итератор этой коллекции в неопределённом состоянии.
+     *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator<T> iterator();
+    public abstract @NonNull AbstractIterator iterator();
 
     /**
-     * Представляет собой абстрактный итератор элементов абстрактной двусторонней очереди.
-     *
-     * @param <T> тип элементов.
+     * Представляет собой абстрактный итератор абстрактной двусторонней очереди.
      *
      * @see AbstractDeque
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends AbstractSequencedCollection.AbstractIterator<T> implements
-                                                                                                             Deque.Iterator<T> {
+    public abstract static class AbstractIterator extends
+                                                  AbstractIterableSequencedCollection.AbstractIterator implements
+                                                                                                       Deque.Iterator {
 
         /**
-         * Создаёт экземпляр.
+         * Создаёт экземпляр по умолчанию.
          *
          * @since 1.0.0-RC1
          */

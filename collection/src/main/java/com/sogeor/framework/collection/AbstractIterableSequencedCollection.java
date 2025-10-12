@@ -22,6 +22,7 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактную итерируемую упорядоченную коллекцию элементов.
  *
+ * @see AbstractIterator
  * @since 1.0.0-RC1
  */
 public abstract class AbstractIterableSequencedCollection extends AbstractIterableCollection implements
