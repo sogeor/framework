@@ -19,7 +19,6 @@ package com.sogeor.framework.collection.readable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
-import com.sogeor.framework.collection.UnsequencedCollection;
 
 /**
  * Представляет собой читаемую неупорядоченную коллекцию элементов.

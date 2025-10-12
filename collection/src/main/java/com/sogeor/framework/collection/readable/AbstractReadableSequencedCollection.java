@@ -77,7 +77,7 @@ public abstract class AbstractReadableSequencedCollection<T> extends AbstractSeq
     public int hashCode() {
         var result = 1;
         for (final @NonNull var it = iterator(); it.after(); it.next())
-            result = 31 * result + Objects.hashCode(it.current());
+            result = 31 * result + Objects.hashCode(it.exists());
         return result;
     }
 

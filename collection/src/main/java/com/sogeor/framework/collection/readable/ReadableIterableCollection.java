@@ -195,7 +195,7 @@ public interface ReadableIterableCollection<T> extends ReadableCollection, Itera
          *
          * @return Текущий элемент или {@code null}.
          *
-         * @see #current()
+         * @see #exists()
          * @since 1.0.0-RC1
          */
         @Contract("-> value")

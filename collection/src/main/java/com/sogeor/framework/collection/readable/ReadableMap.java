@@ -34,7 +34,6 @@ import java.util.Objects;
  * @see Entry
  * @since 1.0.0-RC1
  */
-@Experimental
 public interface ReadableMap<K, V> extends ReadableCollection, Map<K, V> {
 
     /**

@@ -19,7 +19,6 @@ package com.sogeor.framework.collection.readable;
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
-import com.sogeor.framework.collection.AbstractUnsequencedCollection;
 
 import java.util.Objects;
 
@@ -76,7 +75,7 @@ public abstract class AbstractReadableUnsequencedCollection<T> extends AbstractU
     @Contract("-> value")
     public int hashCode() {
         var result = 0;
-        for (final @NonNull var it = iterator(); it.after(); it.next()) result += Objects.hashCode(it.current());
+        for (final @NonNull var it = iterator(); it.after(); it.next()) result += Objects.hashCode(it.exists());
         return result;
     }
 
