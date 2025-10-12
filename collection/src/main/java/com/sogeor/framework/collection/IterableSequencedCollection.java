@@ -25,7 +25,7 @@ import com.sogeor.framework.annotation.NonNull;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface IterableSequencedCollection<T> extends IterableCollection, SequencedCollection {
+public interface IterableSequencedCollection extends IterableCollection, SequencedCollection {
 
     /**
      * {@inheritDoc}
