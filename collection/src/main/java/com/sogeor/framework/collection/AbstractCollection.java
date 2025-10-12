@@ -23,103 +23,50 @@ import com.sogeor.framework.annotation.Nullable;
 /**
  * Представляет собой абстрактную коллекцию элементов.
  *
- * @param <T> тип элементов.
- *
- * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractCollection<T> implements Collection<T> {
+public abstract class AbstractCollection implements Collection {
 
     /**
-     * Создаёт экземпляр.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     protected AbstractCollection() {}
 
     /**
-     * @return Новый итератор элементов этой коллекции.
+     * {@inheritDoc}
      *
-     * @implSpec Возвращаемый итератор должен находится в неопределённом состоянии.
-     * @implNote Ожидаемая реализация обладает оценкой временной сложности {@code Θ(1)}.
-     * @see AbstractIterator
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("-> new")
-    public abstract @NonNull AbstractIterator<T> iterator();
-
-    /**
-     * @return {@code super.toString() + "{capacity=" + capacity() + ",size=" + size() + '}'}.
+     * @return Хеш-код на основе элементов этой коллекции.
      *
-     * @implNote Стандартная реализация обладает оценками временной сложности {@code Ω(1)} и {@code O(n)}.
-     * @see #capacity()
-     * @see #size()
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> value")
-    public @NonNull String toString() {
-        return super.toString() + "{capacity=" + capacity() + ",size=" + size() + '}';
-    }
+    public abstract int hashCode();
 
     /**
-     * Представляет собой абстрактный итератор элементов абстрактной коллекции.
+     * {@inheritDoc}
      *
-     * @param <T> тип элементов.
+     * @param object объект.
      *
-     * @see AbstractCollection
+     * @return Если {@code object} эквивалентен этой коллекции, то {@code true}, иначе {@code false}.
+     *
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> implements Iterator<T> {
+    @Override
+    @Contract("null -> false; !null -> value")
+    public abstract boolean equals(final @Nullable Object object);
 
-        /**
-         * Создаёт экземпляр.
-         *
-         * @since 1.0.0-RC1
-         */
-        protected AbstractIterator() {}
-
-        /**
-         * @return {@code super.hashCode()}.
-         *
-         * @implNote Стандартная реализация обладает оценкой временной сложности {@code Θ(1)}.
-         * @see Object#hashCode()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> $value")
-        public int hashCode() {
-            return super.hashCode();
-        }
-
-        /**
-         * @param object объект.
-         *
-         * @return {@code this == object}.
-         *
-         * @implNote Стандартная реализация обладает оценкой временной сложности {@code Θ(1)}.
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("? -> $value")
-        public boolean equals(final @Nullable Object object) {
-            return this == object;
-        }
-
-        /**
-         * @return {@code super.toString()}.
-         *
-         * @implNote Стандартная реализация обладает оценкой временной сложности {@code Θ(1)}.
-         * @see Object#toString()
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> $value")
-        public @NonNull String toString() {
-            return super.toString();
-        }
-
-    }
+    /**
+     * {@inheritDoc}
+     *
+     * @return Строка, представляющая элементы этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    public abstract @NonNull String toString();
 
 }
