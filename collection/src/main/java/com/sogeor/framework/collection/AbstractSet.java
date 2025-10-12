@@ -22,45 +22,39 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактное множество элементов.
  *
- * @param <T> тип элементов.
- *
- * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractSet<T> extends AbstractUnsequencedCollection<T> implements Set<T> {
+public abstract class AbstractSet extends AbstractIterableCollection implements Set {
 
     /**
-     * Создаёт экземпляр.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     protected AbstractSet() {}
 
     /**
-     * @return Новый итератор элементов этого множества.
+     * {@inheritDoc}
      *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этого множества.
+     * @return Новый итератор этой коллекции в неопределённом состоянии.
+     *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator<T> iterator();
+    public abstract @NonNull AbstractIterator iterator();
 
     /**
-     * Представляет собой абстрактный итератор элементов абстрактного множества.
-     *
-     * @param <T> тип элементов.
+     * Представляет собой абстрактный итератор множества.
      *
      * @see AbstractSet
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator<T> extends
-                                                     AbstractUnsequencedCollection.AbstractIterator<T> implements
-                                                                                                       Set.Iterator<T> {
+    public abstract static class AbstractIterator extends AbstractIterableCollection.AbstractIterator implements
+                                                                                                      Set.Iterator {
 
         /**
-         * Создаёт экземпляр.
+         * Создаёт экземпляр по умолчанию.
          *
          * @since 1.0.0-RC1
          */
