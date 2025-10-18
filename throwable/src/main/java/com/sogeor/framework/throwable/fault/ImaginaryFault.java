@@ -27,7 +27,7 @@ import com.sogeor.framework.throwable.failure.utility.UtilityCreationFailure;
 public final class ImaginaryFault extends UncheckedFault {
 
     /**
-     * Генерирует {@code UtilityCreationFailure} по умолчанию.
+     * Генерирует {@link UtilityCreationFailure} по умолчанию.
      *
      * @throws UtilityCreationFailure экземпляр этого класса не должен быть создан.
      * @since 1.0.0-RC1
