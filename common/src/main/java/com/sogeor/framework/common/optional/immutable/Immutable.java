@@ -55,8 +55,7 @@ public final class Immutable<T> extends OptionalObject<T> {
 
     /**
      * Если {@code EMPTY == null}, то создаёт экземпляр на основе {@code null}, иначе генерирует
-     * {@linkplain SingletonCreationFault проверяемый программный сбой} с
-     * {@linkplain SingletonCreationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе имени этого класса.
+     * {@link SingletonCreationFault} по умолчанию.
      *
      * @throws SingletonCreationFault второй экземпляр этого класса на основе {@code null} не должен быть создан.
      * @see #EMPTY
@@ -65,8 +64,7 @@ public final class Immutable<T> extends OptionalObject<T> {
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
     private Immutable() throws SingletonCreationFault {
-        if (EMPTY != null)
-            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("Immutable"));
+        if (EMPTY != null) throw new SingletonCreationFault();
         object = null;
     }
 

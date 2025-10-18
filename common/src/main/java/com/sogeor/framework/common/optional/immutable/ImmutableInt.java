@@ -58,8 +58,7 @@ public final class ImmutableInt extends OptionalInt {
 
     /**
      * Если {@code EMPTY == null}, то создаёт экземпляр без значения типа {@code int}, иначе генерирует
-     * {@linkplain SingletonCreationFault проверяемый программный сбой} с
-     * {@linkplain SingletonCreationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе имени этого класса.
+     * {@link SingletonCreationFault} по умолчанию.
      *
      * @throws SingletonCreationFault второй экземпляр этого класса без значения типа {@code int} не должен быть
      * создан.
@@ -69,8 +68,7 @@ public final class ImmutableInt extends OptionalInt {
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
     private ImmutableInt() throws SingletonCreationFault {
-        if (EMPTY != null)
-            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("ImmutableInteger"));
+        if (EMPTY != null) throw new SingletonCreationFault();
         contains = false;
         value = 0;
     }

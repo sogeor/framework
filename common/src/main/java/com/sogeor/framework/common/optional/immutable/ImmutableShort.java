@@ -58,8 +58,7 @@ public final class ImmutableShort extends OptionalShort {
 
     /**
      * Если {@code EMPTY == null}, то создаёт экземпляр без значения типа {@code short}, иначе генерирует
-     * {@linkplain SingletonCreationFault проверяемый программный сбой} с
-     * {@linkplain SingletonCreationFault#TEMPLATE_MESSAGE шаблонным сообщением} на основе имени этого класса.
+     * {@link SingletonCreationFault} по умолчанию.
      *
      * @throws SingletonCreationFault второй экземпляр этого класса без значения типа {@code short} не должен быть
      * создан.
@@ -69,8 +68,7 @@ public final class ImmutableShort extends OptionalShort {
     @Contract("-> ?")
     @SuppressWarnings("ConstantValue")
     private ImmutableShort() throws SingletonCreationFault {
-        if (EMPTY != null)
-            throw new SingletonCreationFault(SingletonCreationFault.TEMPLATE_MESSAGE.formatted("ImmutableShort"));
+        if (EMPTY != null) throw new SingletonCreationFault();
         contains = false;
         value = 0;
     }
