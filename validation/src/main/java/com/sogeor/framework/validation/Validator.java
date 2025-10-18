@@ -29,7 +29,7 @@ import com.sogeor.framework.throwable.failure.utility.UtilityCreationFailure;
 public final class Validator {
 
     /**
-     * Генерирует {@code UtilityCreationFailure} по умолчанию.
+     * Генерирует {@link UtilityCreationFailure} по умолчанию.
      *
      * @throws UtilityCreationFailure экземпляр этого класса не должен быть создан.
      * @since 1.0.0-RC1
@@ -40,8 +40,7 @@ public final class Validator {
     }
 
     /**
-     * Если {@code !value}, то генерирует {@linkplain ValidationFault непроверяемую программную неисправность} с
-     * {@linkplain ValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     * Если {@code !value}, то генерирует {@link ValidationFault} по умолчанию.
      *
      * @param value значение типа {@code boolean}.
      *
@@ -57,9 +56,7 @@ public final class Validator {
     }
 
     /**
-     * Если {@code !value}, то генерирует {@linkplain ValidationFault непроверяемую программную неисправность} с
-     * {@code message}, или, если {@code message == null}, с
-     * {@linkplain ValidationFault#DEFAULT_MESSAGE сообщением по умолчанию}.
+     * Если {@code !value}, то генерирует {@link ValidationFault} на основе {@code message}.
      *
      * @param value значение типа {@code boolean}.
      * @param message сообщение о неудачной валидации.
@@ -72,7 +69,6 @@ public final class Validator {
     @Contract("true, ? -> true; false, ? -> fault")
     public static void validate(final boolean value, final @Nullable String message) throws ValidationFault {
         if (value) return;
-        if (message == null) throw new ValidationFault();
         throw new ValidationFault(message);
     }
 
