@@ -18,7 +18,6 @@ package com.sogeor.framework.collection.immutable;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.collection.readable.AbstractReadableUnsequencedCollection;
 
 /**
  * Представляет собой абстрактную неизменяемую неупорядоченную коллекцию элементов.
