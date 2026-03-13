@@ -16,6 +16,9 @@
 
 package com.sogeor.framework.collection;
 
+import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.NonNull;
+
 /**
  * Представляет собой абстрактный многозначный ассоциативный массив элементов.
  *
@@ -30,6 +33,15 @@ public abstract class AbstractMultimap extends AbstractCollection implements Mul
      * @since 1.0.0-RC1
      */
     protected AbstractMultimap() {}
+
+    /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractMultimap clone();
 
     /**
      * Представляет собой абстрактный элемент многозначного ассоциативного массива.

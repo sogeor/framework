@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Sogeor
+ * Copyright 2026 Sogeor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,30 +20,19 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 
 /**
- * Представляет собой абстрактную очередь элементов.
+ * Представляет собой абстрактный упорядоченный двунаправленный ассоциативный массив элементов.
  *
- * @see AbstractIterator
+ * @see AbstractEntry
  * @since 1.0.0-RC1
  */
-public abstract class AbstractQueue extends AbstractIterableSequencedCollection implements Queue {
+public abstract class AbstractSequencedBiMap extends AbstractSequencedCollection implements SequencedBiMap {
 
     /**
      * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
-    protected AbstractQueue() {}
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return Новый итератор этой коллекции в неопределённом состоянии.
-     *
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("-> new")
-    public abstract @NonNull AbstractIterator iterator();
+    protected AbstractSequencedBiMap() {}
 
     /**
      * @return Копию этой коллекции.
@@ -52,24 +41,22 @@ public abstract class AbstractQueue extends AbstractIterableSequencedCollection 
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractQueue clone();
+    public abstract @NonNull AbstractSequencedBiMap clone();
 
     /**
-     * Представляет собой абстрактный итератор абстрактной очереди.
+     * Представляет собой абстрактный элемент упорядоченного двунаправленного ассоциативного массива.
      *
-     * @see AbstractQueue
+     * @see AbstractSequencedBiMap
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator extends
-                                                  AbstractIterableSequencedCollection.AbstractIterator implements
-                                                                                                       Queue.Iterator {
+    public abstract static class AbstractEntry extends AbstractMultimap.AbstractEntry implements Entry {
 
         /**
          * Создаёт экземпляр по умолчанию.
          *
          * @since 1.0.0-RC1
          */
-        protected AbstractIterator() {}
+        protected AbstractEntry() {}
 
     }
 

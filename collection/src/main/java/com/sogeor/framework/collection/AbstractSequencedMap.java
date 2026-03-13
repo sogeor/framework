@@ -16,6 +16,9 @@
 
 package com.sogeor.framework.collection;
 
+import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.NonNull;
+
 /**
  * Представляет собой абстрактный упорядоченный ассоциативный массив элементов.
  *
@@ -30,6 +33,15 @@ public abstract class AbstractSequencedMap extends AbstractSequencedCollection i
      * @since 1.0.0-RC1
      */
     protected AbstractSequencedMap() {}
+
+    /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractSequencedMap clone();
 
     /**
      * Представляет собой абстрактный элемент упорядоченного ассоциативного массива.

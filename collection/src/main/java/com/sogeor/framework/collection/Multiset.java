@@ -40,6 +40,16 @@ public interface Multiset extends IterableCollection {
     Iterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    Multiset clone();
+
+    /**
      * Представляет собой итератор мультимножества.
      *
      * @see Multiset

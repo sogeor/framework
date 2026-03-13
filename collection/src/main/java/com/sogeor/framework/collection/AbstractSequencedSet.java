@@ -46,6 +46,15 @@ public abstract class AbstractSequencedSet extends AbstractIterableSequencedColl
     public abstract @NonNull AbstractIterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractSequencedSet clone();
+
+    /**
      * Представляет собой абстрактный итератор множества.
      *
      * @see AbstractSequencedSet

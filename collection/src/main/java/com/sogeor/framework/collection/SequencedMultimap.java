@@ -69,6 +69,16 @@ public interface SequencedMultimap extends SequencedCollection, Multimap {
     SequencedSet entries();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    SequencedMultimap clone();
+
+    /**
      * Представляет собой элемент упорядоченного многозначного ассоциативного массива.
      *
      * @see SequencedMultimap

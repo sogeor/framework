@@ -40,6 +40,16 @@ public interface SequencedMultiset extends IterableSequencedCollection, Multiset
     Iterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    SequencedMultiset clone();
+
+    /**
      * Представляет собой итератор упорядоченного мультимножества.
      *
      * @see SequencedMultiset

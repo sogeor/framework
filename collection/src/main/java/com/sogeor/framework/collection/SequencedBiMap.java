@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Sogeor
+ * Copyright 2026 Sogeor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ public interface SequencedBiMap extends SequencedCollection, BiMap {
      * @return Обратный этому двунаправленный ассоциативный массив.
      *
      * @implSpec Возвращаемый двунаправленный ассоциативный массив должен быть тесно связано с этим, так как он
-     * предоставляет содержащиеся в нём ключи в виде значений, а соответствующие значения в виде ключей.
+     * предоставляет содержащиеся в нём ключи в виде значений и соответствующие значения в виде ключей.
      * @since 1.0.0-RC1
      */
     @Override
@@ -68,6 +68,16 @@ public interface SequencedBiMap extends SequencedCollection, BiMap {
     @Contract("-> $!null")
     @NonNull
     SequencedSet entries();
+
+    /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    SequencedBiMap clone();
 
     /**
      * Представляет собой элемент упорядоченного двунаправленного ассоциативного массива.

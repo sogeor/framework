@@ -40,6 +40,16 @@ public interface IterableSequencedCollection extends IterableCollection, Sequenc
     Iterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    IterableSequencedCollection clone();
+
+    /**
      * Представляет собой итератор итерируемой упорядоченной коллекции.
      *
      * @see IterableSequencedCollection

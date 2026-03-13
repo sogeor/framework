@@ -46,6 +46,15 @@ public abstract class AbstractMultiset extends AbstractIterableCollection implem
     public abstract @NonNull AbstractIterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractMultiset clone();
+
+    /**
      * Представляет собой абстрактный итератор мультимножества.
      *
      * @see AbstractMultiset

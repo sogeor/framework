@@ -46,6 +46,15 @@ public abstract class AbstractSet extends AbstractIterableCollection implements 
     public abstract @NonNull AbstractIterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractSet clone();
+
+    /**
      * Представляет собой абстрактный итератор множества.
      *
      * @see AbstractSet

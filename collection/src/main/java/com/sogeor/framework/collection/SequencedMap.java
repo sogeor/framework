@@ -58,6 +58,16 @@ public interface SequencedMap extends SequencedCollection, Map {
     SequencedSet entries();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    SequencedMap clone();
+
+    /**
      * Представляет собой элемент упорядоченного ассоциативного массива.
      *
      * @see SequencedMap

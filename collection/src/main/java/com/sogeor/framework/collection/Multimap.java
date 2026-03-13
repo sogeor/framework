@@ -81,6 +81,16 @@ public interface Multimap extends Collection {
     Set entries();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    Multimap clone();
+
+    /**
      * Представляет собой элемент многозначного ассоциативного массива — пару, состоящую из ключа и соответствующей ему
      * итерируемой коллекции значений.
      *

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Sogeor
+ * Copyright 2026 Sogeor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,6 +77,16 @@ public interface BiMap extends Collection {
     @Contract("-> $!null")
     @NonNull
     Set entries();
+
+    /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    BiMap clone();
 
     /**
      * Представляет собой элемент двунаправленного ассоциативного массива — пару, состоящую из ключа и соответствующего

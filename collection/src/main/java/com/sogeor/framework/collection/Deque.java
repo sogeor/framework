@@ -40,6 +40,16 @@ public interface Deque extends IterableSequencedCollection {
     Iterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    Deque clone();
+
+    /**
      * Представляет собой итератор двустороннейочереди.
      *
      * @see Deque

@@ -67,6 +67,16 @@ public interface Map extends Collection {
     Set entries();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    Map clone();
+
+    /**
      * Представляет собой элемент ассоциативного массива — пару, состоящую из ключа и соответствующего ему значения.
      *
      * @see Map

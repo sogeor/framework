@@ -40,6 +40,16 @@ public interface Queue extends IterableSequencedCollection {
     Iterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    Queue clone();
+
+    /**
      * Представляет собой итератор очереди.
      *
      * @see Queue

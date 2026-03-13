@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Sogeor
+ * Copyright 2026 Sogeor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,22 +20,19 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 
 /**
- * Представляет собой упорядоченную коллекцию элементов.
+ * Представляет собой абстрактный двунаправленный ассоциативный массив элементов.
  *
+ * @see AbstractEntry
  * @since 1.0.0-RC1
  */
-public interface SequencedCollection extends Collection {
+public abstract class AbstractBiMap extends AbstractCollection implements BiMap {
 
     /**
-     * @return {@code true}.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
-    @Override
-    @Contract("-> $value")
-    default boolean sequenced() {
-        return true;
-    }
+    protected AbstractBiMap() {}
 
     /**
      * @return Копию этой коллекции.
@@ -44,19 +41,23 @@ public interface SequencedCollection extends Collection {
      */
     @Override
     @Contract("-> new")
-    @NonNull
-    SequencedCollection clone();
+    public abstract @NonNull AbstractBiMap clone();
 
     /**
-     * Если {@link #empty()}, то возвращает {@code 1}, иначе вычисляет хеш-код на основе элементов этой коллекции и
-     * возвращает его.
+     * Представляет собой абстрактный элемент двунаправленного ассоциативного массива.
      *
-     * @return Если {@link #empty()}, то {@code 1}, иначе хеш-код на основе элементов этой коллекции.
-     *
+     * @see AbstractBiMap
      * @since 1.0.0-RC1
      */
-    @Override
-    @Contract("-> value")
-    int hashCode();
+    public abstract static class AbstractEntry implements Entry {
+
+        /**
+         * Создаёт экземпляр по умолчанию.
+         *
+         * @since 1.0.0-RC1
+         */
+        protected AbstractEntry() {}
+
+    }
 
 }

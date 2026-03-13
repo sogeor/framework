@@ -35,6 +35,15 @@ public abstract class AbstractCollection implements Collection {
     protected AbstractCollection() {}
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractCollection clone();
+
+    /**
      * {@inheritDoc}
      *
      * @return Хеш-код на основе элементов этой коллекции.

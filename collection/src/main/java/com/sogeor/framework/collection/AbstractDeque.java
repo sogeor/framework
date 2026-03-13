@@ -45,6 +45,15 @@ public abstract class AbstractDeque extends AbstractIterableSequencedCollection 
     public abstract @NonNull AbstractIterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractDeque clone();
+
+    /**
      * Представляет собой абстрактный итератор абстрактной двусторонней очереди.
      *
      * @see AbstractDeque

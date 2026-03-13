@@ -40,6 +40,16 @@ public interface SequencedSet extends IterableSequencedCollection, Set {
     Iterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    SequencedSet clone();
+
+    /**
      * Представляет собой итератор упорядоченного множества.
      *
      * @see SequencedSet

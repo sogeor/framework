@@ -40,6 +40,16 @@ public interface Set extends IterableCollection {
     Iterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    Set clone();
+
+    /**
      * Представляет собой итератор множества.
      *
      * @see Set

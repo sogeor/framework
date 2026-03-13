@@ -40,6 +40,16 @@ public interface IterableCollection extends Collection {
     Iterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    @NonNull
+    IterableCollection clone();
+
+    /**
      * Представляет собой итератор итерируемой коллекции.
      * <p>
      * Каждый итератор находиться либо в определённом, либо в неопределённом состоянии. В определённом состоянии

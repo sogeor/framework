@@ -92,6 +92,24 @@ public interface Collection extends Cloneable {
     boolean expand(final long capacity);
 
     /**
+     * @return Если элементы этой коллекции могут быть {@code null}, то {@code true}, иначе {@code false}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("-> $value")
+    boolean nullable();
+
+    /**
+     * @return Если эта коллекция является упорядоченной, то {@code true}, иначе {@code false}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("-> $value")
+    default boolean sequenced() {
+        return false;
+    }
+
+    /**
      * @return Копию этой коллекции.
      *
      * @since 1.0.0-RC1

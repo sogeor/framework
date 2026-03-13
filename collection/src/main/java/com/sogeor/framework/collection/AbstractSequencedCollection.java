@@ -16,6 +16,9 @@
 
 package com.sogeor.framework.collection;
 
+import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.NonNull;
+
 /**
  * Представляет собой абстрактную упорядоченную коллекцию элементов.
  *
@@ -29,5 +32,14 @@ public abstract class AbstractSequencedCollection extends AbstractCollection imp
      * @since 1.0.0-RC1
      */
     protected AbstractSequencedCollection() {}
+
+    /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractSequencedCollection clone();
 
 }

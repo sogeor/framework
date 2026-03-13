@@ -47,6 +47,15 @@ public abstract class AbstractSequencedMultiset extends AbstractIterableSequence
     public abstract @NonNull AbstractIterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractSequencedMultiset clone();
+
+    /**
      * Представляет собой абстрактный итератор мультимножества.
      *
      * @see AbstractSequencedMultiset

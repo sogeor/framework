@@ -47,6 +47,15 @@ public abstract class AbstractIterableSequencedCollection extends AbstractIterab
     public abstract @NonNull AbstractIterator iterator();
 
     /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractIterableSequencedCollection clone();
+
+    /**
      * Представляет собой абстрактный итератор абстрактной итерируемой упорядоченной коллекции.
      *
      * @see AbstractIterableSequencedCollection

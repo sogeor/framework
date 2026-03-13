@@ -17,6 +17,7 @@
 /**
  * Предоставляет фундаментальные коллекции.
  *
+ * @see com.sogeor.framework.collection.AbstractBiMap
  * @see com.sogeor.framework.collection.AbstractCollection
  * @see com.sogeor.framework.collection.AbstractDeque
  * @see com.sogeor.framework.collection.AbstractIterableCollection
@@ -26,6 +27,7 @@
  * @see com.sogeor.framework.collection.AbstractMultimap
  * @see com.sogeor.framework.collection.AbstractMultiset
  * @see com.sogeor.framework.collection.AbstractQueue
+ * @see com.sogeor.framework.collection.AbstractSequencedBiMap
  * @see com.sogeor.framework.collection.AbstractSequencedCollection
  * @see com.sogeor.framework.collection.AbstractSequencedMap
  * @see com.sogeor.framework.collection.AbstractSequencedMultimap
@@ -33,6 +35,7 @@
  * @see com.sogeor.framework.collection.AbstractSequencedSet
  * @see com.sogeor.framework.collection.AbstractSet
  * @see com.sogeor.framework.collection.AbstractStack
+ * @see com.sogeor.framework.collection.BiMap
  * @see com.sogeor.framework.collection.Collection
  * @see com.sogeor.framework.collection.CollectionFault
  * @see com.sogeor.framework.collection.Deque
@@ -43,6 +46,7 @@
  * @see com.sogeor.framework.collection.Multimap
  * @see com.sogeor.framework.collection.Multiset
  * @see com.sogeor.framework.collection.Queue
+ * @see com.sogeor.framework.collection.SequencedBiMap
  * @see com.sogeor.framework.collection.SequencedCollection
  * @see com.sogeor.framework.collection.SequencedMap
  * @see com.sogeor.framework.collection.SequencedMultimap
