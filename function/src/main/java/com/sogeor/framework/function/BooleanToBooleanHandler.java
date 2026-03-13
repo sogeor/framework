@@ -66,7 +66,7 @@ public interface BooleanToBooleanHandler<F extends Throwable> {
      * @param <F> тип программного сбоя или неисправности, возникающей при неудачной обработке или возврате значений
      * типа {@code boolean} новым обработчиком.
      *
-     * @return Новый обработчик значений типа {@code boolean}
+     * @return Новый обработчик значений типа {@code boolean}.
      *
      * @see #handle(boolean)
      * @since 1.0.0-RC1
@@ -119,7 +119,7 @@ public interface BooleanToBooleanHandler<F extends Throwable> {
      *
      * @param handler обработчик значений типа {@code boolean}.
      *
-     * @return Новый обработчик значений типа {@code boolean}
+     * @return Новый обработчик значений типа {@code boolean}.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code handler} не должен быть {@code null}.
@@ -154,7 +154,7 @@ public interface BooleanToBooleanHandler<F extends Throwable> {
      *
      * @param handler обработчик значений типа {@code boolean}.
      *
-     * @return Новый обработчик значений типа {@code boolean}
+     * @return Новый обработчик значений типа {@code boolean}.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code handler} не должен быть {@code null}.

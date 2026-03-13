@@ -44,7 +44,7 @@ public interface FloatToFloatHandler<F extends Throwable> {
      * @param <F> тип программного сбоя или неисправности, возникающей при неудачной обработке или возврате значений
      * типа {@code float} новым обработчиком.
      *
-     * @return Новый обработчик значений типа {@code float}
+     * @return Новый обработчик значений типа {@code float}.
      *
      * @see #handle(float)
      * @since 1.0.0-RC1
@@ -66,7 +66,7 @@ public interface FloatToFloatHandler<F extends Throwable> {
      * @param <F> тип программного сбоя или неисправности, возникающей при неудачной обработке или возврате значений
      * типа {@code float} новым обработчиком.
      *
-     * @return Новый обработчик значений типа {@code float}
+     * @return Новый обработчик значений типа {@code float}.
      *
      * @see #handle(float)
      * @since 1.0.0-RC1
@@ -118,7 +118,7 @@ public interface FloatToFloatHandler<F extends Throwable> {
      *
      * @param handler обработчик значений типа {@code float}.
      *
-     * @return Новый обработчик значений типа {@code float}
+     * @return Новый обработчик значений типа {@code float}.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code handler} не должен быть {@code null}.
@@ -153,7 +153,7 @@ public interface FloatToFloatHandler<F extends Throwable> {
      *
      * @param handler обработчик значений типа {@code float}.
      *
-     * @return Новый обработчик значений типа {@code float}
+     * @return Новый обработчик значений типа {@code float}.
      *
      * @throws ValidationFault неудачная валидация.
      * @throws NullValidationFault {@code handler} не должен быть {@code null}.
