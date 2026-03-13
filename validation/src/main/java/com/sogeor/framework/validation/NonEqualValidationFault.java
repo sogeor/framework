@@ -95,7 +95,7 @@ public class NonEqualValidationFault extends ValidationFault {
      * Создаёт экземпляр на основе {@code message} и {@code cause}.
      *
      * @param message сообщение.
-     * @param cause   причина возникновения.
+     * @param cause причина возникновения.
      *
      * @since 1.0.0-RC1
      */
@@ -107,10 +107,10 @@ public class NonEqualValidationFault extends ValidationFault {
     /**
      * Создаёт экземпляр на основе {@code message}, {@code cause}, {@code suppression} и {@code stackTrace}.
      *
-     * @param message     сообщение.
-     * @param cause       причина возникновения.
+     * @param message сообщение.
+     * @param cause причина возникновения.
      * @param suppression параметр подавления.
-     * @param stackTrace  параметр трассировки стека.
+     * @param stackTrace параметр трассировки стека.
      *
      * @since 1.0.0-RC1
      */
