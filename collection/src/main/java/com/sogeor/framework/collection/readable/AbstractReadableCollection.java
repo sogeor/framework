@@ -23,49 +23,24 @@ import com.sogeor.framework.collection.AbstractCollection;
 /**
  * Представляет собой абстрактную читаемую коллекцию элементов.
  *
- * @param <T> тип элементов.
- *
- * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractReadableCollection<T> extends AbstractCollection<T> implements ReadableCollection<T> {
+public abstract class AbstractReadableCollection extends AbstractCollection implements ReadableCollection {
 
     /**
-     * Создаёт экземпляр.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     protected AbstractReadableCollection() {}
 
     /**
-     * @return Новый итератор элементов этой коллекции.
+     * @return Копию этой коллекции.
      *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этой коллекции.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator<T> iterator();
-
-    /**
-     * Представляет собой абстрактный итератор элементов абстрактной читаемой коллекции.
-     *
-     * @param <T> тип элементов.
-     *
-     * @see AbstractReadableCollection
-     * @since 1.0.0-RC1
-     */
-    public abstract static class AbstractIterator<T> extends AbstractCollection.AbstractIterator<T> implements
-                                                                                                    ReadableCollection.Iterator<T> {
-
-        /**
-         * Создаёт экземпляр.
-         *
-         * @since 1.0.0-RC1
-         */
-        protected AbstractIterator() {}
-
-    }
+    public abstract @NonNull AbstractReadableCollection clone();
 
 }

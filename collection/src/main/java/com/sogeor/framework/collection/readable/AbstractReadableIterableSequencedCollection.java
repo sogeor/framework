@@ -1,0 +1,83 @@
+/*
+ * Copyright 2025 Sogeor
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.sogeor.framework.collection.readable;
+
+import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.collection.AbstractIterableSequencedCollection;
+
+/**
+ * Представляет собой абстрактную читаемую итерируемую упорядоченную коллекцию элементов.
+ *
+ * @param <T> тип элементов.
+ *
+ * @see AbstractIterator
+ * @since 1.0.0-RC1
+ */
+public abstract class AbstractReadableIterableSequencedCollection<T> extends
+                                                                     AbstractIterableSequencedCollection implements
+                                                                                                         ReadableIterableSequencedCollection<T> {
+
+    /**
+     * Создаёт экземпляр по умолчанию.
+     *
+     * @since 1.0.0-RC1
+     */
+    protected AbstractReadableIterableSequencedCollection() {}
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return Новый итератор этой коллекции в неопределённом состоянии.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractIterator<T> iterator();
+
+    /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractReadableIterableSequencedCollection<T> clone();
+
+    /**
+     * Представляет собой абстрактный итератор абстрактной читаемой итерируемой упорядоченной коллекции.
+     *
+     * @param <T> тип элементов.
+     *
+     * @see AbstractReadableIterableSequencedCollection
+     * @since 1.0.0-RC1
+     */
+    public abstract static class AbstractIterator<T> extends
+                                                     AbstractIterableSequencedCollection.AbstractIterator implements
+                                                                                                          ReadableIterableSequencedCollection.Iterator<T> {
+
+        /**
+         * Создаёт экземпляр по умолчанию.
+         *
+         * @since 1.0.0-RC1
+         */
+        protected AbstractIterator() {}
+
+    }
+
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 Sogeor
+ * Copyright 2026 Sogeor
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,25 +16,7 @@
 
 package com.sogeor.framework.collection.readable;
 
-import com.sogeor.framework.annotation.Contract;
-import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.collection.SequencedCollection;
-
 /**
- * Представляет собой читаемую упорядоченную коллекцию элементов.
- *
  * @since 1.0.0-RC1
  */
-public interface ReadableSequencedCollection extends ReadableCollection, SequencedCollection {
-
-    /**
-     * @return Копию этой коллекции.
-     *
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("-> new")
-    @NonNull
-    ReadableSequencedCollection clone();
-
-}
+public interface ReadableBiMap {}
