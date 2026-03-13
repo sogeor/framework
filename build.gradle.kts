@@ -1,82 +1,48 @@
-import java.net.HttpURLConnection
-import java.net.URI
-import java.util.*
+import org.jreleaser.model.Active
+import org.jreleaser.model.Http
 
 plugins {
-    `java-platform`
+    java
     `maven-publish`
-    signing
+    id("org.jreleaser").version("1.23.0")
 }
 
-description = "Представляет собой BOM модульного многофункционального фреймворка."
-group = "com.sogeor.framework"
-version = "1.0.0-SNAPSHOT"
+description = "Представляет собой модульный многофункциональный фреймворк."
 
 tasks.wrapper {
-    gradleVersion = "8.14"
+    gradleVersion = "9.4.0"
 }
-
-dependencies {
-    constraints {
-        api(project(":annotation"))
-        api(project(":collection"))
-        api(project(":common"))
-        api(project(":function"))
-        api(project(":throwable"))
-        api(project(":validation"))
-    }
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("platform") {
-            artifactId = "bom"
-
-            from(components["javaPlatform"])
-
-            pom {
-                name = artifactId
-                description = project.description
-                url = "https://github.com/sogeor/framework"
-            }
-        }
-    }
-}
-
-fun loadProperty(name: String): String? {
-    return System.getenv(name) ?: rootProject.findProperty(name)?.toString()
-}
-
-val isSnapshotVersion = "-SNAPSHOT" in version.toString()
-val sonatypeUsername = loadProperty("SONATYPE_CREDENTIALS_USERNAME")
-val sonatypePassword = loadProperty("SONATYPE_CREDENTIALS_PASSWORD")
 
 allprojects {
-    apply(plugin = "maven-publish")
-    apply(plugin = "signing")
+    group = "com.sogeor.framework"
+    version = "1.0.0-SNAPSHOT"
+}
+
+subprojects {
+    val notBom = name != "bom"
+    if (notBom) apply<JavaLibraryPlugin>() else apply<JavaPlatformPlugin>()
+    apply<MavenPublishPlugin>()
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    val testable = notBom && name !in arrayOf("annotation", "throwable")
+    if (testable) dependencies {
+        testImplementation(platform("org.junit:junit-bom:${property("junit")}"))
+        testImplementation("org.junit.platform:junit-platform-launcher")
+        testImplementation("org.junit.jupiter:junit-jupiter-engine")
+    }
 
     publishing {
-        repositories {
-            maven {
-                name = "sonatype"
-                url = uri(
-                    if (isSnapshotVersion) "https://central.sonatype.com/repository/maven-snapshots/"
-                    else "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/"
-                )
-
-                credentials {
-                    username = sonatypeUsername
-                    password = sonatypePassword
-                }
-            }
-        }
-
         publications {
-            withType<MavenPublication> {
+            create<MavenPublication>(name) {
+                from(components[if (notBom) "java" else "javaPlatform"])
+
                 pom {
                     description = project.description
                     url = "https://github.com/sogeor/framework"
-                    inceptionYear = "2025"
 
                     licenses {
                         license {
@@ -122,41 +88,14 @@ allprojects {
         }
     }
 
-    signing {
-        useInMemoryPgpKeys(
-            loadProperty("SINGING_KEY_ID"), loadProperty("SINGING_KEY_SECRET"), loadProperty("SINGING_KEY_PASSWORD")
-        )
-
-        sign(publishing.publications)
-    }
-
-    tasks.register("publishAndNotify") {
-        dependsOn("publish")
-        dependsOn("notifySonatypeRepository")
-        tasks.findByName("notifySonatypeRepository")?.mustRunAfter("publish")
-    }
-}
-
-subprojects {
-    apply(plugin = "java")
-    apply(plugin = "java-library")
-
-    group = rootProject.group
-    version = rootProject.version
-
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
-
-    configure<JavaPluginExtension> {
+    if (notBom) configure<JavaPluginExtension> {
         withJavadocJar()
         withSourcesJar()
 
         modularity.inferModulePath = true
 
         toolchain {
-            languageVersion = JavaLanguageVersion.of(21)
+            languageVersion = JavaLanguageVersion.of(25)
         }
     }
 
@@ -164,7 +103,7 @@ subprojects {
         options.encoding = "UTF-8"
     }
 
-    if (name !in arrayOf("annotation", "throwable")) tasks.withType<Test> {
+    if (testable) tasks.withType<Test> {
         useJUnitPlatform()
     }
 
@@ -176,35 +115,57 @@ subprojects {
         options.addMultilineStringsOption("tag").value =
             listOf("apiNote:a:API Note:", "implSpec:a:Implementation Requirements:", "implNote:a:Implementation Note:")
     }
+}
 
-    publishing {
-        publications {
-            create<MavenPublication>(name) {
-                from(components["java"])
+jreleaser {
+    project {
+        name = "Sogeor Framework"
+        license = "Apache License, Version 2.0"
+        inceptionYear = "2025"
+        vendor = "Sogeor"
+        authors = listOf("George Sopin")
+        tags = listOf("java", "framework")
+        maintainers = listOf("Bloogefest")
 
-                pom {
-                    name = project.name
-                    description = project.description
-                    url = "https://github.com/sogeor/framework"
+        links {
+            homepage = "https://github.com/sogeor/framework"
+            documentation = "https://github.com/sogeor/framework/wiki"
+            license = "https://www.apache.org/licenses/LICENSE-2.0"
+            bugTracker = "https://github.com/sogeor/framework/issues"
+            vcsBrowser = "https://github.com/sogeor/framework"
+        }
+    }
+
+    val isSnapshot = "-SNAPSHOT" in version.toString()
+
+    if (!isSnapshot) release {
+        github {
+            host = "github.com"
+            repoOwner = "sogeor"
+            sign = true
+            immutableRelease = true
+        }
+    }
+
+    deploy {
+        maven {
+            mavenCentral {
+                register(project.name.toString()) {
+                    active = Active.ALWAYS
+                    authorization = Http.Authorization.BEARER
+                    stagingRepository("build/staging")
+                    applyMavenCentralRules = true
+                    snapshotSupported = isSnapshot
                 }
             }
         }
     }
-}
 
-tasks.register("notifySonatypeRepository") {
-    if (isSnapshotVersion) return@register
+    signing {
+        active = Active.ALWAYS
 
-    val connection =
-        (URI("https://ossrh-staging-api.central.sonatype.com/manual/upload/defaultRepository/com.sogeor.framework").toURL()
-            .openConnection() as HttpURLConnection)
-    connection.requestMethod = "POST"
-    connection.setRequestProperty(
-        "Authorization", "Basic ${
-            Base64.getEncoder().encodeToString("${sonatypeUsername}:${sonatypePassword}".toByteArray())
-        }"
-    )
-
-    connection.connect()
-    println("Response (${connection.responseCode}): ${connection.responseMessage}")
+        pgp {
+            active = Active.ALWAYS
+        }
+    }
 }

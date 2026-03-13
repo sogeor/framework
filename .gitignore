@@ -1,11 +1,7 @@
-.idea/libraries/
-.idea/**/*.xml
-!.idea/copyright/*.xml
-!.idea/fileTemplates/*.xml
-!.idea/inspectionProfiles/*.xml
-
 .gradle/
-
+.idea/
 build/
 
-out/
+*.iml
+*.ipr
+*.iws
