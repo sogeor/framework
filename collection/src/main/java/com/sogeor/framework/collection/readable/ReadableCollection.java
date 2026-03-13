@@ -16,11 +16,52 @@
 
 package com.sogeor.framework.collection.readable;
 
+import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.annotation.Nullable;
 import com.sogeor.framework.collection.Collection;
+import com.sogeor.framework.function.IntHandler;
+import com.sogeor.framework.validation.Validator;
 
 /**
  * Представляет собой читаемую коллекцию элементов.
  *
+ * @param <T> тип элементов.
+ *
  * @since 1.0.0-RC1
  */
-public interface ReadableCollection extends Collection {}
+public interface ReadableCollection<T> extends Collection {
+
+    /**
+     * @param element элемент.
+     *
+     * @return Если {@code element} является элементом этой коллекции, то {@code true}, иначе {@code false}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("? -> value")
+    boolean contains(final @Nullable T element);
+
+    /**
+     * @since 1.0.0-RC1
+     */
+    @Contract("!null -> ?; null -> fault")
+    default <F extends Throwable> @NonNull T @NonNull [] array(final @NonNull IntHandler<T[], F> allocator) throws F {
+        Validator.nonNull(allocator, "The passed allocator");
+        return array(0, (int) size(), allocator);
+    }
+
+    /**
+     * @since 1.0.0-RC1
+     */
+    @Contract("")
+    default <F extends Throwable> @NonNull T @NonNull [] array(final long from, final long to,
+                                                               final @NonNull IntHandler<T[], F> allocator) throws F {
+        final var length = (int) Validator.notOutside(to - from, 0, Integer.MAX_VALUE,
+                                                      "The difference between the passed from and to indexes", "0",
+                                                      "max value of the int type");
+        Validator.nonNull(allocator, "The passed allocator");
+        return allocator.handle(length);
+    }
+
+}
