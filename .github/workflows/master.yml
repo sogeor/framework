@@ -38,7 +38,9 @@ jobs:
         with:
           gradle-version: "9.4.0"
       - name: Сборка и тестирование проекта
-        run: ./gradlew check
+        run: |
+          chmod +x ./gradlew
+          ./gradlew check
   cd:
     name: CD
     needs: ci
@@ -57,7 +59,9 @@ jobs:
         with:
           gradle-version: "9.4.0"
       - name: Сборка проекта
-        run: ./gradlew build
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build
       - name: Публикация проекта
         uses: jreleaser/release-action@v2
         env:
