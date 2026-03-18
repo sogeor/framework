@@ -17,7 +17,6 @@
 /**
  * Предоставляет фундаментальные инструменты.
  *
- * @see com.sogeor.framework.common.optional
  * @since 1.0.0-RC1
  */
 package com.sogeor.framework.common;

@@ -17,7 +17,6 @@
 /**
  * Предоставляет обёртки над неизменяемыми объектами и значениями.
  *
- * @see com.sogeor.framework.common
  * @see com.sogeor.framework.common.optional.immutable.Immutable
  * @see com.sogeor.framework.common.optional.immutable.ImmutableBoolean
  * @see com.sogeor.framework.common.optional.immutable.ImmutableByte

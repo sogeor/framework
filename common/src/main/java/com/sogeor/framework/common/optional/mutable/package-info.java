@@ -17,7 +17,6 @@
 /**
  * Предоставляет обёртки над изменяемыми объектами и значениями.
  *
- * @see com.sogeor.framework.common
  * @see com.sogeor.framework.common.optional.mutable.Mutable
  * @see com.sogeor.framework.common.optional.mutable.MutableBoolean
  * @see com.sogeor.framework.common.optional.mutable.MutableByte
