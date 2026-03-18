@@ -20,8 +20,6 @@
  * @see com.sogeor.framework.collection.AbstractBiMap
  * @see com.sogeor.framework.collection.AbstractCollection
  * @see com.sogeor.framework.collection.AbstractDeque
- * @see com.sogeor.framework.collection.AbstractIterableCollection
- * @see com.sogeor.framework.collection.AbstractIterableSequencedCollection
  * @see com.sogeor.framework.collection.AbstractList
  * @see com.sogeor.framework.collection.AbstractMap
  * @see com.sogeor.framework.collection.AbstractMultimap
@@ -29,6 +27,7 @@
  * @see com.sogeor.framework.collection.AbstractQueue
  * @see com.sogeor.framework.collection.AbstractSequencedBiMap
  * @see com.sogeor.framework.collection.AbstractSequencedCollection
+ * @see com.sogeor.framework.collection.AbstractSequencedIterableCollection
  * @see com.sogeor.framework.collection.AbstractSequencedMap
  * @see com.sogeor.framework.collection.AbstractSequencedMultimap
  * @see com.sogeor.framework.collection.AbstractSequencedMultiset
@@ -39,8 +38,6 @@
  * @see com.sogeor.framework.collection.Collection
  * @see com.sogeor.framework.collection.CollectionFault
  * @see com.sogeor.framework.collection.Deque
- * @see com.sogeor.framework.collection.IterableCollection
- * @see com.sogeor.framework.collection.IterableSequencedCollection
  * @see com.sogeor.framework.collection.List
  * @see com.sogeor.framework.collection.Map
  * @see com.sogeor.framework.collection.Multimap
@@ -48,6 +45,7 @@
  * @see com.sogeor.framework.collection.Queue
  * @see com.sogeor.framework.collection.SequencedBiMap
  * @see com.sogeor.framework.collection.SequencedCollection
+ * @see com.sogeor.framework.collection.SequencedIterableCollection
  * @see com.sogeor.framework.collection.SequencedMap
  * @see com.sogeor.framework.collection.SequencedMultimap
  * @see com.sogeor.framework.collection.SequencedMultiset

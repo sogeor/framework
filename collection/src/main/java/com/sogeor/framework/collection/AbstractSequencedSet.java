@@ -22,10 +22,13 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактное упорядоченное множество элементов.
  *
+ * @param <T> тип элементов.
+ *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractSequencedSet extends AbstractIterableSequencedCollection implements SequencedSet {
+public abstract class AbstractSequencedSet<T> extends AbstractSequencedIterableCollection<T> implements
+                                                                                             SequencedSet<T> {
 
     /**
      * Создаёт экземпляр по умолчанию.
@@ -43,7 +46,7 @@ public abstract class AbstractSequencedSet extends AbstractIterableSequencedColl
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator iterator();
+    public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
      * @return Копию этой коллекции.
@@ -52,17 +55,19 @@ public abstract class AbstractSequencedSet extends AbstractIterableSequencedColl
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractSequencedSet clone();
+    public abstract @NonNull AbstractSequencedSet<T> clone();
 
     /**
      * Представляет собой абстрактный итератор множества.
      *
+     * @param <T> тип элементов.
+     *
      * @see AbstractSequencedSet
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator extends
-                                                  AbstractIterableSequencedCollection.AbstractIterator implements
-                                                                                                       SequencedSet.Iterator {
+    public abstract static class AbstractIterator<T> extends
+                                                     AbstractSequencedIterableCollection.AbstractIterator<T> implements
+                                                                                                             SequencedSet.Iterator<T> {
 
         /**
          * Создаёт экземпляр по умолчанию.

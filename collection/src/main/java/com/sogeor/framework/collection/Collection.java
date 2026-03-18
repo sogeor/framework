@@ -24,8 +24,7 @@ import com.sogeor.framework.annotation.Nullable;
  * Представляет собой коллекцию элементов.
  * <p>
  * У каждой коллекции есть размер и вместимость. Размер — это количество элементов, которые содержатся в коллекции,
- * вместимость — это максимальный размер коллекции. Чтобы повысить эффективность работы с памятью, иногда следует
- * вручную поменять вместимость коллекции с помощью следующих методов: {@link #shrink()} и {@link #expand(long)}.
+ * вместимость — это максимальный размер коллекции.
  * <p>
  * Коллекции бывают итерируемыми и неитерируемыми. Первые предоставляют итератор для итерации по их элементам, а вторые
  * нет. Итератор позволяет взаимодействовать с коллекцией на самом примитивном уровне.
@@ -48,7 +47,6 @@ public interface Collection extends Cloneable {
     /**
      * @return {@code size() == 0}.
      *
-     * @see #size()
      * @since 1.0.0-RC1
      */
     @Contract("-> value")
@@ -65,33 +63,6 @@ public interface Collection extends Cloneable {
     long capacity();
 
     /**
-     * Если {@code capacity() > size()}, то сокращает вместимость этой коллекции до {@code size()} и возвращает
-     * {@code true}, иначе возвращает {@code false}.
-     *
-     * @return Если вместимость этой коллекции была сокращена, то {@code true}, иначе {@code false}.
-     *
-     * @see #size()
-     * @see #capacity()
-     * @since 1.0.0-RC1
-     */
-    @Contract("-> value")
-    boolean shrink();
-
-    /**
-     * Если {@code capacity > capacity()}, то увеличивает вместимость этой коллекции до {@code capacity} и возвращает
-     * {@code true}, иначе — {@code false}.
-     *
-     * @param capacity требуемая вместимость.
-     *
-     * @return Если вместимость этой коллекции была увеличена, то {@code true}, иначе {@code false}.
-     *
-     * @see #capacity()
-     * @since 1.0.0-RC1
-     */
-    @Contract("? -> value")
-    boolean expand(final long capacity);
-
-    /**
      * @return Если элементы этой коллекции могут быть {@code null}, то {@code true}, иначе {@code false}.
      *
      * @since 1.0.0-RC1
@@ -105,9 +76,7 @@ public interface Collection extends Cloneable {
      * @since 1.0.0-RC1
      */
     @Contract("-> $value")
-    default boolean sequenced() {
-        return false;
-    }
+    boolean sequenced();
 
     /**
      * @return Копию этой коллекции.
@@ -119,10 +88,10 @@ public interface Collection extends Cloneable {
     Collection clone();
 
     /**
-     * Если {@link #empty()}, то возвращает {@code 0} или {@code 1}, иначе вычисляет хеш-код на основе элементов этой
-     * коллекции и возвращает его.
+     * Если {@code !empty()}, то вычисляет хеш-код этой коллекции на основе её элементов и возвращает его, иначе если
+     * {@link #sequenced()}, то возвращает {@code 1}, иначе — {@code 0}.
      *
-     * @return Если {@link #empty()}, то {@code 0} или {@code 1}, иначе хеш-код на основе элементов этой коллекции.
+     * @return Хеш-код этой коллекции.
      *
      * @since 1.0.0-RC1
      */
@@ -143,7 +112,7 @@ public interface Collection extends Cloneable {
      * @since 1.0.0-RC1
      */
     @Override
-    @Contract("null -> false; !null -> value")
+    @Contract("!null -> value; null -> false")
     boolean equals(final @Nullable Object object);
 
     /**

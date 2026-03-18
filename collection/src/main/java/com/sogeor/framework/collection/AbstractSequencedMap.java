@@ -22,10 +22,13 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактный упорядоченный ассоциативный массив элементов.
  *
+ * @param <K> тип ключей.
+ * @param <V> тип значений.
+ *
  * @see AbstractEntry
  * @since 1.0.0-RC1
  */
-public abstract class AbstractSequencedMap extends AbstractSequencedCollection implements SequencedMap {
+public abstract class AbstractSequencedMap<K, V> extends AbstractMap<K, V> implements SequencedMap<K, V> {
 
     /**
      * Создаёт экземпляр по умолчанию.
@@ -35,21 +38,34 @@ public abstract class AbstractSequencedMap extends AbstractSequencedCollection i
     protected AbstractSequencedMap() {}
 
     /**
+     * @return Мультимножество элементов этого ассоциативного массива.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> $!null")
+    public abstract @NonNull SequencedSet<? extends AbstractEntry<K, V>> entries();
+
+    /**
      * @return Копию этой коллекции.
      *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractSequencedMap clone();
+    public abstract @NonNull AbstractSequencedMap<K, V> clone();
 
     /**
      * Представляет собой абстрактный элемент упорядоченного ассоциативного массива.
      *
+     * @param <K> тип ключей.
+     * @param <V> тип значений.
+     *
      * @see AbstractSequencedMap
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractEntry extends AbstractMap.AbstractEntry implements Entry {
+    public abstract static class AbstractEntry<K, V> extends AbstractMap.AbstractEntry<K, V> implements
+                                                                                             SequencedMap.Entry<K, V> {
 
         /**
          * Создаёт экземпляр по умолчанию.

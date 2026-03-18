@@ -22,10 +22,13 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактный упорядоченный двунаправленный ассоциативный массив элементов.
  *
+ * @param <K> тип ключей.
+ * @param <V> тип значений.
+ *
  * @see AbstractEntry
  * @since 1.0.0-RC1
  */
-public abstract class AbstractSequencedBiMap extends AbstractSequencedCollection implements SequencedBiMap {
+public abstract class AbstractSequencedBiMap<K, V> extends AbstractBiMap<K, V> implements SequencedBiMap<K, V> {
 
     /**
      * Создаёт экземпляр по умолчанию.
@@ -35,21 +38,34 @@ public abstract class AbstractSequencedBiMap extends AbstractSequencedCollection
     protected AbstractSequencedBiMap() {}
 
     /**
+     * @return Мультимножество элементов этого двунаправленного ассоциативного массива.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> $!null")
+    public abstract @NonNull SequencedSet<? extends AbstractEntry<K, V>> entries();
+
+    /**
      * @return Копию этой коллекции.
      *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractSequencedBiMap clone();
+    public abstract @NonNull AbstractSequencedBiMap<K, V> clone();
 
     /**
      * Представляет собой абстрактный элемент упорядоченного двунаправленного ассоциативного массива.
      *
+     * @param <K> тип ключей.
+     * @param <V> тип значений.
+     *
      * @see AbstractSequencedBiMap
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractEntry extends AbstractMultimap.AbstractEntry implements Entry {
+    public abstract static class AbstractEntry<K, V> extends AbstractBiMap.AbstractEntry<K, V> implements
+                                                                                               SequencedBiMap.Entry<K, V> {
 
         /**
          * Создаёт экземпляр по умолчанию.

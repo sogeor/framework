@@ -22,10 +22,12 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактный стек элементов.
  *
+ * @param <T> тип элементов.
+ *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractStack extends AbstractIterableSequencedCollection implements Stack {
+public abstract class AbstractStack<T> extends AbstractSequencedIterableCollection<T> implements Stack<T> {
 
     /**
      * Создаёт экземпляр по умолчанию.
@@ -43,7 +45,7 @@ public abstract class AbstractStack extends AbstractIterableSequencedCollection 
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator iterator();
+    public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
      * @return Копию этой коллекции.
@@ -52,17 +54,19 @@ public abstract class AbstractStack extends AbstractIterableSequencedCollection 
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractStack clone();
+    public abstract @NonNull AbstractStack<T> clone();
 
     /**
      * Представляет собой абстрактный итератор стека.
      *
+     * @param <T> тип элементов.
+     *
      * @see AbstractStack
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator extends
-                                                  AbstractIterableSequencedCollection.AbstractIterator implements
-                                                                                                       Stack.Iterator {
+    public abstract static class AbstractIterator<T> extends
+                                                     AbstractSequencedIterableCollection.AbstractIterator<T> implements
+                                                                                                             Stack.Iterator<T> {
 
         /**
          * Создаёт экземпляр по умолчанию.

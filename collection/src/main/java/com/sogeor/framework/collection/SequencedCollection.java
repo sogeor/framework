@@ -32,7 +32,7 @@ public interface SequencedCollection extends Collection {
      * @since 1.0.0-RC1
      */
     @Override
-    @Contract("-> $value")
+    @Contract("-> true")
     default boolean sequenced() {
         return true;
     }
@@ -46,17 +46,5 @@ public interface SequencedCollection extends Collection {
     @Contract("-> new")
     @NonNull
     SequencedCollection clone();
-
-    /**
-     * Если {@link #empty()}, то возвращает {@code 1}, иначе вычисляет хеш-код на основе элементов этой коллекции и
-     * возвращает его.
-     *
-     * @return Если {@link #empty()}, то {@code 1}, иначе хеш-код на основе элементов этой коллекции.
-     *
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("-> value")
-    int hashCode();
 
 }

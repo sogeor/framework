@@ -20,20 +20,22 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 
 /**
- * Представляет собой абстрактную итерируемую упорядоченную коллекцию элементов.
+ * Представляет собой абстрактную упорядоченную итерируемую коллекцию элементов.
+ *
+ * @param <T> тип элементов.
  *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractIterableSequencedCollection extends AbstractIterableCollection implements
-                                                                                             IterableSequencedCollection {
+public abstract class AbstractSequencedIterableCollection<T> extends AbstractIterableCollection<T> implements
+                                                                                                   SequencedIterableCollection<T> {
 
     /**
      * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
-    protected AbstractIterableSequencedCollection() {}
+    protected AbstractSequencedIterableCollection() {}
 
     /**
      * {@inheritDoc}
@@ -44,7 +46,7 @@ public abstract class AbstractIterableSequencedCollection extends AbstractIterab
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator iterator();
+    public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
      * @return Копию этой коллекции.
@@ -53,16 +55,18 @@ public abstract class AbstractIterableSequencedCollection extends AbstractIterab
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterableSequencedCollection clone();
+    public abstract @NonNull AbstractSequencedIterableCollection<T> clone();
 
     /**
-     * Представляет собой абстрактный итератор абстрактной итерируемой упорядоченной коллекции.
+     * Представляет собой абстрактный итератор абстрактной упорядоченной итерируемой коллекции.
      *
-     * @see AbstractIterableSequencedCollection
+     * @param <T> тип элементов.
+     *
+     * @see AbstractSequencedIterableCollection
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator extends AbstractIterableCollection.AbstractIterator implements
-                                                                                                      IterableSequencedCollection.Iterator {
+    public abstract static class AbstractIterator<T> extends AbstractIterableCollection.AbstractIterator<T> implements
+                                                                                                            SequencedIterableCollection.Iterator<T> {
 
         /**
          * Создаёт экземпляр по умолчанию.

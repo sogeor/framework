@@ -37,7 +37,7 @@ import com.sogeor.framework.validation.Validator;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public class ArrayImmutableSet<T> extends AbstractImmutableSet<T> {
+public class ArrayImmutableSet<T> {
 
     /**
      * Содержит элементы в виде пустого двумерного массива.
@@ -140,7 +140,7 @@ public class ArrayImmutableSet<T> extends AbstractImmutableSet<T> {
      * @see ArrayImmutableSet
      * @since 1.0.0-RC1
      */
-    public static class Iterator<T> extends AbstractIterator<T> {
+    public static class Iterator<T> {
 
         /**
          * Содержит неизменяемое множество элементов на основе двумерного массива.

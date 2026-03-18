@@ -22,10 +22,12 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактный список элементов.
  *
+ * @param <T> тип элементов.
+ *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractList extends AbstractIterableSequencedCollection implements List {
+public abstract class AbstractList<T> extends AbstractSequencedIterableCollection<T> implements List<T> {
 
     /**
      * Создаёт экземпляр по умолчанию.
@@ -43,7 +45,7 @@ public abstract class AbstractList extends AbstractIterableSequencedCollection i
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator iterator();
+    public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
      * @return Копию этой коллекции.
@@ -52,17 +54,19 @@ public abstract class AbstractList extends AbstractIterableSequencedCollection i
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractList clone();
+    public abstract @NonNull AbstractList<T> clone();
 
     /**
      * Представляет собой абстрактный итератор списка.
      *
+     * @param <T> тип элементов.
+     *
      * @see AbstractList
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator extends
-                                                  AbstractIterableSequencedCollection.AbstractIterator implements
-                                                                                                       List.Iterator {
+    public abstract static class AbstractIterator<T> extends
+                                                     AbstractSequencedIterableCollection.AbstractIterator<T> implements
+                                                                                                             List.Iterator<T> {
 
         /**
          * Создаёт экземпляр по умолчанию.

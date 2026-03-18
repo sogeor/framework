@@ -22,10 +22,13 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой упорядоченный двунаправленный ассоциативный массив элементов.
  *
+ * @param <K> тип ключей.
+ * @param <V> тип значений.
+ *
  * @see Entry
  * @since 1.0.0-RC1
  */
-public interface SequencedBiMap extends SequencedCollection, BiMap {
+public interface SequencedBiMap<K, V> extends BiMap<K, V>, SequencedCollection {
 
     /**
      * @return Обратный этому двунаправленный ассоциативный массив.
@@ -37,37 +40,48 @@ public interface SequencedBiMap extends SequencedCollection, BiMap {
     @Override
     @Contract("-> $!null")
     @NonNull
-    SequencedBiMap inverse();
+    SequencedBiMap<K, V> inverse();
 
     /**
      * @return Множество ключей этого двунаправленного ассоциативного массива.
      *
+     * @implSpec Возвращаемое множество ключей должно быть тесно связано с этим двунаправленным ассоциативным массивом,
+     * так как оно предоставляет содержащиеся в нём ключи. К примеру, размер множества ключей должен совпадать с
+     * размером двунаправленного ассоциативного массива.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $!null")
     @NonNull
-    SequencedSet keys();
+    SequencedSet<K> keys();
 
     /**
-     * @return Мультимножество значений этого двунаправленного ассоциативного массива.
+     * @return Множество значений этого двунаправленного ассоциативного массива.
      *
+     * @implSpec Возвращаемое множество значений должно быть тесно связано с этим двунаправленным ассоциативным
+     * массивом, так как оно предоставляет содержащиеся в нём ключи. К примеру, размер множества значений должен
+     * совпадать с размером двунаправленного ассоциативного массива.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $!null")
     @NonNull
-    SequencedSet values();
+    SequencedSet<V> values();
 
     /**
      * @return Мультимножество элементов этого двунаправленного ассоциативного массива.
      *
+     * @implSpec Возвращаемое мультимножество элементов должно быть тесно связано с этим двунаправленным ассоциативным
+     * массивом, так как оно предоставляет содержащиеся в нём элементы. К примеру, размер мультимножества элементов
+     * должен совпадать с размером двунаправленного ассоциативного массива.
+     * @apiNote По сути возвращаемое мультимножество элементов — это этот двунаправленный ассоциативный массив, но в
+     * другом виде.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $!null")
     @NonNull
-    SequencedSet entries();
+    SequencedSet<? extends Entry<K, V>> entries();
 
     /**
      * @return Копию этой коллекции.
@@ -77,14 +91,17 @@ public interface SequencedBiMap extends SequencedCollection, BiMap {
     @Override
     @Contract("-> new")
     @NonNull
-    SequencedBiMap clone();
+    SequencedBiMap<K, V> clone();
 
     /**
      * Представляет собой элемент упорядоченного двунаправленного ассоциативного массива.
      *
+     * @param <K> тип ключей.
+     * @param <V> тип значений.
+     *
      * @see SequencedBiMap
      * @since 1.0.0-RC1
      */
-    interface Entry extends Map.Entry {}
+    interface Entry<K, V> extends BiMap.Entry<K, V> {}
 
 }

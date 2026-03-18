@@ -20,14 +20,19 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 
+import java.util.Objects;
+
 /**
  * Представляет собой ассоциативный массив элементов — пар, каждая из которых состоит из ключа и соответствующего ему
  * значения.
  *
+ * @param <K> тип ключей.
+ * @param <V> тип значений.
+ *
  * @see Entry
  * @since 1.0.0-RC1
  */
-public interface Map extends Collection {
+public interface Map<K, V> extends Collection {
 
     /**
      * @return Множество ключей этого ассоциативного массива.
@@ -39,7 +44,7 @@ public interface Map extends Collection {
      */
     @Contract("-> $!null")
     @NonNull
-    Set keys();
+    Set<K> keys();
 
     /**
      * @return Мультимножество значений этого ассоциативного массива.
@@ -51,7 +56,7 @@ public interface Map extends Collection {
      */
     @Contract("-> $!null")
     @NonNull
-    Multiset values();
+    Multiset<V> values();
 
     /**
      * @return Мультимножество элементов этого ассоциативного массива.
@@ -64,7 +69,7 @@ public interface Map extends Collection {
      */
     @Contract("-> $!null")
     @NonNull
-    Set entries();
+    Set<? extends Entry<K, V>> entries();
 
     /**
      * @return Копию этой коллекции.
@@ -74,21 +79,59 @@ public interface Map extends Collection {
     @Override
     @Contract("-> new")
     @NonNull
-    Map clone();
+    Map<K, V> clone();
+
+    /**
+     * Представляет элементы этой коллекции в виде строки и возвращает её.
+     *
+     * @return Строка, представляющая элементы этой коллекции.
+     *
+     * @implSpec При переопределении должен соблюдаться следующий алгоритм:
+     * <pre>
+     * {@code
+     * return empty() ? "{}" : entries().toString();
+     * }
+     * </pre>
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    @NonNull
+    String toString();
 
     /**
      * Представляет собой элемент ассоциативного массива — пару, состоящую из ключа и соответствующего ему значения.
      *
+     * @param <K> тип ключей.
+     * @param <V> тип значений.
+     *
      * @see Map
      * @since 1.0.0-RC1
      */
-    interface Entry {
+    interface Entry<K, V> {
 
         /**
-         * Вычисляет хеш-код на основе ключа и соответствующего ему значения этого элемента и возвращает его.
+         * @return Ключ этого элемента.
          *
-         * @return Хеш-код на основе ключа и соответствующего ему значения этого элемента.
+         * @since 1.0.0-RC1
+         */
+        @Contract("-> value")
+        K key();
+
+        /**
+         * @return Значение этого элемента.
          *
+         * @since 1.0.0-RC1
+         */
+        @Contract("-> value")
+        V value();
+
+        /**
+         * @return {@code Objects.hashCode(key()) ^ Objects.hashCode(value())}.
+         *
+         * @see #key()
+         * @see #value()
+         * @see Objects#hashCode(Object)
          * @since 1.0.0-RC1
          */
         @Override
@@ -96,10 +139,12 @@ public interface Map extends Collection {
         int hashCode();
 
         /**
-         * Если {@code object} является элементом ассоциативного массива, то сравнивает его с этим элементом, а именно
-         * убеждается, что у обоих элементов один и тот же ключ, а также одно и то же соответствующее ключу значение.
-         * Если все условия истинны, то есть {@code object} эквивалентен этому элементу, то возвращает {@code true},
-         * иначе — {@code false}.
+         * Если {@code object == this}, то возвращает {@code true}.
+         * <p>
+         * Если {@code !(object instanceof Entry<?, ?> that)}, то возвращает {@code false}.
+         * <p>
+         * Если {@code Objects.equals(key(), that.key()) && Objects.equals(value(), that.value())}, то возвращает
+         * {@code true}, иначе — {@code false}.
          *
          * @param object объект.
          *
@@ -108,13 +153,11 @@ public interface Map extends Collection {
          * @since 1.0.0-RC1
          */
         @Override
-        @Contract("null -> false; !null -> value")
+        @Contract("!null -> value; null -> false")
         boolean equals(final @Nullable Object object);
 
         /**
-         * Представляет ключ и соответствующее ему значение этого элемента в виде строки и возвращает её.
-         *
-         * @return Строка, представляющая ключ и соответствующее ему значение этого элемента.
+         * @return {@code '{' + String.valueOf(key()) + ", " + value() + '}'}.
          *
          * @since 1.0.0-RC1
          */

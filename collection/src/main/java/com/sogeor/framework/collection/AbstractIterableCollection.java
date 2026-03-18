@@ -20,13 +20,17 @@ import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
 import com.sogeor.framework.annotation.Nullable;
 
+import java.util.Objects;
+
 /**
  * Представляет собой абстрактную итерируемую коллекцию элементов.
+ *
+ * @param <T> тип элементов.
  *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractIterableCollection extends AbstractCollection implements IterableCollection {
+public abstract class AbstractIterableCollection<T> extends AbstractCollection implements IterableCollection<T> {
 
     /**
      * Создаёт экземпляр по умолчанию.
@@ -44,7 +48,7 @@ public abstract class AbstractIterableCollection extends AbstractCollection impl
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator iterator();
+    public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
      * @return Копию этой коллекции.
@@ -53,15 +57,90 @@ public abstract class AbstractIterableCollection extends AbstractCollection impl
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterableCollection clone();
+    public abstract @NonNull AbstractIterableCollection<T> clone();
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return Хеш-код этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    public int hashCode() {
+        if (sequenced()) {
+            var result = 1;
+            for (var it = iterator(); it.next(); ) {
+                result = 31 * result + Objects.hashCode(it.element());
+            }
+            return result;
+        }
+        var result = 0;
+        for (var it = iterator(); it.next(); ) {
+            result += Objects.hashCode(it.element());
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param object объект.
+     *
+     * @return Если {@code object} эквивалентен этой коллекции, то {@code true}, иначе {@code false}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    @Contract("!null -> value; null -> false")
+    public boolean equals(final @Nullable Object object) {
+        if (sequenced()) {
+            if (object == this) return true;
+            if (!(object instanceof IterableCollection<?> that) || size() != that.size()) return false;
+            if (empty()) return true;
+            if (!that.sequenced()) return containsAll((IterableCollection<T>) that);
+            final @NonNull var it = iterator();
+            final @NonNull var it_ = that.iterator();
+            while (it.next() && it_.next()) {
+                if (!Objects.equals(it.element(), it_.element())) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return object == this || object instanceof IterableCollection<?> that &&
+                                 (empty() || size() != that.size() && containsAll((IterableCollection<T>) that));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return Строка, представляющая элементы этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> value")
+    public @NonNull String toString() {
+        final var builder = new StringBuilder().append('{');
+        if (!empty()) for (final @NonNull var it = iterator(); it.next(); ) {
+            builder.append(it.element());
+            if (it.after()) builder.append(", ");
+        }
+        return builder.append('}').toString();
+    }
 
     /**
      * Представляет собой абстрактный итератор абстрактной итерируемой коллекции.
      *
+     * @param <T> тип элементов.
+     *
      * @see AbstractIterableCollection
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator implements Iterator {
+    public abstract static class AbstractIterator<T> implements Iterator<T> {
 
         /**
          * Создаёт экземпляр по умолчанию.

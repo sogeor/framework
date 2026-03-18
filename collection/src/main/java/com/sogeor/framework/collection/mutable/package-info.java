@@ -15,12 +15,10 @@
  */
 
 /**
- * Представляет собой пакет для работы с изменяемыми коллекциями.
+ * Предоставляет изменяемые коллекции.
  *
- * @see com.sogeor.framework.collection
+ * @see com.sogeor.framework.collection.mutable.AbstractMutableCollection
  * @see com.sogeor.framework.collection.mutable.MutableCollection
- * @see com.sogeor.framework.collection.mutable.MutableCollectionFault
- * @see com.sogeor.framework.collection.mutable.MutableIterator
  * @since 1.0.0-RC1
  */
 package com.sogeor.framework.collection.mutable;

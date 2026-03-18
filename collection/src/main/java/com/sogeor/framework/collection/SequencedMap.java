@@ -22,40 +22,53 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой упорядоченный ассоциативный массив элементов.
  *
+ * @param <K> тип ключей.
+ * @param <V> тип значений.
+ *
  * @see Entry
  * @since 1.0.0-RC1
  */
-public interface SequencedMap extends SequencedCollection, Map {
+public interface SequencedMap<K, V> extends Map<K, V>, SequencedCollection {
 
     /**
      * @return Множество ключей этого ассоциативного массива.
      *
+     * @implSpec Возвращаемое множество ключей должно быть тесно связано с этим ассоциативным массивом, так как оно
+     * предоставляет содержащиеся в нём ключи. К примеру, размер множества ключей должен совпадать с размером
+     * ассоциативного массива.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $!null")
     @NonNull
-    SequencedSet keys();
+    SequencedSet<K> keys();
 
     /**
      * @return Мультимножество значений этого ассоциативного массива.
      *
+     * @implSpec Возвращаемое мультимножество значений должно быть тесно связано с этим ассоциативным массивом, так как
+     * оно предоставляет содержащиеся в нём значения. К примеру, размер мультимножества значений должен совпадать с
+     * размером ассоциативного массива.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $!null")
     @NonNull
-    SequencedMultiset values();
+    SequencedMultiset<V> values();
 
     /**
      * @return Мультимножество элементов этого ассоциативного массива.
      *
+     * @implSpec Возвращаемое мультимножество элементов должно быть тесно связано с этим ассоциативным массивом, так как
+     * оно предоставляет содержащиеся в нём элементы. К примеру, размер мультимножества элементов должен совпадать с
+     * размером ассоциативного массива.
+     * @apiNote По сути возвращаемое мультимножество элементов — это этот ассоциативный массив, но в другом виде.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $!null")
     @NonNull
-    SequencedSet entries();
+    SequencedSet<? extends Entry<K, V>> entries();
 
     /**
      * @return Копию этой коллекции.
@@ -65,14 +78,17 @@ public interface SequencedMap extends SequencedCollection, Map {
     @Override
     @Contract("-> new")
     @NonNull
-    SequencedMap clone();
+    SequencedMap<K, V> clone();
 
     /**
      * Представляет собой элемент упорядоченного ассоциативного массива.
      *
+     * @param <K> тип ключей.
+     * @param <V> тип значений.
+     *
      * @see SequencedMap
      * @since 1.0.0-RC1
      */
-    interface Entry extends Map.Entry {}
+    interface Entry<K, V> extends Map.Entry<K, V> {}
 
 }

@@ -16,23 +16,31 @@
 
 package com.sogeor.framework.collection.mutable;
 
-import com.sogeor.framework.collection.readable.AbstractReadableCollection;
+import com.sogeor.framework.annotation.Contract;
+import com.sogeor.framework.annotation.NonNull;
+import com.sogeor.framework.collection.AbstractCollection;
 
 /**
- * Представляет собой абстрактную изменяемую коллекцию (1) элементов (2).
- *
- * @param <T> тип [2].
+ * Представляет собой абстрактную изменяемую коллекцию элементов.
  *
  * @since 1.0.0-RC1
  */
-public abstract class AbstractMutableCollection<T> extends AbstractReadableCollection<T> implements
-                                                                                         MutableCollection<T> {
+public abstract class AbstractMutableCollection extends AbstractCollection implements MutableCollection {
 
     /**
-     * Создаёт экземпляр.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     protected AbstractMutableCollection() {}
+
+    /**
+     * @return Копию этой коллекции.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> new")
+    public abstract @NonNull AbstractMutableCollection clone();
 
 }

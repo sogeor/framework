@@ -22,10 +22,12 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой мультимножество элементов.
  *
+ * @param <T> тип элементов.
+ *
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface Multiset extends IterableCollection {
+public interface Multiset<T> extends IterableCollection<T> {
 
     /**
      * {@inheritDoc}
@@ -37,7 +39,7 @@ public interface Multiset extends IterableCollection {
     @Override
     @Contract("-> new")
     @NonNull
-    Iterator iterator();
+    Iterator<T> iterator();
 
     /**
      * @return Копию этой коллекции.
@@ -47,14 +49,16 @@ public interface Multiset extends IterableCollection {
     @Override
     @Contract("-> new")
     @NonNull
-    Multiset clone();
+    Multiset<T> clone();
 
     /**
      * Представляет собой итератор мультимножества.
      *
+     * @param <T> тип элементов.
+     *
      * @see Multiset
      * @since 1.0.0-RC1
      */
-    interface Iterator extends IterableCollection.Iterator {}
+    interface Iterator<T> extends IterableCollection.Iterator<T> {}
 
 }

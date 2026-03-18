@@ -22,10 +22,12 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактное мультимножество элементов.
  *
+ * @param <T> тип элементов.
+ *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractMultiset extends AbstractIterableCollection implements Multiset {
+public abstract class AbstractMultiset<T> extends AbstractIterableCollection<T> implements Multiset<T> {
 
     /**
      * Создаёт экземпляр по умолчанию.
@@ -43,7 +45,7 @@ public abstract class AbstractMultiset extends AbstractIterableCollection implem
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator iterator();
+    public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
      * @return Копию этой коллекции.
@@ -52,16 +54,18 @@ public abstract class AbstractMultiset extends AbstractIterableCollection implem
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractMultiset clone();
+    public abstract @NonNull AbstractMultiset<T> clone();
 
     /**
      * Представляет собой абстрактный итератор мультимножества.
      *
+     * @param <T> тип элементов.
+     *
      * @see AbstractMultiset
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator extends AbstractIterableCollection.AbstractIterator implements
-                                                                                                      Multiset.Iterator {
+    public abstract static class AbstractIterator<T> extends AbstractIterableCollection.AbstractIterator<T> implements
+                                                                                                            Multiset.Iterator<T> {
 
         /**
          * Создаёт экземпляр по умолчанию.

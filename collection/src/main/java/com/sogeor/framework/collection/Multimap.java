@@ -24,10 +24,13 @@ import com.sogeor.framework.annotation.Nullable;
  * Представляет собой многозначный ассоциативный массив элементов — пар, каждая из которых состоит из ключа и
  * соответствующей ему итерируемой коллекции значений.
  *
+ * @param <K> тип ключей.
+ * @param <V> тип значений.
+ *
  * @see Entry
  * @since 1.0.0-RC1
  */
-public interface Multimap extends Collection {
+public interface Multimap<K, V> extends Collection {
 
     /**
      * @return Множество ключей этого многозначного ассоциативного массива.
@@ -39,7 +42,7 @@ public interface Multimap extends Collection {
      */
     @Contract("-> $!null")
     @NonNull
-    Set keys();
+    Set<K> keys();
 
     /**
      * @return Мультимножество итерируемых коллекций значений этого многозначного ассоциативного массива.
@@ -52,7 +55,7 @@ public interface Multimap extends Collection {
      */
     @Contract("-> $!null")
     @NonNull
-    Multiset values();
+    Multiset<? extends IterableCollection<V>> values();
 
     /**
      * @return Мультимножество значений этого многозначного ассоциативного массива.
@@ -64,7 +67,7 @@ public interface Multimap extends Collection {
      */
     @Contract("-> $!null")
     @NonNull
-    Multiset flattenedValues();
+    Multiset<V> flattenedValues();
 
     /**
      * @return Мультимножество элементов этого многозначного ассоциативного массива.
@@ -78,7 +81,7 @@ public interface Multimap extends Collection {
      */
     @Contract("-> $!null")
     @NonNull
-    Set entries();
+    Set<? extends Entry<K, V>> entries();
 
     /**
      * @return Копию этой коллекции.
@@ -88,16 +91,27 @@ public interface Multimap extends Collection {
     @Override
     @Contract("-> new")
     @NonNull
-    Multimap clone();
+    Multimap<K, V> clone();
 
     /**
      * Представляет собой элемент многозначного ассоциативного массива — пару, состоящую из ключа и соответствующей ему
      * итерируемой коллекции значений.
      *
+     * @param <K> тип ключей.
+     * @param <V> тип значений.
+     *
      * @see Multimap
      * @since 1.0.0-RC1
      */
-    interface Entry {
+    interface Entry<K, V> {
+
+        /**
+         * @return Ключ этого элемента.
+         *
+         * @since 1.0.0-RC1
+         */
+        @Contract("-> value")
+        K key();
 
         /**
          * @return Итерируемая коллекция значений этого элемента.
@@ -106,13 +120,10 @@ public interface Multimap extends Collection {
          */
         @Contract("-> $value")
         @NonNull
-        IterableCollection values();
+        IterableCollection<V> values();
 
         /**
-         * Вычисляет хеш-код на основе ключа и соответствующей ему итерируемой коллекции значений этого элемента и
-         * возвращает его.
-         *
-         * @return Хеш-код на основе ключа и соответствующей ему итерируемой коллекции значений этого элемента.
+         * @return {@code Objects.hashCode(key()) ^ values().hashCode()}.
          *
          * @since 1.0.0-RC1
          */
@@ -121,10 +132,12 @@ public interface Multimap extends Collection {
         int hashCode();
 
         /**
-         * Если {@code object} является элементом многозначного ассоциативного массива, то сравнивает его с этим
-         * элементом, а именно убеждается, что у обоих элементов один и тот же ключ, а также одна и та же
-         * соответствующая ключу итерируемая коллекция значений. Если все условия истинны, то есть {@code object}
-         * эквивалентен этому элементу, то возвращает {@code true}, иначе — {@code false}.
+         * Если {@code object == this}, то возвращает {@code true}.
+         * <p>
+         * Если {@code !(object instanceof Entry<?, ?> that)}, то возвращает {@code false}.
+         * <p>
+         * Если {@code Objects.equals(key(), that.key()) && values().equals(that.values())}, то возвращает {@code true},
+         * иначе — {@code false}.
          *
          * @param object объект.
          *
@@ -133,14 +146,11 @@ public interface Multimap extends Collection {
          * @since 1.0.0-RC1
          */
         @Override
-        @Contract("null -> false; !null -> value")
+        @Contract("!null -> value; null -> false")
         boolean equals(final @Nullable Object object);
 
         /**
-         * Представляет ключ и соответствующую ему итерируемую коллекцию значений этого элемента в виде строки и
-         * возвращает её.
-         *
-         * @return Строка, представляющая ключ и соответствующую ему итерируемую коллекцию значений этого элемента.
+         * @return {@code '{' + String.valueOf(key()) + ", " + values() + '}'}.
          *
          * @since 1.0.0-RC1
          */

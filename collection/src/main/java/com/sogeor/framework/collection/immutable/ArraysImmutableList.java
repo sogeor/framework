@@ -32,7 +32,7 @@ import com.sogeor.framework.validation.Validator;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public class ArraysImmutableList<T> extends AbstractImmutableList<T> {
+public class ArraysImmutableList<T> {
 
     /**
      * Содержит элементы в виде пустого двумерного массива.
@@ -134,7 +134,7 @@ public class ArraysImmutableList<T> extends AbstractImmutableList<T> {
      * @see ArraysImmutableList
      * @since 1.0.0-RC1
      */
-    public static class Iterator<T> extends AbstractImmutableList.AbstractIterator<T> {
+    public static class Iterator<T> {
 
         /**
          * Содержит неизменяемый список элементов на основе двумерного массива.

@@ -23,50 +23,68 @@ import com.sogeor.framework.annotation.NonNull;
  * Представляет собой упорядоченный многозначный ассоциативный массив элементов — пар, каждая из которых состоит из
  * ключа и соответствующей ему итерируемой коллекции значений.
  *
+ * @param <K> тип ключей.
+ * @param <V> тип значений.
+ *
  * @see Entry
  * @since 1.0.0-RC1
  */
-public interface SequencedMultimap extends SequencedCollection, Multimap {
+public interface SequencedMultimap<K, V> extends Multimap<K, V>, SequencedCollection {
 
     /**
      * @return Множество ключей этого многозначного ассоциативного массива.
      *
+     * @implSpec Возвращаемое множество ключей должно быть тесно связано с этим многозначным ассоциативным массивом, так
+     * как оно предоставляет содержащиеся в нём ключи. К примеру, размер множества ключей должен совпадать с размером
+     * многозначного ассоциативного массива.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $!null")
     @NonNull
-    SequencedSet keys();
+    SequencedSet<K> keys();
 
     /**
      * @return Мультимножество итерируемых коллекций значений этого многозначного ассоциативного массива.
      *
+     * @implSpec Возвращаемое мультимножество итерируемых коллекций значений должно быть тесно связано с этим
+     * многозначным ассоциативным массивом, так как оно предоставляет содержащиеся в нём итерируемые коллекции значений.
+     * К примеру, размер мультимножества итерируемых коллекций значений должен совпадать с размером многозначного
+     * ассоциативного массива.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $!null")
     @NonNull
-    SequencedMultiset values();
+    SequencedMultiset<? extends IterableCollection<V>> values();
 
     /**
      * @return Мультимножество значений этого многозначного ассоциативного массива.
      *
+     * @implSpec Возвращаемое мультимножество значений должно быть тесно связано с этим многозначным ассоциативным
+     * массивом, так как оно предоставляет содержащиеся в нём значения. К примеру, размер мультимножества значений
+     * должен совпадать с суммой размеров итерируемых коллекций значений многозначного ассоциативного массива.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $!null")
     @NonNull
-    SequencedMultiset flattenedValues();
+    SequencedMultiset<V> flattenedValues();
 
     /**
      * @return Мультимножество элементов этого многозначного ассоциативного массива.
      *
+     * @implSpec Возвращаемое мультимножество элементов должно быть тесно связано с этим многозначным ассоциативным
+     * массивом, так как оно предоставляет содержащиеся в нём элементы. К примеру, размер мультимножества элементов
+     * должен совпадать с размером многозначного ассоциативного массива.
+     * @apiNote По сути возвращаемое мультимножество элементов — это этот многозначный ассоциативный массив, но в другом
+     * виде.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> $!null")
     @NonNull
-    SequencedSet entries();
+    SequencedSet<? extends Entry<K, V>> entries();
 
     /**
      * @return Копию этой коллекции.
@@ -76,15 +94,18 @@ public interface SequencedMultimap extends SequencedCollection, Multimap {
     @Override
     @Contract("-> new")
     @NonNull
-    SequencedMultimap clone();
+    SequencedMultimap<K, V> clone();
 
     /**
      * Представляет собой элемент упорядоченного многозначного ассоциативного массива.
      *
+     * @param <K> тип ключей.
+     * @param <V> тип значений.
+     *
      * @see SequencedMultimap
      * @since 1.0.0-RC1
      */
-    interface Entry extends Multimap.Entry {
+    interface Entry<K, V> extends Multimap.Entry<K, V> {
 
         /**
          * @return Итерируемая коллекция значений этого элемента.
@@ -94,7 +115,7 @@ public interface SequencedMultimap extends SequencedCollection, Multimap {
         @Override
         @Contract("-> $value")
         @NonNull
-        IterableSequencedCollection values();
+        SequencedIterableCollection<V> values();
 
     }
 

@@ -22,11 +22,13 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактное упорядоченное мультимножество элементов.
  *
+ * @param <T> тип элементов.
+ *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractSequencedMultiset extends AbstractIterableSequencedCollection implements
-                                                                                            SequencedMultiset {
+public abstract class AbstractSequencedMultiset<T> extends AbstractSequencedIterableCollection<T> implements
+                                                                                                  SequencedMultiset<T> {
 
     /**
      * Создаёт экземпляр по умолчанию.
@@ -44,7 +46,7 @@ public abstract class AbstractSequencedMultiset extends AbstractIterableSequence
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator iterator();
+    public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
      * @return Копию этой коллекции.
@@ -53,17 +55,19 @@ public abstract class AbstractSequencedMultiset extends AbstractIterableSequence
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractSequencedMultiset clone();
+    public abstract @NonNull AbstractSequencedMultiset<T> clone();
 
     /**
      * Представляет собой абстрактный итератор мультимножества.
      *
+     * @param <T> тип элементов.
+     *
      * @see AbstractSequencedMultiset
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator extends
-                                                  AbstractIterableSequencedCollection.AbstractIterator implements
-                                                                                                       SequencedMultiset.Iterator {
+    public abstract static class AbstractIterator<T> extends
+                                                     AbstractSequencedIterableCollection.AbstractIterator<T> implements
+                                                                                                             SequencedMultiset.Iterator<T> {
 
         /**
          * Создаёт экземпляр по умолчанию.

@@ -64,7 +64,7 @@ public abstract class AbstractCollection implements Collection {
      * @since 1.0.0-RC1
      */
     @Override
-    @Contract("null -> false; !null -> value")
+    @Contract("!null -> value; null -> false")
     public abstract boolean equals(final @Nullable Object object);
 
     /**

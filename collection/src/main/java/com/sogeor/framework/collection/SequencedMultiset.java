@@ -22,10 +22,12 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой упорядоченное мультимножество элементов.
  *
+ * @param <T> тип элементов.
+ *
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface SequencedMultiset extends IterableSequencedCollection, Multiset {
+public interface SequencedMultiset<T> extends Multiset<T>, SequencedIterableCollection<T> {
 
     /**
      * {@inheritDoc}
@@ -37,7 +39,7 @@ public interface SequencedMultiset extends IterableSequencedCollection, Multiset
     @Override
     @Contract("-> new")
     @NonNull
-    Iterator iterator();
+    Iterator<T> iterator();
 
     /**
      * @return Копию этой коллекции.
@@ -47,14 +49,16 @@ public interface SequencedMultiset extends IterableSequencedCollection, Multiset
     @Override
     @Contract("-> new")
     @NonNull
-    SequencedMultiset clone();
+    SequencedMultiset<T> clone();
 
     /**
      * Представляет собой итератор упорядоченного мультимножества.
      *
+     * @param <T> тип элементов.
+     *
      * @see SequencedMultiset
      * @since 1.0.0-RC1
      */
-    interface Iterator extends IterableSequencedCollection.Iterator, Multiset.Iterator {}
+    interface Iterator<T> extends Multiset.Iterator<T>, SequencedIterableCollection.Iterator<T> {}
 
 }

@@ -32,7 +32,7 @@ import com.sogeor.framework.validation.Validator;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
+public class ArrayImmutableList<T> {
 
     /**
      * Содержит элементы в виде пустого  массива.
@@ -77,7 +77,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
      * @implNote Стандартная реализация обладает оценкой временной сложности {@code O(n)}.
      * @since 1.0.0-RC1
      */
-    @Override
     @Contract("!null -> this; null -> fault")
     public <F extends Throwable> @NonNull ArrayImmutableList<T> iterate(
             final @NonNull Consumer<? super T, F> consumer) throws ValidationFault, F {
@@ -93,7 +92,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
      * текущим элементом должен быть первый элемент этого списка.
      * @since 1.0.0-RC1
      */
-    @Override
     @Contract("-> new")
     public @NonNull ArrayImmutableList.Iterator<T> iterator() {
         return new Iterator<>(this);
@@ -107,7 +105,7 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
      * @see ArrayImmutableList
      * @since 1.0.0-RC1
      */
-    public static class Iterator<T> extends AbstractIterator<T> {
+    public static class Iterator<T> {
 
         /**
          * Содержит неизменяемый список элементов на основе  массива.
@@ -134,7 +132,7 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          */
         protected Iterator(final @NonNull ArrayImmutableList<T> list) throws ValidationFault {
             this.list = Validator.nonNull(list, "The passed list");
-            index = list.empty() ? -1 : 0;
+            index = list.elements.length == 0 ? -1 : 0;
         }
 
         /**
@@ -145,7 +143,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          * @see #first()
          * @since 1.0.0-RC1
          */
-        @Override
         @Contract("-> this")
         public @NonNull Iterator<T> start() {
             return this;
@@ -159,7 +156,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          * @see #before()
          * @since 1.0.0-RC1
          */
-        @Override
         @Contract("-> this")
         public @NonNull Iterator<T> previous() {
             return this;
@@ -173,7 +169,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          * @see #after()
          * @since 1.0.0-RC1
          */
-        @Override
         @Contract("-> this")
         public @NonNull Iterator<T> next() {
             return this;
@@ -187,7 +182,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          * @see #last()
          * @since 1.0.0-RC1
          */
-        @Override
         @Contract("-> this")
         public @NonNull Iterator<T> end() {
             return this;
@@ -198,7 +192,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          *
          * @since 1.0.0-RC1
          */
-        @Override
         @Contract("-> value")
         public boolean first() {
             return false;
@@ -209,7 +202,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          *
          * @since 1.0.0-RC1
          */
-        @Override
         @Contract("-> value")
         public boolean before() {
             return false;
@@ -220,7 +212,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          *
          * @since 1.0.0-RC1
          */
-        @Override
         @Contract("-> value")
         public boolean after() {
             return false;
@@ -231,7 +222,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          *
          * @since 1.0.0-RC1
          */
-        @Override
         @Contract("-> value")
         public boolean last() {
             return false;
@@ -242,7 +232,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          *
          * @since 1.0.0-RC1
          */
-        @Override
         @Contract("-> value")
         public boolean exists() {
             return determined();
@@ -253,7 +242,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          *
          * @since 1.0.0-RC1
          */
-        @Override
         @Contract("-> value")
         public boolean determined() {
             return index >= 0;
@@ -267,7 +255,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          * @see #exists()
          * @since 1.0.0-RC1
          */
-        @Override
         @Contract("-> value")
         public @Nullable T element() {
             return exists() ? list.elements[index] : null;
@@ -284,7 +271,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          * @see #exists(long)
          * @since 1.0.0-RC1
          */
-        @Override
         @Contract("value -> this")
         public @NonNull Iterator<T> move(final long index) {
             if (exists(index)) this.index = (int) index;
@@ -298,7 +284,6 @@ public class ArrayImmutableList<T> extends AbstractImmutableList<T> {
          * @since 1.0.0-RC1
          */
         @Contract("-> value")
-        @Override
         public long index() {
             return index;
         }

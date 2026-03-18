@@ -18,55 +18,29 @@ package com.sogeor.framework.collection.immutable;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.collection.readable.AbstractReadableCollection;
+import com.sogeor.framework.collection.AbstractCollection;
 
 /**
  * Представляет собой абстрактную неизменяемую коллекцию элементов.
  *
- * @param <T> тип элементов.
- *
- * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractImmutableCollection<T> extends AbstractReadableCollection<T> implements
-                                                                                           ImmutableCollection<T> {
+public abstract class AbstractImmutableCollection extends AbstractCollection implements ImmutableCollection {
 
     /**
-     * Создаёт экземпляр.
+     * Создаёт экземпляр по умолчанию.
      *
      * @since 1.0.0-RC1
      */
     protected AbstractImmutableCollection() {}
 
     /**
-     * @return Новый итератор элементов этой коллекции.
+     * @return Копию этой коллекции.
      *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этой коллекции.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator<T> iterator();
-
-    /**
-     * Представляет собой абстрактный итератор элементов абстрактной неизменяемой коллекции.
-     *
-     * @param <T> тип элементов.
-     *
-     * @see AbstractImmutableCollection
-     * @since 1.0.0-RC1
-     */
-    public abstract static class AbstractIterator<T> extends AbstractReadableCollection.AbstractIterator<T> implements
-                                                                                                            ImmutableCollection.Iterator<T> {
-
-        /**
-         * Создаёт экземпляр.
-         *
-         * @since 1.0.0-RC1
-         */
-        protected AbstractIterator() {}
-
-    }
+    public abstract @NonNull AbstractImmutableCollection clone();
 
 }

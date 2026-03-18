@@ -18,26 +18,50 @@ package com.sogeor.framework.collection.mutable;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.collection.readable.ReadableCollection;
-import com.sogeor.framework.collection.writable.WritableCollection;
+import com.sogeor.framework.collection.Collection;
 
 /**
- * Представляет собой изменяемую коллекцию элементов (1).
- *
- * @param <T> тип [1].
+ * Представляет собой изменяемую коллекцию элементов.
+ * <p>
+ * Чтобы повысить эффективность работы с памятью, можно вручную менять вместимость коллекции с помощью следующих
+ * методов: {@link #shrink()} и {@link #expand(long)}.
  *
  * @since 1.0.0-RC1
  */
-public interface MutableCollection<T> extends ReadableCollection<T>, WritableCollection<T> {
+public interface MutableCollection extends Collection {
 
     /**
-     * @return Итератор {1}.
+     * Если {@code capacity() > size()}, то сокращает вместимость этой коллекции до {@link #size()} и возвращает
+     * {@code true}, иначе возвращает {@code false}.
+     *
+     * @return Если вместимость этой коллекции была сокращена, то {@code true}, иначе {@code false}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("-> value")
+    boolean shrink();
+
+    /**
+     * Если {@code capacity > capacity()}, то увеличивает вместимость этой коллекции до {@code capacity} и возвращает
+     * {@code true}, иначе — {@code false}.
+     *
+     * @param capacity требуемая вместимость.
+     *
+     * @return Если вместимость этой коллекции была увеличена, то {@code true}, иначе {@code false}.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Contract("? -> value")
+    boolean expand(final long capacity);
+
+    /**
+     * @return Копию этой коллекции.
      *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
     @NonNull
-    MutableIterator<T> iterator();
+    MutableCollection clone();
 
 }

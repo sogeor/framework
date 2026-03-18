@@ -22,10 +22,14 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактный упорядоченный многозначный ассоциативный массив элементов.
  *
+ * @param <K> тип ключей.
+ * @param <V> тип значений.
+ *
  * @see AbstractEntry
  * @since 1.0.0-RC1
  */
-public abstract class AbstractSequencedMultimap extends AbstractSequencedCollection implements SequencedMultimap {
+public abstract class AbstractSequencedMultimap<K, V> extends AbstractMultimap<K, V> implements
+                                                                                     SequencedMultimap<K, V> {
 
     /**
      * Создаёт экземпляр по умолчанию.
@@ -35,21 +39,34 @@ public abstract class AbstractSequencedMultimap extends AbstractSequencedCollect
     protected AbstractSequencedMultimap() {}
 
     /**
+     * @return Мультимножество элементов этого многозначного ассоциативного массива.
+     *
+     * @since 1.0.0-RC1
+     */
+    @Override
+    @Contract("-> $!null")
+    public abstract @NonNull SequencedSet<? extends AbstractEntry<K, V>> entries();
+
+    /**
      * @return Копию этой коллекции.
      *
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractSequencedMultimap clone();
+    public abstract @NonNull AbstractSequencedMultimap<K, V> clone();
 
     /**
      * Представляет собой абстрактный элемент упорядоченного многозначного ассоциативного массива.
      *
+     * @param <K> тип ключей.
+     * @param <V> тип значений.
+     *
      * @see AbstractSequencedMultimap
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractEntry extends AbstractMultimap.AbstractEntry implements Entry {
+    public abstract static class AbstractEntry<K, V> extends AbstractMultimap.AbstractEntry<K, V> implements
+                                                                                                  SequencedMultimap.Entry<K, V> {
 
         /**
          * Создаёт экземпляр по умолчанию.

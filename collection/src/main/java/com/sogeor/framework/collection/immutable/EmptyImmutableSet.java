@@ -34,7 +34,7 @@ import com.sogeor.framework.validation.Validator;
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
+public class EmptyImmutableSet<T> {
 
     /**
      * Создаёт экземпляр.
@@ -187,7 +187,7 @@ public class EmptyImmutableSet<T> extends AbstractImmutableSet<T> {
      * @see EmptyImmutableSet
      * @since 1.0.0-RC1
      */
-    public static class Iterator<T> extends AbstractIterator<T> {
+    public static class Iterator<T> {
 
         /**
          * Создаёт экземпляр.

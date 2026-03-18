@@ -22,10 +22,12 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактное множество элементов.
  *
+ * @param <T> тип элементов.
+ *
  * @see AbstractIterator
  * @since 1.0.0-RC1
  */
-public abstract class AbstractSet extends AbstractIterableCollection implements Set {
+public abstract class AbstractSet<T> extends AbstractIterableCollection<T> implements Set<T> {
 
     /**
      * Создаёт экземпляр по умолчанию.
@@ -43,7 +45,7 @@ public abstract class AbstractSet extends AbstractIterableCollection implements 
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator iterator();
+    public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
      * @return Копию этой коллекции.
@@ -52,16 +54,18 @@ public abstract class AbstractSet extends AbstractIterableCollection implements 
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractSet clone();
+    public abstract @NonNull AbstractSet<T> clone();
 
     /**
      * Представляет собой абстрактный итератор множества.
      *
+     * @param <T> тип элементов.
+     *
      * @see AbstractSet
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator extends AbstractIterableCollection.AbstractIterator implements
-                                                                                                      Set.Iterator {
+    public abstract static class AbstractIterator<T> extends AbstractIterableCollection.AbstractIterator<T> implements
+                                                                                                            Set.Iterator<T> {
 
         /**
          * Создаёт экземпляр по умолчанию.

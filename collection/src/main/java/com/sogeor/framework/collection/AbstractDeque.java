@@ -22,9 +22,11 @@ import com.sogeor.framework.annotation.NonNull;
 /**
  * Представляет собой абстрактную двустороннюю очередь элементов.
  *
+ * @param <T> тип элементов.
+ *
  * @since 1.0.0-RC1
  */
-public abstract class AbstractDeque extends AbstractIterableSequencedCollection implements Deque {
+public abstract class AbstractDeque<T> extends AbstractSequencedIterableCollection<T> implements Deque<T> {
 
     /**
      * Создаёт экземпляр по умолчанию.
@@ -42,7 +44,7 @@ public abstract class AbstractDeque extends AbstractIterableSequencedCollection 
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractIterator iterator();
+    public abstract @NonNull AbstractIterator<T> iterator();
 
     /**
      * @return Копию этой коллекции.
@@ -51,17 +53,19 @@ public abstract class AbstractDeque extends AbstractIterableSequencedCollection 
      */
     @Override
     @Contract("-> new")
-    public abstract @NonNull AbstractDeque clone();
+    public abstract @NonNull AbstractDeque<T> clone();
 
     /**
      * Представляет собой абстрактный итератор абстрактной двусторонней очереди.
      *
+     * @param <T> тип элементов.
+     *
      * @see AbstractDeque
      * @since 1.0.0-RC1
      */
-    public abstract static class AbstractIterator extends
-                                                  AbstractIterableSequencedCollection.AbstractIterator implements
-                                                                                                       Deque.Iterator {
+    public abstract static class AbstractIterator<T> extends
+                                                     AbstractSequencedIterableCollection.AbstractIterator<T> implements
+                                                                                                             Deque.Iterator<T> {
 
         /**
          * Создаёт экземпляр по умолчанию.

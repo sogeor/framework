@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.sogeor.framework.collection.readable;
+package com.sogeor.framework.collection;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.collection.IterableSequencedCollection;
 import com.sogeor.framework.function.IntHandler;
 import com.sogeor.framework.validation.LessValidationFault;
 import com.sogeor.framework.validation.MoreValidationFault;
@@ -29,16 +28,14 @@ import com.sogeor.framework.validation.ValidationFault;
 import com.sogeor.framework.validation.Validator;
 
 /**
- * Представляет собой читаемую итерируемую упорядоченную коллекцию элементов.
+ * Представляет собой упорядоченную итерируемую коллекцию элементов.
  *
  * @param <T> тип элементов.
  *
  * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface ReadableIterableSequencedCollection<T> extends ReadableIterableCollection<T>,
-                                                                ReadableSequencedCollection,
-                                                                IterableSequencedCollection {
+public interface SequencedIterableCollection<T> extends IterableCollection<T>, SequencedCollection {
 
     /**
      * Создаёт массив элементов, помещает в него элементы этой коллекции с {@code from} по {@code to} включительно и
@@ -52,8 +49,8 @@ public interface ReadableIterableSequencedCollection<T> extends ReadableIterable
      * @throws ValidationFault неудачная валидация.
      * @throws NotInsideValidationFault {@code from} или {@code to} должен быть больше -1 и меньше {@code size()}.
      * @throws MoreValidationFault {@code from} должен быть меньше или равен {@code to}.
-     * @throws OutsideValidationFault {@code to - from} не должно быть больше 2147483647.
-     * @implNote Возвращаемый массив может содержать не более 2147483647 элемента этой коллекции.
+     * @throws OutsideValidationFault {@code to - from} не должно быть больше {@link Integer#MAX_VALUE}.
+     * @implNote Возвращаемый массив может содержать не более {@link Integer#MAX_VALUE} элемента этой коллекции.
      * @since 1.0.0-RC1
      */
     @SuppressWarnings("ConstantValue")
@@ -84,16 +81,16 @@ public interface ReadableIterableSequencedCollection<T> extends ReadableIterable
      * @return Элементы этой коллекции с {@code from} по {@code to} в виде массива.
      *
      * @throws ValidationFault неудачная валидация.
-     * @throws NotInsideValidationFault {@code from} или {@code to} должен быть больше -1 и меньше {@code size()}.
+     * @throws NotInsideValidationFault {@code from} или {@code to} должен быть больше -1 и меньше {@link #size()}.
      * @throws MoreValidationFault {@code from} должен быть меньше или равен {@code to}.
-     * @throws OutsideValidationFault {@code to - from} не должно быть больше 2147483647.
+     * @throws OutsideValidationFault {@code to - from} не должно быть больше {@link Integer#MAX_VALUE}.
      * @throws ValidationFault неудачная валидация.
      * @throws OutsideValidationFault {@code elements} не должны быть {@code null}, или если {@code !nullable()}, то ни
      * один из {@code elements} не должен быть {@code null}.
      * @throws NullValidationFault {@code allocator} не должна быть {@code null}.
      * @throws LessValidationFault длина созданного с помощью {@code allocator} массива элементов не должна быть меньше
-     * {@code size()}.
-     * @implNote Возвращаемый массив может содержать не более 2147483647 элемента этой коллекции.
+     * {@link #size()}.
+     * @implNote Возвращаемый массив может содержать не более {@link Integer#MAX_VALUE} элемента этой коллекции.
      * @since 1.0.0-RC1
      */
     @SuppressWarnings("ConstantValue")
@@ -141,16 +138,58 @@ public interface ReadableIterableSequencedCollection<T> extends ReadableIterable
     @Override
     @Contract("-> new")
     @NonNull
-    ReadableIterableSequencedCollection<T> clone();
+    SequencedIterableCollection<T> clone();
 
     /**
-     * Представляет собой итератор элементов читаемой итерируемой упорядоченной коллекции.
+     * Представляет собой итератор упорядоченной итерируемой коллекции.
      *
      * @param <T> тип элементов.
      *
-     * @see ReadableIterableSequencedCollection
+     * @see SequencedIterableCollection
      * @since 1.0.0-RC1
      */
-    interface Iterator<T> extends ReadableIterableCollection.Iterator<T>, IterableSequencedCollection.Iterator {}
+    interface Iterator<T> extends IterableCollection.Iterator<T> {
+
+        /**
+         * Если {@code index == index()}, то есть этот итератор имеет текущий элемент, который есть в коллекции этого
+         * итератора и доступен по {@code index}, то возвращает {@code true}.
+         * <p>
+         * Если {@code exists(index)}, то пытается перейти к элементу коллекции этого итератора по {@code index} и, если
+         * удалось, возвращает {@code true}, иначе — {@code false}.
+         *
+         * @param index индекс.
+         *
+         * @return Если этот итератор имеет текущий элемент, который есть в коллекции этого итератора и доступен по
+         * {@code index}, или удалось перейти к какому-то элементу коллекции этого итератора, то {@code true}, иначе
+         * {@code false}.
+         *
+         * @see #exists(long)
+         * @see #index()
+         * @since 1.0.0-RC1
+         */
+        @Contract("? -> value")
+        boolean move(final long index);
+
+        /**
+         * @param index индекс.
+         *
+         * @return Если в коллекции этого итератора есть элемент по {@code index}, то есть этот итератор может перейти к
+         * нему, то {@code true}, иначе {@code false}.
+         *
+         * @since 1.0.0-RC1
+         */
+        @Contract("-> value")
+        boolean exists(final long index);
+
+        /**
+         * @return Если этот итератор имеет текущий элемент, который есть в коллекции этого итератора, то его индекс,
+         * иначе {@code -1}.
+         *
+         * @since 1.0.0-RC1
+         */
+        @Contract("-> value")
+        long index();
+
+    }
 
 }

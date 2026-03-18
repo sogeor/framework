@@ -18,105 +18,23 @@ package com.sogeor.framework.collection.immutable;
 
 import com.sogeor.framework.annotation.Contract;
 import com.sogeor.framework.annotation.NonNull;
-import com.sogeor.framework.collection.readable.ReadableCollection;
+import com.sogeor.framework.collection.Collection;
 
 /**
  * Представляет собой неизменяемую коллекцию элементов.
  *
- * @param <T> тип элементов.
- *
- * @see Iterator
  * @since 1.0.0-RC1
  */
-public interface ImmutableCollection<T> extends ReadableCollection<T> {
+public interface ImmutableCollection extends Collection {
 
     /**
-     * @return Новый итератор элементов этой коллекции.
+     * @return Копию этой коллекции.
      *
-     * @implSpec Если {@code !empty()}, то возвращаемый итератор должен находится в определённом состоянии, а также его
-     * текущим элементом должен быть первый элемент этой коллекции.
      * @since 1.0.0-RC1
      */
     @Override
     @Contract("-> new")
     @NonNull
-    Iterator<T> iterator();
-
-    /**
-     * @return Размер этой коллекции — количество её элементов.
-     *
-     * @implNote Стандартная реализация с оценкой временной сложности {@code Θ(n)} неэффективна и должна быть
-     * переопределена.
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("-> $value")
-    default long size() {
-        return ReadableCollection.super.size();
-    }
-
-    /**
-     * @return {@code size() == 0}.
-     *
-     * @implNote Стандартная реализация с оценкой временной сложности {@code O(n)} неэффективна и должна быть
-     * переопределена.
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("-> $value")
-    default boolean empty() {
-        return ReadableCollection.super.empty();
-    }
-
-    /**
-     * @return Строковое представление этой коллекции.
-     *
-     * @since 1.0.0-RC1
-     */
-    @Override
-    @Contract("-> $value")
-    @NonNull
-    String toString();
-
-    /**
-     * Представляет собой итератор элементов неизменяемой коллекции.
-     *
-     * @param <T> тип элементов.
-     *
-     * @see ImmutableCollection
-     * @since 1.0.0-RC1
-     */
-    interface Iterator<T> extends ReadableCollection.Iterator<T> {
-
-        /**
-         * @return Если текущий элемент существует, то {@code true}, иначе {@code false}.
-         *
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> $value")
-        boolean current();
-
-        /**
-         * @return Если этот итератор находится в определённом состоянии, то {@code true}, иначе {@code false}.
-         *
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> $value")
-        boolean determined();
-
-        /**
-         * @return Если этот итератор находится в неопределённом состоянии, то {@code true}, иначе {@code false}.
-         *
-         * @since 1.0.0-RC1
-         */
-        @Override
-        @Contract("-> $value")
-        default boolean undetermined() {
-            return !determined();
-        }
-
-    }
+    ImmutableCollection clone();
 
 }
